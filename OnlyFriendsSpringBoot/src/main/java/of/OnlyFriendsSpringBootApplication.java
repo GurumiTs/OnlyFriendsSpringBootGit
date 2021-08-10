@@ -6,7 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-//@ServletComponentScan
+@ServletComponentScan
 @PropertySource(value = {"classpath:jdbc.properties"}, ignoreResourceNotFound = true)
 public class OnlyFriendsSpringBootApplication {
 
