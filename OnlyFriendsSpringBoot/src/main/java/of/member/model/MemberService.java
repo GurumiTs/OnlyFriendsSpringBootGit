@@ -1,42 +1,36 @@
 package of.member.model;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import of.emp.model.Employee;
-import of.emp.model.EmployeeDao;
-
-@Service("memberService")
+@Service
 @Transactional
 public class MemberService {
+	
 	@Autowired
-	private MemberDao memberDao;
-	
-	public Member selectMember(String memberEmail) {
-		Member member = null;
-		member = memberDao.selectMember(memberEmail);	
-		return member;
-	}
+	private MemberRepository memberRepository;
 
-	public String save(Member member) {
-		 return memberDao.save(member);
+	public Member insert(Member member) {
+		return memberRepository.save(member);
 	}
-	public int updateMemberEmailCheckNum(String to, String memberEmailCheckNum) {
-		int result = 0;
-		result = memberDao.updateMemberEmailCheckNum(to, memberEmailCheckNum);
-		return result;
+	public Member update(Member member) {
+		return memberRepository.save(member);
+	}
+	public void deleteById(String email) {
+		memberRepository.deleteById(email);
+	}
+	public Member findByMemberEmail(String email) {
+		Optional<Member> employeeOptional = memberRepository.findByMemberEmail(email);
+		return employeeOptional.get();
+	}
+	public List<Member> findAll() {
+		return memberRepository.findAll();
 	}
 	
-	public int updateMemberEmailCheck(Member member) {
-		int result = 0;
-		result = memberDao.updateMemberEmailCheck(member);
-		return result;
-	}
-	
-	public void saveOrUpdate(Member member) {
-		memberDao.saveOrUpdate(member);
-	}
 
 
 }

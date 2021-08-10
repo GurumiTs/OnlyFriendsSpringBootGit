@@ -1,37 +1,39 @@
 package of.common.model;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("usersService")
+import of.emp.model.Employee;
+import of.emp.model.EmployeeRepository;
+
+@Service
 @Transactional
 public class UsersService {
 	
 	@Autowired
-	private UsersDao usersDao;
-	
-	public boolean isEmail(String email) {
-		boolean result = false;
-		result = usersDao.isEmail(email);
-		return result;
+	private UsersRepository usersRepository;
+
+	public Users insert(Users users) {
+		return usersRepository.save(users);
 	}
-	
-	public Users selectUsers(String email) {
-		Users users = null;
-		users= usersDao.selectUsers(email);	
-		return users;
-	}
-	
-	public void save(Users users) {
-		usersDao.save(users);
-	}
-	public void delete(String email) {
-		usersDao.delete(email);
+
+	public void deleteById(String email) {
+		usersRepository.deleteById(email);
 	}
 	
 	public boolean checkEmail(String email) {
-		return usersDao.checkEmail(email);
+		Optional<Users> usersOptional = usersRepository.findByEmail(email);
+		return usersOptional.isPresent();
 	}
-
+	
+	public Users findByEmail(String email) {
+		Optional<Users> usersOptional = usersRepository.findByEmail(email);
+		return usersOptional.get();
+	}
+	
+	
 }

@@ -53,11 +53,11 @@ public class ForgetPasswordController {
 
 		try {
 			String email = (String) request.getAttribute("email");
-			Employee employee = empService.selectEmployee(email);
+			Employee employee = empService.findByEmpEmail(email);
 			String randomPassword = GetRandomPwd.getRandomPassword();
 			String hashRandomPassword = BCrypt.hashpw(randomPassword, BCrypt.gensalt());
 			employee.setEmpPassword(hashRandomPassword);
-			empService.saveOrUpdate(employee);
+			empService.update(employee);
 			SimpleMailMessage mail = new SimpleMailMessage();
 			mail.setTo(email);
 			mail.setFrom("onlyfriendseeit29@gmail.com");
@@ -80,13 +80,13 @@ public class ForgetPasswordController {
 		String oldPassword = request.getParameter("oldPwd");
 		String newPassword = request.getParameter("updatePwd1");
 		
-		Employee employee = empService.selectEmployee(email);
+		Employee employee = empService.findByEmpEmail(email);
 		String oldHashPassword = employee.getEmpPassword();
 		boolean checkPasswordStatus = BCrypt.checkpw(oldPassword, oldHashPassword);
 		if (checkPasswordStatus == true) {
 			String newHashPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 			employee.setEmpPassword(newHashPassword);
-			empService.saveOrUpdate(employee);
+			empService.update(employee);
 			model.addAttribute("successMsg", "update new password success");
 			return "login" ;
 		}

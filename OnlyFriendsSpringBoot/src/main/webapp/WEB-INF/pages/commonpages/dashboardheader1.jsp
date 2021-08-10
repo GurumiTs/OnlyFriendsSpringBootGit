@@ -36,7 +36,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/styles/dashboard.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/dashboard.css" />
   </head>
   <body>
     <header

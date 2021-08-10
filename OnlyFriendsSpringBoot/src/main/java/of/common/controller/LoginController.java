@@ -44,13 +44,13 @@ public class LoginController {
 			return "login";
 		}
 		try {
-			userType = usersService.selectUsers(email).getUsertype();
+			userType = usersService.findByEmail(email).getUsertype();
 		} catch (Exception e) {
 			model.addAttribute("errorMsg", "something error!");
 			return "login";
 		}
 		if (userType == 1) {
-			employee = empService.selectEmployee(email);
+			employee = empService.findByEmpEmail(email);
 			boolean checkPasswordStatus = BCrypt.checkpw(password, employee.getEmpPassword());
 			if (checkPasswordStatus == true && employee.getEmpEmailCheck() > 0) {
 				if (autologin != null) {
@@ -69,7 +69,7 @@ public class LoginController {
 
 		}
 		if (userType == 0) {
-			member = memberService.selectMember(email);
+			member = memberService.findByMemberEmail(email);
 			boolean checkPasswordStatus = BCrypt.checkpw(password, member.getMemberPassword());
 			if (checkPasswordStatus == true && member.getMemberEmailCheck() > 0) {
 				if (autologin != null) {

@@ -12,12 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import of.common.model.Users;
 import of.common.model.UsersService;
@@ -38,7 +36,7 @@ public class EmployeeJsonController {
 	@GetMapping(path = "/allEmployeeToJson")
 	@ResponseBody
 	public Map allEmployeeToJson(Model m) {
-		List<Employee> empList = empService.selectAllEmployee();
+		List<Employee> empList = empService.findAll();
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", empList);
 		return map;
@@ -47,7 +45,7 @@ public class EmployeeJsonController {
 	@PostMapping(path = "/queryEmployee")
 	@ResponseBody
 	public Employee processRestQueryEmployee(@RequestParam(name = "email") String email) {
-		Employee employee = empService.selectEmployee(email);
+		Employee employee = empService.findByEmpEmail(email);
 		return employee;
 	}
 
@@ -65,7 +63,7 @@ public class EmployeeJsonController {
 			@RequestParam(name = "empDeptNum", required = false) Integer empDeptNum) {
 		try {
 			System.out.println("name:" + empName);
-			Employee employee = empService.selectEmployee(empEmail);
+			Employee employee = empService.findByEmpEmail(empEmail);
 			employee.setEmpName(empName);
 			employee.setEmpBday(empBday);
 			employee.setEmpAddress(empAddress);
@@ -74,7 +72,7 @@ public class EmployeeJsonController {
 			employee.setEmpZipcode(zipcode);
 			employee.setEmpAuthority(empAuth);
 			employee.setDeptNum(empDeptNum);
-			empService.saveOrUpdate(employee);
+			empService.update(employee);
 			return "y";
 		} catch (Exception e) {
 			return "n";
@@ -85,8 +83,8 @@ public class EmployeeJsonController {
 	@ResponseBody
 	public String deleteEmployee(@PathVariable("email") String email){
 		System.out.println("email"+email);
-		empService.delete(email);
-		usersService.delete(email);
+		empService.deleteById(email);
+		usersService.deleteById(email);
 		return "yes";
 	}
 	

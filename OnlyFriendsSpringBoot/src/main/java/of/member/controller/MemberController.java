@@ -70,11 +70,11 @@ public class MemberController {
 			member.setMemberName(memberName);
 			member.setMemberPassword(memberPassword);
 			member.setMemberPic("images\\empPic\\" + fileName);
-			String result = memberService.save(member);
+			Member result = memberService.insert(member);
 			if (result != null) {
 				users.setEmail(memberEmail);
 				users.setUsertype(0);
-				usersService.save(users);
+				usersService.insert(users);
 				request.setAttribute("email", memberEmail);
 				return "forward:/signupmembermail.controller";
 			}else {
@@ -92,10 +92,10 @@ public class MemberController {
 	public String sendSignupMemberMail(HttpServletRequest request, Model model) {
 		try {
 			String email = (String) request.getAttribute("email");
-			Member member = memberService.selectMember(email);
+			Member member = memberService.findByMemberEmail(email);
 			String memberEmailCheckNum = GetRandomPwd.getRandomPassword();
 			member.setMemberEmailCheckNum(memberEmailCheckNum);
-			memberService.saveOrUpdate(member);
+			memberService.update(member);
 			SimpleMailMessage mail = new SimpleMailMessage();
 			mail.setTo(email);
 			mail.setFrom("onlyfriendseeit29@gmail.com");
@@ -115,11 +115,11 @@ public class MemberController {
 	public String checkAccountMail(HttpServletRequest request) {
 		String email = request.getParameter("email");
 		String memberEmailCheckNum = request.getParameter("checknum");
-		Member member = memberService.selectMember(email);
+		Member member = memberService.findByMemberEmail(email);
 		String checkNum = member.getMemberEmailCheckNum();
 		if (checkNum.equals(memberEmailCheckNum)) {
 			member.setMemberEmailCheck(1);
-			memberService.saveOrUpdate(member);
+			memberService.update(member);
 			return "commonpages/emailverifysuccess";
 		}
 		return "commonpages/emailverifyfailed";

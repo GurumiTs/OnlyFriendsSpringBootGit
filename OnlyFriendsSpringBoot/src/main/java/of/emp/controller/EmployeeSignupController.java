@@ -86,15 +86,15 @@ public class EmployeeSignupController {
 			// pic
 			String fileName = multipartFile.getOriginalFilename();
 			String path1 = request.getServletContext().getRealPath("/images");
-			String filePath = path1 + "\\empPic\\" + fileName;
+			String filePath =  "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/empPic/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			employee.setEmpPic("images\\empPic\\" + fileName);
-			empService.save(employee);
+			empService.insert(employee);
 
 			users.setEmail(empEmail);
 			users.setUsertype(1);
-			usersService.save(users);
+			usersService.insert(users);
 			//System.out.println("signupmail" + empEmail);
 			request.setAttribute("email", empEmail);
 			return "forward:/signupmail.controller";
@@ -109,10 +109,10 @@ public class EmployeeSignupController {
 	public String sendSignupMail(HttpServletRequest request, Model model) {
 		try {
 			String email = (String) request.getAttribute("email");
-			Employee employee = empService.selectEmployee(email);
+			Employee employee = empService.findByEmpEmail(email);
 			String empEmailCheckNum = GetRandomPwd.getRandomPassword();
 			employee.setEmpEmailCheckNum(empEmailCheckNum);
-			empService.saveOrUpdate(employee);
+			empService.update(employee);
 			SimpleMailMessage mail = new SimpleMailMessage();
 			mail.setTo(email);
 			mail.setFrom("onlyfriendseeit29@gmail.com");
@@ -135,11 +135,11 @@ public class EmployeeSignupController {
 		String empEmailCheckNum = request.getParameter("checknum");
 		System.out.println(email);
 		System.out.println(empEmailCheckNum);
-		Employee employee = empService.selectEmployee(email);
+		Employee employee = empService.findByEmpEmail(email);
 		String checkNum = employee.getEmpEmailCheckNum();
 		if (checkNum.equals(empEmailCheckNum)) {
 			employee.setEmpEmailCheck(1);
-			empService.saveOrUpdate(employee);
+			empService.update(employee);
 			return "commonpages/emailverifysuccess";
 		}
 
