@@ -13,33 +13,49 @@ import org.springframework.stereotype.Component;
 @Component("users")
 public class Users implements Serializable{
 	
-	@Id@Column(name="email")
-	private String email;
-	@Column(name="usertype")
-	private int userType;
+	@Id@Column(name="usersEmail")
+	private String usersEmail;
+	
+	@Column(name="usersPassword")
+	private String usersPassword;
+	
+	@Column(name="usersRole")
+	private String usersRole;
 	
 	public Users() {
 		
 	}
 	
-	public Users(String email,int userType) {
-		this.email = email;
-		this.userType = userType;
+	public Users(String usersEmail,String usersPassword,String usersRole) {
+		this.usersEmail = usersEmail;
+		this.usersPassword = usersPassword;
+		this.usersRole = usersRole;
 	}
 
+	public String getUsersEmail() {
+		return usersEmail;
+	}
+
+	public void setUsersEmail(String usersEmail) {
+		this.usersEmail = usersEmail;
+	}
+
+	public String getUsersPassword() {
+		return usersPassword;
+	}
+
+	public void setUsersPassword(String usersPassword) {
+		this.usersPassword = usersPassword;
+	}
+
+	public String getUsersRole() {
+		return usersRole;
+	}
+
+	public void setUsersRole(String usersRole) {
+		this.usersRole = usersRole;
+	}
 	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public int getUsertype() {
-		return userType;
-	}
-	public void setUsertype(int userType) {
-		this.userType = userType;
-	}
 	
 
 }

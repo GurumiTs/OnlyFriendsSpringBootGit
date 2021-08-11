@@ -39,11 +39,11 @@
 				<img src="./images/login/login.svg" alt="" />
 			</div>
 			<div class="col-4 w-25">
-				<form action="login.controller"
+				<form action="${pageContext.request.contextPath}/login"
 					method="post">
 					<div class="mb-3">
 						<label for="email" class="form-label">Email</label> <input
-							type="text" class="form-control" name="email" id="email" />
+							type="text" class="form-control" name="username" id="username" />
 					</div>
 					<div class="mb-3">
 						<label for="password" class="form-label">Password</label> <input
@@ -52,8 +52,8 @@
 					</div>
 					<div class="row mb-3 ">
 						<div class="col-6 ">
-							<input type="checkbox" id="autologin" name="autologin"
-								value="autologin" /> <label for="autologin">AutoLogin</label>
+							<input type="checkbox" id="remember-me" name="remember-me"
+								/> <label for="autologin">AutoLogin</label>
 						</div>
 
 						<div class="col-6">
@@ -310,12 +310,12 @@
 	<script>
 	$(function(){
 	  $("#employee").click(function(){
-	    $("#email").val("hollan5835650@gmail.com");
+	    $("#username").val("hollan5835650@gmail.com");
 	    $("#password").val("Apple1234*")
 	  });
 	  
 	  $("#member").click(function(){
-		    $("#email").val("apple123@gmail.com");
+		    $("#username").val("apple123@gmail.com");
 		    $("#password").val("Apple1234*")
 		  });
 	});

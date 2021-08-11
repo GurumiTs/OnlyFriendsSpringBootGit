@@ -25,6 +25,7 @@ import of.emp.model.EmployeeService;
 
 @Controller
 @SessionAttributes(names = { "user", "successMsg", "errorMsg", "empList" })
+@RequestMapping(path = "/employee")
 public class EmployeeController {
 	@Autowired
 	private EmployeeService empService;
@@ -94,13 +95,13 @@ public class EmployeeController {
 			Model model) {
 
 		try {
-			Employee employee = empService.findByEmpEmail(empEmail);
-			String oldHashPassword = employee.getEmpPassword();
+			Users users = usersService.findByEmail(empEmail);
+			String oldHashPassword = users.getUsersPassword();
 			boolean checkPasswordStatus = BCrypt.checkpw(oldPassword, oldHashPassword);
 			if(checkPasswordStatus == true) {
 				String newHashPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-				employee.setEmpPassword(newHashPassword);
-				empService.update(employee);
+				users.setUsersPassword(newHashPassword);
+				usersService.update(users);
 				model.addAttribute("successMsg", "update password success");
 				model.addAttribute("user", employee);
 				return "employeepages/empprofile";

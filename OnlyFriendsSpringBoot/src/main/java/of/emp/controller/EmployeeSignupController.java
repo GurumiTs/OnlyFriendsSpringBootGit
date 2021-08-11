@@ -25,6 +25,7 @@ import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 
 @Controller
+@RequestMapping(path = "/employee")
 public class EmployeeSignupController {
 
 	@Autowired
@@ -73,7 +74,6 @@ public class EmployeeSignupController {
 			employee.setEmpEmail(empEmail);
 			employee.setEmpAccount(empAcc);
 			employee.setEmpName(empName);
-			employee.setEmpPassword(empPassword);
 			employee.setEmpBday(empBday);
 			employee.setEmpAddress(empAddress);
 			employee.setEmpCounty(county);
@@ -92,8 +92,9 @@ public class EmployeeSignupController {
 			employee.setEmpPic("images\\empPic\\" + fileName);
 			empService.insert(employee);
 
-			users.setEmail(empEmail);
-			users.setUsertype(1);
+			users.setUsersEmail(empEmail);
+			users.setUsersPassword(empPassword);
+			users.setUsersRole("employee");
 			usersService.insert(users);
 			//System.out.println("signupmail" + empEmail);
 			request.setAttribute("email", empEmail);

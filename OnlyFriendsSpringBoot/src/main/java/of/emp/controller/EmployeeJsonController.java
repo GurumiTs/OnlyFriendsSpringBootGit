@@ -23,6 +23,7 @@ import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 
 @Controller
+@RequestMapping(path = "/employee")
 public class EmployeeJsonController {
 	@Autowired
 	private EmployeeService empService;
