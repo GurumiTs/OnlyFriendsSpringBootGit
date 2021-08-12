@@ -33,4 +33,9 @@ public class ProductService {
 	public List<Product> findAll(){
 		return productRepository.findAll();
 	}
+	
+	public boolean checkName(String proName) {
+		Optional<Product> productOptional = productRepository.findByProName(proName);
+		return productOptional.isPresent();
+	}
 }

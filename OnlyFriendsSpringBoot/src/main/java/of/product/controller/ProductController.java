@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.product.model.Product;
-import of.product.model.ProductDao;
 import of.product.model.ProductService;
 
 @Controller
@@ -33,12 +32,10 @@ public class ProductController {
 	private ProductService productService;
 	@Autowired
 	private Product product;
-	@Autowired
-	private ProductDao pDao;
 	
 	@RequestMapping(path = "/productPage.controller",method = RequestMethod.GET)
 	public String productEntryAction(Model model){
-		List<Product> proList=productService.selectAllProduct();
+		List<Product> proList=productService.findAll();
 		model.addAttribute("proList",proList);
 		return "productpages/productMgmtPage";
 	}
@@ -79,7 +76,7 @@ public class ProductController {
 			System.out.println("2");
 			product.setProPhoto("images/productPic/"+fileName);
 			System.out.println("3");
-			productService.add(product);
+			productService.insert(product);
 			System.out.println("success");
 			return "redirect:/productPage.controller";
 			
@@ -96,7 +93,7 @@ public class ProductController {
 	@RequestMapping(path="/updateentry.controller",method = RequestMethod.GET)
 	public String updateEntryPage(HttpServletRequest request,Model model) {
 		Integer Id = Integer.parseInt(request.getParameter("editId"));
-		product = productService.selectId(Id);
+		product = productService.findById(Id);
 		model.addAttribute("product",product);
 		System.out.println(Id);
 		return "productpages/productUpdateForm";
@@ -117,7 +114,7 @@ public class ProductController {
 								Model m){
 		try {
 			
-			Product product=productService.selectId(Id);
+			Product product=productService.findById(Id);
 			product.setProId(Id);
 			product.setProName(Name);
 			product.setProDescription(Description);
@@ -135,7 +132,7 @@ public class ProductController {
 			multipartFile.transferTo(saveFile);
 			product.setProPhoto("images/productPic/"+fileName);
 			productService.update(product);
-			List<Product> proList=productService.selectAllProduct();
+			List<Product> proList=productService.findAll();
 			m.addAttribute("proList",proList);
 			
 			return "redirect:/productPage.controller";
@@ -150,13 +147,13 @@ public class ProductController {
 	@ResponseBody
 	public String deleteEntryPage(HttpServletRequest request) {
 		Integer Id = Integer.parseInt(request.getParameter("delId"));
-		productService.delete(Id);
+		productService.deleteById(Id);
 		return "redirect:/productPage.controller";
 	}
 	
-	@PostMapping(path = "/nameckeck.controller")
-	public ResponseEntity<String> processnameCkeckAction(@RequestBody Product product){
-		boolean status = pDao.checkName(product);
+	@PostMapping(path = "/nameckeck.controller/{Name}")
+	public ResponseEntity<String> processnameCkeckAction(@PathVariable("Name") String Name){
+		boolean status = productService.checkName(Name);
 		
 		if(status) {
 			return new ResponseEntity<String>("Y", HttpStatus.OK);
