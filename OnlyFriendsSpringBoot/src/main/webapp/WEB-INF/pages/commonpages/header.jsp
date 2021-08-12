@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand ps-5" href="index">OnlyFriends</a>
+      <a class="navbar-brand ps-5" href="${pageContext.request.contextPath}/">OnlyFriends</a>
       <div
         class="collapse navbar-collapse justify-content-end"
         id="navbarTogglerDemo03"
@@ -22,9 +22,6 @@ pageEncoding="UTF-8"%>
         <ul class="navbar-nav">
           <li class="nav-item border-primary">
             <a class="nav-link" href="login">登入</a>
-          </li>
-          <li class="nav-item border-primary">
-            <a class="nav-link" href="">註冊</a>
           </li>
           <li class="nav-item border-primary">
             <a class="nav-link" href="">會員活動</a>

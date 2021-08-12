@@ -16,9 +16,6 @@ public class Member implements Serializable{
 	@Id@Column(name="memberEmail")
 	private String memberEmail;
 	
-	@Column(name="memberPassword")
-	private String memberPassword;
-	
 	@Column(name="memberName")
 	private String memberName;
 	
@@ -33,9 +30,8 @@ public class Member implements Serializable{
 	
 	public Member() {}
 	
-	public Member(String memberEmail,String memberPassword,String memberName,String memberPic) {
+	public Member(String memberEmail,String memberName,String memberPic) {
 		this.memberEmail = memberEmail;
-		this.memberPassword = memberPassword;
 		this.memberName = memberName;
 		this.memberPic = memberPic;
 	}
@@ -45,12 +41,6 @@ public class Member implements Serializable{
 	}
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
-	}
-	public String getMemberPassword() {
-		return memberPassword;
-	}
-	public void setMemberPassword(String memberPassword) {
-		this.memberPassword = memberPassword;
 	}
 	public String getMemberName() {
 		return memberName;

@@ -48,15 +48,15 @@ public class EmployeeController {
 	
 	@RequestMapping(path = "/employeeprofile.controller", method = RequestMethod.GET)
 	public String employeeProfile(HttpSession session, Model model) {
-		Employee employee = (Employee) session.getAttribute("user");
+		Employee employee = (Employee) session.getAttribute("personalinfo");
 		String email = employee.getEmpEmail();
 		Employee newEmp = empService.findByEmpEmail(email);
 		empService.update(newEmp);
-		model.addAttribute("user", employee);
+		model.addAttribute("personalinfo", employee);
 		return "employeepages/empprofile";
 	}
 
-	@RequestMapping(path = "/updateempinfo.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empinfoupdate.controller", method = RequestMethod.POST)
 	public String updateEmpInfo(@RequestParam(name = "empEmail", required = false) String empEmail,
 			@RequestParam(name = "empAcc", required = false) String empAcc,
 			@RequestParam(name = "empName", required = false) String empName,
@@ -77,32 +77,31 @@ public class EmployeeController {
 			System.out.println(employee.getEmpName());
 			empService.update(employee);
 			model.addAttribute("successMsg", "basic info update success");
-			model.addAttribute("user", employee);
+			model.addAttribute("personalinfo", employee);
 			return "employeepages/empprofile";
 		} catch (Exception e) {
 			model.addAttribute("errorMsg", "basic info update failed");
-			model.addAttribute("user", employee);
+			model.addAttribute("personalinfo", employee);
 			return "employeepages/empprofile";
 		}
 
 	}
 
-	@RequestMapping(path = "/updateemppwd.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/emppwdupdate.controller", method = RequestMethod.POST)
 	public String updateEmployeePassword(@RequestParam(name = "empEmail", required = false) String empEmail,
 			@RequestParam(name = "oldPwd", required = false) String oldPassword,
 			@RequestParam(name = "updatePwd1", required = false) String newPassword, HttpServletRequest request,
 			Model model) {
 
 		try {
-			Employee employee = empService.findByEmpEmail(empEmail);
-			String oldHashPassword = employee.getEmpPassword();
+			Users users = usersService.findByEmail(empEmail);
+			String oldHashPassword = users.getUsersPassword();
 			boolean checkPasswordStatus = BCrypt.checkpw(oldPassword, oldHashPassword);
 			if(checkPasswordStatus == true) {
 				String newHashPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-				employee.setEmpPassword(newHashPassword);
-				empService.update(employee);
+				users.setUsersPassword(newHashPassword);
+				usersService.update(users);
 				model.addAttribute("successMsg", "update password success");
-				model.addAttribute("user", employee);
 				return "employeepages/empprofile";
 			}
 			model.addAttribute("errorMsg", "update password failed");
@@ -115,7 +114,7 @@ public class EmployeeController {
 
 	}
 
-	@RequestMapping(path = "/updateemppic.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/emppicupdate.controller", method = RequestMethod.POST)
 	public String updateEmployeePic(@RequestParam(name = "empEmail", required = false) String empEmail,
 			@RequestParam(name = "empPic", required = false) MultipartFile multipartFile, HttpServletRequest request,
 			Model model) {
@@ -129,8 +128,8 @@ public class EmployeeController {
 			employee.setEmpPic("images/empPic/" + fileName);
 			empService.update(employee);
 			model.addAttribute("successMsg", "basic info update success");
-			model.addAttribute("user", employee);
-			return "redirect:employeeprofile.controller";
+			model.addAttribute("personalinfo", employee);
+			return "employeepages/empprofile";
 		} catch (Exception e) {
 			model.addAttribute("errorMsg", "update picture failed");
 			return "employeepages/empprofile";

@@ -68,12 +68,12 @@ public class MemberController {
 
 			member.setMemberEmail(memberEmail);
 			member.setMemberName(memberName);
-			member.setMemberPassword(memberPassword);
 			member.setMemberPic("images\\empPic\\" + fileName);
 			Member result = memberService.insert(member);
 			if (result != null) {
-				users.setEmail(memberEmail);
-				users.setUsertype(0);
+				users.setUsersEmail(memberEmail);
+				users.setUsersPassword(memberPassword);
+				users.setUsersRole("member");
 				usersService.insert(users);
 				request.setAttribute("email", memberEmail);
 				return "forward:/signupmembermail.controller";

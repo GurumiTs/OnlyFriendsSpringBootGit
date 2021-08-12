@@ -38,7 +38,7 @@ public class EmployeeSignupController {
 	@Autowired
 	private JavaMailSender sender;
 
-	@RequestMapping(path = "/signupemp", method = RequestMethod.GET)
+	@RequestMapping(path = "/empsignup", method = RequestMethod.GET)
 	public String signupempEntry() {
 		return "employeepages/empsignup";
 	}
@@ -53,7 +53,7 @@ public class EmployeeSignupController {
 		return "emailverifyfailed";
 	}
 
-	@RequestMapping(path = "/signupemp.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empsignup.controller", method = RequestMethod.POST)
 	public String signupEmployee(@RequestParam(name = "empEmail", required = false) String empEmail,
 			@RequestParam(name = "empAcc", required = false) String empAcc,
 			@RequestParam(name = "empName", required = false) String empName,
@@ -73,7 +73,6 @@ public class EmployeeSignupController {
 			employee.setEmpEmail(empEmail);
 			employee.setEmpAccount(empAcc);
 			employee.setEmpName(empName);
-			employee.setEmpPassword(empPassword);
 			employee.setEmpBday(empBday);
 			employee.setEmpAddress(empAddress);
 			employee.setEmpCounty(county);
@@ -92,8 +91,9 @@ public class EmployeeSignupController {
 			employee.setEmpPic("images\\empPic\\" + fileName);
 			empService.insert(employee);
 
-			users.setEmail(empEmail);
-			users.setUsertype(1);
+			users.setUsersEmail(empEmail);
+			users.setUsersPassword(empPassword);
+			users.setUsersRole("employee");
 			usersService.insert(users);
 			//System.out.println("signupmail" + empEmail);
 			request.setAttribute("email", empEmail);

@@ -1,5 +1,6 @@
 package of.officialactive.model;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,17 @@ public class OfficialActiveService {
 		return officialActiveRepository.save(officialActive);
 	}
 	
-	public OfficialActive findById(int anum) {
-		Optional<OfficialActive> officialActive = officialActiveRepository.findById(anum); 
+	public OfficialActive findByAnum(int anum) {
+		Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum); 
+		if(officialActive.isPresent()) {
 		return officialActive.get();
-	
+			}
+		return null;
 	}
-		
+	public List<OfficialActive> findAll(){
+		return officialActiveRepository.findAll();
+				
+	}
 	
 	public void deleteById(Integer anum) {
 		officialActiveRepository.deleteById(anum);;

@@ -16,9 +16,6 @@ public class Employee implements Serializable {
 	@Column(name="empAccount")
 	private String empAccount = null;
 	
-	@Column(name="empPassword")
-	private String empPassword = null;
-	
 	@Column(name="empAuthority")
 	private int empAuthority;
 	
@@ -68,12 +65,11 @@ public class Employee implements Serializable {
 		
 	}
 	
-	public Employee(String empEmail,String empAccount,String empName,String empPassword,String empBday,String empPic,String empAddress,String empCounty,
+	public Employee(String empEmail,String empAccount,String empName,String empBday,String empPic,String empAddress,String empCounty,
 			String empDistrict,String empZipcode,int empAuthority,int deptNum,long empCreateTime  ) {
 		this.empEmail = empEmail;
 		this.empAccount  = empAccount;
 		this.empName = empName;
-		this.empPassword = empPassword;
 		this.empBday  = empBday;
 		this.empPic = empPic;
 		this.empAddress = empAddress;
@@ -91,12 +87,6 @@ public class Employee implements Serializable {
 	}
 	public void setEmpAccount(String empAccount) {
 		this.empAccount = empAccount;
-	}
-	public String getEmpPassword() {
-		return empPassword;
-	}
-	public void setEmpPassword(String empPassword) {
-		this.empPassword = empPassword;
 	}
 	public int getEmpAuthority() {
 		return empAuthority;

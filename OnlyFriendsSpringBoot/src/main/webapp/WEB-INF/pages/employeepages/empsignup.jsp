@@ -60,7 +60,7 @@
 								<%--show signup status  --%>
 
 
-								<form action="signupemp.controller" method="post"
+								<form action="empsignup.controller" method="post"
 									enctype="multipart/form-data" class="needs-validation"
 									novalidate>
 									<div class="mb-3">
