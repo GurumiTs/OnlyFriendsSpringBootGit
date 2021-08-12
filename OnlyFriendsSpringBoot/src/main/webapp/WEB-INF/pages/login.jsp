@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="index,follow" />
 <meta name="author" content="hollan" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/all.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/styles/all.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -52,17 +53,23 @@
 					</div>
 					<div class="row mb-3 ">
 						<div class="col-6 ">
-							<input type="checkbox" id="remember-me" name="remember-me"
-								/> <label for="autologin">AutoLogin</label>
+							<input type="checkbox" id="remember-me" name="remember-me" />
+							<label for="autologin">Remember-me</label>
 						</div>
 
 						<div class="col-6">
-							<label><a
-								href="sendingnewpassword">Forget
-									Password?</a></label>
+							<label><a href="sendingnewpassword">Forget Password?</a></label>
 						</div>
 					</div>
 					<!-- check account  -->
+
+					
+					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+						<p style="color: rgb(184, 58, 58); font-style: italic">
+							email or password error</p>	
+							<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />					
+					</c:if>
+					
 
 					<c:if test="${not empty errorMsg}">
 						<p style="color: rgb(184, 58, 58); font-style: italic">
@@ -144,10 +151,8 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form
-						action="signupmember.controller"
-						method="post" enctype="multipart/form-data"
-						class="needs-validation" novalidate>
+					<form action="signupmember.controller" method="post"
+						enctype="multipart/form-data" class="needs-validation" novalidate>
 
 						<div class="mb-3 row">
 							<div class="col">
@@ -211,8 +216,9 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
 		crossorigin="anonymous"></script>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script>
 		const emailCheckR = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -306,21 +312,21 @@
 			}
 		}
 	</script>
-	
+
 	<script>
-	$(function(){
-	  $("#employee").click(function(){
-	    $("#username").val("hollan5835650@gmail.com");
-	    $("#password").val("Apple1234*")
-	  });
-	  
-	  $("#member").click(function(){
-		    $("#username").val("apple123@gmail.com");
-		    $("#password").val("Apple1234*")
-		  });
-	});
+		$(function() {
+			$("#employee").click(function() {
+				$("#username").val("hollan5835650@gmail.com");
+				$("#password").val("Apple1234*")
+			});
+
+			$("#member").click(function() {
+				$("#username").val("apple123@gmail.com");
+				$("#password").val("Apple1234*")
+			});
+		});
 	</script>
-	
+
 
 </body>
 </html>

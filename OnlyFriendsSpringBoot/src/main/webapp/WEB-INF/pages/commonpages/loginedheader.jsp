@@ -18,7 +18,7 @@
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a class="navbar-brand ps-5" href="$index">OnlyFriends</a>
+			<a class="navbar-brand ps-5" href="${pageContext.request.contextPath}/">OnlyFriends</a>
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarTogglerDemo03">
 				<ul class="navbar-nav">

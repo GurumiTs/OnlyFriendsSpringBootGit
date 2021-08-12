@@ -15,7 +15,7 @@ import of.member.model.Member;
 import of.member.model.MemberService;
 
 @Controller
-@SessionAttributes(names = { "user", "member", "employee" })
+@SessionAttributes(names = { "personalinfo", "member", "employee" })
 public class MainEntryController {
 	@Autowired
 	private EmployeeService empService;
@@ -36,10 +36,40 @@ public class MainEntryController {
 			String userType = usersService.findByEmail(currentUserName).getUsersRole();
 			if (userType.equals("employee")) {
 				model.addAttribute("employee", "employee");
+				Employee employee = empService.findByEmpEmail(currentUserName);
+				model.addAttribute("personalinfo",employee);
 
 			}
 			if (userType.equals("member")) {
 				model.addAttribute("member", "member");
+				Member member =memberService.findByMemberEmail(currentUserName);
+				model.addAttribute("personalinfo",member);
+				
+			}
+			return "index";
+		} catch (Exception e) {
+			return "index";
+		}
+
+	}
+	
+	@RequestMapping(path = "/index", method = RequestMethod.GET)
+	public String indexEntry(Model model) {
+		try {
+			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+			System.out.println(currentUserName);
+			String userType = usersService.findByEmail(currentUserName).getUsersRole();
+			if (userType.equals("employee")) {
+				model.addAttribute("employee", "employee");
+				Employee employee = empService.findByEmpEmail(currentUserName);
+				model.addAttribute("personalinfo",employee);
+
+			}
+			if (userType.equals("member")) {
+				model.addAttribute("member", "member");
+				Member member =memberService.findByMemberEmail(currentUserName);
+				model.addAttribute("personalinfo",member);
+				
 			}
 			return "index";
 		} catch (Exception e) {

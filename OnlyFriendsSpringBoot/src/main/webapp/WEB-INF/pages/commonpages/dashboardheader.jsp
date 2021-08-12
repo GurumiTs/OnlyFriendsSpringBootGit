@@ -278,11 +278,11 @@
                   aria-expanded="false"
                 >
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >${user.empName}</span
+                    >${personalinfo.empName}</span
                   >
                   <img
                     class="img-profile rounded-circle"
-                    src="${user.empPic}"
+                    src="${personalinfo.empPic}"
                   />
                 </a>
                 <!-- Dropdown - User Information -->

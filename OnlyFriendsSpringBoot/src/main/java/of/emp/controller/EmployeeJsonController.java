@@ -23,7 +23,6 @@ import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 
 @Controller
-@RequestMapping(path = "/employee")
 public class EmployeeJsonController {
 	@Autowired
 	private EmployeeService empService;
@@ -34,7 +33,7 @@ public class EmployeeJsonController {
 	@Autowired
 	private Users users;
 
-	@GetMapping(path = "/allEmployeeToJson")
+	@GetMapping(path = "/empalltojson")
 	@ResponseBody
 	public Map allEmployeeToJson(Model m) {
 		List<Employee> empList = empService.findAll();
@@ -43,14 +42,14 @@ public class EmployeeJsonController {
 		return map;
 	}
 
-	@PostMapping(path = "/queryEmployee")
+	@PostMapping(path = "/empquery")
 	@ResponseBody
 	public Employee processRestQueryEmployee(@RequestParam(name = "email") String email) {
 		Employee employee = empService.findByEmpEmail(email);
 		return employee;
 	}
 
-	@RequestMapping(path = "/updateEmployeeBasicInfo",method = RequestMethod.POST)
+	@RequestMapping(path = "/empupdatebymanager",method = RequestMethod.POST)
 	@ResponseBody
 	public String updateEmployeeBasicInfo(@RequestParam(name = "empEmail") String empEmail,
 			@RequestParam(name = "empAcc", required = false) String empAcc,
@@ -80,7 +79,7 @@ public class EmployeeJsonController {
 		}
 	}
 	
-	@PostMapping(path = "/deleteemployee/{email}")
+	@PostMapping(path = "/empdelete/{email}")
 	@ResponseBody
 	public String deleteEmployee(@PathVariable("email") String email){
 		System.out.println("email"+email);

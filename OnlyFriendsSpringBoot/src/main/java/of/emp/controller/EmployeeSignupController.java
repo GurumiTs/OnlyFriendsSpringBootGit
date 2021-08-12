@@ -25,7 +25,6 @@ import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 
 @Controller
-@RequestMapping(path = "/employee")
 public class EmployeeSignupController {
 
 	@Autowired
@@ -39,7 +38,7 @@ public class EmployeeSignupController {
 	@Autowired
 	private JavaMailSender sender;
 
-	@RequestMapping(path = "/signupemp", method = RequestMethod.GET)
+	@RequestMapping(path = "/empsignup", method = RequestMethod.GET)
 	public String signupempEntry() {
 		return "employeepages/empsignup";
 	}
@@ -54,7 +53,7 @@ public class EmployeeSignupController {
 		return "emailverifyfailed";
 	}
 
-	@RequestMapping(path = "/signupemp.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empsignup.controller", method = RequestMethod.POST)
 	public String signupEmployee(@RequestParam(name = "empEmail", required = false) String empEmail,
 			@RequestParam(name = "empAcc", required = false) String empAcc,
 			@RequestParam(name = "empName", required = false) String empName,
