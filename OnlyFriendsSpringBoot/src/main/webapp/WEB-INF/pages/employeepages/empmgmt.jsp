@@ -226,7 +226,7 @@
 		/* load data table */
 		var table = $('#example').DataTable({
 		    "ajax": {
-		    	"url": "allEmployeeToJson",
+		    	"url": "empalltojson",
 		    },
 		    "columns": [
 		        { "data": "empEmail" },
@@ -250,7 +250,7 @@
 			  let email = $(this).attr("id");
 			  $.ajax({
 				  type : "post",
-				  url: "queryEmployee",   
+				  url: "empquery",   
 			      dataType: "json",   
 			      cache: false,   
 			      data: {"email":email}, 
@@ -281,7 +281,7 @@
 			var formData = new FormData(document.getElementById("basicInfoForm"));
 			    $.ajax({
 			        type : "post",
-			        url:'updateEmployeeBasicInfo',
+			        url:'empupdatebymanager',
 			        data : formData,
 			        contentType: false,
 			        cache: false,
@@ -319,7 +319,7 @@
 	                if (result.isConfirmed) {
 	                  $.ajax({
 	                        type: "POST",
-	                        url: "deleteemployee/"+email,
+	                        url: "empdelete/"+email,
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(

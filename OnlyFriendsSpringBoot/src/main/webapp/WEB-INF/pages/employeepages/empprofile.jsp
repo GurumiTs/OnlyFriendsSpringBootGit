@@ -28,13 +28,13 @@
 						<div class="row">
 							<!-- form  -->
 							<div class="col-6">
-								<form action="updateempinfo.controller" method="post"
+								<form action="empinfoupdate.controller" method="post"
 									class="needs-validation" novalidate>
 									<!-- email  -->
 									<div class="mb-3">
 										<label for="empEmail" class="form-label">Email</label> <input
 											type="email" class="form-control" name="empEmail"
-											id="empEmail" value="${user.empEmail}" readonly required />
+											id="empEmail" value="${personalinfo.empEmail}" readonly required />
 									</div>
 									<!-- email  -->
 
@@ -43,12 +43,12 @@
 										<div class="col">
 											<label for="empAcc" class="form-label">Account</label> <input
 												type="text" class="form-control" name="empAcc" id="empAcc"
-												value="${user.empAccount}" readonly required />
+												value="${personalinfo.empAccount}" readonly required />
 										</div>
 										<div class="col">
 											<label for="empName" class="form-label">Name</label> <input
 												type="text" class="form-control" id="empName" name="empName"
-												value="${user.empName}" required />
+												value="${personalinfo.empName}" required />
 											<div class="valid-feedback">Beautiful!</div>
 											<div class="invalid-feedback">english only!</div>
 										</div>
@@ -60,7 +60,7 @@
 										<div class="col">
 											<input type="text" class="form-control" name="empAddress"
 												id="empAddress" placeholder="addr."
-												value="${user.empAddress}" />
+												value="${personalinfo.empAddress}" />
 										</div>
 									</div>
 									<!-- address row  -->
@@ -71,7 +71,7 @@
 										<div class="col-4">
 											<label for="empBday" class="form-label">Birthday</label> <input
 												type="text" class="form-control" name="empBday" id="empBday"
-												value="${user.empBday}" required />
+												value="${personalinfo.empBday}" required />
 											<div class="invalid-feedback">Choose your Happy Bday!</div>
 										</div>
 
@@ -84,14 +84,14 @@
 
 								<hr />
 
-								<form action="updateemppwd.controller" method="post"
+								<form action="emppwdupdate.controller" method="post"
 									enctype="multipart/form-data" class="needs-validation"
 									novalidate>
 									<!-- empacc d-none  -->
 									<div class="mb-3 row">
 										<div class="col">
 											<input type="text" class="form-control d-none"
-												name="empEmail" id="empEmail" value="${user.empEmail}"
+												name="empEmail" id="empEmail" value="${personalinfo.empEmail}"
 												readonly required />
 										</div>
 									</div>
@@ -135,7 +135,7 @@
 							<div class="col-4 mt-5 mx-4 d-flex flex-column flex-wrap">
 								<div class="card text-white border-0 bg-transparent"
 									id="img-card">
-									<img src="${user.empPic}"
+									<img src="${personalinfo.empPic}"
 										class="card-img rounded-circle shadow empPic" alt="..."
 										style="width: 20vw; height: 20vw; object-fit: cover" />
 									<div
@@ -174,7 +174,7 @@
 						</div>
 						<!-- modal body  -->
 						<div class="modal-body">
-							<form action="updateemppic.controller" method="post"
+							<form action="emppicupdate.controller" method="post"
 								enctype="multipart/form-data" class="needs-validation"
 								novalidate>
 								<div
@@ -185,12 +185,12 @@
 						                  align-items-center
 						                  justify-content-center
 						                ">
-									<img id="output" src="${user.empPic}" alt=""
+									<img id="output" src="${personalinfo.empPic}" alt=""
 										style="width: 250px; height: 250px" />
 
 									<div class="col mb-2">
 										<input type="text" class="form-control d-none" name="empEmail"
-											id="empEmail" value="${user.empEmail}" readonly required />
+											id="empEmail" value="${personalinfo.empEmail}" readonly required />
 									</div>
 
 									<div class="col-6 mb-2">
@@ -245,8 +245,8 @@
 		});
 
 		$("#twzipcode").twzipcode("set", {
-			county : "${user.empCounty}",
-			district : "${user.empDistrict}",
+			county : "${personalinfo.empCounty}",
+			district : "${personalinfo.empDistrict}",
 		});
 		// zipcode select
 

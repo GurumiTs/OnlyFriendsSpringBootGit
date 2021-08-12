@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import of.common.model.Users;
+import of.common.model.UsersService;
 import of.common.util.BCrypt;
 import of.common.util.GetRandomPwd;
 import of.emp.model.Employee;
@@ -23,6 +25,10 @@ public class ForgetPasswordController {
 	private EmployeeService empService;
 	@Autowired
 	private Employee employee;
+	@Autowired
+	private Users users;
+	@Autowired
+	private UsersService usersService;
 	@Autowired
 	private JavaMailSender sender;
 
@@ -53,11 +59,11 @@ public class ForgetPasswordController {
 
 		try {
 			String email = (String) request.getAttribute("email");
-			Employee employee = empService.findByEmpEmail(email);
+			Users users = usersService.findByEmail(email);
 			String randomPassword = GetRandomPwd.getRandomPassword();
 			String hashRandomPassword = BCrypt.hashpw(randomPassword, BCrypt.gensalt());
-			employee.setEmpPassword(hashRandomPassword);
-			empService.update(employee);
+			users.setUsersPassword(hashRandomPassword);
+			usersService.update(users);
 			SimpleMailMessage mail = new SimpleMailMessage();
 			mail.setTo(email);
 			mail.setFrom("onlyfriendseeit29@gmail.com");
@@ -80,13 +86,13 @@ public class ForgetPasswordController {
 		String oldPassword = request.getParameter("oldPwd");
 		String newPassword = request.getParameter("updatePwd1");
 		
-		Employee employee = empService.findByEmpEmail(email);
-		String oldHashPassword = employee.getEmpPassword();
+		Users users = usersService.findByEmail(email);
+		String oldHashPassword = users.getUsersPassword();
 		boolean checkPasswordStatus = BCrypt.checkpw(oldPassword, oldHashPassword);
 		if (checkPasswordStatus == true) {
 			String newHashPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-			employee.setEmpPassword(newHashPassword);
-			empService.update(employee);
+			users.setUsersPassword(newHashPassword);
+			usersService.update(users);
 			model.addAttribute("successMsg", "update new password success");
 			return "login" ;
 		}

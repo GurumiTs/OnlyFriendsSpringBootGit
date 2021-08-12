@@ -8,7 +8,7 @@
         <!-- Sidebar - Brand -->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index"
+          href="${pageContext.request.contextPath}/"
         >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
@@ -54,7 +54,7 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="employeemgmt.controller">Employee Mgmt</a>
-              <a class="collapse-item" href="signupemp">Signup Employee</a>
+              <a class="collapse-item" href="empsignup">Signup Employee</a>
             </div>
           </div>
         </li>

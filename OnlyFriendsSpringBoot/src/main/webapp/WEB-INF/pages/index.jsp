@@ -33,10 +33,10 @@
 <body>
 
 	<c:choose>
-		<c:when test="${not empty employeetype}">
+		<c:when test="${not empty employee}">
 			<%@include file="./commonpages/loginedheader.jsp"%>
 		</c:when>
-		<c:when test="${not empty membertype}">
+		<c:when test="${not empty member}">
 			<%@include file="./membercommonpages/memberloginedheader.jsp"%>
 		</c:when>
 		<c:otherwise>
