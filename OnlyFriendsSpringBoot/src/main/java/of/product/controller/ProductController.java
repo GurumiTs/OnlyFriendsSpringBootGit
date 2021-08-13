@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,14 +34,14 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	
-	@RequestMapping(path = "/productPage.controller",method = RequestMethod.GET)
+	@GetMapping(path = "/productPage.controller")
 	public String productEntryAction(Model model){
 		List<Product> proList=productService.findAll();
 		model.addAttribute("proList",proList);
 		return "productpages/productMgmtPage";
 	}
 	
-	@RequestMapping(path="/insertProdcut.controller",method = RequestMethod.GET)
+	@GetMapping(path="/insertProdcut.controller")
 	public String insertpage() {
 		return "productpages/productCreateForm";
 	}
@@ -69,6 +70,7 @@ public class ProductController {
 			String fileName=multipartFile.getOriginalFilename();
 			System.out.println("filename:"+fileName);
 			String path1=request.getServletContext().getRealPath("/images");
+			System.out.println(path1);
 			String filepath=path1+"\\productPic\\"+fileName;
 			File saveFile=new File(filepath);
 			System.out.println("1");
@@ -90,7 +92,7 @@ public class ProductController {
 
 	
 	
-	@RequestMapping(path="/updateentry.controller",method = RequestMethod.GET)
+	@GetMapping(path="/updateentry.controller")
 	public String updateEntryPage(HttpServletRequest request,Model model) {
 		Integer Id = Integer.parseInt(request.getParameter("editId"));
 		product = productService.findById(Id);
@@ -143,7 +145,7 @@ public class ProductController {
 		
 	}
 	
-	@DeleteMapping(path="/deleteentry.controller/{Id}")
+	@GetMapping(path="/deleteentry.controller/{Id}")
 	@ResponseBody
 	public String deleteEntryPage(HttpServletRequest request) {
 		Integer Id = Integer.parseInt(request.getParameter("delId"));
