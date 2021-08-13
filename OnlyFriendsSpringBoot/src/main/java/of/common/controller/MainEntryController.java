@@ -99,5 +99,9 @@ public class MainEntryController {
 	public String chatEntry() {
 		return "chat";
 	}
+	@RequestMapping(path = "/chatroom.controller", method = RequestMethod.GET)
+	public String chatRoomEntry() {
+		return "chatroom";
+	}
 
 }
