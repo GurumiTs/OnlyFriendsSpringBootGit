@@ -31,9 +31,7 @@
 
     <div class="chat">
         <div class="chat-header clearfix">
-            <img alt="avatar" height="55px"
-                 src="https://rtfm.co.ua/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-                 width="55px"/>
+            
 
             <div class="chat-about">
                 <div class="chat-with" id="selectedUserId"></div>

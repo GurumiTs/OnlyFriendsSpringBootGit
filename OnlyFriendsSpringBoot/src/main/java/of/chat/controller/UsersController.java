@@ -3,6 +3,7 @@ package of.chat.controller;
 import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import of.chat.model.UserStorage;
 
 @RestController
+@CrossOrigin
 public class UsersController {
 
 	@GetMapping("/registration/{userName}")
@@ -24,7 +26,7 @@ public class UsersController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping
+	@GetMapping("/fetchAllUsers")
 	public Set<String> fetchAll(){
 		return UserStorage.getInstance().getUsers();
 	}
