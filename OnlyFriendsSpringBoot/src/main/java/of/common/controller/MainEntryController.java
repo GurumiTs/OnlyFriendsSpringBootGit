@@ -94,4 +94,5 @@ public class MainEntryController {
 	public String loginEntry() {
 		return "login";
 	}
+
 }
