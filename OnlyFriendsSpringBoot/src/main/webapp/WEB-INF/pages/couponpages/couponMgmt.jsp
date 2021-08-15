@@ -688,8 +688,7 @@ span {
 						</div>
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-primary" value="確認">
-							<input type="reset" class="btn btn-secondary"
-								data-bs-dismiss="modal" value="清除">
+							<input type="reset" class="btn btn-secondary" value="清除">
 						</div>
 					</form>
 				</div>
