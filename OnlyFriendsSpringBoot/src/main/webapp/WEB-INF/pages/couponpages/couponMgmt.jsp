@@ -90,6 +90,9 @@ span {
 			width: 50%;
 			margin: -10px auto -35px auto;
 		}
+
+.fileplus{width: 30%;
+}
 </style>
 </head>
 <body>
@@ -219,7 +222,7 @@ span {
 					style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
-							新增<i class="fas fa-file-plus"></i>
+							新增 <img src='images/couponPic/fileplus.JPG' class="fileplus">
 						</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
@@ -446,7 +449,7 @@ span {
 					style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
-							修改<i class="fas fa-file-plus"></i>
+							修改 <img src='images/couponPic/fileplus.JPG' class="fileplus">
 						</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
