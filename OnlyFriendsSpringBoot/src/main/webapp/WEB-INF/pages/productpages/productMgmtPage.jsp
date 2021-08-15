@@ -59,7 +59,7 @@
 				<table id="example" class="table table-striped" style="width: 100%">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th>Id</th>
 							<th>Photo</th>
 							<th>Name</th>
 							<th>Price</th>
@@ -72,38 +72,38 @@
 							<th>Edit</th>
 						</tr>
 					</thead>
-					<tbody>
-					<c:if test='${not empty proList }'>
-						<c:forEach items="${proList}" var="product">
-							<tr>
-								<td>${product.proId }</td>
-								<td><img src="${product.proPhoto}" width="64px" height="64px"></td>
-								<td>${product.proName }</td>
-								<td>${product.proPrice }</td>
-								<td>${product.proItem }</td>
-								<td>${product.proNum}</td>
-								<td>${product.proShipping}</td>
-								<td>${product.proDescription}</td>
-								<script>
-									function delConfirm(Name) {
-										return confirm("Delete [" + Name
-												+ "] ?");
-									}
-								</script>
+<!-- 					<tbody> -->
+<%-- 					<c:if test='${not empty proList }'> --%>
+<%-- 						<c:forEach items="${proList}" var="product"> --%>
+<!-- 							<tr> -->
+<%-- 								<td>${product.proId }</td> --%>
+<%-- 								<td><img src="${product.proPhoto}" width="64px" height="64px"></td> --%>
+<%-- 								<td>${product.proName }</td> --%>
+<%-- 								<td>${product.proPrice }</td> --%>
+<%-- 								<td>${product.proItem }</td> --%>
+<%-- 								<td>${product.proNum}</td> --%>
+<%-- 								<td>${product.proShipping}</td> --%>
+<%-- 								<td>${product.proDescription}</td> --%>
+<!-- 								<script> -->
+<!-- // 									function delConfirm(Name) { -->
+<!-- // 										return confirm("Delete [" + Name -->
+<!-- // 												+ "] ?"); -->
+<!-- // 									} -->
+<!-- 								</script> -->
 
-								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }"
-									onclick="return delConfirm('${product.proName}');"><img
-										src="images/smallicon/trash.png" width="32px" height="32px"></a></td>
-								<td class="edit"><a
-									href="updateentry.controller?editId=${product.proId }"><img
-										src="images/smallicon/edit.png" width="32px" height="32px"></a></td>
-							</tr>
-						</c:forEach>
-						</c:if>
-					</tbody>
+<%-- 								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }" --%>
+<%-- 									onclick="return delConfirm('${product.proName}');"><img --%>
+<!-- 										src="images/smallicon/trash.png" width="32px" height="32px"></a></td> -->
+<!-- 								<td class="edit"><a -->
+<%-- 									href="updateentry.controller?editId=${product.proId }"><img --%>
+<!-- 										src="images/smallicon/edit.png" width="32px" height="32px"></a></td> -->
+<!-- 							</tr> -->
+<%-- 						</c:forEach> --%>
+<%-- 						</c:if> --%>
+<!-- 					</tbody> -->
 					<tfoot>
 						<tr>
-							<th>ID</th>
+							<th>Id</th>
 							<th>Photo</th>
 							<th>Name</th>
 							<th>Price</th>
@@ -147,9 +147,26 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 		<script>
-		$(document).ready(function() {
-			$('#example').DataTable();
-		});
+		/* load data table */
+		var table = $('#example').DataTable({
+		    "ajax": {
+		    	"url": "productPage.controller",
+		    },
+		    "columns": [
+		        { "data": "empEmail" },
+		        { "data":"empAccount"},
+		        { "data": "empName" }, 
+		        { "data":"deptNum"},		  
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<i id="+data.empEmail+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.empEmail+"></i>";
+		            },
+		            "targets": -1
+		        }
+		    ]
+		});		
 	</script>
  </body>
 </html>	

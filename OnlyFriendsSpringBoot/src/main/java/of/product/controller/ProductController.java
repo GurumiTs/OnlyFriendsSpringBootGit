@@ -1,7 +1,9 @@
 package of.product.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,11 +37,28 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	
+//	@GetMapping(path = "/productPage.controller")
+//	public String productEntryAction(Model model){
+//		List<Product> proList=productService.findAll();
+//		model.addAttribute("proList",proList);
+//		return "productpages/productMgmtPage";
+//	}
+	
 	@GetMapping(path = "/productPage.controller")
-	public String productEntryAction(Model model){
+	@ResponseBody
+	public Map productEntryAction(Model model){
 		List<Product> proList=productService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", proList);
 		model.addAttribute("proList",proList);
-		return "productpages/productMgmtPage";
+		return map;
+	}
+	
+	@PostMapping(path="/productquery")
+	@ResponseBody
+	public Product processRestQueryProduct(@RequestParam(name = "Id") Integer Id) {
+		Product product = productService.findById(Id);
+		return product;
 	}
 	
 	@GetMapping(path="/insertProdcut.controller")
@@ -129,19 +148,20 @@ public class ProductController {
 			System.out.println(Name);
 			String fileName=multipartFile.getOriginalFilename();
 			System.out.println("filename:"+fileName);
-			String path1=request.getServletContext().getRealPath("/images");
-			String filepath=path1+"\\productPic\\"+fileName;
+			String path1=ResourceUtils.getURL("classpath:static/images/productPic").getPath();
+			System.out.println(path1);
+			String filepath=path1+"/"+fileName;
 			File saveFile=new File(filepath);
 			multipartFile.transferTo(saveFile);
 			product.setProPhoto("images/productPic/"+fileName);
 			productService.update(product);
-			List<Product> proList=productService.findAll();
-			m.addAttribute("proList",proList);
+//			List<Product> proList=productService.findAll();
+//			m.addAttribute("proList",proList);
 			
 			return "redirect:/productPage.controller";
 		} catch (Exception e) {
 			m.addAttribute("error","update picture failed");
-			return "productpages/productUpdateForm";
+			return "redirect:/productPage.controller";
 		}
 		
 	}
