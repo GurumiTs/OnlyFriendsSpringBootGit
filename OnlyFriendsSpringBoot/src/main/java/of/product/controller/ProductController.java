@@ -47,7 +47,7 @@ public class ProductController {
 	}
 	
 	@PostMapping(path="/addProduct.controller")
-	@ResponseBody
+	
 	public String productAdd(@RequestParam (name = "Id",required = false) Integer Id,
 							@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 							@RequestParam(name = "Name") String Name,
