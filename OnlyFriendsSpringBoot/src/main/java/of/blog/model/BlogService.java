@@ -24,7 +24,7 @@ public class BlogService {
 		blogRepository.deleteById(articleID);
 	}
 	
-	public BlogBean findById(Integer articleId) {
+	public BlogBean findByArticleID(Integer articleId) {
 		Optional<BlogBean> bRep = blogRepository.findById(articleId);
 		if (bRep.isPresent()) {
 			return bRep.get();

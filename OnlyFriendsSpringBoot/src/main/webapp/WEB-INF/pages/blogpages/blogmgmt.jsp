@@ -92,32 +92,7 @@
 										<th>Delete</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:if test='${not empty allBlog}'>
-										<c:forEach var="bBean" items="${allBlog}">
-
-											<tr id="${bBean.articleID}">
-												<td id="${bBean.articleID}ID">${bBean.articleID}</td>
-												<td id="${bBean.articleID}images"><img class="img1"
-													src="${bBean.images}"></td>
-												<td id="${bBean.articleID}title">${bBean.title}</td>
-												<td id="${bBean.articleID}date">${bBean.updateTime}</td>
-												<td class="d-none" id="${bBean.articleID}mainText">${bBean.mainText}</td>
-												<td id="${bBean.articleID}empAcc">${bBean.empAcc}</td>
-												<td id="${bBean.articleID}userID">${bBean.userID}</td>
-												<td class="edit"><a
-													href="updateEntry.controller?editId=${bBean.articleID}"><i
-														class="fas fa-edit"></i></a></td>
-														
-												<td class="delete"><a
-													href="deleteEntry.controller?delID=${bBean.articleID}"
-													onclick="return delConfirm('${bBean.articleID}')"><i
-														class="far fa-trash-alt"></i></a></td>
-											</tr>
-
-										</c:forEach>
-									</c:if>
-								</tbody>
+									
 								<tfoot>
 									<tr>
 										<th class="d-none">文章編號</th>

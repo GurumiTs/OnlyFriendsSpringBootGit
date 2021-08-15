@@ -38,7 +38,7 @@ public class BlogController {
 	@PostMapping(path = "/query")
 	@ResponseBody
 	public BlogBean processQueryById(@RequestParam("bid") Integer big) {
-		return bService.findById(big);
+		return bService.findByArticleID(big);
 	}
 	
 }
