@@ -99,7 +99,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
 					<div class="zi_box_1">
-      <form action="addProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
+      <form id="addProductForm" class="row g-3"  method="post" enctype="multipart/form-data">
         <div class="col-md-12">
           
           <div class="mb-3">
@@ -159,7 +159,7 @@
         
         
         <div class="col-12">
-          <button type="submit" value="Add" class="btn btn-primary">新增商品</button>
+          <button id="addProduct" type="submit" value="Add" class="btn btn-primary">新增商品</button>
         </div>
       </form>
     </div>
@@ -244,6 +244,37 @@
             
         }
         $(document).ready(function(){
+        	/*send add product basic info*/
+  		 $('#addProduct').click(function(){
+			var formData = new FormData(document.getElementById("addProductForm"));
+			    $.ajax({
+			        type : "post",
+			        url:'addProduct.controller',
+			        data : formData,
+			        contentType: false,
+			        cache: false,
+			        processData: false,
+			        dataType:'text',
+			        success:function(data)
+			        {
+			        	Swal.fire(
+	                              'Success!',
+	                              '',
+	                              'success'
+	                            )		        	
+			        	table.ajax.reload();
+
+					},error:function(e){
+						console.log("error");
+					}
+			    });
+		});
+  		/*send add product basic info*/
+        	
+        	
+        	
+        	
+        	/*check name*/
 		    $("#").click(function(){
 		        var productname = $("#Name").val();
 		        console.log('productname:' + Name);

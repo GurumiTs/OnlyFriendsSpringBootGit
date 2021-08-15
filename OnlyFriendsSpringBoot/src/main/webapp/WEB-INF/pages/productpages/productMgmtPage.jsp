@@ -72,35 +72,35 @@
 							<th>Edit</th>
 						</tr>
 					</thead>
-<!-- 					<tbody> -->
-<%-- 					<c:if test='${not empty proList }'> --%>
-<%-- 						<c:forEach items="${proList}" var="product"> --%>
-<!-- 							<tr> -->
-<%-- 								<td>${product.proId }</td> --%>
-<%-- 								<td><img src="${product.proPhoto}" width="64px" height="64px"></td> --%>
-<%-- 								<td>${product.proName }</td> --%>
-<%-- 								<td>${product.proPrice }</td> --%>
-<%-- 								<td>${product.proItem }</td> --%>
-<%-- 								<td>${product.proNum}</td> --%>
-<%-- 								<td>${product.proShipping}</td> --%>
-<%-- 								<td>${product.proDescription}</td> --%>
-<!-- 								<script> -->
-<!-- // 									function delConfirm(Name) { -->
-<!-- // 										return confirm("Delete [" + Name -->
-<!-- // 												+ "] ?"); -->
-<!-- // 									} -->
-<!-- 								</script> -->
+					<tbody>
+					<c:if test='${not empty proList }'>
+						<c:forEach items="${proList}" var="product">
+							<tr>
+								<td id="Id">${product.proId }</td>
+								<td id="Photo"><img src="${product.proPhoto}" width="64px" height="64px"></td>
+								<td id="Name">${product.proName }</td>
+								<td id="Price">${product.proPrice }</td>
+								<td id="Item">${product.proItem }</td>
+								<td id="Num">${product.proNum}</td>
+								<td id="Shipping">${product.proShipping}</td>
+								<td id="Description">${product.proDescription}</td>
+								<script>
+									function delConfirm(Name) {
+										return confirm("Delete [" + Name
+												+ "] ?");
+									}
+								</script>
 
-<%-- 								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }" --%>
-<%-- 									onclick="return delConfirm('${product.proName}');"><img --%>
-<!-- 										src="images/smallicon/trash.png" width="32px" height="32px"></a></td> -->
-<!-- 								<td class="edit"><a -->
-<%-- 									href="updateentry.controller?editId=${product.proId }"><img --%>
-<!-- 										src="images/smallicon/edit.png" width="32px" height="32px"></a></td> -->
-<!-- 							</tr> -->
-<%-- 						</c:forEach> --%>
-<%-- 						</c:if> --%>
-<!-- 					</tbody> -->
+								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }"
+									onclick="return delConfirm('${product.proName}');"><img
+										src="images/smallicon/trash.png" width="32px" height="32px"></a></td>
+								<td class="edit"><a
+									href="updateentry.controller?editId=${product.proId }"><img
+										src="images/smallicon/edit.png" width="32px" height="32px"></a></td>
+							</tr>
+						</c:forEach>
+						</c:if>
+					</tbody>
 					<tfoot>
 						<tr>
 							<th>Id</th>
@@ -147,26 +147,67 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 		<script>
+		$(document).ready(function(){
+			
+	
 		/* load data table */
 		var table = $('#example').DataTable({
 		    "ajax": {
 		    	"url": "productPage.controller",
 		    },
 		    "columns": [
-		        { "data": "empEmail" },
-		        { "data":"empAccount"},
-		        { "data": "empName" }, 
-		        { "data":"deptNum"},		  
+		        { "data": "Id" },
+		        { "data":"Photo"},
+		        { "data":"Name" }, 
+		        { "data":"Price"},	  
+		        { "data":"Item"},	  
+		        { "data":"Num"},	  
+		        { "data":"Shipping"},	  
+		        { "data":"Description"},	  
 		        {
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<i id="+data.empEmail+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.empEmail+"></i>";
+		              return "<i id="+data.Id+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.Id+"></i>";
 		            },
 		            "targets": -1
 		        }
 		    ]
 		});		
+		/* load data table */
+		
+		/*direct edit page*/
+// 		$('.edit').load("updateentry.controller");
+		/*direct edit page*/
+	
+		/*show edit employee basic info*/
+		  $("#example tbody").DataTable {
+			  let product = $(this).attr("Id");
+			  $.ajax({
+				  type : "post",
+				  url: "productquery",   
+			      dataType: "json",   
+			      cache: false,   
+			      data: {"product":product}, 
+			      success : function(data) 
+			        {
+			    	  $('#Id').prop("value",data.Id);
+			    	  $('#Photo').prop("value",data.Photo);
+			    	  $('#Name').prop("value",data.Name);
+			    	  $('#Price').prop("value",data.Price);
+			    	  $('#Item').prop("value",data.Item);
+			    	  $('#Num').prop("value",data.Num);
+			    	  $("#Shipping").prop("value",data.Shipping);
+			          $("#Description").prop("value",data.Description);
+			    	  
+			        },error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
+		});
+		})
+ 		/*show edit employee basic info*/
 	</script>
  </body>
 </html>	
