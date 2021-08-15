@@ -68,7 +68,7 @@
 							<th>Shipping</th>
 							<th>Description</th>
 
-							<th>Del</th>
+					
 							<th>Edit</th>
 						</tr>
 					</thead>
@@ -77,7 +77,7 @@
 						<c:forEach items="${proList}" var="product">
 							<tr>
 								<td id="Id">${product.proId }</td>
-								<td id="Photo"><img src="${product.proPhoto}" width="64px" height="64px"></td>
+								<td><img id="Photo" src="${product.proPhoto}" width="64px" height="64px"></td>
 								<td id="Name">${product.proName }</td>
 								<td id="Price">${product.proPrice }</td>
 								<td id="Item">${product.proItem }</td>
@@ -91,9 +91,9 @@
 									}
 								</script>
 
-								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }"
-									onclick="return delConfirm('${product.proName}');"><img
-										src="images/smallicon/trash.png" width="32px" height="32px"></a></td>
+<%-- 								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }" --%>
+<%-- 									onclick="return delConfirm('${product.proName}');"><img --%>
+<!-- 										src="images/smallicon/trash.png" width="32px" height="32px"></a></td> -->
 								<td class="edit"><a
 									href="updateentry.controller?editId=${product.proId }"><img
 										src="images/smallicon/edit.png" width="32px" height="32px"></a></td>
@@ -112,7 +112,7 @@
 							<th>Shipping</th>
 							<th>Description</th>
 
-							<th>Del</th>
+							
 							<th>Edit</th>
 						</tr>
 					</tfoot>
@@ -153,17 +153,17 @@
 		/* load data table */
 		var table = $('#example').DataTable({
 		    "ajax": {
-		    	"url": "productPage.controller",
+		    	"url": "product.controller",
 		    },
 		    "columns": [
-		        { "data": "Id" },
-		        { "data":"Photo"},
-		        { "data":"Name" }, 
-		        { "data":"Price"},	  
-		        { "data":"Item"},	  
-		        { "data":"Num"},	  
-		        { "data":"Shipping"},	  
-		        { "data":"Description"},	  
+		        { "data": "proId" },
+		        { "data":"proPhoto"},
+		        { "data":"proName" }, 
+		        { "data":"proPrice"},	  
+		        { "data":"proItem"},	  
+		        { "data":"proNum"},	  
+		        { "data":"proShipping"},	  
+		        { "data":"proDescription"},	  
 		        {
 		            "data": null,
 		            render:function(data, type, row)

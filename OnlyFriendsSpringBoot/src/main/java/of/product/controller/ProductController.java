@@ -37,23 +37,28 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	
-	@GetMapping(path = "/productPage.controller")
-	public String productEntryAction(Model model){
-		List<Product> proList=productService.findAll();
-		model.addAttribute("proList",proList);
+//	@GetMapping(path = "/productPage.controller")
+//	public String productEntryAction(Model model){
+//		List<Product> proList=productService.findAll();
+//		model.addAttribute("proList",proList);
+//		return "productpages/productMgmtPage";
+//	}
+	
+	@RequestMapping(path = "/productPage.controller", method = RequestMethod.GET)
+	public String blogMgmtEntry(Model model) {
 		return "productpages/productMgmtPage";
 	}
 	
-//	@GetMapping(path = "/productPage.controller")
-//	@ResponseBody
-//	public Map productEntryAction(Model model){
-//		List<Product> proList=productService.findAll();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("data", proList);
-//		model.addAttribute("proList",proList);
-//		return map;
-//	}
-//	
+	@GetMapping(path = "/product.controller")
+	@ResponseBody
+	public Map productEntryAction(Model model){
+		List<Product> proList=productService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", proList);
+		model.addAttribute("proList",proList);
+		return map;
+	}
+	
 	@PostMapping(path="/productquery")
 	@ResponseBody
 	public Product processRestQueryProduct(@RequestParam(name = "Id") Integer Id) {
