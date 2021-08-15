@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import of.blog.model.BlogBean;
 import of.blog.model.BlogService;
@@ -31,6 +30,13 @@ public class BlogController {
 	public String blogMgmtEntry(Model model) {
 		return "blogpages/blogmgmt";
 	}
+	
+//	@RequestMapping(path = "/blogmgmt.controller", method = RequestMethod.GET)
+//	public String signupempEntry(Model model) {
+//		List<BlogBean> allBlog = bService.findAll();
+//		model.addAttribute("allBlog", allBlog);
+//		return "blogpages/blogmgmt";
+//	}
 	
 	@GetMapping(path = "/blogalltojson")
 	@ResponseBody
