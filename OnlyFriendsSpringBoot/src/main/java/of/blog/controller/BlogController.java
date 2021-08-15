@@ -26,7 +26,7 @@ public class BlogController {
 	private BlogBean blog;
 	
 	// 進主頁controller
-	@RequestMapping(path = "/blogmgmt.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/empblogmgmt.controller", method = RequestMethod.GET)
 	public String blogMgmtEntry(Model model) {
 		return "blogpages/blogmgmt";
 	}
@@ -51,11 +51,11 @@ public class BlogController {
 	}
 	
 	//　Query
-	@PostMapping(path = "/blogquery")
-	@ResponseBody
-	public BlogBean processQueryById(@RequestParam(name = "articleID") Integer Id) {
-		BlogBean blog = bService.findByArticleID(Id);
-		return blog;
-	}
+//	@PostMapping(path = "/blogquery")
+//	@ResponseBody
+//	public BlogBean processQueryById(@RequestParam(name = "articleID") Integer Id) {
+//		BlogBean blog = bService.findByArticleID(Id);
+//		return blog;
+//	}
 	
 }
