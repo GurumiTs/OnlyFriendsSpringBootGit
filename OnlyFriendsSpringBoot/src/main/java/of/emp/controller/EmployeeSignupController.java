@@ -11,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -83,12 +84,12 @@ public class EmployeeSignupController {
 			employee.setEmpCreateTime(System.currentTimeMillis());
 
 			// pic
-			String fileName = multipartFile.getOriginalFilename();
-			String path1 = request.getServletContext().getRealPath("/images");
-			String filePath =  "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/empPic/" + fileName;
+			String fileName = multipartFile.getOriginalFilename();	
+			String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+			String filePath =  path+ "/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
-			employee.setEmpPic("images\\empPic\\" + fileName);
+			employee.setEmpPic("images/empPic/" + fileName);
 			empService.insert(employee);
 
 			users.setUsersEmail(empEmail);

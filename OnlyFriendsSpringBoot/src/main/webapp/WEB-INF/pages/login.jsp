@@ -53,8 +53,8 @@
 					</div>
 					<div class="row mb-3 ">
 						<div class="col-6 ">
-							<input type="checkbox" id="remember-me" name="remember-me" />
-							<label for="autologin">Remember-me</label>
+							<input type="checkbox" id="remember-me" name="remember-me" /> <label
+								for="autologin">Remember-me</label>
 						</div>
 
 						<div class="col-6">
@@ -63,13 +63,13 @@
 					</div>
 					<!-- check account  -->
 
-					
+
 					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-						<p style="color: rgb(184, 58, 58); font-style: italic">
-							email or password error</p>	
-							<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />					
+						<p style="color: rgb(184, 58, 58); font-style: italic">email
+							or password error</p>
+						<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
 					</c:if>
-					
+
 
 					<c:if test="${not empty errorMsg}">
 						<p style="color: rgb(184, 58, 58); font-style: italic">
@@ -113,9 +113,11 @@
 							</div>
 
 							<div class="col  d-flex align-items-end justify-content-end">
-								<img
+								<a href="${pageContext.request.contextPath}/oauth2/authorization/google"> <img
 									src="${pageContext.request.contextPath}/images/smallicon/google.svg"
 									alt="">
+								</a>
+
 							</div>
 						</div>
 					</div>
