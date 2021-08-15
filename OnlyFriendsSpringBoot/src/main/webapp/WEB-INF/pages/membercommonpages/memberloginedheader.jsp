@@ -31,7 +31,7 @@
 
 					<li class="nav-item"><a class="nav-link" href="">小城故事</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="membermain"><i
+					<li class="nav-item"><a class="nav-link" href="member"><i
 							class="far fa-user-circle"
 							style="font-size: 2rem; color: rgb(255, 255, 255)"></i></a></li>
 				</ul>

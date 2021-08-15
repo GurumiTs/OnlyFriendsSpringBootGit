@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +37,6 @@ public class EmployeeController {
 	@Autowired
 	private Users users;
 	
-
 	@RequestMapping(path = "/employee",method = RequestMethod.GET)
 	public String signupempEntry() {
 		return "employeepages/employee";
@@ -120,8 +121,8 @@ public class EmployeeController {
 			Model model) {
 		try {
 			String fileName = multipartFile.getOriginalFilename();
-			String path1 = request.getServletContext().getRealPath("/images");
-			String filePath =  "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/empPic/" + fileName;
+			String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+			String filePath =  path+ "/" + fileName;	
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			Employee employee = empService.findByEmpEmail(empEmail);
