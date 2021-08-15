@@ -85,7 +85,6 @@
 										<th>Images</th>
 										<th>Title</th>
 										<th>UpdateDate</th>
-										<th class="d-none">Text</th>
 										<th>EmpAcc</th>
 										<th>UserID</th>
 										<th>Edit</th>
@@ -99,11 +98,10 @@
 										<th class="d-none">圖片</th>
 										<th class="d-none">文章標題</th>
 										<th class="d-none">最後更新時間</th>
-										<th class="d-none">內容</th>
 										<th class="d-none">PO文者帳號</th>
 										<th class="d-none">暱稱</th>
-										<th class="d-none">Del</th>
 										<th class="d-none">Edit</th>
+										<th class="d-none">Del</th>
 									</tr>
 								</tfoot>
 							</table>
@@ -149,27 +147,30 @@
 		    },
 		    "columns": [
 		        { "data": "articleID" },
-		        { "data": "images"},
+		        { 
+		        	"data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<img src="+data.images+" class='img1'>";
+		            }
+		        },
 		        { "data": "title" }, 
 		        { "data": "updateTime"},		  
-		        { "data": "deptNum"},		  
 		        { "data": "empAcc"},		  
 		        { "data": "userID"},		  
 		        {
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<a href='updateEntry.controller?editId="data.articleID"'><i class='fas fa-edit'></i></a>";
-		            },
-		            "targets": -1
-		        }
+		              return "<i class='fas fa-edit'></i>";
+		            }
+		        },
 		        {
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<a href='deleteEntry.controller?delID="data.articleID"' onclick='return delConfirm('${bBean.articleID}')'><i class='far fa-trash-alt'></i></a>";
-		            },
-		            "targets": -1
+		              return "<i class='far fa-trash-alt'></i>";
+		            }
 		        }
 		    ]
 		});		
