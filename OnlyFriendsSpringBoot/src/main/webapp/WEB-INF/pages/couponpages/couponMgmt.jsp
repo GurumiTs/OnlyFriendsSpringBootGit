@@ -8,34 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <title>Coupon</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-img {
-	width: 250px;
+#mainImg {
+	width: 90%;
 	height: 100px;
 	margin-left: 16px;
-	
 }
 
 .card-header {
 	text-align: center;
-	
 }
 
-#ul{font-size:14px;
-}
-card-body.img{
-margin-left:auto;
-margin-right:auto;
-
-
+#ul {
+	font-size: 14px;
 }
 
-#fun {
-	margin-top: 10px;
-	height: 50px;
-	text-align: center;
+card-body.img {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 img.error {
@@ -48,12 +38,56 @@ img.error {
 	height: 20px;
 }
 
-.box2 {
-	display: inline-block;
-	width: 30%;
-	height: 20%;
-	margin-left: 1%;
+#main {
+	display: flex;
+	width: 100%;
 }
+
+#left {
+	width: 49%;
+	margin-right: 40px;
+}
+
+#right {
+	width: 51%;
+}
+
+#imgInsert {
+	margin-top: 72.19px;
+}
+
+input[type=text], [type=date], #caNameInsert,#caNameUpdate {
+	width: 70%;
+	box-sizing: border-box;
+	border: 3px solid #555;
+}
+
+.line {
+	display: flex;
+	margin-bottom: -10px;
+}
+
+span {
+	width: 45%;
+	font-size: 50%;
+}
+
+.formName {
+	margin-bottom: -10px;
+}
+
+#deleteForm {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.lineDelete {
+	margin-bottom: -10px;
+}
+#pNameUpdate{
+			width: 50%;
+			margin: -10px auto -35px auto;
+		}
 </style>
 </head>
 <body>
@@ -62,9 +96,6 @@ img.error {
 	<div id="wrapper">
 		<%@include file="../commonpages/dashboardsidebar.jsp"%>
 		<div id="content-wrapper" class="d-flex flex-column">
-
-
-
 			<%@include file="../commonpages/dashboardheader.jsp"%>
 
 			<nav class="navbar navbar-expand-lg navbar-dark bg-light">
@@ -119,7 +150,7 @@ img.error {
 									style="max-width: 20rem; max-height: 50rem;">
 									<div class="card-header">${find.coName}</div>
 									<div class="card-body">
-										<img src="${find.pImg}" />
+										<img src="${find.pImg}" id="mainImg" />
 										<ul id="ul">
 											<li>商品名稱:${find.pName}</li>
 											<li>商品價格:${find.price}</li>
@@ -133,9 +164,8 @@ img.error {
 							</div>
 						</c:forEach>
 					</div>
-					
 					<%@include file="../commonpages/dashboardfooter1.jsp"%>
-					<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>	
+					<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>
 					<%@include file="../commonpages/dashboardbottom.jsp"%>
 				</div>
 			</section>
@@ -143,15 +173,15 @@ img.error {
 
 
 
-			<!-- 功能區(以上是Bar下面的畫面)-------------------------------------------------------------------------------------------- -->
+		<!-- 功能區(以上是Bar下面的畫面)-------------------------------------------------------------------------------------------- -->
 
-			<!-- 載入顯示-------------------------------------------------------------------------------------------- -->
+		<!-- 載入顯示-------------------------------------------------------------------------------------------- -->
 
 
-			<!-- 全部顯示-------------------------------------------------------------------------------------------- -->
-			<form action="getAllCoupon.controller" id="FindAllCo"></form>
+		<!-- 全部顯示-------------------------------------------------------------------------------------------- -->
+		<form action="getAllCoupon.controller" id="FindAllCo"></form>
 
-			<script>
+		<script>
 			document.getElementById("Home").onclick = Findall;
 
 			function Findall() {
@@ -160,9 +190,9 @@ img.error {
 			}
 		</script>
 
-			<!-- 分類顯示-------------------------------------------------------------------------------------------- -->
+		<!-- 分類顯示-------------------------------------------------------------------------------------------- -->
 
-			<script>
+		<script>
 			document.getElementById("select").onclick = checkSelect;
 			function checkSelect() {
 				var selectObj = document.getElementById("select").value;
@@ -178,130 +208,98 @@ img.error {
 
 
 
-			<!-- 新增Modal ----------------------------------------------------------------------------- -->
-			<div
-				style="width: 70%; height: 85%; margin-left: 15%; margin-top: 5%;"
-				class="modal fade container" id="add" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div style="height: 860px; width: 100%;" class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">新增</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div
-							style="margin: 15%; margin-top: -1%; width: 60%; height: 300px"
-							class="modal-body">
-							<form class="container" class="box"
-								action="insertCoupon.controller" method="post"
-								enctype="multipart/form-data">
-								<fieldset>
-									<div>
-										<img
-											style="border-radius: 15%; margin: 10%; width: 100%; height: 100%;"
-											id="imgInsert" name="img" src="images/couponPic/head.png"><br>
-
-										<input style="margin: -60px; width: 170%; margin-top: 25px;"
-											class="form-control" type="file" name="pImg" accept="image/*"
-											onchange="loadFile(event)" required><span
-											id="spImgInsert"></span><br>
-
-										<script>
-										var loadFile = function(event) {
-											var output = document
-													.getElementById('imgInsert');
-											output.src = URL
-													.createObjectURL(event.target.files[0]);
-											output.onload = function() {
-												URL.revokeObjectURL(output.src)
-											}
-										};
-									</script>
-										<div style="margin: -26%; width: 170%; margin-top: 25%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">分類名稱:</span>
-											<select name="caName" id="caNameInsert" required>
-												<option value="">請選擇</option>
-												<option value="餐廳">餐廳</option>
-												<option value="旅遊">旅遊</option>
-												<option value="服裝">服裝</option>
-												<option value="運動">運動</option>
-											</select><span id="spCaNameInsert"></span>
-										</div>
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">廠商名稱:</span>
-											<input placeholder="請輸入廠商名稱" type="text" name="coName"
-												id="coNameInsert" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spCoNameInsert"></span>
-
-										</div>
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">商品名稱:</span>
-											<input placeholder="請輸入商品名稱" type="text" name="pName"
-												id="pNameInsert" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spPNameInsert"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">商品價格:</span>
-											<input placeholder="請輸入商品價格" type="text" name="price"
-												id="priceInsert" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spPriceInsert"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">庫存量:</span>
-											<input placeholder="請輸入庫存量" type="text" id="pQtyInsert"
-												name="pQty" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spPQtyInsert"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">優惠起初日:</span>
-											<input style="width: 23%;" type="date" name="startDate"
-												id="startDateInsert" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spStartDateInsert"></span>
-										</div>
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">優惠截止日:</span>
-											<input style="width: 23%;" type="date" name="endDate"
-												id="endDateInsert" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spEndDateInsert"></span>
-										</div>
-
-										<br>
-										<div style="margin-left: 35%; margin-top: 5%;">
-											<input type="submit" value="送出"> <input type="reset"
-												value="清除">
-										</div>
+		<!-- 新增Modal ----------------------------------------------------------------------------- -->
+		<div class="modal fade" id="add" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content modal-dialog-scrollable"
+					style="width: 650px; margin: 50px auto;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">
+							新增 <i class="far fa-file-plus"></i>
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form class="container" action="insertCoupon.controller"
+							method="post" enctype="multipart/form-data">
+							<div id="main">
+								<div id="left">
+									<img id="imgInsert" name="img" src="images/couponPic/pic.JPG"
+										style="width: 100%; height: 50%;"><br> <input
+										type="file" name="pImg" accept="image/*"
+										onchange="loadFile(event)" required><span
+										id="spImgInsert"></span>
+								</div>
+								<script>
+									var loadFile = function(event) {
+										var output = document
+												.getElementById('imgInsert');
+										output.src = URL
+												.createObjectURL(event.target.files[0]);
+										output.onload = function() {
+											URL.revokeObjectURL(output.src)
+										}
+									};
+								</script>
+								<div id="right">
+									<label for="coName" class="formName">廠商名稱</label>
+									<div class="line">
+										<input placeholder="請輸入廠商名稱" type="text" name="coName"
+											id="coNameInsert" required><span id="spCoNameInsert"></span>
 									</div>
-								</fieldset>
-							</form>
-						</div>
+									<br> <label for="caName" class="formName">分類名稱</label>
+									<div class="line">
+										<select name="caName" id="caNameInsert" required>
+											<option value="">請選擇</option>
+											<option value="餐廳">餐廳</option>
+											<option value="旅遊">旅遊</option>
+											<option value="服裝">服裝</option>
+											<option value="運動">運動</option>
+										</select><span id="spCaNameInsert"></span>
+									</div>
+									<br> <label for="pName" class="formName">優惠券名稱</label>
+									<div class="line">
+										<input placeholder="請輸入優惠券名稱" type="text" name="pName"
+											id="pNameInsert" required><span id="spPNameInsert"></span>
+									</div>
+									<br> <label for="price" class="formName">優惠券價格</label>
+									<div class="line">
+										<input placeholder="請輸入優惠券價格" type="text" name="price"
+											id="priceInsert" required><span id="spPriceInsert"></span>
+									</div>
+									<br> <label for="pQty" class="formName">庫存量</label>
+									<div class="line">
+										<input placeholder="請輸入庫存量" type="text" id="pQtyInsert"
+											name="pQty" required><span id="spPQtyInsert"></span>
+									</div>
+									<br> <label for="startDate" class="formName">優惠起初日</label>
+									<div class="line">
+										<input type="date" name="startDate" id="startDateInsert"
+											required><span id="spStartDateInsert"></span>
+									</div>
+									<br> <label for="endDate" class="formName">優惠截止日</label>
+									<div class="line">
+										<input type="date" name="endDate" id="endDateInsert" required><span
+											id="spEndDateInsert"></span>
+									</div>
+									<br>
+
+								</div>
+							</div>
+							<br>
+							<div class="modal-footer">
+								<input type="submit" class="btn btn-primary" value="送出">
+								<input type="reset" class="btn btn-secondary" value="清除">
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-
-			<script>
+		</div>
+		<script>
 			document.getElementById("caNameInsert").onblur = checkCaName;
 			document.getElementById("coNameInsert").onblur = checkCoName;
 			document.getElementById("pNameInsert").onblur = checkPName;
@@ -435,135 +433,103 @@ img.error {
 				}
 			}
 		</script>
-			<!-- 新增區域!!------------------------------------------------------------------------- -->
+		<!-- 新增區域!!------------------------------------------------------------------------- -->
 
-			<!-- 修改Modal ----------------------------------------------------------------------------->
-			<div
-				style="width: 70%; height: 85%; margin-left: 15%; margin-top: 5%;"
-				class="modal fade container" id="update" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div style="height: 860px; width: 100%;" class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">修改</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div style="margin: 15%; margin-top: -1%; width: 60%; height: 50%"
-							class="modal-body">
-							<form action="updateCoupon.controller" method="post"
-								enctype="multipart/form-data">
-								<fieldset>
-									<h5>這裡請輸入商品名稱:</h5>
-									<div style="margin: -26%; width: 170%; margin-top: 5%;"
-										class="input-group input-group-sm mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-lg">商品名稱:</span>
-										<input placeholder="請輸入商品名稱" type="text" name="pName"
-											id="pNameUpdate" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" required><span
-											id="spPNameUpdate"></span>
+		<!-- 修改Modal ----------------------------------------------------------------------------->
+		<div class="modal fade" id="update" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content modal-dialog-scrollable"
+					style="width: 650px; margin: 50px auto;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">
+							修改 <i class="far fa-file-plus"></i>
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form class="container" class="box"
+							action="updateCoupon.controller" method="post"
+							enctype="multipart/form-data">
+							<div>
+								<label for="pName" style="font-weight: bold; font-size: 18px">請輸入欲變更優惠券名稱
+								</label> <input placeholder="請輸入優惠券名稱" type="text" name="pName"
+									id="pNameUpdate" required><span id="spPNameUpdate"></span><br>
+							</div>
+							<hr>
+							<div id="main">
+								<div id="left">
+									<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
+									<br> <img id="up" name="img"
+										src="images/couponPic/pic.JPG"
+										style="width: 100%; height: 50%;"><br> <input
+										type="file" name="pImg" accept="image/*"
+										onchange="loadFile2(event)" required><span
+										id="spImgInsert"></span>
+								</div>
+								<script>
+									var loadFile2 = function(event) {
+										var output2 = document
+												.getElementById('up');
+										output2.src = URL
+												.createObjectURL(event.target.files[0]);
+										output2.onload = function() {
+											URL.revokeObjectURL(output.src)
+										}
+									};
+								</script>
+								<div id="right">
+									<label for="coName">廠商名稱</label>
+									<div class="line">
+										<input placeholder="請輸入廠商名稱" type="text" name="coName"
+											id="coNameUpdate" required><span id="spCoNameUpdate"></span>
 									</div>
-									<h5>以下請輸入待修改的商品項目:</h5>
-									<div style="width: 80%; margin-left: 10%;">
-										<div>
-											<img
-												style="margin-top: -50%; border-radius: 15%; margin: 10%; width: 100%; height: 100%;"
-												id="up" name="img" src="images/couponPic/head.png"><br>
-
-											<input style="margin: -26%; width: 170%; margin-top: 2%;"
-												class="form-control" type="file" name="pImg"
-												accept="image/*" onchange="loadFile2(event)" required><br>
-
-											<script>
-											var loadFile2 = function(event) {
-												var output2 = document
-														.getElementById('up');
-												output2.src = URL
-														.createObjectURL(event.target.files[0]);
-												output2.onload = function() {
-													URL
-															.revokeObjectURL(output2.src)
-												}
-											};
-										</script>
-											<div style="margin: -26%; width: 170%; margin-top: 25%;"
-												class="input-group input-group-sm mb-3">
-												<span class="input-group-text" id="inputGroup-sizing-lg">廠商名稱:</span>
-												<input placeholder="請輸入廠商名稱" type="text" name="coName"
-													id="coNameUpdate" class="form-control"
-													aria-label="Sizing example input"
-													aria-describedby="inputGroup-sizing-sm" required><span
-													id="spCoNameUpdate"></span>
-											</div>
-										</div>
-
-
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">商品價格:</span>
-											<input placeholder="請輸入商品價格" type="text" name="price"
-												id="priceUpdate" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spPriceUpdate"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">庫存量:</span>
-											<input placeholder="請輸入庫存量" type="text" name="pQty"
-												id="pQtyUpdate" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spPQtyUpdate"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">優惠起始日:</span>
-											<input placeholder="請輸入商品優惠起始日" type="date" name="startDate"
-												id="startDateUpdate" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spStartDateUpdate"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">優惠截止日:</span>
-											<input placeholder="請輸入商品優惠截止日" type="date" name="endDate"
-												id="endDateUpdate" class="form-control"
-												aria-label="Sizing example input"
-												aria-describedby="inputGroup-sizing-sm" required><span
-												id="spEndDateUpdate"></span>
-										</div>
-
-										<div style="margin: -26%; width: 170%; margin-top: 5%;"
-											class="input-group input-group-sm mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-lg">分類名稱:</span>
-											<select name="caName" id="caNameUpdate" required>
-												<option value="">請輸入</option>
-												<option value="餐廳">餐廳</option>
-												<option value="旅遊">旅遊</option>
-												<option value="服裝">服裝</option>
-												<option value="運動">運動</option>
-											</select><span id="spCaNameUpdate"></span>
-										</div>
-
-										<div style="margin-left: 35%; margin-top: 15%;">
-											<input type="submit" value="送出"> <input type="reset"
-												value="清除">
-										</div>
+									<br> <label for="caName">分類名稱</label>
+									<div class="line">
+										<select name="caName" id="caNameUpdate" required>
+											<option value="">請選擇</option>
+											<option value="餐廳">餐廳</option>
+											<option value="旅遊">旅遊</option>
+											<option value="服裝">服裝</option>
+											<option value="運動">運動</option>
+										</select><span id="spCaNameUpdate"></span>
 									</div>
-								</fieldset>
-							</form>
-						</div>
+									<br> <label for="price">優惠券價格</label>
+									<div class="line">
+										<input placeholder="請輸入優惠券價格" type="text" name="price"
+											id="priceUpdate" required><span id="spPriceUpdate"></span>
+									</div>
+									<br> <label for="pQty">庫存量</label>
+									<div class="line">
+										<input placeholder="請輸入庫存量" type="text" id="pQtyUpdate"
+											name="pQty" required><span id="spPQtyUpdate"></span>
+									</div>
+									<br> <label for="startDate">優惠起初日</label>
+									<div class="line">
+										<input type="date" name="startDate" id="startDateUpdate"
+											required><span id="spStartDateUpdate"></span>
+									</div>
+									<br> <label for="endDate">優惠截止日</label>
+									<div class="line">
+										<input type="date" name="endDate" id="endDateUpdate" required><span
+											id="spEndDateUpdate"></span>
+									</div>
+									<br>
+
+								</div>
+							</div>
+							<div class="modal-footer">
+								<input type="submit" class="btn btn-primary" value="送出">
+								<input type="reset" class="btn btn-secondary" value="清除">
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-			<script>
+		</div>
+		<script>
 			document.getElementById("caNameUpdate").onblur = checkcaNameUpdate;
 			document.getElementById("coNameUpdate").onblur = checkCoNameUpdate;
 			document.getElementById("pNameUpdate").onblur = checkPNameUpdate;
@@ -697,46 +663,35 @@ img.error {
 				}
 			}
 		</script>
-			<!-- 修改區域!!------------------------------------------------------------------------- -->
+		<!-- 修改區域!!------------------------------------------------------------------------- -->
 
-			<!-- 刪除Modal ----------------------------------------------------------------------------->
-			<div
-				style="width: 60%; height: 85%; margin-left: 15%; margin-top: 5%;"
-				class="modal fade container" id="delete" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div style="height: 200px; width: 100%;" class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">刪除</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div
-							style="margin: 15%; margin-top: -1%; width: 60%; height: 300px"
-							class="modal-body">
-							<form action="deleteCoupon.controller" method="post">
-								<fieldset>
-									<div style="margin: -26%; width: 170%; margin-top: 10px;"
-										class="input-group input-group-sm mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-lg">商品名稱:</span>
-										<input placeholder="請輸入要刪除的商品名稱" type="text" id="pNameDelete"
-											name="pName" class="form-control"
-											aria-label="Sizing example input"
-											aria-describedby="inputGroup-sizing-sm" required><span
-											id="spPNameDelete"></span>
-									</div>
-
-									<div style="margin-left: 35%; margin-top: 15%;">
-										<input type="submit" value="送出"> <input type="reset"
-											value="修改">
-									</div>
-								</fieldset>
-							</form>
-						</div>
+		<!-- 刪除Modal ----------------------------------------------------------------------------->
+		<div class="modal fade" id="delete" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog ">
+				<div class="modal-content" style="width: 650px; margin: 50px auto;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">刪除</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
 					</div>
+					<form action="deleteCoupon.controller" method="post">
+						<div class="modal-body" id="deleteForm">
+							<label for="pName" class="lineDelete">優惠券名稱</label><br> <input
+								placeholder="請輸入要刪除的優惠券名稱" type="text" id="pNameDelete"
+								name="pName" required><span id="spPNameDelete"></span>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary" value="確認">
+							<input type="reset" class="btn btn-secondary"
+								data-bs-dismiss="modal" value="清除">
+						</div>
+					</form>
 				</div>
 			</div>
-			<script>
+		</div>
+		<script>
 			document.getElementById("pNameDelete").onblur = checkpNameDelet;
 			function checkpNameDelet() {
 				let pNameObj = document.getElementById("pNameDelete");
@@ -750,9 +705,9 @@ img.error {
 				}
 			}
 		</script>
-			<!-- 刪除區域!!------------------------------------------------------------------------- -->
-			<!-- page-content" -->
-		</div>
-		<!-- page-wrapper -->
+		<!-- 刪除區域!!------------------------------------------------------------------------- -->
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
 </body>
 </html>
