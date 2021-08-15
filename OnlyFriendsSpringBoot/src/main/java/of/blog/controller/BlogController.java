@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +19,6 @@ import of.blog.model.BlogBean;
 import of.blog.model.BlogService;
 
 @Controller
-@RequestMapping(path = "/emp")
-@SessionAttributes(names = { "allBlog", "blog" })
 public class BlogController {
 
 	@Autowired
@@ -26,19 +26,30 @@ public class BlogController {
 	@Autowired
 	private BlogBean blog;
 	
-	@RequestMapping(path = "/blogalltojson", method = RequestMethod.GET)
-	public Map signupempEntry() {
-		List<BlogBean> allBlog = bService.findAll();
+	// 進主頁controller
+	@RequestMapping(path = "/blogmgmt.controller", method = RequestMethod.GET)
+	public String blogMgmtEntry(Model model) {
+		return "blogpages/blogmgmt";
+	}
+	
+	@GetMapping(path = "/blogalltojson")
+	@ResponseBody
+	public Map allBlogToJson(Model m) {
+		System.out.println("1");
+		List<BlogBean> blogList = bService.findAll();
+		System.out.println("2");
 		Map<String, Object> map = new HashMap<>();
-		map.put("data", allBlog);
+		System.out.println("3");
+		map.put("data", blogList);
 		return map;
 	}
 	
 	//　Query
-	@PostMapping(path = "/query")
+	@PostMapping(path = "/blogquery")
 	@ResponseBody
-	public BlogBean processQueryById(@RequestParam("bid") Integer big) {
-		return bService.findById(big);
+	public BlogBean processQueryById(@RequestParam(name = "articleID") Integer Id) {
+		BlogBean blog = bService.findByArticleID(Id);
+		return blog;
 	}
 	
 }
