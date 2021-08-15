@@ -1,7 +1,14 @@
 package of.common.controller;
 
+import java.security.Principal;
+import java.util.Collection;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +36,15 @@ public class MainEntryController {
 	private Member member;
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public String mainEntry(Model model) {
+	public String mainEntry(Model model,HttpServletRequest request) {
 		try {
 			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-			System.out.println(currentUserName);
+			//System.out.println(currentUserName);
+			//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	
+			   // String username = principal.toString();
+			    //System.out.println(username);		    
+
 			String userType = usersService.findByEmail(currentUserName).getUsersRole();
 			if (userType.equals("employee")) {
 				model.addAttribute("employee", "employee");
@@ -82,4 +94,15 @@ public class MainEntryController {
 	public String loginEntry() {
 		return "login";
 	}
+	
+	@RequestMapping(path = "/chatroom.controller", method = RequestMethod.GET)
+	public String chatRoomEntry() {
+		return "chatroom";
+	}
+	
+	@RequestMapping(path = "/chatroome.controller", method = RequestMethod.GET)
+	public String chateRoomEntry() {
+		return "example";
+	}
+
 }

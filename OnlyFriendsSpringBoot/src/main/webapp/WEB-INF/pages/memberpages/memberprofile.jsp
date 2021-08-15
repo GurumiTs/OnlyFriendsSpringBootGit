@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- top side common link-->
-<%@include file="../membercommonpages/membermaintop.jsp"%>
+<%@include file="../membercommonpages/membertop.jsp"%>
 <!-- top side common link-->
 <style>
 @import url(https://fonts.googleapis.com/css?family=Montserrat:500);
@@ -141,7 +141,7 @@ supports (display: grid) { .gallery { display:grid;
 
 
 	<!-- bottom side common script-->
-	<%@include file="../membercommonpages/membermainbottom.jsp"%>
+	<%@include file="../membercommonpages/memberbottom.jsp"%>
 	<!-- bottom side common script-->
 	<script>
 		const imgContent = document.querySelectorAll('.img-content-hover');

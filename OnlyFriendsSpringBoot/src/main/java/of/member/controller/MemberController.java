@@ -38,9 +38,9 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender sender;
 	
-	@RequestMapping(path="/membermain" ,method = RequestMethod.GET )
+	@RequestMapping(path="/member" ,method = RequestMethod.GET )
 	public String memberEntry() {
-		return "memberpages/membermain" ;
+		return "memberpages/member" ;
 	}
 	
 	@RequestMapping(path="/memberprofile" ,method = RequestMethod.GET )

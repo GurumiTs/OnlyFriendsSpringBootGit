@@ -55,6 +55,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="employeemgmt.controller">Employee Mgmt</a>
               <a class="collapse-item" href="empsignup">Signup Employee</a>
+              <a class="collapse-item" href="chatroom.controller">Chat Room</a>
             </div>
           </div>
         </li>
