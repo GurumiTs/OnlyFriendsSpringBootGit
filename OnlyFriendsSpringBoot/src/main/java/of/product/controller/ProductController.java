@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,9 +70,9 @@ public class ProductController {
 			
 			String fileName=multipartFile.getOriginalFilename();
 			System.out.println("filename:"+fileName);
-			String path1=request.getServletContext().getRealPath("/images");
+			String path1=ResourceUtils.getURL("classpath:static/images/productPic").getPath();
 			System.out.println(path1);
-			String filepath=path1+"\\productPic\\"+fileName;
+			String filepath=path1+"/"+fileName;
 			File saveFile=new File(filepath);
 			System.out.println("1");
 			multipartFile.transferTo(saveFile);
