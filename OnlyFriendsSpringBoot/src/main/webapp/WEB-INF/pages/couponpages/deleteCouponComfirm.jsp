@@ -14,33 +14,37 @@
 	border-radius: 10px;
 	width: 500px;
 	height: 300px;
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 120px;
-	padding-left: 200px;
+	margin: 100px auto;
+	text-align: center;
+	padding: 100px;
 }
-#pi{margin-left: 5px;font-size: 20px;}
-#ai{margin-left: 35px;}
+
+#pi {
+	font-size: 20px;
+}
 </style>
 </head>
 <body>
-	<%@include file="../commonpages/dashboardheader1.jsp"%>
-	<div class="page-wrapper chiller-theme toggled">
-		
-		<%@include file="../commonpages/dashboardsidebar1.jsp"%>
+	<%@include file="../commonpages/dashboardtop.jsp"%>
+	<div id="wrapper">
+		<%@include file="../commonpages/dashboardsidebar.jsp"%>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<%@include file="../commonpages/dashboardheader.jsp"%>
+			
 		<main class="page-content">
 			<div class="container">
 				<div id="di">
 					<p id="pi">刪除成功!!!</p>
 					<a id="ai" href="Coupons.controller">確認</a>
 				</div>
-				<hr />
 				<%@include file="../commonpages/dashboardfooter1.jsp"%>
+				<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>
+				<%@include file="../commonpages/dashboardbottom.jsp"%>
 			</div>
 		</main>
 		<!-- page-content" -->
 	</div>
 	<!-- page-wrapper -->
-
+</div>
 </body>
 </html>

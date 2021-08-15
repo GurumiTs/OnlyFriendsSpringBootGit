@@ -14,9 +14,9 @@
 	border: 2px solid black;
 	border-radius: 10px;
 	width: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: 160px;
+	height:400px;
+	margin: 25px auto 0 auto;
+	padding: 45px 0 50px 160px;
 }
 
 #count {
@@ -26,20 +26,20 @@
 	color: black;
 	text-align: center;
 	line-height: 50px;
-	margin: 0px auto;
+	margin: 0 auto;
 	font-size: 20px;
 	font-family: monospace;
-	margin-left: auto;
-	margin-right: auto;
 	padding-left: 50px;
 }
 </style>
 </head>
 <body>
-	<%@include file="../commonpages/dashboardheader1.jsp"%>
-	<div class="page-wrapper chiller-theme toggled">
-		
-		<%@include file="../commonpages/dashboardsidebar1.jsp"%>
+	<%@include file="../commonpages/dashboardtop.jsp"%>
+	<div id="wrapper">
+		<%@include file="../commonpages/dashboardsidebar.jsp"%>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<%@include file="../commonpages/dashboardheader.jsp"%>
+
 		<main class="page-content">
 			<div class="container">
 
@@ -86,13 +86,14 @@
 						}, 1000);
 					}
 				</script>
-				<hr />
 				<%@include file="../commonpages/dashboardfooter1.jsp"%>
+				<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>
+				<%@include file="../commonpages/dashboardbottom.jsp"%>
 			</div>
 		</main>
 		<!-- page-content" -->
 	</div>
 	<!-- page-wrapper -->
-
+</div>
 </body>
 </html>
