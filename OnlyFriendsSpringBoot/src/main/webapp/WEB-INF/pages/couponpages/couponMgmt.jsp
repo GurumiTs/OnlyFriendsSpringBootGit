@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <title>Coupon</title>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style>
 #mainImg {
 	width: 90%;
@@ -20,6 +21,7 @@
 }
 
 #ul {
+width: 110%;
 	font-size: 14px;
 }
 
@@ -152,8 +154,8 @@ span {
 									<div class="card-body">
 										<img src="${find.pImg}" id="mainImg" />
 										<ul id="ul">
-											<li>商品名稱:${find.pName}</li>
-											<li>商品價格:${find.price}</li>
+											<li>優惠券名稱:${find.pName}</li>
+											<li>價格:$${find.price}</li>
 											<li>庫存量:${find.pQty}</li>
 											<li>優惠起始日:${find.startDate}</li>
 											<li>優惠截止日:${find.endDate}</li>
@@ -217,7 +219,7 @@ span {
 					style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
-							新增 <i class="far fa-file-plus"></i>
+							新增<i class="fas fa-file-plus"></i>
 						</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
@@ -444,7 +446,7 @@ span {
 					style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">
-							修改 <i class="far fa-file-plus"></i>
+							修改<i class="fas fa-file-plus"></i>
 						</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
@@ -460,7 +462,8 @@ span {
 							</div>
 							<hr>
 							<div id="main">
-								<div id="left">
+							<div id="feedback"></div>
+								  <div id="left">
 									<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
 									<br> <img id="up" name="img"
 										src="images/couponPic/pic.JPG"
@@ -529,6 +532,7 @@ span {
 				</div>
 			</div>
 		</div>
+		
 		<script>
 			document.getElementById("caNameUpdate").onblur = checkcaNameUpdate;
 			document.getElementById("coNameUpdate").onblur = checkCoNameUpdate;
@@ -662,7 +666,7 @@ span {
 					sp6.innerHTML = "<img src='images/couponPic/error.png' class='error'>請輸入";
 				}
 			}
-		</script>
+		</script> 
 		<!-- 修改區域!!------------------------------------------------------------------------- -->
 
 		<!-- 刪除Modal ----------------------------------------------------------------------------->
@@ -672,7 +676,7 @@ span {
 			<div class="modal-dialog ">
 				<div class="modal-content" style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">刪除</h5>
+						<h5 class="modal-title" id="staticBackdropLabel">刪除 <i class="fas fa-trash-alt"></i></h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
