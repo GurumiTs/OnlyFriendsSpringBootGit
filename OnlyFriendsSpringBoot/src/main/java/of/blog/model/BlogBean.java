@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "BlogBean")
 @Component("BlogBean")
 public class BlogBean implements Serializable {
-	static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ArticleID")

@@ -92,7 +92,7 @@
 										<th>Delete</th>
 									</tr>
 								</thead>
-									
+								
 								<tfoot>
 									<tr>
 										<th class="d-none">文章編號</th>
@@ -137,14 +137,42 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 	<script>
-		$(function() {
-			$(document).ready(function() {
-				$('#example').DataTable();
-			});
-		})
+		
 		function delConfirm(Name) {
 			return confirm("Delete [" + Name + "] ?");
 		}
+		
+		/* load data table */
+		var table = $('#example').DataTable({
+		    "ajax": {
+		    	"url": "blogalltojson",
+		    },
+		    "columns": [
+		        { "data": "articleID" },
+		        { "data": "images"},
+		        { "data": "title" }, 
+		        { "data": "updateTime"},		  
+		        { "data": "deptNum"},		  
+		        { "data": "empAcc"},		  
+		        { "data": "userID"},		  
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<a href='updateEntry.controller?editId="data.articleID"'><i class='fas fa-edit'></i></a>";
+		            },
+		            "targets": -1
+		        }
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<a href='deleteEntry.controller?delID="data.articleID"' onclick='return delConfirm('${bBean.articleID}')'><i class='far fa-trash-alt'></i></a>";
+		            },
+		            "targets": -1
+		        }
+		    ]
+		});		
 	</script>
  </body>
 </html>	
