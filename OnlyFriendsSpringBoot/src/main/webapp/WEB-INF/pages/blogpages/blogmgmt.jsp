@@ -73,7 +73,7 @@
 						<div class="card-body">
 							<div class="table-responsive">
 								<div class="insert">
-									<a href="blogInsertForm.controller"><img
+									<a href="empbloginsertform.controller"><img
 										src="images/smallicon/BlogmgmtInsert.png" width="45px"
 										height="45px"></a>
 								</div>
