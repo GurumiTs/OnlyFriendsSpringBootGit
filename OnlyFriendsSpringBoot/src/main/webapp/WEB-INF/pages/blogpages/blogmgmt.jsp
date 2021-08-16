@@ -161,7 +161,7 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<i class='fas fa-edit edit' id="+data.articleID+"></i>";
+		              return "<a href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit'></i>";
 		            }
 		        },
 		        {
