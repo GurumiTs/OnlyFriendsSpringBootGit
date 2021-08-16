@@ -131,10 +131,10 @@ public class ProductController {
 								@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 								@RequestParam(name = "Name") String Name,
 								@RequestParam(name = "Description") String Description,
-								@RequestParam(name = "Price") int Price,
+								@RequestParam(name = "Price") Integer Price,
 								@RequestParam(name = "Item") String Item,
-								@RequestParam(name = "Num")	int Num,
-								@RequestParam(name = "Shipping") int Shipping,HttpServletRequest request,
+								@RequestParam(name = "Num")	Integer Num,
+								@RequestParam(name = "Shipping") Integer Shipping,HttpServletRequest request,
 								Model m){
 		try {
 			

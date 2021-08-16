@@ -47,11 +47,11 @@ public class Product implements Serializable{
 		
 	}
 
-	public int getProId() {
+	public Integer getProId() {
 		return proId;
 	}
 
-	public void setProId(int proId) {
+	public void setProId(Integer proId) {
 		this.proId = proId;
 	}
 
@@ -79,11 +79,11 @@ public class Product implements Serializable{
 		this.proDescription = proDescription;
 	}
 
-	public int getProPrice() {
+	public Integer getProPrice() {
 		return proPrice;
 	}
 
-	public void setProPrice(int proPrice) {
+	public void setProPrice(Integer proPrice) {
 		this.proPrice = proPrice;
 	}
 
@@ -95,21 +95,23 @@ public class Product implements Serializable{
 		this.proItem = proItem;
 	}
 
-	public int getProNum() {
+	public Integer getProNum() {
 		return proNum;
 	}
 
-	public void setProNum(int proNum) {
+	public void setProNum(Integer proNum) {
 		this.proNum = proNum;
 	}
 
-	public int getProShipping() {
+	public Integer getProShipping() {
 		return proShipping;
 	}
 
-	public void setProShipping(int proShipping) {
+	public void setProShipping(Integer proShipping) {
 		this.proShipping = proShipping;
 	}
+
+	
 	
 	
 	
