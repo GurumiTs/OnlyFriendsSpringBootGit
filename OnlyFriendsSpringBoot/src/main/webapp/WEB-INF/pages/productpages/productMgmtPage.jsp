@@ -5,29 +5,24 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
-.edit {
-	cursor: pointer;
-	color: green;
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
 }
 
-.delete {
-	cursor: pointer;
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+#delete {
 	color: red;
+	resize: 64px;
 }
-
-.edit:hover {
-	color: green;
-}
-
-.delete:hover {
-	color: red;
-}
-
-.img1 {
-	weight: 100px;
-	height: 100px;
-}
-
 </style>
  </head>
 <body id="page-top">
@@ -75,38 +70,37 @@
 
 					
 							<th>Edit</th>
-							<th>Delete</th>
 						</tr>
 					</thead>
-<!-- 					<tbody> -->
-<%-- 					<c:if test='${not empty proList }'> --%>
-<%-- 						<c:forEach items="${proList}" var="product"> --%>
-<!-- 							<tr> -->
-<%-- 								<td id="Id">${product.proId }</td> --%>
-<%-- 								<td><img id="Photo" src="${product.proPhoto}" width="64px" height="64px"></td> --%>
-<%-- 								<td id="Name">${product.proName }</td> --%>
-<%-- 								<td id="Price">${product.proPrice }</td> --%>
-<%-- 								<td id="Item">${product.proItem }</td> --%>
-<%-- 								<td id="Num">${product.proNum}</td> --%>
-<%-- 								<td id="Shipping">${product.proShipping}</td> --%>
-<%-- 								<td id="Description">${product.proDescription}</td> --%>
-<!-- 								<script> 
-					function delConfirm(Name) {
- 										return confirm("Delete [" + Name
- 												+ "] ?");
- 									}
- 								</script> -->
+					<tbody>
+					<c:if test='${not empty proList }'>
+						<c:forEach items="${proList}" var="product">
+							<tr>
+								<td id="Id">${product.proId }</td>
+								<td><img id="Photo" src="${product.proPhoto}" width="64px" height="64px"></td>
+								<td id="Name">${product.proName }</td>
+								<td id="Price">${product.proPrice }</td>
+								<td id="Item">${product.proItem }</td>
+								<td id="Num">${product.proNum}</td>
+								<td id="Shipping">${product.proShipping}</td>
+								<td id="Description">${product.proDescription}</td>
+								<script>
+									function delConfirm(Name) {
+										return confirm("Delete [" + Name
+												+ "] ?");
+									}
+								</script>
 
-<!-- 								<td class="edit"><a -->
-<%-- 									href="updateentry.controller?editId=${product.proId }"><img --%>
-<!-- 										src="images/smallicon/edit.png" width="32px" height="32px"></a></td> -->
 <%-- 								<td class="delete"><a href="deleteentry.controller?delId=${product.proId }" --%>
 <%-- 									onclick="return delConfirm('${product.proName}');"><img --%>
 <!-- 										src="images/smallicon/trash.png" width="32px" height="32px"></a></td> -->
-<!-- 							</tr> -->
-<%-- 						</c:forEach> --%>
-<%-- 						</c:if> --%>
-<!-- 					</tbody> -->
+								<td class="edit"><a
+									href="updateentry.controller?editId=${product.proId }"><img
+										src="images/smallicon/edit.png" width="32px" height="32px"></a></td>
+							</tr>
+						</c:forEach>
+						</c:if>
+					</tbody>
 					<tfoot>
 						<tr>
 							<th>Id</th>
@@ -120,8 +114,6 @@
 
 							
 							<th>Edit</th>
-							<th>Delete</th>
-							
 						</tr>
 					</tfoot>
 				</table>
@@ -155,7 +147,7 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 		<script>
-// 		$(document).ready(function(){
+		$(document).ready(function(){
 			
 	
 		/* load data table */
@@ -165,13 +157,7 @@
 		    },
 		    "columns": [
 		        { "data": "proId" },
-		        { 
-		        	"data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<img src="+data.proPhoto+" class='img1'>";
-		            }
-		        },
+		        { "data":"proPhoto"},
 		        { "data":"proName" }, 
 		        { "data":"proPrice"},	  
 		        { "data":"proItem"},	  
@@ -182,51 +168,45 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<i class='fas fa-edit'></i>";
-		            }
-		        },
-		        {
-		            "data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<i class='far fa-trash-alt'></i>";
-		            }
+		              return "<i id="+data.Id+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.Id+"></i>";
+		            },
+		            "targets": -1
 		        }
 		    ]
 		});		
 		/* load data table */
 		
 		/*direct edit page*/
-		$('.far fa-edit').load("updateentry.controller");
+// 		$('.edit').load("updateentry.controller");
 		/*direct edit page*/
 	
 		/*show edit employee basic info*/
-// 		  $("#example tbody").DataTable {
-// 			  let product = $(this).attr("Id");
-// 			  $.ajax({
-// 				  type : "post",
-// 				  url: "productquery",   
-// 			      dataType: "json",   
-// 			      cache: false,   
-// 			      data: {"product":product}, 
-// 			      success : function(data) 
-// 			        {
-// 			    	  $('#Id').prop("value",data.Id);
-// 			    	  $('#Photo').prop("value",data.Photo);
-// 			    	  $('#Name').prop("value",data.Name);
-// 			    	  $('#Price').prop("value",data.Price);
-// 			    	  $('#Item').prop("value",data.Item);
-// 			    	  $('#Num').prop("value",data.Num);
-// 			    	  $("#Shipping").prop("value",data.Shipping);
-// 			          $("#Description").prop("value",data.Description);
+		  $("#example tbody").DataTable {
+			  let product = $(this).attr("Id");
+			  $.ajax({
+				  type : "post",
+				  url: "productquery",   
+			      dataType: "json",   
+			      cache: false,   
+			      data: {"product":product}, 
+			      success : function(data) 
+			        {
+			    	  $('#Id').prop("value",data.Id);
+			    	  $('#Photo').prop("value",data.Photo);
+			    	  $('#Name').prop("value",data.Name);
+			    	  $('#Price').prop("value",data.Price);
+			    	  $('#Item').prop("value",data.Item);
+			    	  $('#Num').prop("value",data.Num);
+			    	  $("#Shipping").prop("value",data.Shipping);
+			          $("#Description").prop("value",data.Description);
 			    	  
-// 			        },error: function(data) 
-// 			        {
-// 			           console.log('無法送出');
-// 			        }
-// 			  });			  
-// 		});
-// 		})
+			        },error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
+		});
+		})
  		/*show edit employee basic info*/
 	</script>
  </body>
