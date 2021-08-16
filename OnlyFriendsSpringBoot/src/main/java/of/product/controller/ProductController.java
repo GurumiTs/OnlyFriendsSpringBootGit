@@ -182,16 +182,16 @@ public class ProductController {
 			productService.deleteById(Id);
 		}
 	}
-	
-	@PostMapping(path = "/nameckeck.controller/{Name}")
-	public ResponseEntity<String> processnameCkeckAction(@PathVariable("Name") String Name){
-		boolean status = productService.checkName(Name);
-		
-		if(status) {
-			return new ResponseEntity<String>("Y", HttpStatus.OK);
-		}
-		
-		return new ResponseEntity<String>("N", HttpStatus.OK);
-	}
+//	
+//	@PostMapping(path = "/nameckeck.controller/{Name}")
+//	public ResponseEntity<String> processnameCkeckAction(@PathVariable("Name") String Name){
+//		boolean status = productService.checkName(Name);
+//		
+//		if(status) {
+//			return new ResponseEntity<String>("Y", HttpStatus.OK);
+//		}
+//		
+//		return new ResponseEntity<String>("N", HttpStatus.OK);
+//	}
 
 }
