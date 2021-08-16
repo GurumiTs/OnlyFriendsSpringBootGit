@@ -68,12 +68,12 @@ public class PartyController {
 //		party.setCover("images/partyPic/" + fileName);
 		
 		String fileName = cover.getOriginalFilename();
-		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
 		System.out.println(path);
 		String filePath =  path+ "/" + fileName;	
 		File saveFile = new File(filePath);
 		cover.transferTo(saveFile);
-		party.setCover("images/empPic/" + fileName);
+		party.setCover("images/partyPic/" + fileName);
 		
 
 		party.setName(name);
@@ -127,12 +127,12 @@ public class PartyController {
 //		party.setCover("images/partyPic/" + fileName);
 		
 		String fileName = cover.getOriginalFilename();
-		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
 		System.out.println(path);
 		String filePath =  path+ "/" + fileName;	
 		File saveFile = new File(filePath);
 		cover.transferTo(saveFile);
-		party.setCover("images/empPic/" + fileName);
+		party.setCover("images/partyPic/" + fileName);
 
 		party.setName(name);
 		party.setType(type);

@@ -166,7 +166,7 @@
           </div>
         </div> --> 
         <div class="col-12">
-          <button type="submit" value="Add" class="btn btn-primary">新增商品</button>
+          <button type="submit" class="btn btn-primary">新增商品</button>
         </div>
       </form>
     </div>
