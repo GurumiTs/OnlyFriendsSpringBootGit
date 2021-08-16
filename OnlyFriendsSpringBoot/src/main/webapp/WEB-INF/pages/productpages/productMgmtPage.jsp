@@ -58,8 +58,9 @@
 
 						<div class="card-body">
 							<div class="table-responsive">
-								<a href="insertProdcut.controller"><img
-									src="images/smallicon/add-file.png" width="45px" height="45px"></a>
+								<img
+									src="images/smallicon/add-file.png" class="inserticon"
+									width="45px" height="45px">
 								<table id="example" class="table table-striped"
 									style="width: 100%">
 									<thead>
@@ -184,7 +185,7 @@
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<i class='fas fa-edit'></i>";
+					return "<i class='fas fa-edit edit'></i>";
 				}
 			}, {
 				"data" : null,
@@ -194,7 +195,16 @@
 			} ]
 		});
 		/* load data table */
-
+		/*direct add page*/
+		$("#example tbody").on("click", ".inserticon", function () {
+			$.ajax({
+				type:"GET",
+				url:"insertProdcut.controller"
+			})
+		}
+		
+		/*direct add page*/
+		
 		/*direct edit page*/
 		$('.far fa-edit').load("updateentry.controller");
 		/*direct edit page*/
