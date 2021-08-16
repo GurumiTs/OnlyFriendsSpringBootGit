@@ -551,13 +551,7 @@ span {
 		                	   $('#loadbutton').click(function () {
 									
 									var pName = $('#pNameUpdate').val();
-									if (pName!=null){
-										console.log("yes");
-										console.log("a"+pName);
-									}
-									else {
-										console.log("no");
-									}
+									
 									$.ajax({
 										type:'POST',
 										url:'getAllCouponToJson.controller',
