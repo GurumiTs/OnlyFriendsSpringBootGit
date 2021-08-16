@@ -58,9 +58,8 @@
 
 						<div class="card-body">
 							<div class="table-responsive">
-								<img
-									src="images/smallicon/add-file.png" class="inserticon"
-									width="45px" height="45px">
+								<a href="insertProdcut.controller"><img
+									src="images/smallicon/add-file.png" width="45px" height="45px"></a>
 								<table id="example" class="table table-striped"
 									style="width: 100%">
 									<thead>
@@ -190,23 +189,23 @@
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<i class='far fa-trash-alt'></i>";
+					return "<i class='far fa-trash-alt delete'></i>";
 				}
 			} ]
 		});
 		/* load data table */
 		/*direct add page*/
-		$("#example tbody").on("click", ".inserticon", function () {
-			$.ajax({
-				type:"GET",
-				url:"insertProdcut.controller"
-			})
-		}
+// 		$("#example tbody").on("click", ".inserticon", function () {
+// 			$.ajax({
+// 				type:"GET",
+// 				url:"insertProdcut.controller"
+// 			})
+// 		}
 		
 		/*direct add page*/
 		
 		/*direct edit page*/
-		$('.far fa-edit').load("updateentry.controller");
+// 		$('.far fa-edit').load("updateentry.controller");
 		/*direct edit page*/
 
 		/*show edit employee basic info*/
@@ -236,6 +235,43 @@
 		//   });
 		//   })
 		/*show edit employee basic info*/
+		
+		/*delete*/
+		$("#example tbody").on("click", ".delete", function () {
+			let proId = $(this).attr("id");
+			console.log($(this).closest("tr"));
+			let dtr = $(this).closest("tr");
+			  Swal.fire({
+	                title: 'Are you sure?',
+	                text: "You won't be able to revert this!",
+	                icon: 'warning',
+	                showCancelButton: true,
+	                confirmButtonColor: '#3085d6',
+	                cancelButtonColor: '#d33',
+	                confirmButtonText: 'Yes, delete it!'
+	              }).then((result) => {
+	                if (result.isConfirmed) {
+	                  $.ajax({
+	                        type: "POST",
+	                        url: "deleteentry.controller/"+proId,
+	                        success: function(response) {  
+	                        	dtr.remove();
+	                             Swal.fire(
+	                              'Deleted!',
+	                              'Your file has been deleted.',
+	                              'success'
+	                            ) } ,
+	                            error: function (xhr) {
+	                            Swal.fire({
+	                              icon: 'error',
+	                              title: 'Oops...',
+	                              text: 'Something went wrong!'
+	                            }) },  //error close
+	                     }); //ajax close          
+	                } //if close 
+
+	           }); //then close 
+		});
 	</script>
 </body>
 </html>

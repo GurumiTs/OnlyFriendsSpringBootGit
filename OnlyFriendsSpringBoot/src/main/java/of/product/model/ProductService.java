@@ -15,6 +15,7 @@ public class ProductService {
 	private ProductRepository productRepository;
 	
 	public Product insert(Product product) {
+		System.out.println("ok");
 		return productRepository.save(product);
 	}
 	public Product update(Product product) {

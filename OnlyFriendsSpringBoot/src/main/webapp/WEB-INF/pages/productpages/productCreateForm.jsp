@@ -99,7 +99,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
 					<div class="zi_box_1">
-      <form id="addProductForm" class="row g-3"  method="post" enctype="multipart/form-data">
+      <form action="addProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
         <div class="col-md-12">
           
           <div class="mb-3">
@@ -157,9 +157,16 @@
             </div>
         </div>  
         
-        
+        <!-- <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              Check me out
+            </label>
+          </div>
+        </div> --> 
         <div class="col-12">
-          <button id="addProduct" type="submit" value="Add" class="btn btn-primary">新增商品</button>
+          <button type="submit" value="Add" class="btn btn-primary">新增商品</button>
         </div>
       </form>
     </div>
@@ -243,70 +250,70 @@
             }
             
         }
-        $(document).ready(function(){
+//         $(document).ready(function(){
         	/*send add product basic info*/
-  		 $('#addProduct').click(function(){
-			var formData = new FormData(document.getElementById("addProductForm"));
-			    $.ajax({
-			        type : "post",
-			        url:'addProduct.controller',
-			        data : formData,
-			        contentType: false,
-			        cache: false,
-			        processData: false,
-			        dataType:'text',
-			        success:function(data)
-			        {
-			        	Swal.fire(
-	                              'Success!',
-	                              '',
-	                              'success'
-	                            )		        	
-			        	table.ajax.reload();
+//   		 $('#addProduct').click(function(){
+// 			var formData = new FormData(document.getElementById("addProductForm"));
+// 			    $.ajax({
+// 			        type : "post",
+// 			        url:'addProduct.controller',
+// 			        data : formData,
+// 			        contentType: false,
+// 			        cache: false,
+// 			        processData: false,
+// 			        dataType:'text',
+// 			        success:function(data)
+// 			        {
+// 			        	Swal.fire(
+// 	                              'Success!',
+// 	                              '',
+// 	                              'success'
+// 	                            )		        	
+// 			        	table.ajax.reload();
 
-					},error:function(e){
-						console.log("error");
-					}
-			    });
-		});
+// 					},error:function(e){
+// 						console.log("error");
+// 					}
+// 			    });
+// 		});
   		/*send add product basic info*/
         	
         	
         	
         	
         	/*check name*/
-		    $("#").click(function(){
-		        var productname = $("#Name").val();
-		        console.log('productname:' + Name);
+// 		    $("#").click(function(){
+// 		        var productname = $("#Name").val();
+// 		        console.log('productname:' + Name);
 
-		        if($.trim(Name)==''){
-		           alert('productname is empty');
-		           return;
-		        }
+// 		        if($.trim(Name)==''){
+// 		           alert('productname is empty');
+// 		           return;
+// 		        }
 
-		        var params = {"productname":Name};
+// 		        var params = {"productname":Name};
 
-		        $.ajax({
-		            type:'post',
-		            url:'nameckeck.controller',
-		            contentType:'application/json',
-		            data:JSON.stringify(params),
-		            success: function(data){
-		               console.log("Success", data);
-		               if(data=='Y'){
-		                  $("#mesg").html('productname is used');
-		               }
+// 		        $.ajax({
+// 		            type:'post',
+// 		            url:'nameckeck.controller',
+// 		            contentType:'application/json',
+// 		            data:JSON.stringify(params),
+// 		            success: function(data){
+// 		               console.log("Success", data);
+// 		               if(data=='Y'){
+// 		                  $("#mesg").html('productname is used');
+// 		               }
 
-		               if(data=='N'){
-		            	  $("#mesg").html('productname is not used');
-		               }
-		            },
-		            error:function(e){
-		               console.log(e);
-		            }
-		        });
-		    });	
-		});
+// 		               if(data=='N'){
+// 		            	  $("#mesg").html('productname is not used');
+// 		               }
+// 		            },
+// 		            error:function(e){
+// 		               console.log(e);
+// 		            }
+// 		        });
+// 		    });	
+// 		});
         </script>
  </body>
 </html>	

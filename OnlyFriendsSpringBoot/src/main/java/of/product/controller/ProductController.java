@@ -69,16 +69,15 @@ public class ProductController {
 		return "productpages/productCreateForm";
 	}
 	
-	@PostMapping(path="/addProduct.controller")
-	@ResponseBody
+	@RequestMapping(path="/addProduct.controller",method =RequestMethod.POST )
 	public String productAdd(@RequestParam (name = "Id",required = false) Integer Id,
 							@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 							@RequestParam(name = "Name") String Name,
 							@RequestParam(name = "Description") String Description,
-							@RequestParam(name = "Price") int Price,
+							@RequestParam(name = "Price") Integer Price,
 							@RequestParam(name = "Item") String Item,
-							@RequestParam(name = "Num")	int Num,
-							@RequestParam(name = "Shipping") int Shipping,HttpServletRequest request,
+							@RequestParam(name = "Num")	Integer Num,
+							@RequestParam(name = "Shipping") Integer Shipping,HttpServletRequest request,
 							Model m){
 		
 		try {
@@ -169,12 +168,12 @@ public class ProductController {
 		
 	}
 	
-	@GetMapping(path="/deleteentry.controller/{Id}")
+	@PostMapping(path="/deleteentry.controller/{Id}")
 	@ResponseBody
 	public String deleteEntryPage(HttpServletRequest request) {
 		Integer Id = Integer.parseInt(request.getParameter("delId"));
 		productService.deleteById(Id);
-		return "redirect:/productPage.controller";
+		return "yes";
 	}
 	
 	@PostMapping(path = "/nameckeck.controller/{Name}")
