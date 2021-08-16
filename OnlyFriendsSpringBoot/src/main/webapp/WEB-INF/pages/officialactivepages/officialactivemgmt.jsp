@@ -37,7 +37,7 @@
 						<div class="card-body">
 							<div class="table-responsive">
 							
-								<a href="officialactivefrom.controller" ><img src="images/smallicon/add.svg" alt=""></a>
+								<a href="officialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
 							
 							<table id="example" class="table table-striped" style="width:100%">
             <thead>
@@ -86,16 +86,6 @@
 		           <td id="${oaBean.male}male">${oaBean.male}</td>
 		           <td id="${oaBean.female}female">${oaBean.female}</td>
 		        	
-		       
-		      
-		      		<script>
-									function delConfirm(Name) {
-										return confirm("Delete [" + Name
-												+ "] ?");
-									}
-								</script>
-		      
-		         
 		     
 		           <td class="edit"><a href="officialactivesaveorupdate.controller?anum=${oaBean.anum}"><i
 						class="fas fa-edit"></i></a></td>

@@ -25,19 +25,22 @@ public class OfficialActiveService {
 		return officialActiveRepository.save(officialActive);
 	}
 	
-	public OfficialActive findByAnum(int anum) {
-		Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum); 
-		if(officialActive.isPresent()) {
-		return officialActive.get();
-			}
-		return null;
-	}
+
+	
+	public OfficialActive findByAnum(Long anum) {
+		  Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum);
+		  if(officialActive.isPresent()) {
+		   return officialActive.get();
+		  }
+		  return null;
+		 }
+	
 	public List<OfficialActive> findAll(){
 		return officialActiveRepository.findAll();
 				
 	}
 	
-	public void deleteById(Integer anum) {
+	public void deleteById(Long anum) {
 		officialActiveRepository.deleteById(anum);;
 	}
 }

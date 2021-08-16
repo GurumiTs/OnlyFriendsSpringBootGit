@@ -5,41 +5,27 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
-}
-
-.img1 {
-	weight: 150px;
-	height: 150px;
-}
-
-.edit a:hover {
-	font-size: 130%;
-}
-
-.delete a:hover {
-	font-size: 130%;
+.edit {
+	cursor: pointer;
+	color: green;
 }
 
 .delete {
 	cursor: pointer;
+	color: red;
 }
 
-.insert a img:hover {
-	width: 50px;
-	height: 50px;
-	display: block;
+.edit:hover {
+	color: green;
+}
+
+.delete:hover {
+	color: red;
+}
+
+.img1 {
+	weight: 100px;
+	height: 100px;
 }
 </style>
 </head>
@@ -66,42 +52,43 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Blog Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 
 						<div class="card-body">
 							<div class="table-responsive">
-								<div class="insert">
-									<a href="empbloginsertform.controller"><img
-										src="images/smallicon/BlogmgmtInsert.png" width="45px"
-										height="45px"></a>
-								</div>
+								<a href="insertProdcut.controller"><img
+									src="images/smallicon/add-file.png" width="45px" height="45px"></a>
 								<table id="example" class="table table-striped"
 									style="width: 100%">
 									<thead>
 										<tr>
-											<th>ID</th>
-											<th>Images</th>
-											<th>Title</th>
-											<th>UpdateDate</th>
-											<th>EmpAcc</th>
-											<th>UserID</th>
+											<th>Id</th>
+											<th>Photo</th>
+											<th>Name</th>
+											<th>Price</th>
+											<th>Item</th>
+											<th>Num</th>
+											<th>Shipping</th>
+											<th>Description</th>
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
 									</thead>
-
 									<tfoot>
 										<tr>
-											<th class="d-none">文章編號</th>
-											<th class="d-none">圖片</th>
-											<th class="d-none">文章標題</th>
-											<th class="d-none">最後更新時間</th>
-											<th class="d-none">PO文者帳號</th>
-											<th class="d-none">暱稱</th>
-											<th class="d-none">Edit</th>
-											<th class="d-none">Del</th>
+											<th>Id</th>
+											<th>Photo</th>
+											<th>Name</th>
+											<th>Price</th>
+											<th>Item</th>
+											<th>Num</th>
+											<th>Shipping</th>
+											<th>Description</th>
+											<th>Edit</th>
+											<th>Delete</th>
+
 										</tr>
 									</tfoot>
 								</table>
@@ -135,48 +122,50 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 	<script>
-		function delConfirm(Name) {
-			return confirm("Delete [" + Name + "] ?");
-		}
-		
+		//   $(document).ready(function(){
+
 		/* load data table */
 		var table = $('#example').DataTable({
-		    "ajax": {
-		    	"url": "blogalltojson",
-		    },
-		    "columns": [
-		        { "data": "articleID" },
-		        { 
-		        	"data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<img src="+data.images+" class='img1'>";
-		            }
-		        },
-		        { "data": "title" }, 
-		        { "data": "updateTime"},		  
-		        { "data": "empAcc"},		  
-		        { "data": "userID"},		  
-		        {
-		            "data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<a href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit'></i>";
-		            }
-		        },
-		        {
-		            "data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
-		            }
-		        }
-		    ]
+			"ajax" : {
+				"url" : "product.controller",
+			},
+			"columns" : [ {
+				"data" : "proId"
+			}, {
+				"data" : null,
+				render : function(data, type, row) {
+					return "<img src="+data.proPhoto+" class='img1'>";
+				}
+			}, {
+				"data" : "proName"
+			}, {
+				"data" : "proPrice"
+			}, {
+				"data" : "proItem"
+			}, {
+				"data" : "proNum"
+			}, {
+				"data" : "proShipping"
+			}, {
+				"data" : "proDescription"
+			}, {
+				"data" : null,
+				render : function(data, type, row) {
+					return "<a href='updateentry.controller?Id="+data.proId+"'><i class='fas fa-edit'></i>";
+				}
+			}, {
+				"data" : null,
+				render : function(data, type, row) {
+					return "<i class='far fa-trash-alt delete' id="+data.proId+"></i>";
+				}
+			} ]
 		});
+		/* load data table */
 		
-		// Delete
+		
+		/*delete*/
 		$("#example tbody").on("click", ".delete", function () {
-			let articleID = $(this).attr("id");
+			let proId = $(this).attr("id");
 			console.log($(this).closest("tr"));
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
@@ -191,7 +180,7 @@
 	                if (result.isConfirmed) {
 	                  $.ajax({
 	                        type: "POST",
-	                        url: "empblogdelete/"+articleID,
+	                        url: "deleteentry.controller/"+proId,
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(
@@ -210,8 +199,6 @@
 
 	           }); //then close 
 		});
-		
 	</script>
 </body>
 </html>
-

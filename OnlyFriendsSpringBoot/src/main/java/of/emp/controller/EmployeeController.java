@@ -122,6 +122,7 @@ public class EmployeeController {
 		try {
 			String fileName = multipartFile.getOriginalFilename();
 			String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+			System.out.println(path);
 			String filePath =  path+ "/" + fileName;	
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
