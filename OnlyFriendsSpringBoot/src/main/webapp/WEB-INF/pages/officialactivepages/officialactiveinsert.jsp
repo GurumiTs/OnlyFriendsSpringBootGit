@@ -84,7 +84,7 @@
 
 
         <div class="container">
-            <form action="officialactivepages/officialactivpinsert" method="post"  enctype="multipart/form-data">
+            <form action="officialActiveInsert.controller" method="post"  enctype="multipart/form-data">
 
 
                 <div>
@@ -155,17 +155,17 @@
                 </div>
 
                 <div>
-
-
                     活動地點:
-                
                     <div id="twzipcode"></div>
-            
-
                 </div>
                 <br> 活動圖片上傳
                 <div class=" mb-2">
-                    <input type="file" class="form-control" id="activeFile" name="activeFile">
+                    <input type="file" class="form-control" id="activeFile" name="activeFile"  multiple onchange="lovdFile(event)">
+                
+                <div class="">
+                <img id="output" src=" " alt=""><br>
+
+              </div>
                 </div>
 
 
@@ -213,7 +213,44 @@
                             zipcodeIntoDistrict: true,
                         });
                     })
+                    
+                    
+                               // 照片顯示
+   					var lovdFile = function (event) {
+      					var output = document.getElementById('output');
+     					 	output.src = URL.createObjectURL(event.target.files[0]);
+      						output.onload = function () {
+        					URL.revokeObjectURL(output.src)
+     						 }
+   					 }
+    				// 照片欄位判定
+    				document.getElementById("cover").addEventListener("blur", checkcover);
+
+   						function checkcover() {
+     						let cover = document.getElementById("cover");
+      						let coverVal = cover.value;
+						    let sp_cover = document.getElementById("sp_cover");
+						    let coverCheck = /\.jpg$/;
+						    	if (coverVal == "") sp_cover.innerHTML = "請上傳照片";
+						      		else if (coverCheck.test(coverVal) == false)
+						        		sp_cover.innerHTML = "僅支援 .jpg 檔案"
+						      		else sp_cover.innerHTML = "成功"
+						    }
+   						
+   						
+   						$(function(){
+   				            $("#inlineFormCustomSelectPref").val(active.getAtype1)
+   				            
+   				        })
+   				        	$(function(){
+   				            $("#inlineFormCustomSelectPref").val(active.getAtype1)
+   				            
+   				        })
+   						
+   						
                     </script>
+                       
+                       
                        
                   
 
