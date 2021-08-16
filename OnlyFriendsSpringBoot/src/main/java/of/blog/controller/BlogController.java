@@ -1,12 +1,21 @@
 package of.blog.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import of.blog.model.BlogBean;
 import of.blog.model.BlogService;
@@ -63,5 +73,105 @@ public class BlogController {
 		}
 			return "fail";
 	}
+	
+	// 進新增controller
+	@RequestMapping(path = "empbloginsertform.controller", method = RequestMethod.GET)
+	public String processIntoInsert(Model model) {
+		return "blogpages/blogInsert";
+	}
 
+	@RequestMapping(path = "/empaddBlog.controller", method = RequestMethod.POST)
+	public String blogAdd(@RequestParam(name = "images") MultipartFile multipartFile,
+						  @RequestParam(name = "empAcc") String empAcc, 
+						  @RequestParam(name = "userID") String userID,
+						  @RequestParam(name = "title") String title, 
+						  @RequestParam(name = "mainText") String mainText,
+						  Model m) {
+
+		try {
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			blog.setEmpAcc(empAcc);
+			blog.setUserID(userID);
+			blog.setTitle(title);
+			blog.setMainText(mainText);
+			blog.setCreateTime(ts);
+			blog.setUpdateTime(ts);
+			System.out.println("Insert time:" + ts);
+
+			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
+			String fileName = multipartFile.getOriginalFilename();
+			System.out.println("fileName:" + fileName);
+			String saveFilePath = ResourceUtils.getURL("classpath:static/images/blogPic").getPath();
+			System.out.println("saveFilePath:" + saveFilePath);
+			String filePath = saveFilePath + "/" + fileName;
+			File saveFile = new File(filePath);
+			multipartFile.transferTo(saveFile);
+			System.out.println("filePath:" + filePath);
+			blog.setImages("images/blogPic/" + fileName);
+
+			bService.insertBlog(blog);
+
+			return "redirect:empblogmgmt.controller";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:empbloginsertform.controller";
+		}
+
+	}
+	// update
+	@RequestMapping(path = "updateEntry.controller", method = RequestMethod.GET)
+	public String updateEntry(HttpServletRequest request, Model m) {
+		Integer Id = Integer.parseInt(request.getParameter("editId"));
+		blog = bService.findByArticleID(Id);
+		m.addAttribute("blog", blog);
+		return "blogpages/blogUpdate";
+	}
+
+	@RequestMapping(path = "blogUpdate.controller", method = RequestMethod.POST)
+	public String updateBlog(@RequestParam(name = "articleId") int articleID,
+							 @RequestParam(name = "images") MultipartFile multipartFile, 
+							 @RequestParam(name = "empAcc") String empAcc,
+							 @RequestParam(name = "userID") String userID, 
+							 @RequestParam(name = "title") String title,
+							 @RequestParam(name = "mainText") String mainText, 
+							 HttpServletRequest request, Model m) {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		System.out.println("UpdateTime:" + ts);
+
+		try {
+			BlogBean bBean = new BlogBean();
+			System.out.println("blogUpdate.controller ID:" + articleID);
+
+			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
+			String fileName = multipartFile.getOriginalFilename();
+			System.out.println("fileName:" + fileName);
+			String saveFilePath = request.getServletContext().getRealPath("/images");
+			System.out.println("saveFilePath:" + saveFilePath);
+			String filePath = saveFilePath + "\\blogPic\\" + fileName;
+			File saveFile = new File(filePath);
+			multipartFile.transferTo(saveFile);
+			System.out.println("filePath:" + filePath);
+
+			bBean.setImages("images/blogPic/" + fileName);
+			bBean.setArticleID(articleID);
+			bBean.setEmpAcc(empAcc);
+			bBean.setUserID(userID);
+			bBean.setTitle(title);
+			bBean.setMainText(mainText);
+			bBean.setUpdateTime(ts);
+
+			bService.updateBlog(bBean);
+
+//				List<BlogBean> blogList = blogService.selectAll();
+//				m.addAttribute("allblog", blogList);
+
+			return "redirect:blogmgmt.controller";
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.addAttribute("errors", "Something is wrong!");
+			return "blogpages/blogUpdate";
+		}
+	}
+	
+	
 }

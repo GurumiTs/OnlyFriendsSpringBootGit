@@ -51,7 +51,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Insert New Article</h1>
 					<div class="box1">
-					<form class="row g-3" action="blogUpdate.controller" method="post"
+					<form class="row g-3" action="empblogUpdate.controller" method="post"
 					enctype="multipart/form-data">
 					<legend style="text-align: center;">更新資料</legend>
 					<div class="mb-3">
