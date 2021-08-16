@@ -4,8 +4,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OfficialActiveRepository extends JpaRepository<OfficialActive, Integer> {
+public interface OfficialActiveRepository extends JpaRepository<OfficialActive,Long> {
 		   
-	public Optional<OfficialActive> findByAnum(Integer anum);
+	public Optional<OfficialActive> findByAnum(Long anum);
+	
 		}
 

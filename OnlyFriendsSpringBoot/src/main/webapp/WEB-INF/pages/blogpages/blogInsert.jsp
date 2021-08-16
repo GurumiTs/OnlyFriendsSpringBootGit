@@ -56,7 +56,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Insert New Article</h1>
 					<div class="box1">
-					<form class="row" action="addBlog.controller" method="post"
+					<form class="row" action="empaddBlog.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="col-md-12">
 
@@ -110,7 +110,7 @@
 							<!-- <input type="submit" name="confirm" value="送出"> -->
 							<button type="submit" class="btn btn-primary">送出</button>
 
-							<button onclick="location.href='blogmgmt.controller'"
+							<button onclick="location.href='empblogmgmt.controller'"
 								type="button" class="btn btn-primary">返回</button>
 							<!--  οnclick="javascript:history.back(-1)" -->
 						</div>

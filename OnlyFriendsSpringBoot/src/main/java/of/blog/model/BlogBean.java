@@ -113,6 +113,7 @@ public class BlogBean implements Serializable {
 
 	public BlogBean(Integer articleID, String title, Timestamp createTime, Timestamp updateTime, String mainText,
 			String images, String empAcc, String userID) {
+		super();
 		this.articleID = articleID;
 		this.title = title;
 		this.createTime = createTime;
