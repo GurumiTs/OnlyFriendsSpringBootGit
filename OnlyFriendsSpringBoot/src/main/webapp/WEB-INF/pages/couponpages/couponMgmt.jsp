@@ -8,7 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <title>Coupon</title>
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 #mainImg {
 	width: 90%;
@@ -21,7 +25,7 @@
 }
 
 #ul {
-width: 110%;
+	width: 110%;
 	font-size: 14px;
 }
 
@@ -58,7 +62,7 @@ img.error {
 	margin-top: 72.19px;
 }
 
-input[type=text], [type=date], #caNameInsert,#caNameUpdate {
+input[type=text], [type=date], #caNameInsert, #caNameUpdate {
 	width: 70%;
 	box-sizing: border-box;
 	border: 3px solid #555;
@@ -86,12 +90,14 @@ span {
 .lineDelete {
 	margin-bottom: -10px;
 }
-#pNameUpdate{
-			width: 50%;
-			margin: -10px auto -35px auto;
-		}
 
-.fileplus{width: 30%;
+#pNameUpdate {
+	width: 50%;
+	margin: -10px auto -35px auto;
+}
+
+.fileplus {
+	width: 30%;
 }
 </style>
 </head>
@@ -455,18 +461,18 @@ span {
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form class="container" class="box"
-							action="updateCoupon.controller" method="post"
-							enctype="multipart/form-data">
 							<div>
 								<label for="pName" style="font-weight: bold; font-size: 18px">請輸入欲變更優惠券名稱
 								</label> <input placeholder="請輸入優惠券名稱" type="text" name="pName"
-									id="pNameUpdate" required><span id="spPNameUpdate"></span><br>
+									id="pNameUpdate" required><button id="loadbutton">load</button><span id="spPNameUpdate"></span><br>
 							</div>
 							<hr>
+							<form class="container" class="box"
+							action="updateCoupon.controller" method="post"
+							enctype="multipart/form-data">
 							<div id="main">
-							<div id="feedback"></div>
-								  <div id="left">
+								<div id="feedback"></div>
+								<div id="left">
 									<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
 									<br> <img id="up" name="img"
 										src="images/couponPic/pic.JPG"
@@ -487,7 +493,12 @@ span {
 									};
 								</script>
 								<div id="right">
-									<label for="coName">廠商名稱</label>
+								    <label for="pName" class="formName">優惠券名稱</label>
+									<div class="line">
+										<input placeholder="請輸入優惠券名稱" type="text" name="pName"
+											id="pNameUpdate2" required><span id="spPNameInsert"></span>
+									</div>
+									<br><label for="coName">廠商名稱</label>
 									<div class="line">
 										<input placeholder="請輸入廠商名稱" type="text" name="coName"
 											id="coNameUpdate" required><span id="spCoNameUpdate"></span>
@@ -514,12 +525,12 @@ span {
 									</div>
 									<br> <label for="startDate">優惠起初日</label>
 									<div class="line">
-										<input type="date" name="startDate" id="startDateUpdate"
+										<input type="date" name="startDate" id="startDateUpdate" 
 											required><span id="spStartDateUpdate"></span>
 									</div>
 									<br> <label for="endDate">優惠截止日</label>
 									<div class="line">
-										<input type="date" name="endDate" id="endDateUpdate" required><span
+										<input type="date" name="endDate" id="endDateUpdate" required ><span
 											id="spEndDateUpdate"></span>
 									</div>
 									<br>
@@ -535,7 +546,47 @@ span {
 				</div>
 			</div>
 		</div>
-		
+		<script>
+		                  
+		                	   $('#loadbutton').click(function () {
+									
+									var pName = $('#pNameUpdate').val();
+									if (pName!=null){
+										console.log("yes");
+										console.log("a"+pName);
+									}
+									else {
+										console.log("no");
+									}
+									$.ajax({
+										type:'POST',
+										url:'getAllCouponToJson.controller',
+										data:{"pName":pName},
+										dataType:'json',
+										success:function(data){ 
+											$('#up').attr("src",data.pImg);
+											$('#pNameUpdate2').val(data.pName);
+											$('#coNameUpdate').val(data.coName);
+											$('#caNameUpdate').val(data.caName);
+											$('#priceUpdate').val(data.price);
+											$('#pQtyUpdate').val(data.pQty);
+											$('#startDateUpdate').val(data.startDate);
+											$('#endDateUpdate').val(data.endDate);	 
+											
+										},error:function(data) 
+								        {
+									         alert('無此優惠券名稱');
+									        }
+								   
+									})
+								});
+		                	   
+		                	   
+		                	   
+		                   
+							
+
+						</script>
 		<script>
 			document.getElementById("caNameUpdate").onblur = checkcaNameUpdate;
 			document.getElementById("coNameUpdate").onblur = checkCoNameUpdate;
@@ -669,7 +720,7 @@ span {
 					sp6.innerHTML = "<img src='images/couponPic/error.png' class='error'>請輸入";
 				}
 			}
-		</script> 
+		</script>
 		<!-- 修改區域!!------------------------------------------------------------------------- -->
 
 		<!-- 刪除Modal ----------------------------------------------------------------------------->
@@ -679,7 +730,9 @@ span {
 			<div class="modal-dialog ">
 				<div class="modal-content" style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">刪除 <i class="fas fa-trash-alt"></i></h5>
+						<h5 class="modal-title" id="staticBackdropLabel">
+							刪除 <i class="fas fa-trash-alt"></i>
+						</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
