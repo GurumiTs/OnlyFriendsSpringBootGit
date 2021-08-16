@@ -189,20 +189,11 @@
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<i class='far fa-trash-alt delete'></i>";
+					return "<i class='far fa-trash-alt delete' id="+data.proId+"></i>";
 				}
 			} ]
 		});
 		/* load data table */
-		/*direct add page*/
-// 		$("#example tbody").on("click", ".inserticon", function () {
-// 			$.ajax({
-// 				type:"GET",
-// 				url:"insertProdcut.controller"
-// 			})
-// 		}
-		
-		/*direct add page*/
 		
 		/*direct edit page*/
 // 		$('.far fa-edit').load("updateentry.controller");

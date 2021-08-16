@@ -114,7 +114,7 @@ public class ProductController {
 
 	
 	
-	@GetMapping(path="/updateentry.controller")
+	@RequestMapping(path="/updateentry.controller",method = RequestMethod.GET)
 	public String updateEntryPage(HttpServletRequest request,Model model) {
 		Integer Id = Integer.parseInt(request.getParameter("editId"));
 		product = productService.findById(Id);
@@ -124,9 +124,7 @@ public class ProductController {
 	}
 	
 	
-	
-	@PutMapping(path="/updateProduct.controller/{Id}" )
-	@ResponseBody
+	@RequestMapping(path="/updateProduct.controller",method =RequestMethod.POST )
 	public String productupdate(@PathVariable (name = "Id",required = false) Integer Id,
 								@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 								@RequestParam(name = "Name") String Name,
@@ -157,8 +155,8 @@ public class ProductController {
 			multipartFile.transferTo(saveFile);
 			product.setProPhoto("images/productPic/"+fileName);
 			productService.update(product);
-//			List<Product> proList=productService.findAll();
-//			m.addAttribute("proList",proList);
+			List<Product> proList=productService.findAll();
+			m.addAttribute("proList",proList);
 			
 			return "redirect:/productPage.controller";
 		} catch (Exception e) {
@@ -170,10 +168,13 @@ public class ProductController {
 	
 	@PostMapping(path="/deleteentry.controller/{Id}")
 	@ResponseBody
-	public String deleteEntryPage(HttpServletRequest request) {
-		Integer Id = Integer.parseInt(request.getParameter("delId"));
-		productService.deleteById(Id);
-		return "yes";
+	public void deleteEntryPage(@PathVariable("Id") Integer Id) {
+		System.out.println("Id"+Id);
+		
+		boolean delete=productService.checkproId(Id);
+		if (delete) {
+			productService.deleteById(Id);
+		}
 	}
 	
 	@PostMapping(path = "/nameckeck.controller/{Name}")
