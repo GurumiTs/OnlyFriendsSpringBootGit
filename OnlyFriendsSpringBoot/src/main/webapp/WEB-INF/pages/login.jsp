@@ -22,6 +22,10 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
+ <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />		
 <base target="_self" />
 <title>Welcome Onlyfriends</title>
 <style>
@@ -31,7 +35,17 @@
 </style>
 </head>
 <body>
-	<%@include file="./commonpages/header.jsp"%>
+	<c:choose>
+		<c:when test="${not empty employee}">
+			<%@include file="./commonpages/loginedheader.jsp"%>
+		</c:when>
+		<c:when test="${not empty member}">
+			<%@include file="./membercommonpages/memberloginedheader.jsp"%>
+		</c:when>
+		<c:otherwise>
+			<%@include file="./commonpages/header.jsp"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="container">
 		<div

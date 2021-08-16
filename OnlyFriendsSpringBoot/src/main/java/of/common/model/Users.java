@@ -31,6 +31,10 @@ public class Users implements Serializable{
 		this.usersPassword = usersPassword;
 		this.usersRole = usersRole;
 	}
+	public Users(String usersEmail,String usersRole) {
+		this.usersEmail = usersEmail;
+		this.usersRole = usersRole;
+	}
 
 	public String getUsersEmail() {
 		return usersEmail;

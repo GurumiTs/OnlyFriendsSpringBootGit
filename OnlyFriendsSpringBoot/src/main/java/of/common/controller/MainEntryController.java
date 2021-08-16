@@ -2,17 +2,24 @@ package of.common.controller;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import of.common.model.UsersService;
@@ -22,7 +29,7 @@ import of.member.model.Member;
 import of.member.model.MemberService;
 
 @Controller
-@SessionAttributes(names = { "personalinfo", "member", "employee" })
+@SessionAttributes(names = { "personalinfo", "member", "employee","totalPages","totalElements"})
 public class MainEntryController {
 	@Autowired
 	private EmployeeService empService;
@@ -38,14 +45,10 @@ public class MainEntryController {
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String mainEntry(Model model,HttpServletRequest request) {
 		try {
-			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-			//System.out.println(currentUserName);
-			//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	
-			   // String username = principal.toString();
-			    //System.out.println(username);		    
-
+			
+			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();			
 			String userType = usersService.findByEmail(currentUserName).getUsersRole();
+			System.out.println(userType);
 			if (userType.equals("employee")) {
 				model.addAttribute("employee", "employee");
 				Employee employee = empService.findByEmpEmail(currentUserName);
@@ -54,7 +57,7 @@ public class MainEntryController {
 			}
 			if (userType.equals("member")) {
 				model.addAttribute("member", "member");
-				Member member =memberService.findByMemberEmail(currentUserName);
+				Member member = memberService.findByMemberAccount(currentUserName);
 				model.addAttribute("personalinfo",member);
 				
 			}
@@ -79,7 +82,7 @@ public class MainEntryController {
 			}
 			if (userType.equals("member")) {
 				model.addAttribute("member", "member");
-				Member member =memberService.findByMemberEmail(currentUserName);
+				Member member =memberService.findByMemberAccount(currentUserName);
 				model.addAttribute("personalinfo",member);
 				
 			}
@@ -100,9 +103,34 @@ public class MainEntryController {
 		return "chatroom";
 	}
 	
-	@RequestMapping(path = "/chatroome.controller", method = RequestMethod.GET)
-	public String chateRoomEntry() {
-		return "example";
+	@RequestMapping(path = "/shopitem.controller", method = RequestMethod.GET)
+	public String shopItemEntry() {
+		return "frontcommonpages/shopitemexample";
 	}
+	
+	@RequestMapping(path = "/shop.controller", method = RequestMethod.GET)
+	public String shopEntry() {
+		return "frontcommonpages/shopexample";
+	}
+	
+	@PostMapping(path = "/queryallbypage/{pageNo}")
+	@ResponseBody
+	public List<Employee> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
+		
+		int pageSize = 2;
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		Page<Employee> page = empService.findAllByPage(pageable);
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+		
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+		
+		return page.getContent();
+	}
+	
+	
+	
 
 }

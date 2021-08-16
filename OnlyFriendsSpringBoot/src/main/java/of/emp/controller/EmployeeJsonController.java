@@ -41,6 +41,13 @@ public class EmployeeJsonController {
 		map.put("data", empList);
 		return map;
 	}
+	
+//	@PostMapping(path = "/alltojsonarray")
+//	@ResponseBody
+//	public List<Employee> allEmployeeToJsonArray(Model m) {
+//		List<Employee> empList = empService.findAll();	
+//		return empList;
+//	}
 
 	@PostMapping(path = "/empquery")
 	@ResponseBody
