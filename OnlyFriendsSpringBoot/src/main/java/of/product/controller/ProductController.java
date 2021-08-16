@@ -13,12 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,23 +35,28 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	
-	@GetMapping(path = "/productPage.controller")
-	public String productEntryAction(Model model){
-		List<Product> proList=productService.findAll();
-		model.addAttribute("proList",proList);
+//	@GetMapping(path = "/productPage.controller")
+//	public String productEntryAction(Model model){
+//		List<Product> proList=productService.findAll();
+//		model.addAttribute("proList",proList);
+//		return "productpages/productMgmtPage";
+//	}
+	
+	@RequestMapping(path = "/productPage.controller", method = RequestMethod.GET)
+	public String blogMgmtEntry(Model model) {
 		return "productpages/productMgmtPage";
 	}
 	
-//	@GetMapping(path = "/productPage.controller")
-//	@ResponseBody
-//	public Map productEntryAction(Model model){
-//		List<Product> proList=productService.findAll();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("data", proList);
-//		model.addAttribute("proList",proList);
-//		return map;
-//	}
-//	
+	@GetMapping(path = "/product.controller")
+	@ResponseBody
+	public Map productEntryAction(Model model){
+		List<Product> proList=productService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", proList);
+		model.addAttribute("proList",proList);
+		return map;
+	}
+	
 	@PostMapping(path="/productquery")
 	@ResponseBody
 	public Product processRestQueryProduct(@RequestParam(name = "Id") Integer Id) {
