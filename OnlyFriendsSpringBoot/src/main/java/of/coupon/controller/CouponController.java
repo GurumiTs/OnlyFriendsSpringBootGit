@@ -53,16 +53,14 @@ public class CouponController {
 
 	@PostMapping("/getByCaName.controller")
 	public String showCaName(@RequestParam String queryVal, Model m) {
-		List<Coupon> coupons = couponService.findByCaName(queryVal);
-		
+		List<Coupon> coupons = couponService.findByCaName(queryVal);	
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
 
 	@PostMapping("/getByLike.controller")
 	public String showLike(@RequestParam String queryVal, Model m) {
-		List<Coupon> coupons = couponService.findBypNameLike("%"+queryVal+"%");
-		
+		List<Coupon> coupons = couponService.findBypNameLike("%"+queryVal+"%");	
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
