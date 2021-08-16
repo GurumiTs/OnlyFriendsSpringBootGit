@@ -39,4 +39,9 @@ public class BlogService {
 		return blogRepository.findAll();
 	}
 	
+	public Boolean checkArticleID(Integer articleId) {
+		Optional<BlogBean> bOptional = blogRepository.findById(articleId);
+		return bOptional.isPresent();
+	}
+	
 }
