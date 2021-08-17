@@ -22,7 +22,7 @@ public class OfficialActive {
 	@Id
 	@Column(name="Anum")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long anum; // 活動編號 PK(1,1)  
+	private long anum; // 活動編號 PK(1,1)  
 	@Column(name="Aname")
 	private String aname;//管理者名稱
 	@Column(name="Atype")
@@ -62,7 +62,7 @@ public class OfficialActive {
 		return anum;
 	}
 
-	public void setAnum(Long anum) {
+	public void setAnum(long anum) {
 		this.anum = anum;
 	}
 

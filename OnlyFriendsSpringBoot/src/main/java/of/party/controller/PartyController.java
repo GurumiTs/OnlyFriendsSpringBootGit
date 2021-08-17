@@ -31,7 +31,7 @@ public class PartyController {
 	private Party party;
 
 	// 會員活動管理首頁
-	@RequestMapping(path = "/partymgmt.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/emppartymgmt.controller", method = RequestMethod.GET)
 	public String partyEntry(Model model) {
 		List<Party> partyList = partyService.selectAll();
 		model.addAttribute("partyList", partyList);
@@ -41,13 +41,13 @@ public class PartyController {
 	}
 
 	// 進新增controller
-	@RequestMapping(path = "/partyadd.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/emppartyadd.controller", method = RequestMethod.GET)
 	public String processIntoInsert() {
 		return "partypages/partyadd";
 	}
 
 	// 新增會員活動
-	@RequestMapping(path = "/partyinsert.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/emppartyinsert.controller", method = RequestMethod.POST)
 	public String partadd(@RequestParam(name = "cover") MultipartFile cover, @RequestParam(name = "name") String name,
 			@RequestParam(name = "type") String type, @RequestParam(name = "time") String time,
 			@RequestParam(name = "time_up") String time_up, @RequestParam(name = "county") String county,
@@ -94,11 +94,11 @@ public class PartyController {
 
 		partyService.add(party);
 
-		return "redirect:/partymgmt.controller";
+		return "redirect:/emppartymgmt.controller";
 	}
 
 	// 修改
-	@RequestMapping(path = "/partyupenty.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/emppartyupenty.controller", method = RequestMethod.GET)
 	public String partyupenty(HttpServletRequest request, Model model) {
 		Integer number = Integer.parseInt(request.getParameter("number"));
 		party = partyService.select(number);
@@ -106,7 +106,7 @@ public class PartyController {
 		return "partypages/partyup";
 	}
 
-	@RequestMapping(path = "/partyup.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/emppartyup.controller", method = RequestMethod.POST)
 	public String partup(@RequestParam(name = "cover") MultipartFile cover, @RequestParam(name = "name") String name,
 			@RequestParam(name = "type") String type, @RequestParam(name = "time") String time,
 			@RequestParam(name = "time_up") String time_up, @RequestParam(name = "county") String county,
@@ -156,11 +156,11 @@ public class PartyController {
 
 		m.addAttribute("partyList", partyList);
 
-		return "redirect:/partymgmt.controller";
+		return "redirect:/emppartymgmt.controller";
 	}
 
 	// 刪除
-	@RequestMapping(path = "/deleteparty.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empdeleteparty.controller", method = RequestMethod.POST)
 	public String deleteEmployee(@RequestParam(name = "number") String number, Model model) {
 		String id = number;
 		System.out.println(number);
@@ -169,7 +169,7 @@ public class PartyController {
 //		List<Party> partyList = partyService.selectAll();
 //		model.addAttribute("partyList", partyList);
 
-		return "partypages/partymgmt";
+		return "partypages/emppartymgmt";
 	}
 
 }

@@ -30,14 +30,14 @@
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Blog Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">Official Active</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 						
 						<div class="card-body">
 							<div class="table-responsive">
 							
-								<a href="officialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
+								<a href="empofficialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
 							
 							<table id="example" class="table table-striped" style="width:100%">
             <thead>
@@ -87,9 +87,9 @@
 		           <td id="${oaBean.female}female">${oaBean.female}</td>
 		        	
 		     
-		           <td class="edit"><a href="officialactivesaveorupdate.controller?anum=${oaBean.anum}"><i
+		           <td class="edit"><a href="empofficialactivesaveorupdate.controller?anum=${oaBean.anum}"><i
 						class="fas fa-edit"></i></a></td>
-					<td class="delete"><a href="deleteofficailactive.controller?anum=${oaBean.anum}">
+					<td class="delete"><a href="empdeleteofficailactive.controller?anum=${oaBean.anum}">
 						<i class="far fa-trash-alt"></i></a></td>
 							</c:forEach>
 									</c:if>

@@ -83,7 +83,7 @@
 
 
         <div class="container">
-            <form action="officialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
+            <form action="empofficialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
  		<div>                              
                     <lebel>請輸入欲修改活動ID:<input type="text" name="anum" size="20" placeholder="請輸入活動ID..." disabled="disabled" value="${officialActive.anum}" ></lebel>
                     <input type="hidden" name="anum" size="20" placeholder="請輸入活動ID..." value="${officialActive.anum}">
@@ -179,7 +179,9 @@
                     <br>
 
                     <button type="submit" class="btn btn-lg btn-primary">確認送出</button>
-                    <button type="button" class="btn btn-secondary btn-lg" disabled>取消</button>
+                    <button onclick="location.href='empofficialactivemgmt.controller'"
+								type="button" class="btn btn-lg btn-primary">返回</button>
+                  <!--  <button type="button" class="btn btn-secondary btn-lg" disabled>取消</button> --> 
                     
                 </div>
                 

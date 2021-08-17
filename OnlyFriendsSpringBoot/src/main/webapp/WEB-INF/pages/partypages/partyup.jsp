@@ -44,7 +44,7 @@ textarea {
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">新增會員活動</h1>
+					<h1 class="h3 mb-2 text-gray-800">會員修改活動</h1>
 					
 					<div class="card shadow mb-4">
 						<div class="card-body">
@@ -54,7 +54,7 @@ textarea {
 					<div class="st1">
 					<!-- 活動欄位 -->
 					<!-- <legend><strong>創辦活動(測試版)</strong></legend>-->
-					<form action="partyup.controller" method="post"
+					<form action="emppartyup.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">

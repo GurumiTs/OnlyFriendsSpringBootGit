@@ -26,7 +26,7 @@ public class CouponController {
 	@Autowired
 	private CouponService couponService; 
 	
-	@GetMapping("/Coupons.controller")
+	@GetMapping("/empCoupons.controller")
 	public String processEntry(Model m) {
 		List<Coupon> coupons = couponService.findAll();
 		
@@ -36,14 +36,13 @@ public class CouponController {
 	
 	@PostMapping("/getAllCouponToJson.controller")
 	@ResponseBody
-	public Coupon showAllCouponToJson(@RequestParam String pName) {
+	public Coupon showAllCouponToJson(@RequestParam String pName) throws InterruptedException {
 		Coupon coupons = couponService.findBypName(pName);
-		System.out.println(pName);
-		System.out.println("123");
+		Thread.sleep(1000);
 		return coupons;
 	}
 
-	@GetMapping("/getAllCoupon.controller")
+	@GetMapping("/empgetAllCoupon.controller")
 	public String showAllCoupon(Model m) {
 		List<Coupon> coupons = couponService.findAll();
 		
@@ -51,21 +50,21 @@ public class CouponController {
 		return "couponpages/couponMgmt";
 	}
 
-	@PostMapping("/getByCaName.controller")
+	@PostMapping("/empgetByCaName.controller")
 	public String showCaName(@RequestParam String queryVal, Model m) {
 		List<Coupon> coupons = couponService.findByCaName(queryVal);	
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
 
-	@PostMapping("/getByLike.controller")
+	@PostMapping("/empgetByLike.controller")
 	public String showLike(@RequestParam String queryVal, Model m) {
 		List<Coupon> coupons = couponService.findBypNameLike("%"+queryVal+"%");	
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
 
-	@PostMapping("/deleteCoupon.controller")
+	@PostMapping("/empdeleteCoupon.controller")
 	public String deleteCoupon(@RequestParam String pName) {
 		
 		Coupon c = couponService.findBypName(pName);
@@ -79,7 +78,7 @@ public class CouponController {
 		
 	}
 
-	@PostMapping("/insertCoupon.controller")
+	@PostMapping("/empinsertCoupon.controller")
 	public String insertCoupon(@RequestParam("pImg") MultipartFile multipartFile, HttpServletRequest request,
 			@RequestParam String coName, @RequestParam String caName, @RequestParam String pName,
 			@RequestParam String price, @RequestParam String pQty, @RequestParam String startDate,
@@ -114,7 +113,7 @@ public class CouponController {
 		
 	}
 
-	@PostMapping("/updateCoupon.controller")
+	@PostMapping("/empupdateCoupon.controller")
 	public String updateCoupon(@RequestParam("pImg") MultipartFile multipartFile, HttpServletRequest request,
 			@RequestParam String coName, @RequestParam String caName, @RequestParam String pName,
 			@RequestParam String price, @RequestParam String pQty, @RequestParam String startDate,
