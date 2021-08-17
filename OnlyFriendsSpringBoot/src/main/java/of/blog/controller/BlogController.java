@@ -77,7 +77,7 @@ public class BlogController {
 	}
 	
 	// 進新增controller
-	@RequestMapping(path = "empbloginsertform.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/empbloginsertform.controller", method = RequestMethod.GET)
 	public String processIntoInsert(Model model) {
 		return "blogpages/blogInsert";
 	}
@@ -121,7 +121,7 @@ public class BlogController {
 
 	}
 	// update
-	@GetMapping(path = "empupdateentry.controller")
+	@GetMapping(path = "/empupdateentry.controller")
 	public String updateEntry(@RequestParam(name = "articleID") Integer articleID, Model m) {
 //		Integer Id = Integer.parseInt(articleID);
 		System.out.println("Find articleID:" + articleID + ",to Updatepages" );
@@ -130,7 +130,7 @@ public class BlogController {
 		return "blogpages/blogUpdate";
 	}
 
-	@RequestMapping(path = "empblogUpdate.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empblogUpdate.controller", method = RequestMethod.POST)
 	public String updateBlog(@RequestParam(name = "articleId") int articleID,
 							 @RequestParam(name = "images") MultipartFile multipartFile, 
 							 @RequestParam(name = "empAcc") String empAcc,

@@ -54,7 +54,7 @@ textarea {
 					<div class="st1">
 					<!-- 活動欄位 -->
 					<!-- <legend><strong>創辦活動(測試版)</strong></legend>-->
-					<form action="partyup.controller" method="post"
+					<form action="emppartyup.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">
