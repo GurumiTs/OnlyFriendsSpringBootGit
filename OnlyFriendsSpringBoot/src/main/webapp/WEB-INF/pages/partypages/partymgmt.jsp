@@ -203,7 +203,7 @@
 
                 $.ajax({
                       type: "POST",
-                      url: "deleteparty.controller",
+                      url: "empdeleteparty.controller",
                       data: {"number" : id},
                       success: function(response) {                 
                            Swal.fire(

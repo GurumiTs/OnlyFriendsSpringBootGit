@@ -94,7 +94,7 @@ public class PartyController {
 
 		partyService.add(party);
 
-		return "redirect:/partymgmt.controller";
+		return "redirect:/emppartymgmt.controller";
 	}
 
 	// 修改
@@ -156,11 +156,11 @@ public class PartyController {
 
 		m.addAttribute("partyList", partyList);
 
-		return "redirect:/partymgmt.controller";
+		return "redirect:/emppartymgmt.controller";
 	}
 
 	// 刪除
-	@RequestMapping(path = "/deleteparty.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empdeleteparty.controller", method = RequestMethod.POST)
 	public String deleteEmployee(@RequestParam(name = "number") String number, Model model) {
 		String id = number;
 		System.out.println(number);
@@ -169,7 +169,7 @@ public class PartyController {
 //		List<Party> partyList = partyService.selectAll();
 //		model.addAttribute("partyList", partyList);
 
-		return "partypages/partymgmt";
+		return "partypages/emppartymgmt";
 	}
 
 }
