@@ -180,7 +180,7 @@
 	                if (result.isConfirmed) {
 	                  $.ajax({
 	                        type: "POST",
-	                        url: "deleteentry.controller/"+proId,
+	                        url: "empdeleteentry.controller/"+proId,
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(

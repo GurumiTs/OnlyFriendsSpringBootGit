@@ -73,7 +73,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
 					<div class="zi_box_1">
-      <form action="updateProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
+      <form action="empupdateProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
         <div class="col-md-12">
       
           <div class="mb-3">

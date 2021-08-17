@@ -116,7 +116,7 @@ public class ProductController {
 	}
 	
 	
-	@RequestMapping(path="/updateProduct.controller",method =RequestMethod.POST )
+	@RequestMapping(path="/empupdateProduct.controller",method =RequestMethod.POST )
 	public String productupdate(@RequestParam (name = "Id",required = false) Integer proId,
 								@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 								@RequestParam(name = "Name") String proName,
