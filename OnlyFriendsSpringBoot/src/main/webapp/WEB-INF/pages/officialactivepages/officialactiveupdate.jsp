@@ -83,7 +83,7 @@
 
 
         <div class="container">
-            <form action="officialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
+            <form action="empofficialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
  		<div>                              
                     <lebel>請輸入欲修改活動ID:<input type="text" name="anum" size="20" placeholder="請輸入活動ID..." disabled="disabled" value="${officialActive.anum}" ></lebel>
                     <input type="hidden" name="anum" size="20" placeholder="請輸入活動ID..." value="${officialActive.anum}">
