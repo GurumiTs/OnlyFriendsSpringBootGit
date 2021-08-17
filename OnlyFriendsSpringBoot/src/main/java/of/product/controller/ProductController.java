@@ -50,7 +50,7 @@ public class ProductController {
 		return map;
 	}
 	
-	@PostMapping(path="/productquery")
+	@PostMapping(path="/empproductquery")
 	@ResponseBody
 	public Product processRestQueryProduct(@RequestParam(name = "Id") Integer Id) {
 		Product product = productService.findById(Id);
@@ -62,7 +62,7 @@ public class ProductController {
 		return "productpages/productCreateForm";
 	}
 	
-	@RequestMapping(path="/addProduct.controller",method =RequestMethod.POST )
+	@RequestMapping(path="/empaddProduct.controller",method =RequestMethod.POST )
 	public String productAdd(@RequestParam (name = "Id",required = false) Integer Id,
 							@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 							@RequestParam(name = "Name") String Name,
