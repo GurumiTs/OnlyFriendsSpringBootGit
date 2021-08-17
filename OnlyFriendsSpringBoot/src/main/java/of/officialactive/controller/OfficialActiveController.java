@@ -41,7 +41,7 @@ public class OfficialActiveController {
 		return "officialactivepages/officialactiveinsert";
 	}
 
-	@RequestMapping(path = "/officialActiveInsert.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empofficialActiveInsert.controller", method = RequestMethod.POST)
 	public String officialActiveAdd(@RequestParam(name = "activeFile") MultipartFile img,
 			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
 		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
