@@ -213,9 +213,9 @@
                           ) } ,
                           error: function (xhr) {
                           Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!'
+                            icon: 'success',
+                            title: 'Deleted...',
+                            text: 'Your file has been deleted.'
 
                           }) },  //error close
                    }); //ajax close
