@@ -155,7 +155,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="productPage.controller">Product</a>
+              <a class="collapse-item" href="empproductPage.controller">Product</a>
             </div>
           </div>
         </li>

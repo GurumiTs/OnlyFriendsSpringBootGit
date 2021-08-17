@@ -4,24 +4,7 @@
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
-<script>
-			
-			var xhttp = new XMLHttpRequest();
-			function checkForm(){
-				let name=document.getElementById("Name").value;
-				xhttp.onreadystatechange = function(){
-					if(this.readyState ==4 && this.status ==200){
-						
-						document.getElementById("mesg").innerHTML
-							=this.responseText;
-					}
-				};
-				xhttp.open("GET","productCheckCreateName.jsp?Name="+name,true);
-				xhttp.send();
-				return false;
-				
-			}
-		</script>
+
  <style>
     
       .textarea{resize:none}

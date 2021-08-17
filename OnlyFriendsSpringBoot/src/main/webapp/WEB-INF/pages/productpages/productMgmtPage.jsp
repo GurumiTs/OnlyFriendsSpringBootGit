@@ -58,7 +58,7 @@
 
 						<div class="card-body">
 							<div class="table-responsive">
-								<a href="insertProdcut.controller"><img
+								<a href="empinsertProdcut.controller"><img
 									src="images/smallicon/add-file.png" width="45px" height="45px"></a>
 								<table id="example" class="table table-striped"
 									style="width: 100%">
@@ -151,7 +151,7 @@
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<a href='updateentry.controller?Id="+data.proId+"'><i class='fas fa-edit'></i>";
+					return "<a href='empupdateentryproduct.controller?Id="+data.proId+"'><i class='fas fa-edit'></i>";
 				}
 			}, {
 				"data" : null,
