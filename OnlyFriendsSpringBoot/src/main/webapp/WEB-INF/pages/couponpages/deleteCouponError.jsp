@@ -35,7 +35,7 @@
 				<div class="container">
 					<div id="di">
 						<p id="pi">刪除失敗!!!</p>
-						<a href="Coupons.controller">返回</a>
+						<a href="empCoupons.controller">返回</a>
 					</div>
 					<%@include file="../commonpages/dashboardfooter1.jsp"%>
 					<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>

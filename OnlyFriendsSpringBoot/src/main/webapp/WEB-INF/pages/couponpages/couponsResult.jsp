@@ -5,7 +5,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8" />
-<meta http-equiv="refresh" content="8; url=Coupons.controller">
+<meta http-equiv="refresh" content="8; url=empCoupons.controller">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <title>Coupons Result</title>
@@ -62,7 +62,7 @@
 						<br />
 						<div>優惠截止日: ${find.endDate}</div>
 						<br />
-						<!--   <br> <a href="Coupons.controller">確認</a>-->
+						<!--   <br> <a href="empCoupons.controller">確認</a>-->
 
 					</div>
 				</form>
