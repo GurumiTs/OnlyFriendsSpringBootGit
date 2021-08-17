@@ -1,6 +1,7 @@
 package of.member.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +32,40 @@ public class Member implements Serializable{
 	@Column(name="memberEmailCheckNum")
 	private String memberEmailCheckNum;
 	
+	@Column(name = "memberAuth")
+	private int memberAuth;
+	
+	@Column(name = "memberAge")
+	private int memberAge;
+	
+	@Column(name = "memberPhone")
+	private String memberPhone;
+	
+	@Column(name = "memberAddress")
+	private String memberAddress;
+	
+	@Column(name = "memberCounty")
+	private String memberCounty;
+	
+	@Column(name = "memberDistrict")
+	private String memberDistrict;
+	
+	@Column(name = "memberZipcode")
+	private String memberZipcode;
+	
+	@Column(name = "tagOne")
+	private String tagOne;
+	
+	@Column(name = "tagTwo")
+	private String tagTwo;
+	
+	@Column(name = "tagThree")
+	private String tagThree;
+	
+	@Column(name = "personalInfo")
+	private String personalInfo;
+	
+	
 	public Member() {}
 	
 	public Member(String memberEmail,String memberName,String memberPic) {
@@ -39,8 +74,7 @@ public class Member implements Serializable{
 		this.memberPic = memberPic;
 	}
 	
-	
-	
+
 	public String getMemberAccount() {
 		return memberAccount;
 	}
@@ -52,12 +86,15 @@ public class Member implements Serializable{
 	public String getMemberEmail() {
 		return memberEmail;
 	}
+
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
+
 	public String getMemberName() {
 		return memberName;
 	}
+
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
@@ -85,6 +122,98 @@ public class Member implements Serializable{
 	public void setMemberEmailCheckNum(String memberEmailCheckNum) {
 		this.memberEmailCheckNum = memberEmailCheckNum;
 	}
+
+	public int getMemberAuth() {
+		return memberAuth;
+	}
+
+	public void setMemberAuth(int memberAuth) {
+		this.memberAuth = memberAuth;
+	}
+
+	public int getMemberAge() {
+		return memberAge;
+	}
+
+	public void setMemberAge(int memberAge) {
+		this.memberAge = memberAge;
+	}
+
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+
+	public String getMemberAddress() {
+		return memberAddress;
+	}
+
+	public void setMemberAddress(String memberAddress) {
+		this.memberAddress = memberAddress;
+	}
+
+	public String getMemberCounty() {
+		return memberCounty;
+	}
+
+	public void setMemberCounty(String memberCounty) {
+		this.memberCounty = memberCounty;
+	}
+
+	public String getMemberDistrict() {
+		return memberDistrict;
+	}
+
+	public void setMemberDistrict(String memberDistrict) {
+		this.memberDistrict = memberDistrict;
+	}
+
+	public String getMemberZipcode() {
+		return memberZipcode;
+	}
+
+	public void setMemberZipcode(String memberZipcode) {
+		this.memberZipcode = memberZipcode;
+	}
+
+	public String getTagOne() {
+		return tagOne;
+	}
+
+	public void setTagOne(String tagOne) {
+		this.tagOne = tagOne;
+	}
+
+	public String getTagTwo() {
+		return tagTwo;
+	}
+
+	public void setTagTwo(String tagTwo) {
+		this.tagTwo = tagTwo;
+	}
+
+	public String getTagThree() {
+		return tagThree;
+	}
+
+	public void setTagThree(String tagThree) {
+		this.tagThree = tagThree;
+	}
+
+	public String getPersonalInfo() {
+		return personalInfo;
+	}
+
+	public void setPersonalInfo(String personalInfo) {
+		this.personalInfo = personalInfo;
+	}
+	
+	
+	
+	
 	
 	
 

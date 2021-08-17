@@ -33,10 +33,8 @@
             justify-content-center
           "
           id="itemarea"
-        >
+        >    
         
-
-    
       </div>
       
       <table id="showpage" class="d-flex justify-content-center">
@@ -49,7 +47,8 @@
 		</tr>
 	</table>
       </div>
-    </section>    
+    </section>  
+    <!-- items Section-->  
     <!-- Footer-->
     <%@include file="../commonpages/footer.jsp"%>
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
