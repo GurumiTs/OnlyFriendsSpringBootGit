@@ -11,13 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,14 +29,14 @@ public class OfficialActiveController {
 	@Autowired
 	private OfficialActive officialActive;
 
-	@RequestMapping(path = "/officialactivemgmt.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/empofficialactivemgmt.controller", method = RequestMethod.GET)
 	public String singupempEntry(Model model) {
 		List<OfficialActive> allofficialActive = officialActiveService.findAll();
 		model.addAttribute("allofficialActive", allofficialActive);
 		return "officialactivepages/officialactivemgmt";
 	}
 
-	@RequestMapping(path = "/officialactiveform.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/empofficialactiveform.controller", method = RequestMethod.GET)
 	public String processIntoInsert() {
 		return "officialactivepages/officialactiveinsert";
 	}
@@ -78,13 +74,13 @@ public class OfficialActiveController {
 		officialActive.setMale(male);
 		officialActive.setFemale(female);
 		officialActiveService.insert(officialActive);
-		return "redirect:/officialactivemgmt.controller";
+		return "redirect:/empofficialactivemgmt.controller";
 	}
 		
 	
 	//修改
 	
-	@RequestMapping(path = "/officialactivesaveorupdate.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/empofficialactivesaveorupdate.controller", method = RequestMethod.GET)
 	public String processIntoUpdate(HttpServletRequest request,Model model) {
 		Long anum = Long.parseLong(request.getParameter("anum"));
 		officialActive = officialActiveService.findByAnum(anum);
@@ -92,7 +88,7 @@ public class OfficialActiveController {
 		return "officialactivepages/officialactiveupdate";
 	}
 	
-	@RequestMapping(path = "/officialActiveUpdate.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empofficialActiveUpdate.controller", method = RequestMethod.POST)
 	public String officialActiveUpdate(@RequestParam(name = "activeFile") MultipartFile img,
 			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
 		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
@@ -133,24 +129,24 @@ public class OfficialActiveController {
 		List<OfficialActive> officialActiveList = officialActiveService.findAll();
 		
 				model.addAttribute("officialActiveList",officialActiveList);
-				return "redirect:/officialactivemgmt.controller";
+				return "redirect:/empofficialactivemgmt.controller";
 		}catch (Exception e) {
 			model.addAttribute("error!");
-			return "redirect:/officialactivemgmt.controller";
+			return "redirect:/empofficialactivemgmt.controller";
 		}
 		
 		}
 	
 		
 		//刪除
-		@RequestMapping(path="/deleteofficailactive.controller" , method = RequestMethod.GET)
+		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.GET)
 		public String deleteOfficialActive(@RequestParam(name = "anum") Long anum, Model model) {
 			System.out.println(anum);
 			officialActive = officialActiveService.findByAnum(anum);
 			System.out.println(officialActive);
 			model.addAttribute("officialActive",officialActive);
 			officialActiveService.deleteById(anum);
-			return"redirect:/officialactivemgmt.controller";
+			return"redirect:/empofficialactivemgmt.controller";
 	
 	}
 //		@GetMapping(path = "/deletea/{anum}")
