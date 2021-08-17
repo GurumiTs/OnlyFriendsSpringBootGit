@@ -13,7 +13,10 @@ import org.springframework.stereotype.Component;
 @Component("member")
 public class Member implements Serializable{
 	
-	@Id@Column(name="memberEmail")
+	@Id@Column(name="memberAccount")
+	private String memberAccount;
+	
+	@Column(name="memberEmail")
 	private String memberEmail;
 	
 	@Column(name="memberName")
@@ -36,6 +39,16 @@ public class Member implements Serializable{
 		this.memberPic = memberPic;
 	}
 	
+	
+	
+	public String getMemberAccount() {
+		return memberAccount;
+	}
+
+	public void setMemberAccount(String memberAccount) {
+		this.memberAccount = memberAccount;
+	}
+
 	public String getMemberEmail() {
 		return memberEmail;
 	}
