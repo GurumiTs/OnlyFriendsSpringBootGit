@@ -114,9 +114,8 @@ public class ProductController {
 
 	
 	
-	@GetMapping(path="/updateentry.controller")
-	public String updateEntryPage(HttpServletRequest request,Model model) {
-		Integer Id = Integer.parseInt(request.getParameter("editId"));
+	@RequestMapping(path="/updateentry.controller",method = RequestMethod.GET)
+	public String updateEntryPage(@RequestParam(name = "Id") Integer Id,Model model) {
 		product = productService.findById(Id);
 		model.addAttribute("product",product);
 		System.out.println(Id);
@@ -124,38 +123,43 @@ public class ProductController {
 	}
 	
 	
-	
-	@PutMapping(path="/updateProduct.controller/{Id}" )
-	@ResponseBody
-	public String productupdate(@PathVariable (name = "Id",required = false) Integer Id,
+	@RequestMapping(path="/updateProduct.controller",method =RequestMethod.POST )
+	public String productupdate(@RequestParam (name = "Id",required = false) Integer proId,
 								@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
-								@RequestParam(name = "Name") String Name,
-								@RequestParam(name = "Description") String Description,
-								@RequestParam(name = "Price") Integer Price,
-								@RequestParam(name = "Item") String Item,
-								@RequestParam(name = "Num")	Integer Num,
-								@RequestParam(name = "Shipping") Integer Shipping,HttpServletRequest request,
+								@RequestParam(name = "Name") String proName,
+								@RequestParam(name = "Description") String proDescription,
+								@RequestParam(name = "Price") Integer proPrice,
+								@RequestParam(name = "Item") String proItem,
+								@RequestParam(name = "Num")	Integer proNum,
+								@RequestParam(name = "Shipping") Integer proShipping,HttpServletRequest request,
 								Model m){
 		try {
 			
-			Product product=productService.findById(Id);
-			product.setProId(Id);
-			product.setProName(Name);
-			product.setProDescription(Description);
-			product.setProPrice(Price);
-			product.setProItem(Item);
-			product.setProNum(Num);
-			product.setProShipping(Shipping);
-			System.out.println(Id);
-			System.out.println(Name);
+			product.setProId(proId);
+			product.setProName(proName);
+			product.setProDescription(proDescription);
+			product.setProPrice(proPrice);
+			product.setProItem(proItem);
+			product.setProNum(proNum);
+			product.setProShipping(proShipping);
+			System.out.println(proId);
+			System.out.println(proName);
+			System.out.println(proDescription);
+			System.out.println(proPrice);
+			System.out.println(proNum);
+			System.out.println(proShipping);
+			
 			String fileName=multipartFile.getOriginalFilename();
 			System.out.println("filename:"+fileName);
 			String path1=ResourceUtils.getURL("classpath:static/images/productPic").getPath();
 			System.out.println(path1);
 			String filepath=path1+"/"+fileName;
 			File saveFile=new File(filepath);
+			System.out.println("1");
 			multipartFile.transferTo(saveFile);
+			System.out.println("2");
 			product.setProPhoto("images/productPic/"+fileName);
+			System.out.println("3");
 			productService.update(product);
 //			List<Product> proList=productService.findAll();
 //			m.addAttribute("proList",proList);
@@ -170,21 +174,24 @@ public class ProductController {
 	
 	@PostMapping(path="/deleteentry.controller/{Id}")
 	@ResponseBody
-	public String deleteEntryPage(HttpServletRequest request) {
-		Integer Id = Integer.parseInt(request.getParameter("delId"));
-		productService.deleteById(Id);
-		return "yes";
-	}
-	
-	@PostMapping(path = "/nameckeck.controller/{Name}")
-	public ResponseEntity<String> processnameCkeckAction(@PathVariable("Name") String Name){
-		boolean status = productService.checkName(Name);
+	public void deleteEntryPage(@PathVariable("Id") Integer Id) {
+		System.out.println("Id"+Id);
 		
-		if(status) {
-			return new ResponseEntity<String>("Y", HttpStatus.OK);
+		boolean delete=productService.checkproId(Id);
+		if (delete) {
+			productService.deleteById(Id);
 		}
-		
-		return new ResponseEntity<String>("N", HttpStatus.OK);
 	}
+//	
+//	@PostMapping(path = "/nameckeck.controller/{Name}")
+//	public ResponseEntity<String> processnameCkeckAction(@PathVariable("Name") String Name){
+//		boolean status = productService.checkName(Name);
+//		
+//		if(status) {
+//			return new ResponseEntity<String>("Y", HttpStatus.OK);
+//		}
+//		
+//		return new ResponseEntity<String>("N", HttpStatus.OK);
+//	}
 
 }

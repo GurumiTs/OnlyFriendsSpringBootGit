@@ -4,26 +4,6 @@
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
-<script>
-			
-// 			var xhttp = new XMLHttpRequest();
-// 			function checkForm(){
-// 				let name=document.getElementById("Name").value;
-// 				xhttp.onreadystatechange = function(){
-// 					if(this.readyState ==4 && this.status ==200){
-						
-// 						document.getElementById("mesg").innerHTML
-// 							=this.responseText;
-// 					}
-// 				};
-// 				xhttp.open("GET","insertProdcut.controller?Name="+name,true);
-// 				xhttp.send();
-// 				return false;
-				
-// 			}
-			
-			
-		</script>
 <style>
       .zi_box_1 {
             border: 2px solid white;
@@ -112,7 +92,7 @@
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">商品名稱</span>
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
-            	name="Name" id="Name" onblur="checkForm()"/><span id="mesg"></span><br>
+            	name="Name" id="Name" required/><span id="mesg"></span><br>
           </div>
         </div>
        
@@ -202,6 +182,18 @@
    				URL.revokeObjectURL(output.src)
    			}
    		};
+   		document.getElementById("Name").onblur=checkName;
+        function checkName(){
+            let sp=document.getElementById("mesg");
+            let theNameVal=document.getElementById("Name").value;
+            console.log(theNameVal);
+            if(theNameVal != ""){
+                        sp.innerHTML='<img id="check" src="images/smallicon/check.png" > ';
+            }else{
+                sp.innerHTML='<img id="error" src="images/smallicon/error.png"> 不可空白'; 
+            }
+            
+        }
    		document.getElementById("Price").onblur=checkPrice;
         function checkPrice(){
             let sp=document.getElementById("idsp");
@@ -250,70 +242,8 @@
             }
             
         }
-//         $(document).ready(function(){
-        	/*send add product basic info*/
-//   		 $('#addProduct').click(function(){
-// 			var formData = new FormData(document.getElementById("addProductForm"));
-// 			    $.ajax({
-// 			        type : "post",
-// 			        url:'addProduct.controller',
-// 			        data : formData,
-// 			        contentType: false,
-// 			        cache: false,
-// 			        processData: false,
-// 			        dataType:'text',
-// 			        success:function(data)
-// 			        {
-// 			        	Swal.fire(
-// 	                              'Success!',
-// 	                              '',
-// 	                              'success'
-// 	                            )		        	
-// 			        	table.ajax.reload();
-
-// 					},error:function(e){
-// 						console.log("error");
-// 					}
-// 			    });
-// 		});
-  		/*send add product basic info*/
-        	
-        	
-        	
-        	
-        	/*check name*/
-// 		    $("#").click(function(){
-// 		        var productname = $("#Name").val();
-// 		        console.log('productname:' + Name);
-
-// 		        if($.trim(Name)==''){
-// 		           alert('productname is empty');
-// 		           return;
-// 		        }
-
-// 		        var params = {"productname":Name};
-
-// 		        $.ajax({
-// 		            type:'post',
-// 		            url:'nameckeck.controller',
-// 		            contentType:'application/json',
-// 		            data:JSON.stringify(params),
-// 		            success: function(data){
-// 		               console.log("Success", data);
-// 		               if(data=='Y'){
-// 		                  $("#mesg").html('productname is used');
-// 		               }
-
-// 		               if(data=='N'){
-// 		            	  $("#mesg").html('productname is not used');
-// 		               }
-// 		            },
-// 		            error:function(e){
-// 		               console.log(e);
-// 		            }
-// 		        });
-// 		    });	
-// 		});
+         
+		
         </script>
  </body>
 </html>	

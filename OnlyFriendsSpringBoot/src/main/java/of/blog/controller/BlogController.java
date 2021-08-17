@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -119,57 +121,61 @@ public class BlogController {
 
 	}
 	// update
-	@RequestMapping(path = "updateEntry.controller", method = RequestMethod.GET)
-	public String updateEntry(HttpServletRequest request, Model m) {
-		Integer Id = Integer.parseInt(request.getParameter("editId"));
-		blog = bService.findByArticleID(Id);
+	@GetMapping(path = "empupdateentry.controller")
+	public String updateEntry(@RequestParam(name = "articleID") Integer articleID, Model m) {
+//		Integer Id = Integer.parseInt(articleID);
+		System.out.println("Find articleID:" + articleID + ",to Updatepages" );
+		blog = bService.findByArticleID(articleID);
 		m.addAttribute("blog", blog);
 		return "blogpages/blogUpdate";
 	}
 
-	@RequestMapping(path = "blogUpdate.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "empblogUpdate.controller", method = RequestMethod.POST)
 	public String updateBlog(@RequestParam(name = "articleId") int articleID,
 							 @RequestParam(name = "images") MultipartFile multipartFile, 
 							 @RequestParam(name = "empAcc") String empAcc,
 							 @RequestParam(name = "userID") String userID, 
 							 @RequestParam(name = "title") String title,
-							 @RequestParam(name = "mainText") String mainText, 
-							 HttpServletRequest request, Model m) {
+							 @RequestParam(name = "mainText") String mainText,
+							 @RequestParam(name = "createTime") Timestamp createTime,
+//							 @RequestParam(name = "createTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date d1,
+//							 @RequestParam(name = "createTime") Date d1,
+							 Model m) {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		System.out.println("UpdateTime:" + ts);
 
 		try {
-			BlogBean bBean = new BlogBean();
 			System.out.println("blogUpdate.controller ID:" + articleID);
 
 			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
 			String fileName = multipartFile.getOriginalFilename();
 			System.out.println("fileName:" + fileName);
-			String saveFilePath = request.getServletContext().getRealPath("/images");
+			String saveFilePath = ResourceUtils.getURL("classpath:static/images/blogPic").getPath();
 			System.out.println("saveFilePath:" + saveFilePath);
-			String filePath = saveFilePath + "\\blogPic\\" + fileName;
+			String filePath = saveFilePath + "/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
+			blog.setImages("images/blogPic/" + fileName);
+			System.out.println(createTime);
+			blog.setCreateTime(createTime);
+			blog.setArticleID(articleID);
+			blog.setEmpAcc(empAcc);
+			blog.setUserID(userID);
+			blog.setTitle(title);
+			blog.setMainText(mainText);
+			blog.setUpdateTime(ts);
 
-			bBean.setImages("images/blogPic/" + fileName);
-			bBean.setArticleID(articleID);
-			bBean.setEmpAcc(empAcc);
-			bBean.setUserID(userID);
-			bBean.setTitle(title);
-			bBean.setMainText(mainText);
-			bBean.setUpdateTime(ts);
-
-			bService.updateBlog(bBean);
+			bService.updateBlog(blog);
 
 //				List<BlogBean> blogList = blogService.selectAll();
 //				m.addAttribute("allblog", blogList);
 
-			return "redirect:blogmgmt.controller";
+			return "redirect:empblogmgmt.controller";
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("errors", "Something is wrong!");
-			return "blogpages/blogUpdate";
+			return "redirect:empupdateentry.controller";
 		}
 	}
 	

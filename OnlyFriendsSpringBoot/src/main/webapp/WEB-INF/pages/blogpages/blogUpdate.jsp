@@ -58,7 +58,9 @@
 						<label>文章編號:</label> <input name="articleId" disabled="disabled"
 							size="3" value="${blog.articleID}" /> <input type="hidden"
 							name="articleId" size="3" value="${blog.articleID}" /> <em
-							name="errors">${errors}</em>
+							name="errors">${errors}</em><br/>
+						<label>建立時間:</label> <input name="createTime" disabled="disabled" size="22" value="${blog.createTime}" />
+						<input type="hidden" name="createTime" size="22" value="${blog.createTime}" />
 					</div>
 					<!-- 圖片 -->
 					<div style="margin: auto; text-align: center">
@@ -105,7 +107,8 @@
 						<div style="margin: 10px auto; text-align: center;">
 							<!-- <input type="submit" name="confirm" value="送出"> -->
 							<button type="submit" class="btn btn-primary">送出</button>
-							<button onclick="location.href='blogmgmt.controller'"
+							
+							<button onclick="location.href='empblogmgmt.controller'"
 								type="button" class="btn btn-primary">返回</button>
 							<!--  οnclick="javascript:history.back(-1)" -->
 						</div>

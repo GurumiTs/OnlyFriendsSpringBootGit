@@ -23,8 +23,8 @@ public class MemberService {
 	public void deleteById(String email) {
 		memberRepository.deleteById(email);
 	}
-	public Member findByMemberEmail(String email) {
-		Optional<Member> employeeOptional = memberRepository.findByMemberEmail(email);
+	public Member findByMemberAccount(String account) {
+		Optional<Member> employeeOptional = memberRepository.findByMemberAccount(account);
 		return employeeOptional.get();
 	}
 	public List<Member> findAll() {

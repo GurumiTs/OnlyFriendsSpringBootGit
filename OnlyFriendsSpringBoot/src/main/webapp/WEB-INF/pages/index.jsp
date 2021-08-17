@@ -21,12 +21,10 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
-<style>
-* {
-	font-family: 'Noto Sans TC', sans-serif;
-}
-</style>
-
+ <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />	
 <base target="_self" />
 <title>Welcome Onlyfriends</title>
 </head>
@@ -1546,7 +1544,7 @@ to {
 	<script src="https://kit.fontawesome.com/1a950be563.js"
 		crossorigin="anonymous"></script>
 	<script>
-	<!-- check login session -->
+	
 		
 	
 		

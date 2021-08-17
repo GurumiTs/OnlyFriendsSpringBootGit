@@ -8,7 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <title>Coupon</title>
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 #mainImg {
 	width: 90%;
@@ -21,7 +25,7 @@
 }
 
 #ul {
-width: 110%;
+	width: 110%;
 	font-size: 14px;
 }
 
@@ -58,7 +62,7 @@ img.error {
 	margin-top: 72.19px;
 }
 
-input[type=text], [type=date], #caNameInsert,#caNameUpdate {
+input[type=text], [type=date], #caNameInsert, #caNameUpdate {
 	width: 70%;
 	box-sizing: border-box;
 	border: 3px solid #555;
@@ -86,13 +90,21 @@ span {
 .lineDelete {
 	margin-bottom: -10px;
 }
-#pNameUpdate{
-			width: 50%;
-			margin: -10px auto -35px auto;
-		}
 
-.fileplus{width: 30%;
+#pNameUpdate {
+	width: 50%;
+	margin: -10px auto -35px auto;
+	border: green 1px solid;
 }
+
+.fileplus {
+	width: 30%;
+}
+
+#loadImg{
+   width: 5%;
+}
+
 </style>
 </head>
 <body>
@@ -131,7 +143,7 @@ span {
 						<option id="caName" value="2">分類</option>
 					</select>
 
-					<form id="Search" action="getByLike.controller" method="post"
+					<form id="Search" action="empgetByLike.controller" method="post"
 						class="form-inline my-2 my-lg-0">
 						<div style="display: flex; margin-right: 10%">
 							<input name="queryVal" class="form-control mr-sm-2" type="text"
@@ -184,7 +196,7 @@ span {
 
 
 		<!-- 全部顯示-------------------------------------------------------------------------------------------- -->
-		<form action="getAllCoupon.controller" id="FindAllCo"></form>
+		<form action="empgetAllCoupon.controller" id="FindAllCo"></form>
 
 		<script>
 			document.getElementById("Home").onclick = Findall;
@@ -203,9 +215,9 @@ span {
 				var selectObj = document.getElementById("select").value;
 
 				if (selectObj == 1) {
-					document.getElementById("Search").action = "getByLike.controller";
+					document.getElementById("Search").action = "empgetByLike.controller";
 				} else {
-					document.getElementById("Search").action = "getByCaName.controller";
+					document.getElementById("Search").action = "empgetByCaName.controller";
 				}
 			}
 		</script>
@@ -228,7 +240,7 @@ span {
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form class="container" action="insertCoupon.controller"
+						<form class="container" action="empinsertCoupon.controller"
 							method="post" enctype="multipart/form-data">
 							<div id="main">
 								<div id="left">
@@ -455,18 +467,17 @@ span {
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form class="container" class="box"
-							action="updateCoupon.controller" method="post"
-							enctype="multipart/form-data">
 							<div>
 								<label for="pName" style="font-weight: bold; font-size: 18px">請輸入欲變更優惠券名稱
 								</label> <input placeholder="請輸入優惠券名稱" type="text" name="pName"
-									id="pNameUpdate" required><span id="spPNameUpdate"></span><br>
+									id="pNameUpdate" required><button id="loadbutton">load</button><img src="images/couponPic/loadImg.gif" id="loadImg"><br>
 							</div>
 							<hr>
+							<form class="container" class="box"
+							action="empupdateCoupon.controller" method="post"
+							enctype="multipart/form-data">
 							<div id="main">
-							<div id="feedback"></div>
-								  <div id="left">
+								<div id="left">
 									<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
 									<br> <img id="up" name="img"
 										src="images/couponPic/pic.JPG"
@@ -487,12 +498,17 @@ span {
 									};
 								</script>
 								<div id="right">
-									<label for="coName">廠商名稱</label>
+								    <label for="pName" class="formName">優惠券名稱</label>
+									<div class="line">
+										<input placeholder="請輸入優惠券名稱" type="text" name="pName"
+											id="pNameUpdate2" required><span id="spPNameInsert"></span>
+									</div>
+									<br><label for="coName" class="formName">廠商名稱</label>
 									<div class="line">
 										<input placeholder="請輸入廠商名稱" type="text" name="coName"
 											id="coNameUpdate" required><span id="spCoNameUpdate"></span>
 									</div>
-									<br> <label for="caName">分類名稱</label>
+									<br> <label for="caName" class="formName">分類名稱</label>
 									<div class="line">
 										<select name="caName" id="caNameUpdate" required>
 											<option value="">請選擇</option>
@@ -502,24 +518,24 @@ span {
 											<option value="運動">運動</option>
 										</select><span id="spCaNameUpdate"></span>
 									</div>
-									<br> <label for="price">優惠券價格</label>
+									<br> <label for="price" class="formName">優惠券價格</label>
 									<div class="line">
 										<input placeholder="請輸入優惠券價格" type="text" name="price"
 											id="priceUpdate" required><span id="spPriceUpdate"></span>
 									</div>
-									<br> <label for="pQty">庫存量</label>
+									<br> <label for="pQty" class="formName">庫存量</label>
 									<div class="line">
 										<input placeholder="請輸入庫存量" type="text" id="pQtyUpdate"
 											name="pQty" required><span id="spPQtyUpdate"></span>
 									</div>
-									<br> <label for="startDate">優惠起初日</label>
+									<br> <label for="startDate" class="formName">優惠起初日</label>
 									<div class="line">
-										<input type="date" name="startDate" id="startDateUpdate"
+										<input type="date" name="startDate" id="startDateUpdate" 
 											required><span id="spStartDateUpdate"></span>
 									</div>
-									<br> <label for="endDate">優惠截止日</label>
+									<br> <label for="endDate" class="formName">優惠截止日</label>
 									<div class="line">
-										<input type="date" name="endDate" id="endDateUpdate" required><span
+										<input type="date" name="endDate" id="endDateUpdate" required ><span
 											id="spEndDateUpdate"></span>
 									</div>
 									<br>
@@ -535,11 +551,53 @@ span {
 				</div>
 			</div>
 		</div>
-		
+		<script>
+		                  $(function () {
+		                	  
+		                	  $('#loadImg').css("display","none");
+		                	   
+		                	  $('#loadbutton').click(function () {
+	   
+		                		   $('#loadImg').css("display","inline-block");
+		                		   
+									var pName = $('#pNameUpdate').val();
+									
+									$.ajax({
+										type:'POST',
+										url:'getAllCouponToJson.controller',
+										data:{"pName":pName},
+										dataType:'json',
+										
+										success:function(data){ 
+											$('#loadImg').css("display","none");
+											
+											$('#up').attr("src",data.pImg);
+											$('#pNameUpdate2').val(data.pName);
+											$('#coNameUpdate').val(data.coName);
+											$('#caNameUpdate').val(data.caName);
+											$('#priceUpdate').val(data.price);
+											$('#pQtyUpdate').val(data.pQty);
+											$('#startDateUpdate').val(data.startDate);
+											$('#endDateUpdate').val(data.endDate);	 
+										},error:function(data) 
+								        {
+											$('#loadImg').css("display","none");
+									         alert('無此優惠券名稱');
+									        }
+								   
+									})
+											$('#spPNameUpdate').style.display="none";
+								});
+		                	   
+		                	   
+		                	   
+		                   
+		                  })
+
+						</script>
 		<script>
 			document.getElementById("caNameUpdate").onblur = checkcaNameUpdate;
 			document.getElementById("coNameUpdate").onblur = checkCoNameUpdate;
-			document.getElementById("pNameUpdate").onblur = checkPNameUpdate;
 			document.getElementById("priceUpdate").onblur = checkPriceUpdate;
 			document.getElementById("pQtyUpdate").onblur = checkPQtyUpdate;
 			document.getElementById("startDateUpdate").onblur = checkStartDateUpdate;
@@ -567,18 +625,6 @@ span {
 					sp1.innerHTML = "<img src='images/couponPic/error.png' class='error'>不可空白";
 				} else {
 					sp1.innerHTML = "<img src='images/couponPic/correct.png' class='ok'>ok";
-				}
-			}
-
-			function checkPNameUpdate() {
-				let pNameObj = document.getElementById("pNameUpdate");
-				let pNameObjVal = pNameObj.value;
-				let sp2 = document.getElementById("spPNameUpdate");
-
-				if (pNameObjVal == "") {
-					sp2.innerHTML = "<img src='images/couponPic/error.png' class='error'>不可空白";
-				} else {
-					sp2.innerHTML = "<img src='images/couponPic/correct.png' class='ok'>ok";
 				}
 			}
 
@@ -621,55 +667,9 @@ span {
 				}
 			}
 
-			function checkStartDateUpdate() {
-				let startDatObj = document.getElementById("startDateUpdate");
-				let startDateObjVal = startDatObj.value;
-				let sp5 = document.getElementById("spStartDateUpdate");
-
-				d = new Date(startDateObjVal);
-				let theYear = d.getFullYear();
-				let theMonth = d.getMonth() + 1;
-				let theDate = d.getDate();
-				let today = new Date();
-				let theYear1 = today.getFullYear();
-				let theMonth1 = today.getMonth() + 1;
-				let theDate1 = today.getDate();
-				if (startDateObjVal == "") {
-					sp5.innerHTML = "<img src='images/couponPic/error.png' class='error'>不可空白";
-				} else if (theYear == theYear1 && theMonth == theMonth1
-						&& theDate >= theDate1 || theYear == theYear1
-						&& theMonth > theMonth1 || theYear > theYear1) {
-					sp5.innerHTML = "<img src='images/couponPic/correct.png' class='ok'>ok";
-				} else {
-					sp5.innerHTML = "<img src='images/couponPic/error.png' class='error'>請輸入";
-				}
+			
 			}
-
-			function checkEndDateUpdate() {
-				let endDateObj = document.getElementById("endDateUpdate");
-				let endDateObjVal = endDateObj.value;
-				let sp6 = document.getElementById("spEndDateUpdate");
-
-				var std = document.getElementById("startDateUpdate").value
-				let d1 = std.split("-");
-
-				d = new Date(endDateObjVal);
-				let theYear1 = d.getFullYear();
-				let theMonth1 = d.getMonth() + 1;
-				let theDate1 = d.getDate();
-
-				if (endDateObjVal == "") {
-					sp6.innerHTML = "<img src='images/couponPic/error.png' class='error'>不可空白";
-
-				} else if (d1[0] == theYear1 && d1[1] == theMonth1
-						&& d1[2] <= theDate1 || d1[0] == theYear1
-						&& d1[1] < theMonth1 || d1[0] < theYear1) {
-					sp6.innerHTML = "<img src='images/couponPic/correct.png' class='ok'>ok";
-				} else {
-					sp6.innerHTML = "<img src='images/couponPic/error.png' class='error'>請輸入";
-				}
-			}
-		</script> 
+		</script>
 		<!-- 修改區域!!------------------------------------------------------------------------- -->
 
 		<!-- 刪除Modal ----------------------------------------------------------------------------->
@@ -679,11 +679,13 @@ span {
 			<div class="modal-dialog ">
 				<div class="modal-content" style="width: 650px; margin: 50px auto;">
 					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">刪除 <i class="fas fa-trash-alt"></i></h5>
+						<h5 class="modal-title" id="staticBackdropLabel">
+							刪除 <i class="fas fa-trash-alt"></i>
+						</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<form action="deleteCoupon.controller" method="post">
+					<form action="empdeleteCoupon.controller" method="post">
 						<div class="modal-body" id="deleteForm">
 							<label for="pName" class="lineDelete">優惠券名稱</label><br> <input
 								placeholder="請輸入要刪除的優惠券名稱" type="text" id="pNameDelete"

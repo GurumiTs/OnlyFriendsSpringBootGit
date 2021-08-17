@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import of.blog.model.BlogBean;
+
 @Service
 @Transactional
 public class ProductService {
@@ -38,5 +40,10 @@ public class ProductService {
 	public boolean checkName(String proName) {
 		Optional<Product> productOptional = productRepository.findByProName(proName);
 		return productOptional.isPresent();
+	}
+	
+	public Boolean checkproId(Integer Id) {
+		Optional<Product> pOptional = productRepository.findById(Id);
+		return pOptional.isPresent();
 	}
 }

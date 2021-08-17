@@ -105,7 +105,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="partymgmt.controller">Member Active</a>
+              <a class="collapse-item" href="emppartymgmt.controller">Member Active</a>
             </div>
           </div>
         </li>
@@ -180,7 +180,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="Coupons.controller">CouponMgmt</a>
+              <a class="collapse-item" href="empCoupons.controller">CouponMgmt</a>
             </div>
           </div>
         </li>

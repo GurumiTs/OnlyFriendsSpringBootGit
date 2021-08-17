@@ -32,7 +32,7 @@
 			<div class="container">
 				<div id="di">
 					<p id="pi">Error</p>
-					<a href="Coupons.controller">Return Coupon</a>
+					<a href="empCoupons.controller">Return Coupon</a>
 				</div>
 				<%@include file="../commonpages/dashboardfooter1.jsp"%>
 				<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>	

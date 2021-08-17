@@ -72,41 +72,10 @@
 											<th>Num</th>
 											<th>Shipping</th>
 											<th>Description</th>
-
-
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
 									</thead>
-									<!--      <tbody> -->
-									<%--      <c:if test='${not empty proList }'> --%>
-									<%--       <c:forEach items="${proList}" var="product"> --%>
-									<!--        <tr> -->
-									<%--         <td id="Id">${product.proId }</td> --%>
-									<%--         <td><img id="Photo" src="${product.proPhoto}" width="64px" height="64px"></td> --%>
-									<%--         <td id="Name">${product.proName }</td> --%>
-									<%--         <td id="Price">${product.proPrice }</td> --%>
-									<%--         <td id="Item">${product.proItem }</td> --%>
-									<%--         <td id="Num">${product.proNum}</td> --%>
-									<%--         <td id="Shipping">${product.proShipping}</td> --%>
-									<%--         <td id="Description">${product.proDescription}</td> --%>
-									<!--         <script> 
-     function delConfirm(Name) {
-           return confirm("Delete [" + Name
-             + "] ?");
-          }
-         </script> -->
-
-									<!--         <td class="edit"><a -->
-									<%--          href="updateentry.controller?editId=${product.proId }"><img --%>
-									<!--           src="images/smallicon/edit.png" width="32px" height="32px"></a></td> -->
-									<%--         <td class="delete"><a href="deleteentry.controller?delId=${product.proId }" --%>
-									<%--          onclick="return delConfirm('${product.proName}');"><img --%>
-									<!--           src="images/smallicon/trash.png" width="32px" height="32px"></a></td> -->
-									<!--        </tr> -->
-									<%--       </c:forEach> --%>
-									<%--       </c:if> --%>
-									<!--      </tbody> -->
 									<tfoot>
 										<tr>
 											<th>Id</th>
@@ -117,8 +86,6 @@
 											<th>Num</th>
 											<th>Shipping</th>
 											<th>Description</th>
-
-
 											<th>Edit</th>
 											<th>Delete</th>
 
@@ -184,57 +151,17 @@
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<i class='fas fa-edit edit'></i>";
+					return "<a href='updateentry.controller?Id="+data.proId+"'><i class='fas fa-edit'></i>";
 				}
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<i class='far fa-trash-alt delete'></i>";
+					return "<i class='far fa-trash-alt delete' id="+data.proId+"></i>";
 				}
 			} ]
 		});
 		/* load data table */
-		/*direct add page*/
-// 		$("#example tbody").on("click", ".inserticon", function () {
-// 			$.ajax({
-// 				type:"GET",
-// 				url:"insertProdcut.controller"
-// 			})
-// 		}
 		
-		/*direct add page*/
-		
-		/*direct edit page*/
-// 		$('.far fa-edit').load("updateentry.controller");
-		/*direct edit page*/
-
-		/*show edit employee basic info*/
-		//     $("#example tbody").DataTable {
-		//      let product = $(this).attr("Id");
-		//      $.ajax({
-		//       type : "post",
-		//       url: "productquery",   
-		//          dataType: "json",   
-		//          cache: false,   
-		//          data: {"product":product}, 
-		//          success : function(data) 
-		//            {
-		//           $('#Id').prop("value",data.Id);
-		//           $('#Photo').prop("value",data.Photo);
-		//           $('#Name').prop("value",data.Name);
-		//           $('#Price').prop("value",data.Price);
-		//           $('#Item').prop("value",data.Item);
-		//           $('#Num').prop("value",data.Num);
-		//           $("#Shipping").prop("value",data.Shipping);
-		//              $("#Description").prop("value",data.Description);
-		//            },error: function(data) 
-		//            {
-		//               console.log('無法送出');
-		//            }
-		//      });     
-		//   });
-		//   })
-		/*show edit employee basic info*/
 		
 		/*delete*/
 		$("#example tbody").on("click", ".delete", function () {
