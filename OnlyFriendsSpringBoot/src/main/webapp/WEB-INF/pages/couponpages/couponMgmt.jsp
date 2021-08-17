@@ -143,7 +143,7 @@ span {
 						<option id="caName" value="2">分類</option>
 					</select>
 
-					<form id="Search" action="getByLike.controller" method="post"
+					<form id="Search" action="empgetByLike.controller" method="post"
 						class="form-inline my-2 my-lg-0">
 						<div style="display: flex; margin-right: 10%">
 							<input name="queryVal" class="form-control mr-sm-2" type="text"
