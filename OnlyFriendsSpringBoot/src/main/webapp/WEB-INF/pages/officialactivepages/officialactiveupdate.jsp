@@ -179,7 +179,9 @@
                     <br>
 
                     <button type="submit" class="btn btn-lg btn-primary">確認送出</button>
-                    <button type="button" class="btn btn-secondary btn-lg" disabled>取消</button>
+                    <button onclick="location.href='empofficialactivemgmt.controller'"
+								type="button" class="btn btn-lg btn-primary">返回</button>
+                  <!--  <button type="button" class="btn btn-secondary btn-lg" disabled>取消</button> --> 
                     
                 </div>
                 
