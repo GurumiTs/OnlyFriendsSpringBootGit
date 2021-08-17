@@ -43,7 +43,7 @@ textarea {
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">修改會員活動</h1>
+					<h1 class="h3 mb-2 text-gray-800">會員新增活動</h1>
 					
 					<div class="card shadow mb-4">
 						<div class="card-body">
