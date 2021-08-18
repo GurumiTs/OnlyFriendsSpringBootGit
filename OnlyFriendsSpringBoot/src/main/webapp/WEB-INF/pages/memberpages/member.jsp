@@ -251,7 +251,7 @@
       </div>
     </div>
     <!-- end of modal -->
-
+	<%@include file="../commonpages/footer.jsp"%>
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 	 <script>
       $("#twzipcode").twzipcode({
