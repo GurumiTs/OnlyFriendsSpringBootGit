@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import of.common.model.Users;
 import of.common.model.UsersService;
+import of.common.util.BCrypt;
 import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 import of.member.model.Member;
@@ -97,8 +98,7 @@ public class MemberJsonController {
 			multipartFile.transferTo(saveFile);
 			Member member = memberService.findByMemberAccount(memberAccount);
 			member.setMemberPic("images/empPic/" + fileName);
-			memberService.update(member);
-			
+			memberService.update(member);		
 			return "y";
 		} catch (Exception e) {
 			
@@ -111,6 +111,30 @@ public class MemberJsonController {
 	public Member memberBasicInfoQuery(@RequestParam(name = "memberAccount") String memberAccount) {
 		Member member = memberService.findByMemberAccount(memberAccount);
 		return member;
+	}
+	
+	
+	
+	@PostMapping(path = "/memberRegister")
+	@ResponseBody
+	public String updateEmployeeBasicInfo(@RequestParam(name = "memberAccount") String memberAccount,
+			@RequestParam(name = "empPwd1") String empPwd1,Model model) {
+		try {	
+			String password = BCrypt.hashpw(empPwd1, BCrypt.gensalt());
+			users.setUsersEmail(memberAccount);	
+			users.setUsersPassword(password);
+			users.setUsersRole("member");
+			usersService.insert(users);
+			
+			
+			member.setMemberAccount(memberAccount);
+			member.setMemberName("Users");
+			member.setMemberPic("images/smallicon/nonephoto2.svg");
+			memberService.insert(member);
+			return "y";
+		} catch (Exception e) {
+			return "n";
+		}
 	}
 	
 }
