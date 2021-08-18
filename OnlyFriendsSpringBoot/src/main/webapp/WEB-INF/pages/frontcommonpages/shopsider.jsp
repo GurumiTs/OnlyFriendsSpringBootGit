@@ -4,7 +4,7 @@
           <aside id="sidebar-wrapper">
             <ul class="sidebar-menu">
               <li>
-                <a class="nav-link" href="blank.html"
+                <a class="nav-link" href="member"
                   ><i class="fas fa-user"></i> <span>Account</span></a
                 >
               </li>

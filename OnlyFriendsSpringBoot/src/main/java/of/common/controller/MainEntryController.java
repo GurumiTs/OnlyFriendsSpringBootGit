@@ -141,5 +141,10 @@ public class MainEntryController {
 		return "frontcommonpages/blogarticleexample";
 	}
 	
+	@RequestMapping(path = "/try.controller", method = RequestMethod.GET)
+	public String tryEntry() {
+		return "frontcommonpages/try";
+	}
+	
 
 }

@@ -2,15 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
-<style>
-</style>
 </head>
 <body>
+<body class="layout-2">
+	<div id="app">
+		<div class="main-wrapper">
 
-	<%@include file="../frontcommonpages/shopheader.jsp"%>
+			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
-	<!-- Page content-->
+			<!-- Page content-->
         <div class="container mt-5">
+        <br><br><br><br><br>
             <div class="row">
                 <div class="col-lg-8">
                     <!-- Post content-->
@@ -122,11 +124,14 @@
                 </div>
             </div>
         </div>
-	<!-- Footer-->
-	<%@include file="../commonpages/footer.jsp"%>
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>
+		</div>
+	</div>
+
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+
 	<script>
-		
+
 	</script>
 </body>
 </html>
