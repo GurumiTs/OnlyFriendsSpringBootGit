@@ -1,34 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-   <header class="sticky-top shadow-sm">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container px-4 px-lg-5">
-          <a class="navbar-brand" href="${pageContext.request.contextPath}/"
-            >OnlyFriends</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="${pageContext.request.contextPath}/"
-                  >Home</a
-                >
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-              <li class="nav-item dropdown">
+<div class="navbar-bg"></div>
+         <nav class="navbar navbar-expand-lg main-navbar">
+          <a href="${pageContext.request.contextPath}/" class="navbar-brand sidebar-gone-hide">OnlyFriends</a>          
+          <div class="nav-collapse">
+           
+            <ul class="navbar-nav">
+             <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
                   id="navbarDropdown"
@@ -56,55 +34,52 @@ pageEncoding="UTF-8"%>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#!">招桃商城</a></li>
                   <li><a class="dropdown-item" href="#!">聯盟票券</a></li>
-                  <li>
-                    <a class="dropdown-item" href="shop.controller">example</a>
-                  </li>
+                  <li><a class="dropdown-item" href="shop.controller">example</a></li>
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#!">Blog</a>
+                <a href="#" class="nav-link">Blog</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  aria-current="page"
-                  href="memberswipeloading"
-                  >Swipe</a
-                >
-              </li>
+                <a href="#" class="nav-link">Swipe</a>
+              </li>             
             </ul>
           </div>
-
-          <form class="d-flex">
-            <button class="btn" type="submit">
-              <i class="bi-cart-fill text-white"></i>
-
-              <span class="badge bg-light text-dark ms-1 rounded-pill">0</span>
-            </button>
-          </form>
-          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDarkDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+          <form class="form-inline ml-auto"></form>
+          <ul class="navbar-nav navbar-right">
+            <li class="dropdown dropdown-list-toggle">
+              <button class="btn" type="submit">
+                <i class="fas fa-shopping-cart text-white " ></i>
+                <span class="badge bg-light text-dark ms-1 rounded-pill"
+                  >0</span
                 >
-                ${personalinfo.empName}
+              </button>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user"
+              >               
+                <div class="d-sm-none d-lg-inline-block">
+                 ${personalinfo.empName}
+                </div></a
+              >
+              <div class="dropdown-menu dropdown-menu-right">
+                <a href="employeeprofile.controller" class="dropdown-item has-icon">
+                  <i class="far fa-user"></i> Profile
                 </a>
-                <ul
-                  class="dropdown-menu dropdown-menu-dark"
-                  aria-labelledby="navbarDarkDropdownMenuLink"
+                <a
+                  href="employee"
+                  class="dropdown-item has-icon"
                 >
-                  <li><a class="dropdown-item" href="employee">Profile</a></li>
-                  <li><a class="dropdown-item" href="logout">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+                  <i class="fas fa-bolt"></i> DashBoard
+                </a>                
+                <div class="dropdown-divider"></div>
+                <a href="logout" class="dropdown-item has-icon text-danger">
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>

@@ -10,6 +10,13 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Sweet Shop</title>
+    
+     <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
       <!-- bootstrap5  -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
@@ -31,4 +38,6 @@
       rel="stylesheet"
     />
  
-    <link href="${pageContext.request.contextPath}/css/shopmain.css" rel="stylesheet" />
+      <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membermain.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membercomponent.css" />
