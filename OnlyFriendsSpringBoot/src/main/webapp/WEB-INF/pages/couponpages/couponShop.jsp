@@ -1,59 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
-<style>
-
-</style>
 </head>
 <body>
-   
-   <%@include file="../frontcommonpages/shopheader.jsp"%>
-   
-    <!-- top section-->
-    <div class="bg-dark py-5">
-      <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-          <h1 class="display-4 fw-bolder">Shop in style</h1>
-          <p class="lead fw-normal text-white-50 mb-0">
-            With this shop hompeage template
-          </p>
-        </div>
-      </div>
-    </div>
-     <!-- top section-->
-    <!-- items Section-->
-    <section class="py-5">
-      <div class="container px-4 px-lg-5 mt-5">      
-        <div
-          class="
-            row
-            gx-4 gx-lg-5
-            row-cols-2 row-cols-md-3 row-cols-xl-4
-            justify-content-center
-          "
-          id="itemarea"
-        >
-        
+<body class="layout-2">
+	<div id="app">
+		<div class="main-wrapper">
 
-    
-      </div>
-      
-      <table id="showpage" class="d-flex justify-content-center">
-		<tr>			
-			<td colspan="3" align="right"> <c:forEach var="i"
-					begin="1" end="${totalPages}" step="1">
-					<button class="btn btn-outline-secondary" id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-				</c:forEach>
-			</td>
-		</tr>
-	</table>
-      </div>
-    </section>    
-    <!-- Footer-->
-    <%@include file="../commonpages/footer.jsp"%>
-    <%@include file="../frontcommonpages/shopbottom.jsp"%>
-    <script >  
+			<%@include file="../frontcommonpages/shopheader.jsp"%>
+			
+		<div class="main-sidebar">
+          <aside id="sidebar-wrapper">
+            <div class="card">
+                  <div class="card-header">
+                    <h4>Search by</h4>
+                  </div>
+                  <div class="card-body">
+                  <div class="container d-flex flex-column">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
+            	  <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                   	  <span class="badge badge-primary mb-2">clothes</span>
+                      <span class="badge badge-secondary mb-2">lucky stuff</span>
+                      <span class="badge badge-success mb-2">Success</span>
+                      <span class="badge badge-danger mb-2">Danger</span>
+                      <span class="badge badge-warning mb-2">Warning</span>
+                      <span class="badge badge-info mb-2">Info</span>
+                      <span class="badge badge-light mb-2">Light</span>
+                      <span class="badge badge-dark mb-2">Dark</span>
+                  </div>
+                  </div>
+                </div>
+          </aside>
+        </div>
+			
+			
+			
+			<!-- Main Content -->
+			<div class="main-content">
+				<section class="section">
+					
+						<div class="bg-dark py-5">
+							<div class="container px-4 px-lg-5 my-5">
+								<div class="text-center text-white">
+									<h1 class="display-4 fw-bolder">Shop in style</h1>
+									<p class="lead fw-normal text-white-50 mb-0">With this shop
+										hompeage template</p>
+								</div>
+							</div>
+						</div>
+					
+					<div class="section-body">
+						<div class="card">
+							<div class="card-header">
+								<h4>On Sale</h4>
+							</div>
+							<div class="card-body">
+								<div
+							          class="
+							            row
+							            gx-4 gx-lg-5
+							            row-cols-2 row-cols-md-3 row-cols-xl-4
+							            justify-content-center
+							          "
+							          id="itemarea"
+							        >    
+							        
+							      </div>
+							</div>
+							<div class="card-footer bg-whitesmoke">
+							<table id="showpage" class="d-flex justify-content-center">
+								<tr>			
+									<td colspan="3" align="right"> <c:forEach var="i"
+											begin="1" end="${totalPages}" step="1">
+											<button class="btn btn-outline-secondary" id="myPage" value="${i}" onclick="change(${i})">${i}</button>
+										</c:forEach>
+									</td>
+								</tr>
+							</table>
+							
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>	
+		</div>
+	</div>
+	
+	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+
+  <script >  
     var indexPage = 1;
     $(function(){
     	load(indexPage);
@@ -65,52 +102,55 @@
 	}
     function load(){
     	$.ajax({
-    	   type:'POST',
-    	   url:'queryallcouponsbypage/' + indexPage,
-    	   dataType:'JSON',
-    	   contentType:'application/json',
-    	   success: function(data) {
-    	     var json = JSON.stringify(data, null, 3);
-    	     var parsedObjinArray = JSON.parse(json);
-    	     var itemarea = $('#itemarea');
-    	     $('#itemarea').empty("");
-    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-    	     var item = 
-    	    "<div class='col mb-5'>"+
-             "<div class='card h-100'>"+           
-               "<img class='card-img-top' src='"+n.couponImg+"'/>"+     
-               "<div class='card-body p-4'>" +
-                 "<div class='text-center'>" +
-                   "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
-                   "<div class='d-flex justify-content-center small text-warning mb-2' >"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
+     	   type:'POST',
+     	   url:'queryallcouponsbypage/' + indexPage,
+     	   dataType:'JSON',
+     	   contentType:'application/json',
+     	   success: function(data) {
+     	     var json = JSON.stringify(data, null, 3);
+     	     var parsedObjinArray = JSON.parse(json);
+     	     var itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	 		 
+     	 		if(n.category=="優惠券-旅遊" || n.category=="優惠券-美食" || n.category=="優惠券-住宿" || n.category=="優惠券-運動"){	 
+     	     var item = 
+     	    "<div class='col mb-5'>"+
+              "<div class='card h-100'>"+           
+                "<img class='card-img-top' src='"+n.couponImg+"'/>"+     
+                "<div class='card-body p-4'>" +
+                  "<div class='text-center'>" +
+                    "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
+                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                      "<div class='bi-star-fill'></div>"+
+                      "<div class='bi-star-fill'></div>"+
+                      "<div class='bi-star-fill'></div>"+
+                      "<div class='bi-star-fill'></div>"+
+                      "<div class='bi-star-fill'></div>"+
+                   "</div>"+
+                    "<span class='text-muted text-decoration-line-through'>$"+n.couponPrice+"</span>" +
+                    "$"+Math.round(n.couponPrice*0.9)+
+                 " </div>"+
+                "</div>"+
+              
+                "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                  "<div class='text-center'>"+
+                   "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?couponId="+n.couponId+"&couponName="+n.couponName+"'>Add to cart</a>"+
                   "</div>"+
-                   "<span class='text-muted text-decoration-line-through'>$"+n.couponPrice+"</span>" +
-                   "$"+Math.round(n.couponPrice*0.9)+
-                " </div>"+
-               "</div>"+
-             
-               "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
-                 "<div class='text-center'>"+
-                  "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?pName="+n.couponId+"'>Add to cart</a>"+
-                 "</div>"+
-               "</div>"+
-             "</div>"+
-           "</div>" ;
-           itemarea.append(item);
-    	       });
- 
-    	},
-    	error: function() {
-    	    console.log("error");
-    	}
-    	});
-    	}
-    
-    </script>
-  </body>
-</html>   
+                "</div>"+
+              "</div>"+
+            "</div>" ;
+     	 		}
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
+     	}
+     	});
+     	}
+     
+     </script>
+   </body>
+ </html>   

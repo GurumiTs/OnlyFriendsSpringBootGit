@@ -25,7 +25,9 @@
 }
 
 #ul {
-	width: 110%;
+	overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 	font-size: 14px;
 }
 
@@ -114,6 +116,9 @@ span {
 
 .textarea{resize: none;}
 
+#couponDetail{float:right;
+}
+
 </style>
 </head>
 <body>
@@ -174,7 +179,9 @@ span {
 							<div class="col-md-4 col-sm-6">
 								<div class="card border-primary mb-3"
 									style="max-width: 20rem; max-height: 50rem;">
-									<div class="card-header">${find.companyName}</div>
+									<div class="card-header">${find.companyName} 
+									<a href="couponDetailEntry.controller?couponImg=${find.couponId}&couponName=${find.couponName}"><i class="fas fa-info-circle" style="font-size: 1.5em;" id="couponDetail"></i></a>
+									</div>
 									<div class="card-body">
 										<img src="${find.couponImg}" id="mainImg" />
 										<ul id="ul">
@@ -203,8 +210,7 @@ span {
 		<!-- 功能區(以上是Bar下面的畫面)-------------------------------------------------------------------------------------------- -->
 
 		<!-- 載入顯示-------------------------------------------------------------------------------------------- -->
-
-
+     
 		<!-- 全部顯示-------------------------------------------------------------------------------------------- -->
 		<form action="empgetAllCoupon.controller" id="FindAllCo"></form>
 
@@ -271,17 +277,18 @@ span {
 										<div id="right">
 											<label for="companyName" class="formName">廠商名稱</label>
 											<div class="line">
-												<input placeholder="請輸入廠商名稱" type="text" name="companyName" id="coNameInsert"
-													required><span id="spCoNameInsert"></span>
+												<input placeholder="請輸入廠商名稱" type="text" name="companyName" id="coNameInsert" required><span id="spCoNameInsert"></span>
 											</div>
 											<br> <label for="category" class="formName">分類名稱</label>
 											<div class="line">
 												<select name="category" id="caNameInsert" required>
 													<option value="">請選擇</option>
-													<option value="餐廳">餐廳</option>
-													<option value="旅遊">旅遊</option>
-													<option value="服裝">服裝</option>
-													<option value="運動">運動</option>
+													<option value="開卡禮">開卡禮</option>
+													<option value="折扣券">折扣券</option>
+													<option value="優惠券-旅遊">優惠券-旅遊</option>
+													<option value="優惠券-住宿">優惠券-住宿</option>
+													<option value="優惠券-美食">優惠券-美食</option>
+													<option value="優惠券-運動">優惠券-運動</option>
 												</select><span id="spCaNameInsert"></span>
 											</div>
 											<br> <label for="couponName" class="formName">優惠券名稱</label>
@@ -411,10 +418,10 @@ span {
 				if (pQtyObjVal == "") {
 					sp4.innerHTML = "<img src='images/couponPic/error.png' class='error'>不可空白";
 				} else if (re2.test(pQtyObjVal)) {
-					if (pQtyObjVal >= 0 && pQtyObjVal <= 50) {
+					if (pQtyObjVal >= 0 && pQtyObjVal <= 9999999) {
 						sp4.innerHTML = "<img src='images/couponPic/correct.png' class='ok'>ok";
 					} else {
-						sp4.innerHTML = "<img src='images/couponPic/error.png' class='error'>庫存量應低於(含)50筆";
+						sp4.innerHTML = "<img src='images/couponPic/error.png' class='error'>庫存量應低於(含)9999999筆";
 					}
 				} else {
 					sp4.innerHTML = "<img src='images/couponPic/error.png' class='error'>請輸入";
@@ -528,10 +535,12 @@ span {
 											<div class="line">
 												<select name="category" id="caNameUpdate" required>
 													<option value="">請選擇</option>
-													<option value="餐廳">餐廳</option>
-													<option value="旅遊">旅遊</option>
-													<option value="服裝">服裝</option>
-													<option value="運動">運動</option>
+													<option value="開卡禮">開卡禮</option>
+													<option value="折扣券">折扣券</option>
+													<option value="優惠券-旅遊">優惠券-旅遊</option>
+													<option value="優惠券-住宿">優惠券-住宿</option>
+													<option value="優惠券-美食">優惠券-美食</option>
+													<option value="優惠券-運動">優惠券-運動</option>
 												</select><span id="spCaNameUpdate"></span>
 											</div>
 											<br> <label for="couponPrice">優惠券價格</label>

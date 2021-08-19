@@ -1,28 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-
-</style>
 </head>
 <body>
-   
-   <%@include file="../frontcommonpages/shopheader.jsp"%>
-    <section class="py-5">
+<body class="layout-2">
+	<div id="app">
+		<div class="main-wrapper">
+
+			<%@include file="../frontcommonpages/shopheader.jsp"%>
+
+
+
+			<!-- Page content-->
+			<div class="container mt-5">
+				
+				 <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" id="pImg" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."  id="couponImg"/></div>
                     <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder" id="pName"></h1>
+                        <div class="small mb-1" id="couponId"></div>
+                        <h1 class="display-5 fw-bolder" id="couponName"></h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through" id="price"></span>
-                            <span id="priceDiscount"></span>
+                            <span class="text-decoration-line-through" id="couponPrice"></span>
+                            <span id="couponPriceDiscount"></span>
                         </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <p class="lead" id="couponInfo"></p>
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem" />
+                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
@@ -142,10 +149,14 @@
 		                  $(function () {
 		                	  
 		                	  var url = location.href;
-		                	  var url2=url.split("/");
-		                	  //var pName =decodeURI(url2[4].substr(37));
-		                	 var couponId =decodeURI(url2[4]);
-		                	 
+		                	  
+		                	  if(url.indexOf('?')!=-1){
+		                		  var ary1 = url.split('?');
+		                		  var ary2 = ary1[1].split('&');
+		                		  var couponId =decodeURI(ary2[0].substr(9));
+		                		  var couponName =decodeURI(ary2[1].substr(11));
+		                	  }
+		              
 									$.ajax({
 										   type:'GET',
 						               	   url:'shopcouponitem.controller',
@@ -154,15 +165,18 @@
 						               	   success(res) {
 						               	   let coupons=res;
 						               	   
-						               	   for(let i=0;i<coupons.length;i++){
-						               		  console.log(coupons[i].pName);
-						               		   console.log(pName); 
-						               		   if(couponId==coupons[i].pName){
+						               	   for(let i=0;i<coupons.length;i++){					      
+						               		  
+						               		   if(couponId==coupons[i].couponId && couponName==coupons[i].couponName){
 						               			   
-						               			   $('#pName').text(coupons[i].pName);
-						               			   $('#price').text("$"+coupons[i].price);
-						               			   $('#priceDiscount').text("$"+Math.round(coupons[i].price*0.9));
-						               			   $('#pImg').attr("src",coupons[i].pImg);
+						               			   $('#couponId').text("序號:"+coupons[i].couponId);
+						               			   $('#couponName').text(coupons[i].couponName);
+						               			   $('#couponPrice').text("$"+coupons[i].couponPrice);
+						               			   $('#couponPriceDiscount').text("$"+Math.round(coupons[i].couponPrice*0.9));
+						               			   $('#couponInfo').text(coupons[i].couponInfo);
+						               			   $('#couponImg').attr("src",coupons[i].couponImg);
+						               			   
+						               			   
 						               			
 						               		   }
 						               	   }
@@ -180,13 +194,15 @@
 		                  
 						</script>
         
-   
-    <!-- Footer-->
-    <%@include file="../commonpages/footer.jsp"%>
-    <%@include file="../frontcommonpages/shopbottom.jsp"%>
-    <script >  
-   
-   
-    </script>
-  </body>
-</html>   
+        </div>
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>
+		</div>
+	</div>
+
+	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+
+	<script>
+		
+	</script>
+</body>
+</html>

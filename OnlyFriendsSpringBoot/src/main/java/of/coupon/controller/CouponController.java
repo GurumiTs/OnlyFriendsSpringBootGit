@@ -47,6 +47,14 @@ public class CouponController {
 		Thread.sleep(1000);
 		return coupons;
 	}
+	
+	@PostMapping("/getAllCouponDetailToJson.controller")
+	@ResponseBody
+	public List<Coupon> showAllCouponDetailToJson()  {
+		 List<Coupon> coupons = couponService.findAll();
+		
+		return coupons;
+	}
 
 	@GetMapping("/empgetAllCoupon.controller")
 	public String showAllCoupon(Model m) {
@@ -132,6 +140,7 @@ public class CouponController {
 		String fileName = multipartFile.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/couponPic").getPath();
 		String filePath =  path+ "/" + fileName;
+		
 	
 		File saveFile = new File(filePath);
 		multipartFile.transferTo(saveFile);
@@ -193,6 +202,23 @@ public class CouponController {
 	@GetMapping("/shopcouponitem.controller")
 	@ResponseBody
 	public List<Coupon> shopCouponItem() {
+		List<Coupon> coupons = couponService.findAll();
+		return coupons;
+	}
+	
+	@GetMapping("/couponMember.controller")
+	public String couponMemberEntry() {
+		return "couponpages/couponMember";
+	}
+	
+	@GetMapping("/couponDetailEntry.controller")
+	public String couponDetailEntry() {
+		return "couponpages/couponsDetail";
+	}
+	
+	@GetMapping("/couponDetail.controller")
+	@ResponseBody
+	public List<Coupon> couponDetail() {
 		List<Coupon> coupons = couponService.findAll();
 		return coupons;
 	}
