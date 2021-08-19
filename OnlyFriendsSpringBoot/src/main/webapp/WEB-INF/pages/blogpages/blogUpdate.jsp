@@ -7,7 +7,6 @@
 <style type="text/css">
 .container {
 	font-family: 微軟正黑體;
-	background-color: #F4F4F4;
 }
 
 .jumbotron {
@@ -49,17 +48,17 @@
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Insert New Article</h1>
+					<h1 class="h3 mb-2 text-gray-800">Update Article</h1>
 					<div class="box1">
 					<form class="row g-3" action="empblogUpdate.controller" method="post"
 					enctype="multipart/form-data">
 					<legend style="text-align: center;">更新資料</legend>
 					<div class="mb-3">
 						<label>文章編號:</label> <input name="articleId" disabled="disabled"
-							size="3" value="${blog.articleID}" /> <input type="hidden"
-							name="articleId" size="3" value="${blog.articleID}" /> <em
-							name="errors">${errors}</em><br/>
-						<label>建立時間:</label> <input name="createTime" disabled="disabled" size="22" value="${blog.createTime}" />
+							size="2" value="${blog.articleID}" style="text-align: center"/> <input type="hidden"
+							name="articleId" size="3" value="${blog.articleID}"/> <em
+							name="errors">${errors}</em>
+						<label>文章建立時間:</label> <input name="createTime" disabled="disabled" size="22" value="${blog.createTime}" />
 						<input type="hidden" name="createTime" size="22" value="${blog.createTime}" />
 					</div>
 					<!-- 圖片 -->

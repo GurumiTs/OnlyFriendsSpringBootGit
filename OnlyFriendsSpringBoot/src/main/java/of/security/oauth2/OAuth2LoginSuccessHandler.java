@@ -41,7 +41,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 		String info = authentication.getPrincipal().toString();
 		//OAuth2UserAuthority oauth2UserAuthority = (OAuth2UserAuthority)authentication.getAuthorities();
 		//System.out.println(oauth2UserAuthority);
-		//System.out.println(info);
+		System.out.println(info);
 		if(usersService.checkEmail(name)  == false) {
 			System.out.println("該用戶不存在");
 			users.setUsersEmail(name);

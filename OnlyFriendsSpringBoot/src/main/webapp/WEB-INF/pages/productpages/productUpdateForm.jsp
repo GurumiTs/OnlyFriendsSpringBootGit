@@ -4,24 +4,7 @@
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
-<script>
-			
-			var xhttp = new XMLHttpRequest();
-			function checkForm(){
-				let name=document.getElementById("Name").value;
-				xhttp.onreadystatechange = function(){
-					if(this.readyState ==4 && this.status ==200){
-						
-						document.getElementById("mesg").innerHTML
-							=this.responseText;
-					}
-				};
-				xhttp.open("GET","productCheckCreateName.jsp?Name="+name,true);
-				xhttp.send();
-				return false;
-				
-			}
-		</script>
+
  <style>
     
       .textarea{resize:none}
@@ -90,7 +73,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
 					<div class="zi_box_1">
-      <form action="updateProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
+      <form action="empupdateProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
         <div class="col-md-12">
       
           <div class="mb-3">

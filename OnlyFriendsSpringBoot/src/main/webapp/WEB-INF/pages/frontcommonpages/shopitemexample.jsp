@@ -1,15 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
-<style>
-
-</style>
 </head>
 <body>
-   
-   <%@include file="../frontcommonpages/shopheader.jsp"%>
-    <section class="py-5">
+<body class="layout-2">
+	<div id="app">
+		<div class="main-wrapper">
+
+			<%@include file="../frontcommonpages/shopheader.jsp"%>
+
+
+
+			<!-- Page content-->
+			<div class="container mt-5">
+				
+				 <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
@@ -138,13 +144,15 @@
                 </div>
             </div>
         </section>
-   
-    <!-- Footer-->
-    <%@include file="../commonpages/footer.jsp"%>
-    <%@include file="../frontcommonpages/shopbottom.jsp"%>
-    <script >  
-   
-   
-    </script>
-  </body>
-</html>   
+        </div>
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>
+		</div>
+	</div>
+
+	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+
+	<script>
+		
+	</script>
+</body>
+</html>

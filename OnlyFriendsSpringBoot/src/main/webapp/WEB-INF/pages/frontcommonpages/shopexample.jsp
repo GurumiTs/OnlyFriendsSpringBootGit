@@ -1,59 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
-<style>
-
-</style>
 </head>
 <body>
-   
-   <%@include file="../frontcommonpages/shopheader.jsp"%>
-   
-    <!-- top section-->
-    <div class="bg-dark py-5">
-      <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-          <h1 class="display-4 fw-bolder">Shop in style</h1>
-          <p class="lead fw-normal text-white-50 mb-0">
-            With this shop hompeage template
-          </p>
-        </div>
-      </div>
-    </div>
-     <!-- top section-->
-    <!-- items Section-->
-    <section class="py-5">
-      <div class="container px-4 px-lg-5 mt-5">      
-        <div
-          class="
-            row
-            gx-4 gx-lg-5
-            row-cols-2 row-cols-md-3 row-cols-xl-4
-            justify-content-center
-          "
-          id="itemarea"
-        >
-        
+<body class="layout-2">
+	<div id="app">
+		<div class="main-wrapper">
 
-    
-      </div>
-      
-      <table id="showpage" class="d-flex justify-content-center">
-		<tr>			
-			<td colspan="3" align="right"> <c:forEach var="i"
-					begin="1" end="${totalPages}" step="1">
-					<button class="btn btn-outline-secondary" id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-				</c:forEach>
-			</td>
-		</tr>
-	</table>
-      </div>
-    </section>    
-    <!-- Footer-->
-    <%@include file="../commonpages/footer.jsp"%>
-    <%@include file="../frontcommonpages/shopbottom.jsp"%>
-    <script >  
+			<%@include file="../frontcommonpages/shopheader.jsp"%>
+			
+		<div class="main-sidebar">
+          <aside id="sidebar-wrapper">
+            <div class="card">
+                  <div class="card-header">
+                    <h4>Search by</h4>
+                  </div>
+                  <div class="card-body">
+                  <div class="container d-flex flex-column">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
+            	  <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                   	  <span class="badge badge-primary mb-2">clothes</span>
+                      <span class="badge badge-secondary mb-2">lucky stuff</span>
+                      <span class="badge badge-success mb-2">Success</span>
+                      <span class="badge badge-danger mb-2">Danger</span>
+                      <span class="badge badge-warning mb-2">Warning</span>
+                      <span class="badge badge-info mb-2">Info</span>
+                      <span class="badge badge-light mb-2">Light</span>
+                      <span class="badge badge-dark mb-2">Dark</span>
+                  </div>
+                  </div>
+                </div>
+          </aside>
+        </div>
+			
+			
+			
+			<!-- Main Content -->
+			<div class="main-content">
+				<section class="section">
+					
+						<div class="bg-dark py-5">
+							<div class="container px-4 px-lg-5 my-5">
+								<div class="text-center text-white">
+									<h1 class="display-4 fw-bolder">Shop in style</h1>
+									<p class="lead fw-normal text-white-50 mb-0">With this shop
+										hompeage template</p>
+								</div>
+							</div>
+						</div>
+					
+					<div class="section-body">
+						<div class="card">
+							<div class="card-header">
+								<h4>On Sale</h4>
+							</div>
+							<div class="card-body">
+								<div
+							          class="
+							            row
+							            gx-4 gx-lg-5
+							            row-cols-2 row-cols-md-3 row-cols-xl-4
+							            justify-content-center
+							          "
+							          id="itemarea"
+							        >    
+							        
+							      </div>
+							</div>
+							<div class="card-footer bg-whitesmoke">
+							<table id="showpage" class="d-flex justify-content-center">
+								<tr>			
+									<td colspan="3" align="right"> <c:forEach var="i"
+											begin="1" end="${totalPages}" step="1">
+											<button class="btn btn-outline-secondary" id="myPage" value="${i}" onclick="change(${i})">${i}</button>
+										</c:forEach>
+									</td>
+								</tr>
+							</table>
+							
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>	
+		</div>
+	</div>
+	
+	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+
+  <script >  
     var indexPage = 1;
     $(function(){
     	load(indexPage);
@@ -115,5 +152,5 @@
     	}
     
     </script>
-  </body>
-</html>   
+</body>
+</html>

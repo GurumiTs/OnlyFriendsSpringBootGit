@@ -72,7 +72,7 @@
 						
 						<div class="card-body">
 							<div class="table-responsive">
-							<a href="partyadd.controller"><img
+							<a href="emppartyadd.controller"><img
 										src="images/smallicon/add.svg" alt=""></a>
 							<table id="example" class="table table-striped"
 											style="width: 100%">
@@ -120,7 +120,7 @@
 															<td id="${party.number}man">${party.man}</td>
 															<td id="${party.number}woman">${party.woman}</td>
 															<td id="${party.number}see">${party.see}</td>  
-															<td class="edit"><a href="partyupenty.controller?number=${party.number}">
+															<td class="edit"><a href="emppartyupenty.controller?number=${party.number}">
 															<i class="fas fa-edit">
 															</i></a></td>
 															<td class="delete" id="delete"><a> 
@@ -203,7 +203,7 @@
 
                 $.ajax({
                       type: "POST",
-                      url: "deleteparty.controller",
+                      url: "empdeleteparty.controller",
                       data: {"number" : id},
                       success: function(response) {                 
                            Swal.fire(
@@ -213,9 +213,9 @@
                           ) } ,
                           error: function (xhr) {
                           Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!'
+                            icon: 'success',
+                            title: 'Deleted...',
+                            text: 'Your file has been deleted.'
 
                           }) },  //error close
                    }); //ajax close

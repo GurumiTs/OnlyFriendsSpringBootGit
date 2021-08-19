@@ -80,7 +80,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="officialactivemgmt.controller">Official Active</a>
+              <a class="collapse-item" href="empofficialactivemgmt.controller">Official Active</a>
             </div>
           </div>
         </li>
@@ -105,7 +105,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="partymgmt.controller">Member Active</a>
+              <a class="collapse-item" href="emppartymgmt.controller">Member Active</a>
             </div>
           </div>
         </li>
@@ -155,7 +155,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="productPage.controller">Product</a>
+              <a class="collapse-item" href="empproductPage.controller">Product</a>
             </div>
           </div>
         </li>

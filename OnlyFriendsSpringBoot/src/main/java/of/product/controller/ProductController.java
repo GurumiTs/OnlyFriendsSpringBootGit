@@ -34,15 +34,8 @@ public class ProductController {
 	private ProductService productService;
 	@Autowired
 	private Product product;
-	
-//	@GetMapping(path = "/productPage.controller")
-//	public String productEntryAction(Model model){
-//		List<Product> proList=productService.findAll();
-//		model.addAttribute("proList",proList);
-//		return "productpages/productMgmtPage";
-//	}
-	
-	@RequestMapping(path = "/productPage.controller", method = RequestMethod.GET)
+
+	@RequestMapping(path = "/empproductPage.controller", method = RequestMethod.GET)
 	public String blogMgmtEntry(Model model) {
 		return "productpages/productMgmtPage";
 	}
@@ -57,19 +50,19 @@ public class ProductController {
 		return map;
 	}
 	
-	@PostMapping(path="/productquery")
+	@PostMapping(path="/empproductquery")
 	@ResponseBody
 	public Product processRestQueryProduct(@RequestParam(name = "Id") Integer Id) {
 		Product product = productService.findById(Id);
 		return product;
 	}
 	
-	@GetMapping(path="/insertProdcut.controller")
+	@GetMapping(path="/empinsertProdcut.controller")
 	public String insertpage() {
 		return "productpages/productCreateForm";
 	}
 	
-	@RequestMapping(path="/addProduct.controller",method =RequestMethod.POST )
+	@RequestMapping(path="/empaddProduct.controller",method =RequestMethod.POST )
 	public String productAdd(@RequestParam (name = "Id",required = false) Integer Id,
 							@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 							@RequestParam(name = "Name") String Name,
@@ -102,11 +95,11 @@ public class ProductController {
 			System.out.println("3");
 			productService.insert(product);
 			System.out.println("success");
-			return "redirect:/productPage.controller";
+			return "redirect:/empproductPage.controller";
 			
 		} catch (Exception e) {
 			m.addAttribute("error","update picture failed");
-			return "redirect:/productPage.controller";
+			return "redirect:/empproductPage.controller";
 		}
 		
 	}
@@ -114,7 +107,7 @@ public class ProductController {
 
 	
 	
-	@RequestMapping(path="/updateentry.controller",method = RequestMethod.GET)
+	@RequestMapping(path="/empupdateentryproduct.controller",method = RequestMethod.GET)
 	public String updateEntryPage(@RequestParam(name = "Id") Integer Id,Model model) {
 		product = productService.findById(Id);
 		model.addAttribute("product",product);
@@ -123,7 +116,7 @@ public class ProductController {
 	}
 	
 	
-	@RequestMapping(path="/updateProduct.controller",method =RequestMethod.POST )
+	@RequestMapping(path="/empupdateProduct.controller",method =RequestMethod.POST )
 	public String productupdate(@RequestParam (name = "Id",required = false) Integer proId,
 								@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 								@RequestParam(name = "Name") String proName,
@@ -164,15 +157,15 @@ public class ProductController {
 //			List<Product> proList=productService.findAll();
 //			m.addAttribute("proList",proList);
 			
-			return "redirect:/productPage.controller";
+			return "redirect:/empproductPage.controller";
 		} catch (Exception e) {
 			m.addAttribute("error","update picture failed");
-			return "redirect:/productPage.controller";
+			return "redirect:/empproductPage.controller";
 		}
 		
 	}
 	
-	@PostMapping(path="/deleteentry.controller/{Id}")
+	@PostMapping(path="/empdeleteentry.controller/{Id}")
 	@ResponseBody
 	public void deleteEntryPage(@PathVariable("Id") Integer Id) {
 		System.out.println("Id"+Id);
@@ -182,16 +175,6 @@ public class ProductController {
 			productService.deleteById(Id);
 		}
 	}
-//	
-//	@PostMapping(path = "/nameckeck.controller/{Name}")
-//	public ResponseEntity<String> processnameCkeckAction(@PathVariable("Name") String Name){
-//		boolean status = productService.checkName(Name);
-//		
-//		if(status) {
-//			return new ResponseEntity<String>("Y", HttpStatus.OK);
-//		}
-//		
-//		return new ResponseEntity<String>("N", HttpStatus.OK);
-//	}
+
 
 }
