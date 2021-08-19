@@ -68,6 +68,9 @@ public class Member implements Serializable{
 	@Column(name = "swipeDate")
 	private String swipeDate;
 	
+	@Column(name = "swipeTime")
+	private String swipeTime;
+	
 	public Member() {}
 	
 	public Member(String memberEmail,String memberName,String memberPic) {
@@ -220,5 +223,14 @@ public class Member implements Serializable{
 	public void setSwipeDate(String swipeDate) {
 		this.swipeDate = swipeDate;
 	}
+
+	public String getSwipeTime() {
+		return swipeTime;
+	}
+
+	public void setSwipeTime(String swipeTime) {
+		this.swipeTime = swipeTime;
+	}
+	
 
 }

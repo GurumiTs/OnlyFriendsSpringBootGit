@@ -50,6 +50,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			
 			member.setMemberName("Users");
 			member.setMemberAccount(name);
+			member.setSwipeTime("3");
 			member.setMemberPic("images/smallicon/nonephoto2.svg");
 			memberService.insert(member);		
 		}

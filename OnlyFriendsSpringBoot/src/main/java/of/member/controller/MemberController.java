@@ -129,5 +129,10 @@ public class MemberController {
 	public String memberSwipeLoadingEntry() {
 		return "memberpages/memberswipeloading" ;
 	}
+	
+	@RequestMapping(path="/memberswipe" ,method = RequestMethod.GET )
+	public String memberSwipeEntry() {
+		return "memberpages/memberswipe" ;
+	}
 
 }

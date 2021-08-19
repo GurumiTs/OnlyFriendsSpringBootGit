@@ -39,10 +39,7 @@ pageEncoding="UTF-8"%>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Swipe</a>
-              </li>             
+              </li>                          
             </ul>
           </div>
           <form class="form-inline ml-auto"></form>
