@@ -102,8 +102,8 @@
 	}
     function load(){
     	$.ajax({
-    	   type:'get',
-    	   url:'product.controller' + indexPage,
+    	   type:'POST',
+    	   url:'usershoppage.controller/' + indexPage,
     	   dataType:'JSON',
     	   contentType:'application/json',
     	   success: function(data) {
@@ -118,10 +118,10 @@
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
                +  "Sale"+
               "</div>" +    
-               "<img class='card-img-top' src='"+n.empPic+"'/>"+     
+               "<img class='card-img-top' src='"+n.proPhoto+"'/>"+     
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
-                   "<h5 class='fw-bolder'>"+n.empName+"</h5>"+
+                   "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
                      "<div class='bi-star-fill'></div>"+
                      "<div class='bi-star-fill'></div>"+
