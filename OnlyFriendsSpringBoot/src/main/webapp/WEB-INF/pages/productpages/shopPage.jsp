@@ -219,7 +219,7 @@ a.slide-arrow {
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
                +  "Sale"+
               "</div>" +    
-               "<img class='card-img-top' src='"+n.proPhoto+"'/>"+     
+               "<a href='shopitementrypage?Id="+n.proId+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
                    "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
