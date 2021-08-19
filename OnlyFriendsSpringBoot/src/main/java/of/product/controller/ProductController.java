@@ -36,8 +36,13 @@ public class ProductController {
 	private Product product;
 
 	@RequestMapping(path = "/empproductPage.controller", method = RequestMethod.GET)
-	public String blogMgmtEntry(Model model) {
+	public String productMgmtEntry(Model model) {
 		return "productpages/productMgmtPage";
+	}
+	
+	@RequestMapping(path = "/memeberproductPage.controller", method = RequestMethod.GET)
+	public String userproductMgmtEntry(Model model) {
+		return "productpages/shopPage";
 	}
 	
 	@GetMapping(path = "/product.controller")

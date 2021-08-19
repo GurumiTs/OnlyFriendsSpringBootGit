@@ -102,8 +102,8 @@
 	}
     function load(){
     	$.ajax({
-    	   type:'post',
-    	   url:'queryallbypage/' + indexPage,
+    	   type:'get',
+    	   url:'product.controller' + indexPage,
     	   dataType:'JSON',
     	   contentType:'application/json',
     	   success: function(data) {
