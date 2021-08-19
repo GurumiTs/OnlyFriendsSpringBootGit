@@ -20,7 +20,7 @@ import of.product.model.Product;
 import of.product.model.ProductService;
 
 @Controller
-@SessionAttributes(names= {"proList","product"})
+@SessionAttributes(names= {"proList","product","totalPages","totalElements"})
 public class ShopController {
 	@Autowired 
 	private ProductService productService;
