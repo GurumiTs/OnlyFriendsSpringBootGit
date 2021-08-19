@@ -44,21 +44,11 @@ public class BlogController {
 		return "blogpages/blogmgmt";
 	}
 
-//	@RequestMapping(path = "/blogmgmt.controller", method = RequestMethod.GET)
-//	public String signupempEntry(Model model) {
-//		List<BlogBean> allBlog = bService.findAll();
-//		model.addAttribute("allBlog", allBlog);
-//		return "blogpages/blogmgmt";
-//	}
-
 	@GetMapping(path = "/blogalltojson")
 	@ResponseBody
 	public Map allBlogToJson(Model m) {
-		System.out.println("1");
 		List<BlogBean> blogList = bService.findAll();
-		System.out.println("2");
 		Map<String, Object> map = new HashMap<>();
-		System.out.println("3");
 		map.put("data", blogList);
 		return map;
 	}
@@ -116,6 +106,7 @@ public class BlogController {
 			return "redirect:empblogmgmt.controller";
 		} catch (Exception e) {
 			e.printStackTrace();
+			m.addAttribute("errors", "Something is wrong!");
 			return "redirect:empbloginsertform.controller";
 		}
 
@@ -123,7 +114,6 @@ public class BlogController {
 	// update
 	@GetMapping(path = "/empupdateentry.controller")
 	public String updateEntry(@RequestParam(name = "articleID") Integer articleID, Model m) {
-//		Integer Id = Integer.parseInt(articleID);
 		System.out.println("Find articleID:" + articleID + ",to Updatepages" );
 		blog = bService.findByArticleID(articleID);
 		m.addAttribute("blog", blog);
@@ -138,8 +128,6 @@ public class BlogController {
 							 @RequestParam(name = "title") String title,
 							 @RequestParam(name = "mainText") String mainText,
 							 @RequestParam(name = "createTime") Timestamp createTime,
-//							 @RequestParam(name = "createTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date d1,
-//							 @RequestParam(name = "createTime") Date d1,
 							 Model m) {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		System.out.println("UpdateTime:" + ts);
@@ -157,7 +145,6 @@ public class BlogController {
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
 			blog.setImages("images/blogPic/" + fileName);
-			System.out.println(createTime);
 			blog.setCreateTime(createTime);
 			blog.setArticleID(articleID);
 			blog.setEmpAcc(empAcc);
@@ -167,9 +154,6 @@ public class BlogController {
 			blog.setUpdateTime(ts);
 
 			bService.updateBlog(blog);
-
-//				List<BlogBean> blogList = blogService.selectAll();
-//				m.addAttribute("allblog", blogList);
 
 			return "redirect:empblogmgmt.controller";
 		} catch (Exception e) {
