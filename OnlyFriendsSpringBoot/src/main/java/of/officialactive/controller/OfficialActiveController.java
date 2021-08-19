@@ -33,7 +33,7 @@ public class OfficialActiveController {
 	@Autowired
 	private OfficialActive officialActive;
 	
-	@GetMapping(path= "oatojson")
+	@GetMapping(path= "/oatojson")
 	@ResponseBody
 	public Map allOaToJson(Model m) {
 		List<OfficialActive> oaList = officialActiveService.findAll();
