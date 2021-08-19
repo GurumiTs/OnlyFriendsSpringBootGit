@@ -113,6 +113,7 @@ public class MainEntryController {
 		return "frontcommonpages/shopexample";
 	}
 	
+	
 	@PostMapping(path = "/queryallbypage/{pageNo}")
 	@ResponseBody
 	public List<Employee> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
@@ -130,7 +131,20 @@ public class MainEntryController {
 		return page.getContent();
 	}
 	
+	@RequestMapping(path = "/blogexample.controller", method = RequestMethod.GET)
+	public String blogexampleEntry() {
+		return "frontcommonpages/blogexample";
+	}
 	
+	@RequestMapping(path = "/blogarticleample.controller", method = RequestMethod.GET)
+	public String blogarticleexampleEntry() {
+		return "frontcommonpages/blogarticleexample";
+	}
+	
+	@RequestMapping(path = "/try.controller", method = RequestMethod.GET)
+	public String tryEntry() {
+		return "frontcommonpages/try";
+	}
 	
 
 }
