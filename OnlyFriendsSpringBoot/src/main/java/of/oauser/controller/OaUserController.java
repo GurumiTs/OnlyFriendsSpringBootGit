@@ -13,6 +13,8 @@ public class OaUserController {
 	private OfficialActive oa;
 	@Autowired
 	private OfficialActiveService oaService;
+	@Autowired
+	
 	
 	
 	@RequestMapping(path = "/oauser.controller")
