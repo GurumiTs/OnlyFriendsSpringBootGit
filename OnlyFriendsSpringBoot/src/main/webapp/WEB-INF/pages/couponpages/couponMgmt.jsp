@@ -48,7 +48,13 @@ img.error {
 	display: flex;
 	width: 100%;
 }
-
+#top {width: 60%;
+	margin: -60px auto 5px auto;}
+		
+#top2 {
+	width: 60%;
+	margin: -0px auto 5px auto;
+		}
 #left {
 	width: 49%;
 	margin-right: 40px;
@@ -62,8 +68,8 @@ img.error {
 	margin-top: 72.19px;
 }
 
-input[type=text], [type=date], #caNameInsert, #caNameUpdate {
-	width: 70%;
+input[type=text], [type=date], #caNameInsert, #caNameUpdate, textarea {
+	width: 100%;
 	box-sizing: border-box;
 	border: 3px solid #555;
 }
@@ -79,7 +85,7 @@ span {
 }
 
 .formName {
-	margin-bottom: -10px;
+	margin-bottom: -10px;	
 }
 
 #deleteForm {
@@ -97,6 +103,7 @@ span {
 	border: green 1px solid;
 }
 
+
 .fileplus {
 	width: 30%;
 }
@@ -104,6 +111,8 @@ span {
 #loadImg{
    width: 5%;
 }
+
+.textarea{resize: none;}
 
 </style>
 </head>
@@ -140,7 +149,7 @@ span {
 					</ul>
 					<select id="select" name="number" style="margin-right: 1%;">
 						<option id="all" value="1">名稱</option>
-						<option id="caName" value="2">分類</option>
+						<option id="category" value="2">分類</option>
 					</select>
 
 					<form id="Search" action="empgetByLike.controller" method="post"
@@ -165,16 +174,17 @@ span {
 							<div class="col-md-4 col-sm-6">
 								<div class="card border-primary mb-3"
 									style="max-width: 20rem; max-height: 50rem;">
-									<div class="card-header">${find.coName}</div>
+									<div class="card-header">${find.companyName}</div>
 									<div class="card-body">
-										<img src="${find.pImg}" id="mainImg" />
+										<img src="${find.couponImg}" id="mainImg" />
 										<ul id="ul">
-											<li>優惠券名稱:${find.pName}</li>
-											<li>價格:$${find.price}</li>
-											<li>庫存量:${find.pQty}</li>
-											<li>優惠起始日:${find.startDate}</li>
-											<li>優惠截止日:${find.endDate}</li>
-											<li>分類名稱:${find.caName}</li>
+										    <li>優惠券序號:${find.couponId}</li>
+											<li>優惠券名稱:${find.couponName}</li>
+											<li>價格:${find.couponPrice}</li>
+											<li>庫存量:${find.couponQty}</li>
+											<li>優惠起始日:${find.couponStartDate}</li>
+											<li>優惠截止日:${find.couponEndDate}</li>
+											<li>分類名稱:${find.category}</li>
 										</ul>
 									</div>
 								</div>
@@ -217,7 +227,7 @@ span {
 				if (selectObj == 1) {
 					document.getElementById("Search").action = "empgetByLike.controller";
 				} else {
-					document.getElementById("Search").action = "empgetByCaName.controller";
+					document.getElementById("Search").action = "empgetBycompanyName.controller";
 				}
 			}
 		</script>
@@ -226,96 +236,106 @@ span {
 
 
 		<!-- 新增Modal ----------------------------------------------------------------------------- -->
-		<div class="modal fade" id="add" data-bs-backdrop="static"
-			data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content modal-dialog-scrollable"
-					style="width: 650px; margin: 50px auto;">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">
-							新增 <img src='images/couponPic/fileplus.JPG' class="fileplus">
-						</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form class="container" action="empinsertCoupon.controller"
-							method="post" enctype="multipart/form-data">
-							<div id="main">
-								<div id="left">
-									<img id="imgInsert" name="img" src="images/couponPic/pic.JPG"
-										style="width: 100%; height: 50%;"><br> <input
-										type="file" name="pImg" accept="image/*"
-										onchange="loadFile(event)" required><span
-										id="spImgInsert"></span>
-								</div>
-								<script>
-									var loadFile = function(event) {
-										var output = document
+		<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content modal-dialog-scrollable" style="width: 650px; margin: 50px auto;">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">
+									新增 <img src='images/couponPic/fileplus.JPG' class="fileplus">
+								</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form class="container" action="empinsertCoupon.controller" method="post"
+									enctype="multipart/form-data">
+									<div id="top">
+										<img id="imgInsert" name="img" src="images/couponPic/pic.JPG"
+											style="width: 100%; height: 50%;"><br> <input type="file" name="couponImg"
+											accept="image/*" onchange="loadFile(event)" required><span
+											id="spImgInsert"></span>
+									</div>
+									<script>
+										var loadFile = function (event) {
+											var output = document
 												.getElementById('imgInsert');
-										output.src = URL
+											output.src = URL
 												.createObjectURL(event.target.files[0]);
-										output.onload = function() {
-											URL.revokeObjectURL(output.src)
-										}
-									};
-								</script>
-								<div id="right">
-									<label for="coName" class="formName">廠商名稱</label>
-									<div class="line">
-										<input placeholder="請輸入廠商名稱" type="text" name="coName"
-											id="coNameInsert" required><span id="spCoNameInsert"></span>
-									</div>
-									<br> <label for="caName" class="formName">分類名稱</label>
-									<div class="line">
-										<select name="caName" id="caNameInsert" required>
-											<option value="">請選擇</option>
-											<option value="餐廳">餐廳</option>
-											<option value="旅遊">旅遊</option>
-											<option value="服裝">服裝</option>
-											<option value="運動">運動</option>
-										</select><span id="spCaNameInsert"></span>
-									</div>
-									<br> <label for="pName" class="formName">優惠券名稱</label>
-									<div class="line">
-										<input placeholder="請輸入優惠券名稱" type="text" name="pName"
-											id="pNameInsert" required><span id="spPNameInsert"></span>
-									</div>
-									<br> <label for="price" class="formName">優惠券價格</label>
-									<div class="line">
-										<input placeholder="請輸入優惠券價格" type="text" name="price"
-											id="priceInsert" required><span id="spPriceInsert"></span>
-									</div>
-									<br> <label for="pQty" class="formName">庫存量</label>
-									<div class="line">
-										<input placeholder="請輸入庫存量" type="text" id="pQtyInsert"
-											name="pQty" required><span id="spPQtyInsert"></span>
-									</div>
-									<br> <label for="startDate" class="formName">優惠起初日</label>
-									<div class="line">
-										<input type="date" name="startDate" id="startDateInsert"
-											required><span id="spStartDateInsert"></span>
-									</div>
-									<br> <label for="endDate" class="formName">優惠截止日</label>
-									<div class="line">
-										<input type="date" name="endDate" id="endDateInsert" required><span
-											id="spEndDateInsert"></span>
+											output.onload = function () {
+												URL.revokeObjectURL(output.src)
+											}
+										};
+									</script>
+									<div id="main">
+										<div id="right">
+											<label for="companyName" class="formName">廠商名稱</label>
+											<div class="line">
+												<input placeholder="請輸入廠商名稱" type="text" name="companyName" id="coNameInsert"
+													required><span id="spCoNameInsert"></span>
+											</div>
+											<br> <label for="category" class="formName">分類名稱</label>
+											<div class="line">
+												<select name="category" id="caNameInsert" required>
+													<option value="">請選擇</option>
+													<option value="餐廳">餐廳</option>
+													<option value="旅遊">旅遊</option>
+													<option value="服裝">服裝</option>
+													<option value="運動">運動</option>
+												</select><span id="spCaNameInsert"></span>
+											</div>
+											<br> <label for="couponName" class="formName">優惠券名稱</label>
+											<div class="line">
+												<input placeholder="請輸入優惠券名稱" type="text" name="couponName" id="pNameInsert"
+													required><span id="spPNameInsert"></span>
+											</div>
+											<br> <label for="couponPrice" class="formName">優惠券價格</label>
+											<div class="line">
+												<input placeholder="請輸入優惠券價格" type="text" name="couponPrice" id="priceInsert"
+													required><span id="spPriceInsert"></span>
+											</div>
+											<br> <label for="couponQty" class="formName">庫存量</label>
+											<div class="line">
+												<input placeholder="請輸入庫存量" type="text" id="pQtyInsert" name="couponQty"
+													required><span id="spPQtyInsert"></span>
+											</div>
+											<br> <label for="couponStartDate" class="formName">優惠起初日</label>
+											<div class="line">
+												<input type="date" name="couponStartDate" id="startDateInsert"><span
+													id="spStartDateInsert"></span>
+											</div>
+											<br> <label for="couponEndDate" class="formName">優惠截止日</label>
+											<div class="line">
+												<input type="date" name="couponEndDate" id="endDateInsert"><span
+													id="spEndDateInsert"></span>
+											</div>
+										</div>
+									<div id="left">
+											<label for="couponInfo" class="formName">優惠券簡介</label>
+											<div class="line">
+												<textarea placeholder="請輸入優惠券簡介" name="couponInfo" rows="8" cols="100"
+													 class="textarea"></textarea>
+											</div><br>
+											<label for="couponUse" class="formName">優惠券使用方式</label>
+											<div class="line">
+												<textarea placeholder="請輸入優惠券使用方式" name="couponUse" rows="8"
+													cols="100" class="textarea"></textarea>
+											</div>
+										</div>
+										
+										<br>
+
 									</div>
 									<br>
-
-								</div>
+									<div class="modal-footer">
+										<input type="submit" class="btn btn-primary" value="送出">
+										<input type="reset" class="btn btn-secondary" value="清除">
+									</div>
+								</form>
 							</div>
-							<br>
-							<div class="modal-footer">
-								<input type="submit" class="btn btn-primary" value="送出">
-								<input type="reset" class="btn btn-secondary" value="清除">
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 		<script>
 			document.getElementById("caNameInsert").onblur = checkCaName;
 			document.getElementById("coNameInsert").onblur = checkCoName;
@@ -453,104 +473,119 @@ span {
 		<!-- 新增區域!!------------------------------------------------------------------------- -->
 
 		<!-- 修改Modal ----------------------------------------------------------------------------->
-		<div class="modal fade" id="update" data-bs-backdrop="static"
-			data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content modal-dialog-scrollable"
-					style="width: 650px; margin: 50px auto;">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">
-							修改 <img src='images/couponPic/fileplus.JPG' class="fileplus">
-						</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-							<div>
-								<label for="pName" style="font-weight: bold; font-size: 18px">請輸入欲變更優惠券名稱
-								</label> <input placeholder="請輸入優惠券名稱" type="text" name="pName"
-									id="pNameUpdate" required><button id="loadbutton">load</button><img src="images/couponPic/loadImg.gif" id="loadImg"><br>
+		<div class="modal fade" id="update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content modal-dialog-scrollable" style="width: 650px; margin: 50px auto;">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">
+									修改 <img src='images/couponPic/fileplus.JPG' class="fileplus">
+								</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
 							</div>
-							<hr>
-							<form class="container" class="box"
-							action="empupdateCoupon.controller" method="post"
-							enctype="multipart/form-data">
-							<div id="main">
-								<div id="left">
-									<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
-									<br> <img id="up" name="img"
-										src="images/couponPic/pic.JPG"
-										style="width: 100%; height: 50%;"><br> <input
-										type="file" name="pImg" accept="image/*"
-										onchange="loadFile2(event)" required><span
-										id="spImgInsert"></span>
+							<div class="modal-body">
+								<div id="topUpdate">
+									<label for="couponId" style="font-weight: bold; font-size: 18px">請輸入欲變更優惠券序號
+									</label> <input placeholder="請輸入優惠券序" type="text" name="couponId" id="pNameUpdate"
+										required><button id="loadbutton">load</button><img
+										src="images/couponPic/loadImg.gif" id="loadImg"><br>
 								</div>
-								<script>
-									var loadFile2 = function(event) {
-										var output2 = document
+								<hr>
+								<form class="container" class="box" action="empupdateCoupon.controller" method="post"
+									enctype="multipart/form-data">
+										<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
+									<div id="top2">
+										<br> <img id="up" name="img" src="images/couponPic/pic.JPG"
+											style="width: 100%; height: 50%;"><br> <input type="file" name="couponImg"
+											accept="image/*" onchange="loadFile2(event)" required><span
+											id="spImgInsert"></span>
+									</div>
+									<script>
+										var loadFile2 = function (event) {
+											var output2 = document
 												.getElementById('up');
-										output2.src = URL
+											output2.src = URL
 												.createObjectURL(event.target.files[0]);
-										output2.onload = function() {
-											URL.revokeObjectURL(output.src)
-										}
-									};
-								</script>
-								<div id="right">
-								    <label for="pName" class="formName">優惠券名稱</label>
-									<div class="line">
-										<input placeholder="請輸入優惠券名稱" type="text" name="pName"
-											id="pNameUpdate2" required><span id="spPNameInsert"></span>
+											output2.onload = function () {
+												URL.revokeObjectURL(output.src)
+											}
+										};
+									</script>
+									<div id="main">
+										<div id="right">
+											<label for="couponName" class="formName">優惠券名稱</label>
+											<div class="line">
+												<input placeholder="請輸入優惠券名稱" type="text" name="couponName" id="pNameUpdate2"
+												required><span id="spPNameInsert"></span>
+											</div>
+											<br><label for="companyName">廠商名稱</label>
+											<div class="line">
+												<input placeholder="請輸入廠商名稱" type="text" name="companyName" id="coNameUpdate"
+												required><span id="spCoNameUpdate"></span>
+											</div>
+											<br><label for="category">分類名稱</label>
+											<div class="line">
+												<select name="category" id="caNameUpdate" required>
+													<option value="">請選擇</option>
+													<option value="餐廳">餐廳</option>
+													<option value="旅遊">旅遊</option>
+													<option value="服裝">服裝</option>
+													<option value="運動">運動</option>
+												</select><span id="spCaNameUpdate"></span>
+											</div>
+											<br> <label for="couponPrice">優惠券價格</label>
+											<div class="line">
+												<input placeholder="請輸入優惠券價格" type="text" name="couponPrice" id="priceUpdate"
+													required><span id="spPriceUpdate"></span>
+											</div>
+											<br> <label for="couponQty">庫存量</label>
+											<div class="line">
+												<input placeholder="請輸入庫存量" type="text" id="pQtyUpdate" name="couponQty"
+												required><span id="spPQtyUpdate"></span>
+											</div>
+											<br> <label for="couponStartDate">優惠起初日</label>
+											<div class="line">
+												<input type="date" name="couponStartDate" id="startDateUpdate" required><span
+												id="spStartDateUpdate"></span>
+											</div>
+											<br> <label for="couponEndDate">優惠截止日</label>
+											<div class="line">
+												<input type="date" name="couponEndDate" id="endDateUpdate" required><span
+												id="spEndDateUpdate"></span>
+											</div>
+										</div>
+											<div id="left">
+											   <label for="couponId" class="formName">優惠券序號</label>
+											<div class="line">
+												<input placeholder="請輸入優惠券序號" type="text" name="couponId" id="couponId"
+												required><span id=""></span>
+											</div>
+												<br><label for="couponInfo" class="formName">優惠券簡介</label>
+												<div class="line">
+													<textarea placeholder="請輸入優惠券簡介" name="couponInfo" rows="8" cols="100"
+														class="textarea" id="couponInfoUpdate"></textarea>
+												</div><br>
+												<label for="couponUse" class="formName">優惠券使用方式</label>
+												<div class="line">
+													<textarea placeholder="請輸入優惠券使用方式" name="couponUse" rows="8" cols="100"
+														class="textarea" id="couponUseUpdate"></textarea>
+												</div>
+											</div>
+											
+										</div>
+<br>
+											
+									
+									<div class="modal-footer">
+										<input type="submit" class="btn btn-primary" value="送出">
+										<input type="reset" class="btn btn-secondary" value="清除">
 									</div>
-									<br><label for="coName" class="formName">廠商名稱</label>
-									<div class="line">
-										<input placeholder="請輸入廠商名稱" type="text" name="coName"
-											id="coNameUpdate" required><span id="spCoNameUpdate"></span>
-									</div>
-									<br> <label for="caName" class="formName">分類名稱</label>
-									<div class="line">
-										<select name="caName" id="caNameUpdate" required>
-											<option value="">請選擇</option>
-											<option value="餐廳">餐廳</option>
-											<option value="旅遊">旅遊</option>
-											<option value="服裝">服裝</option>
-											<option value="運動">運動</option>
-										</select><span id="spCaNameUpdate"></span>
-									</div>
-									<br> <label for="price" class="formName">優惠券價格</label>
-									<div class="line">
-										<input placeholder="請輸入優惠券價格" type="text" name="price"
-											id="priceUpdate" required><span id="spPriceUpdate"></span>
-									</div>
-									<br> <label for="pQty" class="formName">庫存量</label>
-									<div class="line">
-										<input placeholder="請輸入庫存量" type="text" id="pQtyUpdate"
-											name="pQty" required><span id="spPQtyUpdate"></span>
-									</div>
-									<br> <label for="startDate" class="formName">優惠起初日</label>
-									<div class="line">
-										<input type="date" name="startDate" id="startDateUpdate" 
-											required><span id="spStartDateUpdate"></span>
-									</div>
-									<br> <label for="endDate" class="formName">優惠截止日</label>
-									<div class="line">
-										<input type="date" name="endDate" id="endDateUpdate" required ><span
-											id="spEndDateUpdate"></span>
-									</div>
-									<br>
-
-								</div>
+								</form>
 							</div>
-							<div class="modal-footer">
-								<input type="submit" class="btn btn-primary" value="送出">
-								<input type="reset" class="btn btn-secondary" value="清除">
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 		<script>
 		                  $(function () {
 		                	  
@@ -560,25 +595,29 @@ span {
 	   
 		                		   $('#loadImg').css("display","inline-block");
 		                		   
-									var pName = $('#pNameUpdate').val();
+									var couponId = $('#pNameUpdate').val();
 									
 									$.ajax({
 										type:'POST',
 										url:'getAllCouponToJson.controller',
-										data:{"pName":pName},
+										data:{"couponId":couponId},
 										dataType:'json',
 										
 										success:function(data){ 
 											$('#loadImg').css("display","none");
 											
-											$('#up').attr("src",data.pImg);
-											$('#pNameUpdate2').val(data.pName);
-											$('#coNameUpdate').val(data.coName);
-											$('#caNameUpdate').val(data.caName);
-											$('#priceUpdate').val(data.price);
-											$('#pQtyUpdate').val(data.pQty);
-											$('#startDateUpdate').val(data.startDate);
-											$('#endDateUpdate').val(data.endDate);	 
+											$('#up').attr("src",data.couponImg);
+											$('#pNameUpdate2').val(data.couponName);
+											$('#coNameUpdate').val(data.companyName);
+											$('#caNameUpdate').val(data.category);
+											$('#priceUpdate').val(data.couponPrice);
+											$('#pQtyUpdate').val(data.couponQty);
+											$('#startDateUpdate').val(data.couponStartDate);
+											$('#endDateUpdate').val(data.couponEndDate);
+											$('#couponInfoUpdate').val(data.couponInfo);	
+											$('#couponUseUpdate').val(data.couponUse);	
+											$('#couponId').val(data.couponId);
+											
 										},error:function(data) 
 								        {
 											$('#loadImg').css("display","none");
@@ -687,9 +726,9 @@ span {
 					</div>
 					<form action="empdeleteCoupon.controller" method="post">
 						<div class="modal-body" id="deleteForm">
-							<label for="pName" class="lineDelete">優惠券名稱</label><br> <input
-								placeholder="請輸入要刪除的優惠券名稱" type="text" id="pNameDelete"
-								name="pName" required><span id="spPNameDelete"></span>
+							<label for="couponId" class="lineDelete">優惠券序號</label><br> <input
+								placeholder="請輸入要刪除的優惠券序號" type="text" id="pNameDelete"
+								name="couponId" required><span id="spPNameDelete"></span>
 						</div>
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-primary" value="確認">

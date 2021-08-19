@@ -1,5 +1,7 @@
 package of.coupon.model;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,98 +11,86 @@ import org.springframework.stereotype.Component;
 @Component("coupon")
 public class Coupon {
 	@Id
-	private String pName;
-	private String coName;
-	private String pImg;
-	private String price;
-	private String pQty;
-	private String startDate;
-	private String endDate;
-	private String caName;
-
-	public Coupon() {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer couponId;
+	private String companyName;
+	private String couponName;
+	private String couponImg;
+	private Integer couponPrice;
+	private Integer couponQty;
+	private String couponStartDate;
+	private String couponEndDate;
+	private String couponInfo;
+	private String couponUse;
+	private String category;
 	
+	public Integer getCouponId() {
+		return couponId;
+	}
+	public void setCouponId(Integer couponId) {
+		this.couponId = couponId;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getCouponName() {
+		return couponName;
+	}
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+	public String getCouponImg() {
+		return couponImg;
+	}
+	public void setCouponImg(String couponImg) {
+		this.couponImg = couponImg;
+	}
+	public Integer getCouponPrice() {
+		return couponPrice;
+	}
+	public void setCouponPrice(Integer couponPrice) {
+		this.couponPrice = couponPrice;
+	}
+	public Integer getCouponQty() {
+		return couponQty;
+	}
+	public void setCouponQty(Integer couponQty) {
+		this.couponQty = couponQty;
+	}
+	public String getCouponStartDate() {
+		return couponStartDate;
+	}
+	public void setCouponStartDate(String couponStartDate) {
+		this.couponStartDate = couponStartDate;
+	}
+	public String getCouponEndDate() {
+		return couponEndDate;
+	}
+	public void setCouponEndDate(String couponEndDate) {
+		this.couponEndDate = couponEndDate;
+	}
+	public String getCouponInfo() {
+		return couponInfo;
+	}
+	public void setCouponInfo(String couponInfo) {
+		this.couponInfo = couponInfo;
+	}
+	public String getCouponUse() {
+		return couponUse;
+	}
+	public void setCouponUse(String couponUse) {
+		this.couponUse = couponUse;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public Coupon(String pName, String coName, String pImg, String price, String pQty, String startDate, String endDate,
-			String caName) {
-		super();
-		this.pName = pName;
-		this.coName = coName;
-		this.pImg = pImg;
-		this.price = price;
-		this.pQty = pQty;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.caName = caName;
-	}
-
-
-	public String getpName() {
-		return pName;
-	}
-
-	public void setpName(String pName) {
-		this.pName = pName;
-	}
-
-	public String getCoName() {
-		return coName;
-	}
-
-	public void setCoName(String coName) {
-		this.coName = coName;
-	}
-
-	public String getpImg() {
-		return pImg;
-	}
-
-	public void setpImg(String pImg) {
-		this.pImg = pImg;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
-	public String getpQty() {
-		return pQty;
-	}
-
-	public void setpQty(String pQty) {
-		this.pQty = pQty;
-	}
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getCaName() {
-		return caName;
-	}
-
-	public void setCaName(String caName) {
-		this.caName = caName;
-	}
-	
-	
 
 }
 

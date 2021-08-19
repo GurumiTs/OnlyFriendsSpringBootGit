@@ -48,20 +48,24 @@
 						<%
 						request.setCharacterEncoding("UTF-8");
 						%>
-						<div>分類名稱:${find.caName}</div>
+						<div>分類名稱:${find.category}</div>
 						<br />
-						<div>廠商名稱:${find.coName}</div>
+						<div>廠商名稱:${find.companyName}</div>
 						<br />
-						<div>優惠券名稱:${find.pName}</div>
+						<div>優惠券名稱:${find.couponName}</div>
 						<br />
-						<div>商品價格:${find.price}</div>
+						<div>優惠券價格:${find.couponPrice}</div>
 						<br />
-						<div>剩餘數量:${find.pQty}</div>
+						<div>庫存量:${find.couponQty}</div>
 						<br />
-						<div>優惠起初日: ${find.startDate}</div>
+						<div>優惠起初日: ${find.couponStartDate}</div>
 						<br />
-						<div>優惠截止日: ${find.endDate}</div>
+						<div>優惠截止日: ${find.couponEndDate}</div>
 						<br />
+						<!--  <div>優惠券簡介: ${find.couponInfo}</div>
+						<br />
+						<div>優惠優惠券使用方式: ${find.couponUse}</div>
+						<br />-->
 						<!--   <br> <a href="empCoupons.controller">確認</a>-->
 
 					</div>

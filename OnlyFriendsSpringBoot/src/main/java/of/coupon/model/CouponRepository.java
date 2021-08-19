@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CouponRepository extends JpaRepository<Coupon, String> {
+public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	
-	public List<Coupon> findBypNameLike(String pName);
+	public List<Coupon> findBycouponNameLike(String couponName);
 	
-	public Coupon findBypName(String pName);
+	public Coupon findBycouponName(String couponName);
 	
-	public List<Coupon> findBycaName(String caName);
+	public List<Coupon> findBycategory(String category);
 	
-	public void deleteBypName(String pName);
+//	public void deleteBycouponName(String couponName);
 
 }
