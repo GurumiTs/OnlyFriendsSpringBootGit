@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import of.blog.model.BlogBean;
 
 @Service
 @Transactional
@@ -30,7 +29,6 @@ public class BlogUserService {
 	
 	// 查全部
 	public List<BlogUser> findAll(){
-		System.out.println("service findAll");
 		return bUserRepository.findAll();
 	}
 	

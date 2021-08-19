@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import of.blog.model.BlogBean;
 
 @Service
 @Transactional
@@ -37,9 +38,8 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
-	public boolean checkName(String proName) {
-		Optional<Product> productOptional = productRepository.findByProName(proName);
-		return productOptional.isPresent();
+	public Page<Product> findAllByPage(Pageable pageable){
+		return productRepository.findAll(pageable);
 	}
 	
 	public Boolean checkproId(Integer Id) {
