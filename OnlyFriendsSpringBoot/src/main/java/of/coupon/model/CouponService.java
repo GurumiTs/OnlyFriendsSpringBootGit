@@ -38,7 +38,7 @@ public class CouponService {
 		return couponRepository.findBycouponNameLike(couponName);
 	}
 	
-	public List<Coupon> findBycompanyName(String category) {
+	public List<Coupon> findBycategoryName(String category) {
 		return couponRepository.findBycategory(category);
 	}
 	

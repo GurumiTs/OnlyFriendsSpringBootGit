@@ -180,7 +180,7 @@ span {
 								<div class="card border-primary mb-3"
 									style="max-width: 20rem; max-height: 50rem;">
 									<div class="card-header">${find.companyName} 
-									<a href="couponDetailEntry.controller?couponImg=${find.couponId}&couponName=${find.couponName}"><i class="fas fa-info-circle" style="font-size: 1.5em;" id="couponDetail"></i></a>
+									<a href="couponDetailEntry.controller?couponImg=${find.couponId}&couponName=${find.couponName}"><i class="fas fa-search" style="font-size: 1.5em;" id="couponDetail"></i></a>
 									</div>
 									<div class="card-body">
 										<img src="${find.couponImg}" id="mainImg" />
@@ -233,7 +233,7 @@ span {
 				if (selectObj == 1) {
 					document.getElementById("Search").action = "empgetByLike.controller";
 				} else {
-					document.getElementById("Search").action = "empgetBycompanyName.controller";
+					document.getElementById("Search").action = "empgetBycategoryName.controller";
 				}
 			}
 		</script>
@@ -747,7 +747,7 @@ span {
 				</div>
 			</div>
 		</div>
-		<script>
+	<!--  	<script>
 			document.getElementById("pNameDelete").onblur = checkpNameDelet;
 			function checkpNameDelet() {
 				let pNameObj = document.getElementById("pNameDelete");
@@ -760,7 +760,7 @@ span {
 					sp2.innerHTML = "<img src='images/couponPic/correct.png' class='ok'>ok";
 				}
 			}
-		</script>
+		</script>-->
 		<!-- 刪除區域!!------------------------------------------------------------------------- -->
 		<!-- page-content" -->
 	</div>
