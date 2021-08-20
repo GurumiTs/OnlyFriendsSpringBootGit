@@ -32,8 +32,8 @@ pageEncoding="UTF-8"%>
                   >Shop</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">招桃商城</a></li>
-                  <li><a class="dropdown-item" href="#!">聯盟票券</a></li>
+                  <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
+                  <li><a class="dropdown-item" href="couponshop.controller">聯盟票券</a></li>
                   <li><a class="dropdown-item" href="shop.controller">example</a></li>
                 </ul>
               </li>

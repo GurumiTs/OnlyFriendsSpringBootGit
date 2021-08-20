@@ -45,12 +45,12 @@ public class ShopController {
 	}
 	
 	
-	@RequestMapping(path = "/usershopentrypage", method = RequestMethod.GET)
+	@RequestMapping(path = "/shopentrypage", method = RequestMethod.GET)
 	public String userproductMgmtEntry(Model model) {
 		return "productpages/shopPage";
 	}
 	
-	@PostMapping(path = "/usershoppage.controller/{pageNo}")
+	@PostMapping(path = "/shoppage.controller/{pageNo}")
 	@ResponseBody
 	public List<Product> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
 		

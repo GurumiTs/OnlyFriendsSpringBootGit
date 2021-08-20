@@ -204,7 +204,7 @@ a.slide-arrow {
     function load(){
     	$.ajax({
     	   type:'POST',
-    	   url:'usershoppage.controller/' + indexPage,
+    	   url:'shoppage.controller/' + indexPage,
     	   dataType:'JSON',
     	   contentType:'application/json',
     	   success: function(data) {
