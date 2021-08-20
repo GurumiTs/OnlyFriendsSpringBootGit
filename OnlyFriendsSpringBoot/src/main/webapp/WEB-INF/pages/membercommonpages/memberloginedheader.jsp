@@ -32,14 +32,28 @@ pageEncoding="UTF-8"%>
                   >Shop</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="usershopentrypage">招桃商城</a></li>
+                  <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
                   <li><a class="dropdown-item" href="couponshop.controller">聯盟票券</a></li>
                   <li><a class="dropdown-item" href="shop.controller">example</a></li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Blog</a>
+              
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >Blog</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#!">幸福故事</a></li>
+                  <li><a class="dropdown-item" href="blogusers">戀人分享</a></li>
+                </ul>
               </li>
+              
               <li class="nav-item">
                 <a href="#" class="nav-link">Swipe</a>
               </li>             

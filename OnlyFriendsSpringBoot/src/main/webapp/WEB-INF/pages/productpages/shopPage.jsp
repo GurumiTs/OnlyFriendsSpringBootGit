@@ -204,11 +204,11 @@ a.slide-arrow {
     function load(){
     	$.ajax({
     	   type:'POST',
-    	   url:'usershoppage.controller/' + indexPage,
+    	   url:'shoppage.controller/' + indexPage,
     	   dataType:'JSON',
     	   contentType:'application/json',
     	   success: function(data) {
-    	     var json = JSON.stringify(data, null, 2);
+    	     var json = JSON.stringify(data, null, 4);
     	     var parsedObjinArray = JSON.parse(json);
     	     var itemarea = $('#itemarea');
     	     $('#itemarea').empty("");
@@ -219,7 +219,7 @@ a.slide-arrow {
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
                +  "Sale"+
               "</div>" +    
-               "<a href='shopitementrypage?Id="+n.proId+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
+               "<a href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
                    "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
@@ -230,16 +230,12 @@ a.slide-arrow {
                      "<div class='bi-star-fill'></div>"+
                      "<div class='bi-star-fill'></div>"+
                   "</div>"+
-                   "<span class='text-muted text-decoration-line-through'>$20.00</span>" +
-                   "$18.00"+
+                   "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
+                   "$"+Math.round(n.proPrice*0.9)+
                 " </div>"+
                "</div>"+
              
-               "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
-                 "<div class='text-center'>"+
-                  "<a class='btn btn-outline-dark mt-auto' href='/#'>Add to cart</a>"+
-                 "</div>"+
-               "</div>"+
+               
              "</div>"+
            "</div>" ;
            itemarea.append(item);
