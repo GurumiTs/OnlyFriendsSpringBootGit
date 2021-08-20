@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -18,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
 @Controller
+@SessionAttributes(names = {"totalPages", "totalElements"})
 public class BlogUserController {
 
 	@Autowired
@@ -37,18 +42,18 @@ public class BlogUserController {
 		return "bloguserspages/blogusermainpage";
 	}
 	
+//	// 主頁資料轉Json 格式
+//	public Map allBlogUserToJson(Model m) {
+//		List<BlogUser> blogUserList = bUserService.findAll();
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("data", blogUserList);
+//		return map;
+//	}
+	
 	// 進單一文章頁面(未設前端)
 	@RequestMapping(path = "/blogarticle", method = RequestMethod.GET)
 	public String blogArticleEntry() {
 		return "bloguserspages/blogarticle";
-	}
-
-	// 主頁資料轉Json 格式
-	public Map allBlogUserToJson(Model m) {
-		List<BlogUser> blogUserList = bUserService.findAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data", blogUserList);
-		return map;
 	}
 
 	// 進新增controller(未設前端)
@@ -161,5 +166,22 @@ public class BlogUserController {
 //		}
 //		return "fail";
 //	}
-//	
+	@PostMapping(path = "/blogqueryallbypage/{pageNo}")
+	@ResponseBody
+	public List<BlogUser> queryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
+		int pageSize = 6;
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		Page<BlogUser> page = bUserService.findAllByPage(pageable);
+		
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();// 全部有幾筆資料
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+		
+		return page.getContent();
+	}
+	
+	
+	
 }
