@@ -3,17 +3,26 @@ package of.officialactive.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +37,19 @@ public class OfficialActiveController {
 	private OfficialActiveService officialActiveService;
 	@Autowired
 	private OfficialActive officialActive;
+	
+	@GetMapping(path= "/oatojson")
+	@ResponseBody
+	public Map allOaToJson(Model m) {
+		List<OfficialActive> oaList = officialActiveService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data",oaList);
+		return map;
+		
+		
+		
+	}
+	
 
 	@RequestMapping(path = "/empofficialactivemgmt.controller", method = RequestMethod.GET)
 	public String singupempEntry(Model model) {
@@ -149,11 +171,25 @@ public class OfficialActiveController {
 			return"redirect:/empofficialactivemgmt.controller";
 	
 	}
-//		@GetMapping(path = "/deletea/{anum}")
-//		@ResponseBody
-//		public String delete(@PathVariable("anum") Long anum) {
-//			officialActiveService.deleteById(anum);
-//			return "yes";
-//		}
-//	
+		@GetMapping(path = "/oauserpage.controller")
+		public String oauserEntry() {
+			return "officialactivepages/oahomepage";
+			
+		}
+		
+		@PostMapping("/queryalloabypage/{pageNo}")
+		@ResponseBody
+		public List<OfficialActive> processQueryByPageAction(@PathVariable("pageNo")int pageNo,Model m){
+			int pageSize = 3;
+					
+			Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+			Page<OfficialActive> page = officialActiveService.findAllByPage(pageable);
+			int totalPages = page.getTotalPages();
+			long totalElements = page.getTotalElements();
+			m.addAttribute("totalPages",totalPages);
+			m.addAttribute("totalElements", totalElements);
+			
+			return page.getContent();
+		}
+		
 }

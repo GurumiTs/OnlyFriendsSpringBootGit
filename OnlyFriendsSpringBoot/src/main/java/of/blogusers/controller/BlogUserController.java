@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -18,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
 @Controller
+@SessionAttributes(names = {"totalPages", "totalElements"})
 public class BlogUserController {
 
 	@Autowired
@@ -34,15 +39,21 @@ public class BlogUserController {
 	// 進BlogUsers主頁controller(未設前端)
 	@RequestMapping(path = "/blogusers", method = RequestMethod.GET)
 	public String blogUserEntry() {
-		return "";
+		return "bloguserspages/blogusermainpage";
 	}
-
-	// 主頁資料轉Json 格式
-	public Map allBlogUserToJson(Model m) {
-		List<BlogUser> blogUserList = bUserService.findAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data", blogUserList);
-		return map;
+	
+//	// 主頁資料轉Json 格式
+//	public Map allBlogUserToJson(Model m) {
+//		List<BlogUser> blogUserList = bUserService.findAll();
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("data", blogUserList);
+//		return map;
+//	}
+	
+	// 進單一文章頁面(未設前端)
+	@RequestMapping(path = "/blogarticle", method = RequestMethod.GET)
+	public String blogArticleEntry() {
+		return "bloguserspages/blogarticle";
 	}
 
 	// 進新增controller(未設前端)
@@ -89,71 +100,88 @@ public class BlogUserController {
 		}
 	}
 	
-	// 進Update Controller(未設前端)
-	@GetMapping(path = "/blogusersupdate")
-	public String updateEntry(@RequestParam(name = "usersArticleID") Integer usersArticleID, Model m) {
-		System.out.println("Find articleID:" + usersArticleID + ",to Updatepages");
-		blogUser = bUserService.findByArticleID(usersArticleID);
-		m.addAttribute("blogUsers", blogUser);
-		return "";
-	}
-	
-	// Update 
-	@PostMapping(path = "/blogusersupdateform")
-	public String blogUsersUpdate(@RequestParam(name = "usersArticleID") Integer usersArticleID,
-								  @RequestParam(name = "usersImages") MultipartFile multipartFile,
-								  @RequestParam(name = "memberAccount") String memberAccount, 
-								  @RequestParam(name = "userName") String userName,
-								  @RequestParam(name = "usersTitle") String usersTitle, 
-								  @RequestParam(name = "usersMainText") String usersMainText,
-								  @RequestParam(name = "usersCreateTime") Timestamp usersCreateTime,
-								  Model m) {
-		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		System.out.println("UpdateTime:" + ts);
-		
-		try {
-			System.out.println("blogUpdate.controller ID:" + usersArticleID);
-
-			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
-			String fileName = multipartFile.getOriginalFilename();
-			System.out.println("fileName:" + fileName);
-			String saveFilePath = ResourceUtils.getURL("classpath:static/images/blogPic").getPath();
-			System.out.println("saveFilePath:" + saveFilePath);
-			String filePath = saveFilePath + "/" + fileName;
-			File saveFile = new File(filePath);
-			multipartFile.transferTo(saveFile);
-			System.out.println("filePath:" + filePath);
-			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
-			blogUser.setUsersCreateTime(usersCreateTime);
-			blogUser.setUsersArticleID(usersArticleID);
-			blogUser.setMemberAccount(memberAccount);
-			blogUser.setUserName(userName);
-			blogUser.setUsersTitle(usersTitle);
-			blogUser.setUsersMainText(usersMainText);
-			blogUser.setUsersUpdateTime(ts);
-
-			bUserService.updateBlogUser(blogUser);
-
-			m.addAttribute("success", "更新資料成功!");
-			return "redirect:blogusers";
-		} catch (Exception e) {
-			e.printStackTrace();
-			m.addAttribute("errors", "Something is wrong!");
-			return "redirect:blogusersupdate";
-		}
-	}
-	
-	// Delete
-	@PostMapping(path = "/blogdelete/{usersArticleID}")
+//	// 進Update Controller(未設前端)
+//	@GetMapping(path = "/blogusersupdate")
+//	public String updateEntry(@RequestParam(name = "usersArticleID") Integer usersArticleID, Model m) {
+//		System.out.println("Find articleID:" + usersArticleID + ",to Updatepages");
+//		blogUser = bUserService.findByArticleID(usersArticleID);
+//		m.addAttribute("blogUsers", blogUser);
+//		return "";
+//	}
+//	
+//	// Update 
+//	@PostMapping(path = "/blogusersupdateform")
+//	public String blogUsersUpdate(@RequestParam(name = "usersArticleID") Integer usersArticleID,
+//								  @RequestParam(name = "usersImages") MultipartFile multipartFile,
+//								  @RequestParam(name = "memberAccount") String memberAccount, 
+//								  @RequestParam(name = "userName") String userName,
+//								  @RequestParam(name = "usersTitle") String usersTitle, 
+//								  @RequestParam(name = "usersMainText") String usersMainText,
+//								  @RequestParam(name = "usersCreateTime") Timestamp usersCreateTime,
+//								  Model m) {
+//		Timestamp ts = new Timestamp(System.currentTimeMillis());
+//		System.out.println("UpdateTime:" + ts);
+//		
+//		try {
+//			System.out.println("blogUpdate.controller ID:" + usersArticleID);
+//
+//			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
+//			String fileName = multipartFile.getOriginalFilename();
+//			System.out.println("fileName:" + fileName);
+//			String saveFilePath = ResourceUtils.getURL("classpath:static/images/blogPic").getPath();
+//			System.out.println("saveFilePath:" + saveFilePath);
+//			String filePath = saveFilePath + "/" + fileName;
+//			File saveFile = new File(filePath);
+//			multipartFile.transferTo(saveFile);
+//			System.out.println("filePath:" + filePath);
+//			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
+//			blogUser.setUsersCreateTime(usersCreateTime);
+//			blogUser.setUsersArticleID(usersArticleID);
+//			blogUser.setMemberAccount(memberAccount);
+//			blogUser.setUserName(userName);
+//			blogUser.setUsersTitle(usersTitle);
+//			blogUser.setUsersMainText(usersMainText);
+//			blogUser.setUsersUpdateTime(ts);
+//
+//			bUserService.updateBlogUser(blogUser);
+//
+//			m.addAttribute("success", "更新資料成功!");
+//			return "redirect:blogusers";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			m.addAttribute("errors", "Something is wrong!");
+//			return "redirect:blogusersupdate";
+//		}
+//	}
+//	
+//	// Delete
+//	@PostMapping(path = "/blogdelete/{usersArticleID}")
+//	@ResponseBody
+//	public String deleteBlog(@PathVariable("usersArticleID") Integer usersArticleID) {
+//		System.out.println("usersArticleID" + usersArticleID);
+//		boolean boo = bUserService.checkArticleID(usersArticleID);
+//		if (boo) {
+//			bUserService.deleteById(usersArticleID);
+//			return "yes";
+//		}
+//		return "fail";
+//	}
+	@PostMapping(path = "/blogqueryallbypage/{pageNo}")
 	@ResponseBody
-	public String deleteBlog(@PathVariable("usersArticleID") Integer usersArticleID) {
-		System.out.println("usersArticleID" + usersArticleID);
-		boolean boo = bUserService.checkArticleID(usersArticleID);
-		if (boo) {
-			bUserService.deleteById(usersArticleID);
-			return "yes";
-		}
-		return "fail";
+	public List<BlogUser> queryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
+		int pageSize = 6;
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		Page<BlogUser> page = bUserService.findAllByPage(pageable);
+		
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();// 全部有幾筆資料
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+		
+		return page.getContent();
 	}
+	
+	
 	
 }

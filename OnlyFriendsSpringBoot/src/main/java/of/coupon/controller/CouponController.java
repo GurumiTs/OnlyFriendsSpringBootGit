@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.status.Status;
 import of.coupon.model.Coupon;
 import of.coupon.model.CouponService;
 
@@ -44,7 +45,20 @@ public class CouponController {
 	@ResponseBody
 	public Optional<Coupon> showAllCouponToJson(@RequestParam Integer couponId) throws InterruptedException {
 		Optional<Coupon> coupons = couponService.findBycouponId(couponId);
-		Thread.sleep(1000);
+		if(coupons.isPresent()) {
+			Thread.sleep(1000);
+			return coupons;
+		}
+		else {
+			return coupons.of(null);
+		}
+		
+	}
+	
+	@PostMapping("/getAllCouponDetailToJson.controller")
+	@ResponseBody
+	public List<Coupon> showAllCouponDetailToJson()  {
+		 List<Coupon> coupons = couponService.findAll();
 		return coupons;
 	}
 
@@ -55,13 +69,22 @@ public class CouponController {
 		return "couponpages/couponMgmt";
 	}
 
-	@PostMapping("/empgetBycompanyName.controller")
+	@PostMapping("/empgetBycategoryName.controller")
 	public String showCategory(@RequestParam String queryVal, Model m) {
-		List<Coupon> coupons = couponService.findBycompanyName(queryVal);	
+		List<Coupon> coupons = couponService.findBycategoryName(queryVal);	
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
-
+    
+	@GetMapping("/showLikeCoupon.controller")
+	@ResponseBody
+	public List<Coupon> showLikeCoupon(@RequestParam String queryVal) {
+		List<Coupon> coupons = couponService.findBycouponNameLike("%"+queryVal+"%");		
+		return coupons;
+	}
+	
+	
+	
 	@PostMapping("/empgetByLike.controller")
 	public String showLike(@RequestParam String queryVal, Model m) {
 		List<Coupon> coupons = couponService.findBycouponNameLike("%"+queryVal+"%");	
@@ -73,14 +96,13 @@ public class CouponController {
 	public String deleteCoupon(@RequestParam Integer couponId) {
 		
 	    Optional<Coupon> c = couponService.findBycouponId(couponId);
-
-		if(c!=null) {
+	           
+		if(c.isPresent()) {
 			couponService.deleteBycouponId(couponId);
 			return "couponpages/deleteCouponComfirm";
 		}else {
 			return "couponpages/deleteCouponError";
 		}
-		
 	}
 
 	@PostMapping("/empinsertCoupon.controller")
@@ -132,6 +154,7 @@ public class CouponController {
 		String fileName = multipartFile.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/couponPic").getPath();
 		String filePath =  path+ "/" + fileName;
+		
 	
 		File saveFile = new File(filePath);
 		multipartFile.transferTo(saveFile);
@@ -152,9 +175,9 @@ public class CouponController {
 		coupons.setCouponStartDate(couponStartDate);
 		coupons.setCouponUse(couponUse);
 		
-		Coupon c = couponService.findBycouponName(couponName);
+		 Optional<Coupon> c = couponService.findBycouponId(couponId);
 		
-		if(c!=null) {
+		if(c.isPresent()) {
 			couponService.update(coupons);
 			m.addAttribute("find", coupons);
 			return "couponpages/couponsResult";
@@ -176,6 +199,7 @@ public class CouponController {
 		
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		Page<Coupon> page = couponService.findAllByPage(pageable);
+		
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();
 		
@@ -193,6 +217,23 @@ public class CouponController {
 	@GetMapping("/shopcouponitem.controller")
 	@ResponseBody
 	public List<Coupon> shopCouponItem() {
+		List<Coupon> coupons = couponService.findAll();
+		return coupons;
+	}
+	
+	@GetMapping("/couponMember.controller")
+	public String couponMemberEntry() {
+		return "couponpages/couponMember";
+	}
+	
+	@GetMapping("/couponDetailEntry.controller")
+	public String couponDetailEntry() {
+		return "couponpages/couponsDetail";
+	}
+	
+	@GetMapping("/couponDetail.controller")
+	@ResponseBody
+	public List<Coupon> couponDetail() {
 		List<Coupon> coupons = couponService.findAll();
 		return coupons;
 	}
