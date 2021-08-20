@@ -1,7 +1,9 @@
 package of.shop.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,58 +30,64 @@ import of.product.model.Product;
 import of.product.model.ProductService;
 
 @Controller
-@SessionAttributes(names= {"proList","product","totalPages","totalElements"})
+@SessionAttributes(names = { "proList", "product", "totalPages", "totalElements" })
 public class ShopController {
-	@Autowired 
+	@Autowired
 	private ProductService productService;
 	@Autowired
 	private Product product;
-	
-	public String shopCar(HttpSession session,Model model) {
-		Product product=(Product) session.getAttribute("shopcar");
-		Integer proId=product.getProId();
-		Product neworderProduct=productService.findById(proId);
-		productService.update(neworderProduct);
-		model.addAttribute("shopcar",neworderProduct);
+
+	@RequestMapping(path = "/addtoshopchart", method = RequestMethod.GET)
+	public String shopCar(@RequestParam(name = "Id") Integer Id, HttpSession session, Model model) {
+		Map<Integer, Integer> shopcart = (Map<Integer, Integer>) session.getAttribute("shopcart");
+		// 如果session沒有購物車
+		if (shopcart == null) {
+			shopcart = new HashMap<Integer, Integer>();
+		}
+		if (shopcart.containsKey(Id)) {// 判斷商品是否存在購物車中
+			int number = shopcart.get(Id);
+			// 存在=>數量加一
+			shopcart.put(Id, number + 1);
+		} else {
+			shopcart.put(Id, 1);
+		}
+		model.addAttribute("shopcart", shopcart);
 		return "";
 	}
-	
-	
+
 	@RequestMapping(path = "/shopentrypage", method = RequestMethod.GET)
 	public String userproductMgmtEntry(Model model) {
 		return "productpages/shopPage";
 	}
-	
+
 	@PostMapping(path = "/shoppage.controller/{pageNo}")
 	@ResponseBody
-	public List<Product> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
-		
+	public List<Product> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
+
 		int pageSize = 4;
-		
-		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 		Page<Product> page = productService.findAllByPage(pageable);
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();
-		
+
 		m.addAttribute("totalPages", totalPages);
 		m.addAttribute("totalElements", totalElements);
-		
+
 		return page.getContent();
 	}
-	
+
 	@GetMapping("/shopitementrypage")
 	public String shopItemEntry(@RequestParam Integer proId) {
-		
+
 		return "productpages/shopitem";
 	}
-	
+
 	@GetMapping("/shopitempage.controller")
 	@ResponseBody
 	public List<Product> shopCouponItem() {
 		List<Product> products = productService.findAll();
 		return products;
 	}
-		
-	
 
 }
