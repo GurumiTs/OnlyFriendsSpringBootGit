@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">會員活動</a></li>
+                  <li><a class="dropdown-item" href="userparty.entry">會員活動</a></li>
                   <li><a class="dropdown-item" href="#!">官方活動</a></li>
                 </ul>
               </li>

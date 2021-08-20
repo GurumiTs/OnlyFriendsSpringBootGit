@@ -1,4 +1,4 @@
-package of.party.controller;
+package of.party.usercontroller;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,37 +17,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import of.emp.model.Employee;
 import of.party.model.Party;
 import of.party.model.PartyService;
 
 @Controller
 @SessionAttributes(names = { "partyList" })
-public class PartyController {
+public class PartyUserController {
 
 	@Autowired
 	private PartyService partyService;
 	@Autowired
 	private Party party;
+	
+	//首頁
+	@RequestMapping(path = "/userparty.entry", method = RequestMethod.GET)
+	public String userpartyenty1(Model m) {
+		List<Party> partyList = partyService.selectAll();
+		m.addAttribute("partyList", partyList);
+
+		System.out.println("partyList:" + partyList);
+		return "partyuserpages/usermgmt";
+	}
+	//內頁	
+	@RequestMapping(path = "/userparty.page", method = RequestMethod.GET)
+	public String  userparty2(HttpServletRequest request, Model model) {
+		Integer number = Integer.parseInt(request.getParameter("number"));
+		party = partyService.select(number);
+		model.addAttribute("party", party);
+		
+		return "partyuserpages/example";
+	}
+	//模糊搜尋
+	
+	//各類活動類型
+	
 
 	// 會員活動管理首頁
-	@RequestMapping(path = "/emppartymgmt.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/userpartymgmt.controller", method = RequestMethod.GET)
 	public String partyEntry(Model model) {
 		List<Party> partyList = partyService.selectAll();
 		model.addAttribute("partyList", partyList);
 
 		System.out.println("partyList:" + partyList);
-		return "partypages/partymgmt";
+		return "";
 	}
 
-	// 進新增controller
-	@RequestMapping(path = "/emppartyadd.controller", method = RequestMethod.GET)
+	
+	
+	// 進新增頁面
+	@RequestMapping(path = "/userpartyadd.controller", method = RequestMethod.GET)
 	public String processIntoInsert() {
-		return "partypages/partyadd";
+		return "";
 	}
 
 	// 新增會員活動
-	@RequestMapping(path = "/emppartyinsert.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/userpartyinsert.controller", method = RequestMethod.POST)
 	public String partadd(@RequestParam(name = "cover") MultipartFile cover, @RequestParam(name = "name") String name,
 			@RequestParam(name = "type") String type, @RequestParam(name = "time") String time,
 			@RequestParam(name = "time_up") String time_up, @RequestParam(name = "county") String county,
@@ -59,7 +82,6 @@ public class PartyController {
 			@RequestParam(name = "man") String man, @RequestParam(name = "woman") String woman,
 			HttpServletRequest request, Model m)
 			throws SQLException, IllegalStateException, IOException, NullPointerException {
-		Party party2 = new Party();
 		
 		String fileName = cover.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
@@ -67,41 +89,40 @@ public class PartyController {
 		String filePath =  path+ "/" + fileName;	
 		File saveFile = new File(filePath);
 		cover.transferTo(saveFile);
-		party2.setCover("images/partyPic/" + fileName);
+		party.setCover("images/partyPic/" + fileName);
 		
 
-		party2.setName(name);
-		party2.setType(type);
-		party2.setTime(time);
-		party2.setTime_up(time_up);
-		party2.setCounty(county);
-		party2.setCondition(condition);
-		party2.setDistrict(district);
-		party2.setZipcode(zipcode);
-		party2.setPlace(place);
+		party.setName(name);
+		party.setType(type);
+		party.setTime(time);
+		party.setTime_up(time_up);
+		party.setCounty(county);
+		party.setCondition(condition);
+		party.setDistrict(district);
+		party.setZipcode(zipcode);
+		party.setPlace(place);
 
-		party2.setPlany(plany);
-		party2.setCondition(condition);
-		party2.setMan(Integer.parseInt(man));
-		party2.setWoman(Integer.parseInt(woman));
-		party2.setSee(0);
+		party.setPlany(plany);
+		party.setCondition(condition);
+		party.setMan(Integer.parseInt(man));
+		party.setWoman(Integer.parseInt(woman));
+		party.setSee(0);
 
-		partyService.add(party2);
+		partyService.add(party);
 
-		System.out.println("活動名稱"+name);
-		return "redirect:/emppartymgmt.controller";
+		return "redirect:/";
 	}
 
 	// 修改
-	@RequestMapping(path = "/emppartyupenty.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "/userpartyupenty.controller", method = RequestMethod.GET)
 	public String partyupenty(HttpServletRequest request, Model model) {
 		Integer number = Integer.parseInt(request.getParameter("number"));
 		party = partyService.select(number);
 		model.addAttribute("party", party);
-		return "partypages/partyup";
+		return "";
 	}
 
-	@RequestMapping(path = "/emppartyup.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/userpartyup.controller", method = RequestMethod.POST)
 	public String partup(@RequestParam(name = "cover") MultipartFile cover, @RequestParam(name = "name") String name,
 			@RequestParam(name = "type") String type, @RequestParam(name = "time") String time,
 			@RequestParam(name = "time_up") String time_up, @RequestParam(name = "county") String county,
@@ -143,17 +164,17 @@ public class PartyController {
 
 		m.addAttribute("partyList", partyList);
 
-		return "redirect:/emppartymgmt.controller";
+		return "";
 	}
 
 	// 刪除
-	@RequestMapping(path = "/empdeleteparty.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/userdeleteparty.controller", method = RequestMethod.POST)
 	public String deleteEmployee(@RequestParam(name = "number") String number, Model model) {
 		String id = number;
 		System.out.println(number);
 		partyService.delete(Integer.parseInt(id));
 
-		return "partypages/emppartymgmt";
+		return "";
 	}
 
 }
