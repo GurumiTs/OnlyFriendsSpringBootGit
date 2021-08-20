@@ -219,7 +219,7 @@ a.slide-arrow {
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
                +  "Sale"+
               "</div>" +    
-               "<a href='shopitementrypage?Id="+n.proId+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
+               "<a href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
                    "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
@@ -237,7 +237,7 @@ a.slide-arrow {
              
                "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
                  "<div class='text-center'>"+
-                  "<a class='btn btn-outline-dark mt-auto' href='/#'>Add to cart</a>"+
+                 
                  "</div>"+
                "</div>"+
              "</div>"+
