@@ -43,6 +43,51 @@
   -moz-animation: inner-ripple 2000ms linear infinite;
   animation: inner-ripple 2000ms linear infinite;
 }
+.load2 {
+  margin: 150px auto;
+  width: 100px;
+  height: 100px;
+  background-color: #68B684;
+  border-radius: 100px;
+  position: relative;
+  animation: pulse 2000ms linear infinite;
+  -webkit-animation: pulse 2000ms linear infinite;
+  -moz-animation: pulse 2000ms linear infinite;
+}
+
+.load2 i {
+  position: absolute;
+  top: 28px;
+  left: 24%;
+  color: white;
+  text-shadow: -1px -1px #333;
+}
+
+.load2:after,
+.load2:before {
+  display: inline-block;
+  margin: auto;
+  position: absolute;
+  content: "";
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  background-color: #cd5c5c;
+}
+
+.load2:after {
+  z-index: -100;
+  -webkit-animation: outer-ripple 2000ms linear infinite;
+  -moz-animation: outer-ripple 2000ms linear infinite;
+  animation: outer-ripple 2000ms linear infinite;
+}
+
+.load2:before {
+  z-index: -200;
+  -webkit-animation: inner-ripple 2000ms linear infinite;
+  -moz-animation: inner-ripple 2000ms linear infinite;
+  animation: inner-ripple 2000ms linear infinite;
+}
 .load {
   margin: 150px auto;
   width: 100px;

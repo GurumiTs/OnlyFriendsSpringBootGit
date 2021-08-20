@@ -212,7 +212,7 @@
               <form action="${pageContext.request.contextPath}/login"
 					method="post">  
                   <div class="form-group">
-                   <label for="email" class="form-label">Email</label> <input
+                   <label for="email" class="form-label">Account</label> <input
 							type="text" class="form-control" name="username" id="username" />                  
                   </div>
 
@@ -437,7 +437,7 @@
 			});
 
 			$("#member").click(function() {
-				$("#username").val("apple123@gmail.com");
+				$("#username").val("1011");
 				$("#password").val("Apple1234*")
 			});
 			

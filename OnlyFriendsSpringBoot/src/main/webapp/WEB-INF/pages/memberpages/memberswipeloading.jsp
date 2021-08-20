@@ -11,7 +11,7 @@
         <div class="title" id="coinarea">
         </div>
         <a href="memberswipe">Back</a>
-        <a href="" id="again">Again</a>  
+        <a href=""><i class="fas fa-inbox fa-2x"></i></a>
       </div>
     </div>
     <div class="backgrounds">
@@ -140,8 +140,11 @@
         </div>
 
         <div class="col-md-2">
-          <div class="load">
-            <i class="fa fa-heartbeat fa-3x"></i>
+          <div class="load" id="heartbuttonarea">
+    
+          </div>
+          <div class="load2">
+          <a href="" id="again"><i class="fas fa-redo fa-3x"></i></a>       
           </div>      
         </div>
       </div>
@@ -159,6 +162,7 @@
         $("#picktwo").on("click", pick);
         $("#pickthree").on("click", pick);
         $("#again").on("click", onemore);
+        $("#heartbuttonarea").on("click",getheartid)
       });
 
       function pick() {
@@ -253,6 +257,20 @@
                   .text(data.tagThree)
               );
             }
+            $('#heartbuttonarea').html('')
+            $('#heartbuttonarea').append(
+            	$('<i />')	
+            	.addClass('fa fa-heartbeat fa-3x')
+            	.attr('id','heartbutton')          
+            )
+            $('#heartbuttonarea').append(
+            	$('<input />')
+            	.addClass('d-none')
+            	.attr('id','heartid')
+            	.attr('value',data.memberAccount)            
+            )
+            
+            
             $("#coinarea").html("");
             $.ajax({
               type: "post",
@@ -289,6 +307,32 @@
         loadnewmember();
         $("#infoarea").addClass("d-none");
         $("#cardarea").removeClass("d-none");
+      }
+      
+      
+      function getheartid() {
+    	  let heartid = $('#heartid').attr('value')
+    	  $.ajax({
+              type: "post",
+              url: "memberaddfriend/"+heartid,
+              success: function (data) {
+            	  Swal.fire({
+            		  icon: 'success',
+            		  title: 'save successful',
+            		  showConfirmButton: false,
+            		  timer: 1500
+            		})
+            	  console.log(data)
+              }
+    	  ,error:function(data){
+    		  Swal.fire({
+        		  icon: 'error',
+        		  title: 'save already',
+        		  showConfirmButton: false,
+        		  timer: 1500
+        		})	 
+    	  	  }
+    	   });
       }
     </script>
 </body>

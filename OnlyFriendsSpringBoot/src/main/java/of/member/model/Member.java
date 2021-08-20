@@ -2,16 +2,10 @@ package of.member.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -76,10 +70,6 @@ public class Member implements Serializable{
 	
 	@Column(name = "swipeTime")
 	private String swipeTime;
-	
-	@OneToMany
-	@JoinColumn(name = "memberAccount")
-	private Set<Member> friends;
 	
 	public Member() {}
 	
@@ -242,8 +232,11 @@ public class Member implements Serializable{
 		this.swipeTime = swipeTime;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return this.memberAccount;
+	}
+	
 	
 	
 
