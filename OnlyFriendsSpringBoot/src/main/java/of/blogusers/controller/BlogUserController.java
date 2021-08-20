@@ -34,7 +34,13 @@ public class BlogUserController {
 	// 進BlogUsers主頁controller(未設前端)
 	@RequestMapping(path = "/blogusers", method = RequestMethod.GET)
 	public String blogUserEntry() {
-		return "";
+		return "bloguserspages/blogusermainpage";
+	}
+	
+	// 進單一文章頁面(未設前端)
+	@RequestMapping(path = "/blogarticle", method = RequestMethod.GET)
+	public String blogArticleEntry() {
+		return "bloguserspages/blogarticle";
 	}
 
 	// 主頁資料轉Json 格式
