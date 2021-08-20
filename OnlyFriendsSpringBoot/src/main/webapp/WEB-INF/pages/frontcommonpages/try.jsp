@@ -1,460 +1,357 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-	name="viewport" />
-<title>Login/Sign up</title>
+<%@include file="../frontcommonpages/shoptop.jsp"%>
+ <style>
+      .loadnot {
+        margin: 150px auto;
+        width: 100px;
+        height: 100px;
+        background-color: #7f9c5d;
+        border-radius: 100px;
+        position: relative;
+        animation: pulse 2000ms linear infinite;
+        -webkit-animation: pulse 2000ms linear infinite;
+        -moz-animation: pulse 2000ms linear infinite;
+      }
 
-<!-- General CSS Files -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
-<!-- bootstrap5  -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
-	crossorigin="anonymous" />
-<!-- fontawesome   -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-	integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
-	crossorigin="anonymous" />
-<!-- datatables style -->
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+      .loadnot i {
+        position: absolute;
+        top: 28px;
+        left: 24%;
+        color: white;
+        text-shadow: -1px -1px #333;
+      }
 
-<!-- Custom fonts for this template-->
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet" />
+      .loadnot:after,
+      .loadnot:before {
+        display: inline-block;
+        margin: auto;
+        position: absolute;
+        content: "";
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        background-color: #7f9c5d;
+      }
 
+      .loadnot:after {
+        z-index: -100;
+        -webkit-animation: outer-ripple 2000ms linear infinite;
+        -moz-animation: outer-ripple 2000ms linear infinite;
+        animation: outer-ripple 2000ms linear infinite;
+      }
 
-<!-- Template CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/membermain.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/membercomponent.css" />
-	<style>
-	.bubbles {
-  position: absolute;
-  z-index: -999;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-}
+      .loadnot:before {
+        z-index: -200;
+        -webkit-animation: inner-ripple 2000ms linear infinite;
+        -moz-animation: inner-ripple 2000ms linear infinite;
+        animation: inner-ripple 2000ms linear infinite;
+      }
+      .load {
+        margin: 150px auto;
+        width: 100px;
+        height: 100px;
+        background-color: #f08080;
+        border-radius: 100px;
+        position: relative;
+        animation: pulse 2000ms linear infinite;
+        -webkit-animation: pulse 2000ms linear infinite;
+        -moz-animation: pulse 2000ms linear infinite;
+      }
 
-.bubbles li {
-  position: absolute;
-  list-stye: none;
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 30%;
-  bottom: -150px;
-  background: rgba(103, 119, 239, 0.2);
-  -webkit-animation: animate 25s infinite linear;
-          animation: animate 25s infinite linear;
-}
+      .load i {
+        position: absolute;
+        top: 28px;
+        left: 24%;
+        color: white;
+        text-shadow: -1px -1px #333;
+      }
 
-.bubbles li:nth-child(1) {
-  left: 25%;
-  width: 80px;
-  height: 80px;
-  -webkit-animation-delay: 0;
-          animation-delay: 0;
-}
+      .load:after,
+      .load:before {
+        display: inline-block;
+        margin: auto;
+        position: absolute;
+        content: "";
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        background-color: #cd5c5c;
+      }
 
-.bubbles li:nth-child(2) {
-  left: 10%;
-  width: 20px;
-  height: 20px;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
-  -webkit-animation-duration: 12s;
-          animation-duration: 12s;
-}
+      .load:after {
+        z-index: -100;
+        -webkit-animation: outer-ripple 2000ms linear infinite;
+        -moz-animation: outer-ripple 2000ms linear infinite;
+        animation: outer-ripple 2000ms linear infinite;
+      }
 
-.bubbles li:nth-child(3) {
-  left: 70%;
-  width: 20px;
-  height: 20px;
-  -webkit-animation-delay: 4s;
-          animation-delay: 4s;
-}
+      .load:before {
+        z-index: -200;
+        -webkit-animation: inner-ripple 2000ms linear infinite;
+        -moz-animation: inner-ripple 2000ms linear infinite;
+        animation: inner-ripple 2000ms linear infinite;
+      }
+      /* outer ripple */
 
-.bubbles li:nth-child(4) {
-  left: 40%;
-  width: 60px;
-  height: 60px;
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
-  -webkit-animation-duration: 18s;
-          animation-duration: 18s;
-}
+      @keyframes pulse {
+        0% {
+          transform: scale(0.8);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        10% {
+          transform: scale(1.1);
+          filter: alpha(opacity=1);
+          opacity: 1;
+        }
+        20% {
+          transform: scale(0.9);
+          filter: alpha(opacity=1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.8);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+      }
 
-.bubbles li:nth-child(5) {
-  left: 65%;
-  width: 20px;
-  height: 20px;
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
-}
+      @-moz-keyframes pulse {
+        0% {
+          transform: scale(0.8);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        10% {
+          transform: scale(1.1);
+          filter: alpha(opacity=1);
+          opacity: 1;
+        }
+        20% {
+          transform: scale(0.9);
+          filter: alpha(opacity=1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.8);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+      }
 
-.bubbles li:nth-child(6) {
-  left: 75%;
-  width: 110px;
-  height: 110px;
-  -webkit-animation-delay: 3s;
-          animation-delay: 3s;
-}
+      @-webkit-keyframes pulse {
+        0% {
+          transform: scale(0.8);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        10% {
+          transform: scale(1.1);
+          filter: alpha(opacity=1);
+          opacity: 1;
+        }
+        20% {
+          transform: scale(0.9);
+          filter: alpha(opacity=1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.8);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+      }
 
-.bubbles li:nth-child(7) {
-  left: 35%;
-  width: 150px;
-  height: 150px;
-  -webkit-animation-delay: 7s;
-          animation-delay: 7s;
-}
+      @keyframes outer-ripple {
+        0% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        80% {
+          transform: scale(3.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(3.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+      }
 
-.bubbles li:nth-child(8) {
-  left: 50%;
-  width: 25px;
-  height: 25px;
-  -webkit-animation-delay: 15s;
-          animation-delay: 15s;
-  -webkit-animation-duration: 45s;
-          animation-duration: 45s;
-}
+      @-webkit-keyframes outer-ripple {
+        0% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        80% {
+          transform: scale(3.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(3.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+      }
 
-.bubbles li:nth-child(9) {
-  left: 20%;
-  width: 15px;
-  height: 15px;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
-  -webkit-animation-duration: 35s;
-          animation-duration: 35s;
-}
+      @-moz-keyframes outer-ripple {
+        0% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        80% {
+          transform: scale(3.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(3.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+      }
+      /* inner ripple */
 
-.bubbles li:nth-child(10) {
-  left: 85%;
-  width: 150px;
-  height: 150px;
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
-  -webkit-animation-duration: 11s;
-          animation-duration: 11s;
-}
+      @keyframes inner-ripple {
+        0% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        30% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(2.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+      }
 
-@-webkit-keyframes animate {
-  0% {
-    -webkit-transform: translateY(0) rotate(0deg);
-            transform: translateY(0) rotate(0deg);
-    opacity: 1;
-    border-radius: 30%;
-  }
-  100% {
-    -webkit-transform: translateY(-1000px) rotate(720deg);
-            transform: translateY(-1000px) rotate(720deg);
-    opacity: 0;
-    border-radius: 50%;
-  }
-}
+      @-webkit-keyframes inner-ripple {
+        0% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        30% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(2.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+      }
 
-@keyframes animate {
-  0% {
-    -webkit-transform: translateY(0) rotate(0deg);
-            transform: translateY(0) rotate(0deg);
-    opacity: 1;
-    border-radius: 30%;
-  }
-  100% {
-    -webkit-transform: translateY(-1000px) rotate(720deg);
-            transform: translateY(-1000px) rotate(720deg);
-    opacity: 0;
-    border-radius: 50%;
-  }
-}
-/*# sourceMappingURL=bubble.css.map */
-	
-	
-	</style>
-
+      @-moz-keyframes inner-ripple {
+        0% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        30% {
+          transform: scale(1);
+          filter: alpha(opacity=50);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(2.5);
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+      }
+    </style>
 
 </head>
-  <body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="${pageContext.request.contextPath}/images/login/flower.svg" alt="logo" width="100" class="shadow-light rounded-circle">
-            </div>
+<body>
 
-            <div class="card card-primary">
-              <div class="card-header"><h4>Reset Password</h4></div>
+	<%@include file="../frontcommonpages/shopheader.jsp"%>
 
-              <div class="card-body">
-                <p class="text-muted">We will send a new password to your email</p>
-                 <form
-		            action="setnewpasswordcontroller"
-		            method="POST"
-		            class="needs-validation"
-		            novalidate
-		          >
-                  <div class="form-group">
-                    <label class="form-label d-none" >Email</label>
-	                <input
-	                  type="text"
-	                  class="form-control d-none"
-	                  name="email"
-	                  id="email"
-	                  value="${param.email}"
-	                  required	                  
-	                />
-                  </div>
-                  
-                    <div class="form-group">               
-                    <label class="form-label">Password</label>
-	                <input
-	                  type="password"
-	                  class="form-control"
-	                  name="oldPwd"
-	                  id="oldPwd"
-	                  required
-	                />	             	                      	              
-                  </div>
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="row gx-4 gx-lg-5 align-items-center">
+				<div class="col-md-5">
+					<img class="card-img-top mb-5 mb-md-0" id="memberpic"
+						src="https://dummyimage.com/300x300/dee2e6/6c757d.jpg" alt="..." />
+				</div>
+				<div class="col-md-5">
+					<h1 class="display-5 fw-bolder" id="membername">Today Special</h1>
+					<div class="fs-5 mb-5">
+						<span class="" id="memberemail"></span>
+					</div>
+					<p class="lead">Lorem ipsum dolor sit amet consectetur
+						adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi
+						consequatur obcaecati excepturi alias magni, accusamus eius
+						blanditiis delectus ipsam minima ea iste laborum vero?</p>
+					<div class="d-flex">
 
-                  <div class="form-group">
-                    <label for="updatePwd1" class="form-label">New Password</label>
-	                <input
-	                  type="password"
-	                  class="form-control"
-	                  name="updatePwd1"
-	                  id="updatePwd1"
-	                  required
-	                />
-                  </div>
+						<button class="btn btn-outline-dark flex-shrink-0" type="button">
+							<i class="bi-cart-fill me-1"></i> Add to cart
+						</button>
+					</div>
+				</div>
 
-                   <div class="form-group">
-                    <div class="row">
-                    <div class="col-8">
-                     <label for="updatePwd2" class="form-label">Confirm</label>
-	                <input
-	                  type="password"
-	                  class="form-control"
-	                  name="updatePwd2"
-	                  id="updatePwd2"
-	                  required
-	                />
-	                </div>
-	                 <div class="col-2 d-flex align-items-center" onclick="pwdType()"><i class="fas fa-eye fw-bolder fs-5"></i></div>
-	                </div>          	              
-                  </div>
-
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Reset Password
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-             <div class="simple-footer">
-              Copyright &copy; OnlyFriends 2021 <a href="${pageContext.request.contextPath}/">Back</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-  
- 
- <div class="container">
-		<div class="mb-3">
-			<ul class="bubbles">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
+				<div class="col-md-2">
+					<div class="load">
+						<i class="fa fa-heartbeat fa-3x"></i>
+					</div>
+					<div class="loadnot">
+						<i class="far fa-times-circle fa-3x" id="not"></i>
+					</div>
+				</div>
+			</div>
 		</div>
-</div> 
+	</section>
 
 
-
-
-
-	<!-- bootstrap   -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-		crossorigin="anonymous"></script>
-
-	<!-- jQuery  -->
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<!-- tw zipcode   -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
-	<!--datatable -->
-	<script
-		src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
-	<!--sweet alert -->
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<!-- fontawesome  -->
-	<script src="https://kit.fontawesome.com/1a950be563.js"
-		crossorigin="anonymous"></script>
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Core plugin JavaScript-->
-	<script
-		src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
-
-	<!-- JS Libraies -->
-	<script src="../node_modules/sticky-kit/dist/sticky-kit.min.js"></script>
-
-	<!-- Page Specific JS File -->
-	
-  <script>
-      //submit validation
-      (function () {
-        "use strict";
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll(".needs-validation");
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms).forEach(function (form) {
-          form.addEventListener(
-            "submit",
-            function (event) {
-              if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-
-              form.classList.add("was-validated");
-            },
-            false
-          );
-        });
-      })();
-      //submit validation
-    </script>
-
-    <script>
-    //submit validation
-    (function () {
-      "use strict";
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll(".needs-validation");
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener(
-          "submit",
-          function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-
-            form.classList.add("was-validated");
-          },
-          false
-        );
-      });
-    })();
-    //submit validation
-
-    //pwd
-    const pwdCheckR =
-      /^[A-Z]{1}(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{7,11}$/;
-    document.getElementById("updatePwd1").addEventListener("blur", pwdCheck);
-    document.getElementById("updatePwd2").addEventListener("blur", pwdCheck);
-    function pwdCheck() {
-      let empPwd1 = document.getElementById("updatePwd1");
-      let empPwd1Val = empPwd1.value;
-      let empPwd2 = document.getElementById("updatePwd2");
-      let empPwd2Val = empPwd2.value;
-
-      if (empPwd1Val == "") empPwd1.setCustomValidity("pwd1 can't be empty");
-      else if (empPwd2Val == "")
-        empPwd2.setCustomValidity("pwd1 can't be empty");
-      else if (empPwd1Val != empPwd2Val)
-        empPwd1.setCustomValidity("pwd1 can't be empty");
-      else if (pwdCheckR.test(empPwd1Val) == false)
-        empPwd1.setCustomValidity("pwd1 format error");
-      else if (pwdCheckR.test(empPwd2Val) == false)
-        empPwd2.setCustomValidity("pwd2 format error");
-
-      if (
-        pwdCheckR.test(empPwd1Val) == true &&
-        pwdCheckR.test(empPwd2Val) == true &&
-        empPwd1Val == empPwd2Val
-      ) {
-        empPwd1.setCustomValidity("");
-        empPwd2.setCustomValidity("");
-      }
-    }
-
-    function pwdType() {
-      let updatePwd1 = document.getElementById("updatePwd1");
-      let updatePwd2 = document.getElementById("updatePwd2");
-      let oldPwd = document.getElementById("oldPwd");
-      if (updatePwd1.type === "password") {
-        updatePwd1.type = "text";
-      } else {
-        updatePwd1.type = "password";
-      }
-      if (updatePwd2.type === "password") {
-        updatePwd2.type = "text";
-      } else {
-        updatePwd2.type = "password";
-      }
-      if (oldPwd.type === "password") {
-        oldPwd.type = "text";
-      } else {
-        oldPwd.type = "password";
-      }
-    }
-
-
-  </script>
-
-	
+	<%@include file="../commonpages/footer.jsp"%>
+	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+	<script>
+		$(function() {
+			$.ajax({
+				type : "get",
+				url : "memberswipe",
+				dataType : "json",
+				cache : false,
+				success : function(data) {	
+					$('#memberpic').prop('src',data.memberPic)
+					$('#membername').text(data.memberName)
+					$('#memberemail').text(data.memberEmail)
+				},
+				error : function(data) {
+					console.log('無法送出');
+				}
+			});
+			$('#not').on('click', notlike)
+		})
+		function notlike() {
+			$.ajax({
+				type : "get",
+				url : "memberswipe",
+				dataType : "json",
+				cache : false,
+				success : function(data) {	
+					$('#memberpic').prop('src',data.memberPic)
+					$('#membername').text(data.memberName)
+					$('#memberemail').text(data.memberEmail)
+				},
+				error : function(data) {
+					console.log('無法送出');
+				}
+			});
+		}
+	</script>
 </body>
 </html>
-
-

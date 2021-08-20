@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+body{
+font-size:1.2rem
+}
+</style>
 </head>
 <body>
 <body class="layout-2">
@@ -50,6 +55,7 @@
 													<label for="empBday" class="form-label">年齡</label> <input
 														type="text" class="form-control" name="age" id="age" />
 												</div>
+																		
 												<div class="form-group col-md-6 col-12">
 													<label for="phone" class="form-label">連絡電話</label>
 													<input type="text" class="form-control" name="phone"
@@ -137,10 +143,8 @@
 										</div>
 										<p id="profileTextarea"></p>
 									</div>
-									<div class="card-footer text-center">
-										  <a href="#" class="badge badge-success text-decoration-none">Success</a>
-					                      <a href="#" class="badge badge-warning text-decoration-none">Warning</a>
-					                      <a href="#" class="badge badge-info text-decoration-none">Info</a>
+									<div class="card-footer text-center" id="tagArea">
+										 
 									</div>
 								</div>
 							</div>
@@ -308,7 +312,33 @@
             $("#showMemberPic").prop("src", data.memberPic);
             $("#output").prop("src", data.memberPic);
             $("#profileName").html(data.memberName);
-            $("#profileTextarea").html(data.personalInfo);
+            $("#profileTextarea").html(data.personalInfo);            
+            $('#tagArea').html('')
+            if(data.tagOne != ""){           	
+            	$('#tagArea').append(
+            	$('<a />')
+            		.addClass('badge badge-success text-decoration-none text-white fs-6')
+            		.attr('id','tag1')
+            		.text(data.tagOne)           	
+            	)            	
+            }
+            if(data.tagTwo != ""){           	
+            	$('#tagArea').append(
+            	$('<a />')
+            		.addClass('badge badge-warning text-decoration-none text-white fs-6')
+            		.attr('id','tag2')
+            		.text(data.tagTwo)           	
+            	)            	
+            }
+            if(data.tagThree != ""){           	
+            	$('#tagArea').append(
+            	$('<a />')
+            		.addClass('badge badge-info text-decoration-none text-white fs-6')
+            		.attr('id','tag3')
+            		.text(data.tagThree)           	
+            	)            	
+            }
+          
           },
           error: function (data) {
             console.log("無法送出");
@@ -374,6 +404,31 @@
                       $("#showMemberPic").prop("src", data.memberPic);
                       $("#profileName").html(data.memberName);
                       $("#profileTextarea").html(data.personalInfo);
+                      $('#tagArea').html('')
+                      if(data.tagOne != ""){           	
+                      	$('#tagArea').append(
+                      	$('<a />')
+                      		.addClass('badge badge-success text-decoration-none text-white fs-6')
+                      		.attr('id','tag1')
+                      		.text(data.tagOne)           	
+                      	)            	
+                      }
+                      if(data.tagTwo != ""){           	
+                      	$('#tagArea').append(
+                      	$('<a />')
+                      		.addClass('badge badge-warning text-decoration-none text-white fs-6')
+                      		.attr('id','tag2')
+                      		.text(data.tagTwo)           	
+                      	)            	
+                      }
+                      if(data.tagThree != ""){           	
+                      	$('#tagArea').append(
+                      	$('<a />')
+                      		.addClass('badge badge-info text-decoration-none text-white fs-6')
+                      		.attr('id','tag3')
+                      		.text(data.tagThree)           	
+                      	)            	
+                      }
                     },
                     error: function (data) {
                       console.log("無法送出");
@@ -425,6 +480,31 @@
                   $("#showMemberPic").prop("src", data.memberPic);
                   $("#profileName").html(data.memberName);
                   $("#profileTextarea").html(data.personalInfo);
+                  $('#tagArea').html('')
+                  if(data.tagOne != ""){           	
+                  	$('#tagArea').append(
+                  	$('<a />')
+                  		.addClass('badge badge-success text-decoration-none text-white fs-6')
+                  		.attr('id','tag1')
+                  		.text(data.tagOne)           	
+                  	)            	
+                  }
+                  if(data.tagTwo != ""){           	
+                  	$('#tagArea').append(
+                  	$('<a />')
+                  		.addClass('badge badge-warning text-decoration-none text-white fs-6')
+                  		.attr('id','tag2')
+                  		.text(data.tagTwo)           	
+                  	)            	
+                  }
+                  if(data.tagThree != ""){           	
+                  	$('#tagArea').append(
+                  	$('<a />')
+                  		.addClass('badge badge-info text-decoration-none text-white fs-6')
+                  		.attr('id','tag3')
+                  		.text(data.tagThree)           	
+                  	)            	
+                  }
                 },
                 error: function (data) {
                   console.log("無法送出");

@@ -43,6 +43,9 @@
 	href="${pageContext.request.contextPath}/css/membermain.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/membercomponent.css" />
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 	<style>
 	.bubbles {
   position: absolute;
@@ -209,7 +212,7 @@
               <form action="${pageContext.request.contextPath}/login"
 					method="post">  
                   <div class="form-group">
-                   <label for="email" class="form-label">Email</label> <input
+                   <label for="email" class="form-label">Account</label> <input
 							type="text" class="form-control" name="username" id="username" />                  
                   </div>
 
@@ -272,14 +275,16 @@
                 </div>
                 <div class="row sm-gutters">
                   <div class="col-6">
+                  <button class="btn btn-outline-danger">
+                  login with google
                   <a href="${pageContext.request.contextPath}/oauth2/authorization/google"> <img
 									src="${pageContext.request.contextPath}/images/smallicon/google.svg"
 									alt="">
-								</a>
+								</a></button>
                   </div>
-                   <div class="col-6 d-flex flex-row">
-                   <p class="btn btn-link text-success" id="member">Member</p>
-		   		   <p class="btn btn-link text-danger" id="employee">Employee</p>
+                   <div class="col-6 ">
+                   <button class="btn btn-outline-success" id="member">Member</button>          
+		   		   <button class="btn btn-outline-danger" id="employee">Admin</button>   
                    </div>
                 </div>
                  <div class="mt-5 text-muted text-center">
@@ -315,71 +320,56 @@
 			</ul>
 		</div>
 </div> 
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
+	<div class="modal fade" id="staticBackdrop" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+					<h5 class="modal-title" id="staticBackdropLabel">Register</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="signupmember.controller" method="post"
-						enctype="multipart/form-data" class="needs-validation" novalidate>
+					<form id="memberRegisterForm" novalidate>						
+			        <div class="form-group">    
+			        <div class="row">
+                    <div class="col-8">           
+                    <label class="form-label">Id</label>
+	                <input
+	                  type="text"
+	                  class="form-control"
+	                  name="memberAccount"
+	                  id="memberAccount"
+	                  required/>	    
+	                  <div class="text-danger fst-italic mt-1" id="emailtest"></div>        	                      	              
+                  </div>
+                   </div>	                
+                  </div>
 
-						<div class="mb-3 row">
-							<div class="col">
-								<label for="empEmail" class="form-label">Email</label> <input
-									type="email" class="form-control" name="empEmail" id="empEmail"
-									required />
-							</div>
-							<div class="col">
-								<label for="empName" class="form-label">Name</label> <input
-									type="text" class="form-control" id="empName" name="empName"
-									required />
-								<div class="valid-feedback">Beautiful!</div>
-								<div class="invalid-feedback">english only!</div>
-							</div>
-						</div>
+                  <div class="form-group">
+                    <div class="row">
+                    <div class="col-8">
+                    <label for="empPwd1" class="form-label">Password</label> 
+                    <input type="password" class="form-control" name="empPwd1" id="empPwd1" required />
+	                </div>
+	                </div>	                
+                  </div>
 
-
-						<div class="mb-3 row">
-							<div class="col">
-								<label for="empPwd1" class="form-label">Password</label> <input
-									type="password" class="form-control" name="empPwd1"
-									id="empPwd1" required />
-							</div>
-							<div class="col">
-								<label for="empPwd2" class="form-label">Confirm</label> <input
-									type="password" class="form-control" name="empPwd2"
-									id="empPwd2" required />
-							</div>
-							<div class="invalid-feedback">First letter should be
-								uppercase,mix number and eng letters(8~12)</div>
-						</div>
-
-						<div class="mb-3 row">
-
-							<div class="col">
-								<label for="empPic" class="form-label">Photo</label> <input
-									type="file" class="form-control" name="empPic" id="empPic"
-									required />
-								<div class="valid-feedback">Awesome!</div>
-								<div class="invalid-feedback">JPG only</div>
-							</div>
-							<div class="col showPwd">
-								<input class="form-check-input" type="checkbox" name="showPwd"
-									id="showPwd" onclick="pwdType()" /><label for="showPwd">show
-									password</label>
-							</div>
-						</div>
+                   <div class="form-group">
+                    <div class="row">
+                    <div class="col-8">
+                     <label for="empPwd2" class="form-label">Confirm</label> 
+                     <input type="password" class="form-control" name="empPwd2" id="empPwd2" required />
+                     <div class="invalid-feedback">First letter should be uppercase,mix number and eng letters(8~12)</div>
+	                </div>
+	                 <div class="col-2 d-flex align-items-center" onclick="pwdType()"><i class="fas fa-eye fw-bolder fs-5"></i></div>
+	                </div>          	              
+                  </div>
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button id="memberRegister" type="button" class="btn btn-primary">Submit</button>
 						</div>
 					</form>
 				</div>
@@ -447,11 +437,124 @@
 			});
 
 			$("#member").click(function() {
-				$("#username").val("apple123@gmail.com");
+				$("#username").val("1011");
 				$("#password").val("Apple1234*")
 			});
+			
+			
+			 $("#memberAccount").on("change", function () {
+		          let email = $(this).val();
+		          $.ajax({
+		            type: "post",
+		            url: "emailCheck.controller/" + email,
+		            success: function (data) {
+		              if (data == "y") {
+		                console.log("used");
+		                $("#emailtest").html(
+		                  "<i class='fas fa-times-circle'></i>  be used"
+		                );
+		              } else {
+		                $("#emailtest").html("");
+		              }
+		            },
+		            error: function (e) {
+		              console.log(e);
+		            },
+		          });
+		        });
+			 
+			 $("#memberRegister").on("click", function () {
+				 console.log("hi")
+		          let formData = new FormData(document.getElementById("memberRegisterForm"));
+		          $.ajax({
+		            type: "post",
+		            url: "memberRegister",
+		            data: formData,
+		            contentType: false,
+		            cache: false,
+		            processData: false,
+		            success: function (data) {   
+		              $('#memberAccount').prop('value',"")	
+		              $('#empPwd1').prop('value','')
+		              $('#empPwd2').prop('value','')
+		   			  Swal.fire("Success!", "", "success");		              
+		            },
+		            error: function (e) {
+		              console.log("error");
+		            },
+		          });
+		        });
+			 
+			 
 		});
 	</script>
+	
+	<script>
+		
+		//須以大寫字母為開頭,至少個數字以及特殊符號總長8~12
+		const pwdCheckR = /^[A-Z]{1}(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{7,11}$/;
+
+		(function() {
+			"use strict";
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll(".needs-validation");
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms).forEach(function(form) {
+				form.addEventListener("click", function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+
+					form.classList.add("was-validated");
+				}, false);
+			});
+		})();
+
+		//pwd
+		document.getElementById("empPwd1").addEventListener("blur", pwdCheck);
+		document.getElementById("empPwd2").addEventListener("blur", pwdCheck);
+		function pwdCheck() {
+			let empPwd1 = document.getElementById("empPwd1");
+			let empPwd1Val = empPwd1.value;
+			let empPwd2 = document.getElementById("empPwd2");
+			let empPwd2Val = empPwd2.value;
+
+			if (empPwd1Val == "")
+				empPwd1.setCustomValidity("pwd1 can't be empty");
+			else if (empPwd2Val == "")
+				empPwd2.setCustomValidity("pwd1 can't be empty");
+			else if (empPwd1Val != empPwd2Val)
+				empPwd1.setCustomValidity("pwd1 can't be empty");
+			else if (pwdCheckR.test(empPwd1Val) == false)
+				empPwd1.setCustomValidity("pwd1 format error");
+			else if (pwdCheckR.test(empPwd2Val) == false)
+				empPwd2.setCustomValidity("pwd2 format error");
+
+			if (pwdCheckR.test(empPwd1Val) == true
+					&& pwdCheckR.test(empPwd2Val) == true
+					&& empPwd1Val == empPwd2Val) {
+				empPwd1.setCustomValidity("");
+				empPwd2.setCustomValidity("");
+			}
+		}
+
+		function pwdType() {
+			let empPwd1 = document.getElementById("empPwd1");
+			let empPwd2 = document.getElementById("empPwd2");
+			if (empPwd1.type === "password") {
+				empPwd1.type = "text";
+			} else {
+				empPwd1.type = "password";
+			}
+			if (empPwd2.type === "password") {
+				empPwd2.type = "text";
+			} else {
+				empPwd2.type = "password";
+			}
+		}
+	</script>
+	
 	
 </body>
 </html>

@@ -15,18 +15,18 @@
 			<!-- Page content-->
 			<div class="container mt-5">
 				
-				 <form class="py-5" action="shopitempage.controller" method="post">
+				 <section class="py-5" >
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" id="proPhoto" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1" name="Id" id="proId" value="${product.proId }"></div>
-                        <h1 class="display-5 fw-bolder" name="Name" id="proName" value="${product.proName }"></h1>
+                        <div class="small mb-1" id="proId" ></div>
+                        <h1 class="display-5 fw-bolder" id="proName" ></h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through" id="proPrice" value="${product.proPrice }"></span>
-                           
+                            <span class="text-decoration-line-through" id="proPrice" ></span>
+                            <span id="proPriceDiscount"></span>
                         </div>
-                        <p class="lead" id="proDescription" >${product.proDescription }</p>
+                        <p class="lead" id="proDescription" ></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </section>
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
@@ -152,47 +152,48 @@
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
-// 	$(function () {
+	$(function () {
   	  
-//   	  var url = location.href;
+  	  var url = location.href;
   	  
-//   	  if(url.indexOf('?')!=-1){
-//   		  var ary1 = url.split('?');
-//   		  var ary2 = ary1[1].split('&');
-//   		  var proId =decodeURI(ary2[0].substr(9));
-//   		  var proName =decodeURI(ary2[1].substr(11));
-//   	  }
+  	  if(url.indexOf('?')!=-1){
+  		  var ary1 = url.split('?');
+  		  var ary2 = ary1[1].split('&');
+  		  var proId =decodeURI(ary2[0].substr(6));
+  		  var proName =decodeURI(ary2[1].substr(8));
+  	  }
 
-// 				$.ajax({
-// 					   type:'GET',
-// 	               	   url:'shopitempage.controller',
-// 	               	   dataType:'JSON',
-// 	               	   contentType:'application/json',
-// 	               	   success(res) {
-// 	               	   let coupons=res;
+				$.ajax({
+					   type:'GET',
+	               	   url:'shopitempage.controller',
+	               	   dataType:'JSON',
+	               	   contentType:'application/json',
+	               	   success(res) {
+	               	   let products=res;
 	               	   
-// 	               	   for(let i=0;i<products.length;i++){					      
+	               	   for(let i=0;i<products.length;i++){					      
 	               		  
-// 	               		   if(proId==products[i].proId && proName==products[i].proName){
+	               		   if(proId==products[i].proId && proName==products[i].proName){
 	               			   
-// 	               			   $('#proId').text("序號:"+products[i].proId);
-// 	               			   $('#proName').text(products[i].proName);
-// 	               			   $('#proPrice').text("$"+products[i].proPrice);
-// 	               			   $('#proDescription').text(products[i].proDescription);
-// 	               			   $('#proPhoto').attr("src",products[i].proPhoto);
+	               			   $('#proId').text("序號:"+products[i].proId);
+	               			   $('#proName').text(products[i].proName);
+	               			   $('#proPrice').text("$"+products[i].proPrice);
+	               			   $('#proPriceDiscount').text("$"+Math.round(products[i].proPrice*0.9));
+	               			   $('#proDescription').text(products[i].proDescription);
+	               			   $('#proPhoto').attr("src",products[i].proPhoto);
 	               			   
 	               			   
 	               			
-// 	               		   }
-// 	               	   }
+	               		   }
+	               	   }
 	               	  
 	               	   
 						
-// 					}
+					}
 			   
-// 				})
+				})
 						
-// 			});
+		});
    
    
 	</script>

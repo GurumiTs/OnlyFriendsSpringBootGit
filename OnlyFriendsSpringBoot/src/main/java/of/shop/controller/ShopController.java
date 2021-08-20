@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.coupon.model.Coupon;
-import of.emp.model.Employee;
 import of.product.model.Product;
 import of.product.model.ProductService;
 
@@ -35,16 +35,26 @@ public class ShopController {
 	@Autowired
 	private Product product;
 	
-	@RequestMapping(path = "/usershopentrypage", method = RequestMethod.GET)
+	public String shopCar(HttpSession session,Model model) {
+		Product product=(Product) session.getAttribute("shopcar");
+		Integer proId=product.getProId();
+		Product neworderProduct=productService.findById(proId);
+		productService.update(neworderProduct);
+		model.addAttribute("shopcar",neworderProduct);
+		return "";
+	}
+	
+	
+	@RequestMapping(path = "/shopentrypage", method = RequestMethod.GET)
 	public String userproductMgmtEntry(Model model) {
 		return "productpages/shopPage";
 	}
 	
-	@PostMapping(path = "/usershoppage.controller/{pageNo}")
+	@PostMapping(path = "/shoppage.controller/{pageNo}")
 	@ResponseBody
 	public List<Product> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
 		
-		int pageSize = 2;
+		int pageSize = 4;
 		
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		Page<Product> page = productService.findAllByPage(pageable);
@@ -57,60 +67,19 @@ public class ShopController {
 		return page.getContent();
 	}
 	
-	@RequestMapping(path="/shopitementrypage",method = RequestMethod.GET)
-	public String shopItemEntry(@RequestParam(name = "Id") Integer Id,Model model) {
-		product = productService.findById(Id);
-		System.out.println(Id);
+	@GetMapping("/shopitementrypage")
+	public String shopItemEntry(@RequestParam Integer proId) {
+		
 		return "productpages/shopitem";
 	}
 	
-	@RequestMapping(path="/shopitempage.controller",method =RequestMethod.POST )
-	public String productupdate(@RequestParam (name = "Id",required = false) Integer proId,
-								@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
-								@RequestParam(name = "Name") String proName,
-								@RequestParam(name = "Description") String proDescription,
-								@RequestParam(name = "Price") Integer proPrice,
-								@RequestParam(name = "Item") String proItem,
-								@RequestParam(name = "Num")	Integer proNum,
-								@RequestParam(name = "Shipping") Integer proShipping,HttpServletRequest request,
-								Model m){
-		try {
-			
-			product.setProId(proId);
-			product.setProName(proName);
-			product.setProDescription(proDescription);
-			product.setProPrice(proPrice);
-			product.setProItem(proItem);
-			product.setProNum(proNum);
-			product.setProShipping(proShipping);
-			System.out.println(proId);
-			System.out.println(proName);
-			System.out.println(proDescription);
-			System.out.println(proPrice);
-			System.out.println(proNum);
-			System.out.println(proShipping);
-			
-			String fileName=multipartFile.getOriginalFilename();
-			System.out.println("filename:"+fileName);
-			String path1=ResourceUtils.getURL("classpath:static/images/productPic").getPath();
-			System.out.println(path1);
-			String filepath=path1+"/"+fileName;
-			File saveFile=new File(filepath);
-			System.out.println("1");
-			multipartFile.transferTo(saveFile);
-			System.out.println("2");
-			product.setProPhoto("images/productPic/"+fileName);
-			System.out.println("3");
-			productService.update(product);
-//			List<Product> proList=productService.findAll();
-//			m.addAttribute("proList",proList);
-			
-			return "redirect:/usershopentrypage";
-		} catch (Exception e) {
-			m.addAttribute("error","update picture failed");
-			return "redirect:/usershopentrypage";
-		}
-		
+	@GetMapping("/shopitempage.controller")
+	@ResponseBody
+	public List<Product> shopCouponItem() {
+		List<Product> products = productService.findAll();
+		return products;
 	}
+		
+	
 
 }

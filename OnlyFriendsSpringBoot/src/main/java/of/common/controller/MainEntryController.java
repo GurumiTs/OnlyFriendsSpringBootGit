@@ -146,5 +146,10 @@ public class MainEntryController {
 		return "frontcommonpages/try";
 	}
 	
+	@RequestMapping(path = "/404.controller", method = RequestMethod.GET)
+	public String exceptEntry() {
+		return "404";
+	}
+	
 
 }
