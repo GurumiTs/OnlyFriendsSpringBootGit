@@ -54,7 +54,7 @@ public class ShopController {
 	@ResponseBody
 	public List<Product> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
 		
-		int pageSize = 2;
+		int pageSize = 4;
 		
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		Page<Product> page = productService.findAllByPage(pageable);

@@ -208,7 +208,7 @@ a.slide-arrow {
     	   dataType:'JSON',
     	   contentType:'application/json',
     	   success: function(data) {
-    	     var json = JSON.stringify(data, null, 2);
+    	     var json = JSON.stringify(data, null, 4);
     	     var parsedObjinArray = JSON.parse(json);
     	     var itemarea = $('#itemarea');
     	     $('#itemarea').empty("");
@@ -230,16 +230,12 @@ a.slide-arrow {
                      "<div class='bi-star-fill'></div>"+
                      "<div class='bi-star-fill'></div>"+
                   "</div>"+
-                   "<span class='text-muted text-decoration-line-through'>$20.00</span>" +
-                   "$18.00"+
+                   "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
+                   "$"+Math.round(n.proPrice*0.9)+
                 " </div>"+
                "</div>"+
              
-               "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
-                 "<div class='text-center'>"+
-                 
-                 "</div>"+
-               "</div>"+
+               
              "</div>"+
            "</div>" ;
            itemarea.append(item);
