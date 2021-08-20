@@ -1,6 +1,9 @@
 package of.member.controller;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +24,8 @@ import of.common.model.UsersService;
 import of.common.util.BCrypt;
 import of.common.util.GetRandomPwd;
 import of.emp.model.Employee;
+import of.member.model.Friendship;
+import of.member.model.FriendshipService;
 import of.member.model.Member;
 import of.member.model.MemberService;
 
@@ -37,6 +43,9 @@ public class MemberController {
 	private Users users;
 	@Autowired
 	private JavaMailSender sender;
+	
+	@Autowired
+	private FriendshipService friendshipService;
 	
 	@RequestMapping(path="/member" ,method = RequestMethod.GET )
 	public String memberEntry() {
@@ -133,6 +142,19 @@ public class MemberController {
 	@RequestMapping(path="/memberswipe" ,method = RequestMethod.GET )
 	public String memberSwipeEntry() {
 		return "memberpages/memberswipe" ;
+	}
+	
+	@RequestMapping(path="/tryonetomany" ,method = RequestMethod.GET )
+	@ResponseBody
+	public String tryonetomany() {
+		Friendship f1 = new Friendship();	
+		Member m1 = memberService.findByMemberAccount("1012");
+		Member m2 = memberService.findByMemberAccount("1013");
+		Set<Member> friendsSet = new LinkedHashSet<Member>(Arrays.asList(m1,m2));
+		f1.setFriends(friendsSet);
+		friendshipService.insert(f1);
+		
+		return "y" ;
 	}
 
 }
