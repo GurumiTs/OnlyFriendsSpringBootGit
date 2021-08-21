@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+#blogimg{
+weight: 700px;
+height: 350px;
+}
+</style>
 </head>
 <body>
 <body class="layout-2">
@@ -9,8 +15,6 @@
 		<div class="main-wrapper">
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
-
-
 
 			<!-- Page content-->
 			<div class="container mt-5">
@@ -22,42 +26,21 @@
 				<div class="row">
 					<!-- Blog entries-->
 					<div class="col-lg-8">
-<!-- 						Featured blog post -->
-<!-- 						<div class="card mb-4"> -->
-<!-- 							<a href="blogarticle"><img class="card-img-top" -->
-<!-- 								src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a> -->
-<!-- 							<div class="card-body"> -->
-<!-- 								<div class="small text-muted">January 1, 2021</div> -->
-<!-- 								<h2 class="card-title">Featured Post Title</h2> -->
-<!-- 								<p class="card-text">Lorem ipsum dolor sit amet, consectetur -->
-<!-- 									adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex -->
-<!-- 									quis soluta, a laboriosam. Dicta expedita corporis animi vero -->
-<!-- 									voluptate voluptatibus possimus, veniam magni quis!</p> -->
-<!-- 								<a class="btn btn-primary" href="#!">Read more →</a> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						Nested row for non-featured blog posts -->
-						<div id="showblog" class="row">
-						
-							
-							
-						</div>
-						<!-- Pagination-->
-						<nav aria-label="Pagination">
-							<hr class="my-0" />
-							<ul class="pagination justify-content-center my-4">
-								<li class="page-item disabled"><a class="page-link"
-									href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-								<li class="page-item active" aria-current="page"><a
-									class="page-link" href="#!">1</a></li>
-								<li class="page-item"><a class="page-link" href="#!">2</a></li>
-								<li class="page-item"><a class="page-link" href="#!">3</a></li>
-								<li class="page-item disabled"><a class="page-link"
-									href="#!">...</a></li>
-								<li class="page-item"><a class="page-link" href="#!">15</a></li>
-								<li class="page-item"><a class="page-link" href="#!">Older</a></li>
-							</ul>
-						</nav>
+						<div class="row">
+						<div class="row" id="itemarea"></div>
+							<!-- Nested row for non-featured blog posts -->
+							<div class="card-footer bg-whitesmoke">
+								<table id="showpage" class="d-flex justify-content-center">
+									<tr>
+										<td colspan="3" align="right"><c:forEach var="i" begin="1"
+												end="${totalPages}" step="1">
+												<button class="btn btn-outline-secondary" id="myPage"
+													value="${i}" onclick="change(${i})">${i}</button>
+											</c:forEach></td>
+									</tr>
+								</table>
+							</div>
+						</div>						
 					</div>
 					<!-- Side widgets-->
 					<div class="col-lg-4">
@@ -97,7 +80,9 @@
 								</div>
 							</div>
 						</div>
-						<!-- Side widget-->
+						
+
+						<!--Side widget -->
 						<div class="card mb-4">
 							<div class="card-header">Side Widget</div>
 							<div class="card-body">You can put anything you want inside
@@ -110,56 +95,55 @@
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
 	</div>
-
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
 		var indexPage = 1;
-		$(function() {
+		$(function() {	
 			load(indexPage);
 		})
-
+	
 		function change(page) {
 			indexPage = page;
 			load(indexPage);
 		}
-		
-		function load(indexPage){
+						
+		function load(){
 			$.ajax({
-				type:'POST',
-				url:'blogqueryallbypage/' + indexPage,
-				dataType:'JSON'
-				contentType:'application/json',
+				type: 'POST',
+				url: 'blogqueryallbypage/' + indexPage,
+				dataType: 'JSON',
+				contentType: 'application/json',
 				success: function(data) {
-					var json = JSON.stringify(data, null, 4);
-					var parsedObjinArray = JSON.parse(json);
-					$('#showblog').empty("");
-					$.each(parsedObjinArray, function(i,n){
-						var item = 
-						"<div class='col-lg-6'>"+
+				console.log(data);
+				var json = JSON.stringify(data, null, 4);
+				var parsedObjinArray = JSON.parse(json);
+				var itemarea = $('#itemarea');
+				$('#itemarea').empty("");
+				$.each(parsedObjinArray, function(i,n){
+				var item = 
+					"<div class='col-lg-6'>"+
 						"<div class='card mb-4'>"+
-							"<a href='blogarticle'><img class='card-img-top'"+
-								"src='https://dummyimage.com/700x350/dee2e6/6c757d.jpg'"+
-								"alt='...' /></a>"+
+							"<a href='blogarticleentry?usersArticleId="+n.usersArticleID+"'><img id='blogimg' class='card-img-top'"+
+								"src='"+n.usersImages+"'/></a>"+
 							"<div class='card-body'>"+
-								"<div class='mall text-muted'>January 1, 2021</div>"+
-								"<h2 class='card-title h4'>Post Title</h2>"+
-								"<p class='card-text'>Lorem ipsum dolor sit amet,"+
-									"consectetur adipisicing elit. Reiciendis aliquid atque,"+
-									"nulla.</p>"+
-								"<a class='btn btn-primary' href='#!'>Read more →</a>"+
+								"<div class='small text-muted'>"+n.usersUpdateTime+"</div>"+
+								"<h2 class='card-title h4'>"+n.usersTitle+"</h2>"+
+								"<p class='card-text'>"+n.usersMainText+"</p>"+
+								"<a class='btn btn-primary' href='blogarticleentry'>Read more →</a>"+
 							"</div>"+
 						"</div>"+
 					"</div>";
-					showblog.append(item);
-					});
-				},
-				error: function() {
-					console.log("error!");
-				}
-			});
-		};
-		
+				itemarea.append(item);
+				});
+			},
+			error: function() {
+				console.log("error!");
+			}
+		});
+	};
+						
 	</script>
+
 </body>
 </html>
