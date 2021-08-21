@@ -127,10 +127,10 @@ height: 350px;
 							"<a href='blogarticleentry?usersArticleId="+n.usersArticleID+"'><img id='blogimg' class='card-img-top'"+
 								"src='"+n.usersImages+"'/></a>"+
 							"<div class='card-body'>"+
-								"<div class='small text-muted'>"+n.usersUpdateTime+"</div>"+
+								"<div class='small text-muted'>"+n.usersUpdateTime.substr(0,10)+"</div>"+
 								"<h2 class='card-title h4'>"+n.usersTitle+"</h2>"+
-								"<p class='card-text'>"+n.usersMainText+"</p>"+
-								"<a class='btn btn-primary' href='blogarticleentry'>Read more →</a>"+
+								"<p class='card-text'>"+n.usersMainText.substr(0,90)+" ...</p>"+
+								"<a class='btn btn-primary' href='blogarticleentry?usersArticleId="+n.usersArticleID+"'>Read more →</a>"+
 							"</div>"+
 						"</div>"+
 					"</div>";
