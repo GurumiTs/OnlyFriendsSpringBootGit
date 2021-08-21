@@ -25,7 +25,7 @@
 
 							</header>
 							<!-- Preview image figure-->
-							<a href="userparty.entry" style="text-decoration: none;"><p>↩
+							<a href="userpartymgmt.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
 								<img class="img-fluid rounded" src="${party.cover}" alt="..." />
