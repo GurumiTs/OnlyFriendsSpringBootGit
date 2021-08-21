@@ -111,7 +111,7 @@ height: 350px;
 		function load(){
 			$.ajax({
 				type: 'POST',
-				url: 'blogqueryallbypage/' + indexPage,
+				url: 'empblogallbypage/' + indexPage,
 				dataType: 'JSON',
 				contentType: 'application/json',
 				success: function(data) {
@@ -124,13 +124,13 @@ height: 350px;
 				var item = 
 					"<div class='col-lg-6'>"+
 						"<div class='card mb-4'>"+
-							"<a href='blogarticleentry?usersArticleId="+n.usersArticleID+"'><img id='blogimg' class='card-img-top'"+
-								"src='"+n.usersImages+"'/></a>"+
+							"<a href='#!?usersArticleId="+n.articleID+"'><img id='blogimg' class='card-img-top'"+
+								"src='"+n.images+"'/></a>"+
 							"<div class='card-body'>"+
-								"<div class='small text-muted'>"+n.usersUpdateTime+"</div>"+
-								"<h2 class='card-title h4'>"+n.usersTitle+"</h2>"+
-								"<p class='card-text'>"+n.usersMainText+"</p>"+
-								"<a class='btn btn-primary' href='blogarticleentry'>Read more →</a>"+
+								"<div class='small text-muted'>"+n.updateTime+"</div>"+
+								"<h2 class='card-title h4'>"+n.title+"</h2>"+
+								"<p class='card-text'>"+n.mainText+"</p>"+
+								"<a class='btn btn-primary' href='#!'>Read more →</a>"+
 							"</div>"+
 						"</div>"+
 					"</div>";

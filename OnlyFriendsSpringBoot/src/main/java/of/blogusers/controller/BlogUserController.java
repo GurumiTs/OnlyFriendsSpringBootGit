@@ -1,12 +1,10 @@
 package of.blogusers.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,13 +15,13 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.blog.model.BlogBean;
+import of.blog.model.BlogService;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
@@ -35,9 +33,13 @@ public class BlogUserController {
 	private BlogUserService bUserService;
 	@Autowired
 	private BlogUser blogUser;
+	@Autowired
+	private BlogService bService;
+	@Autowired
+	private BlogBean blog;
 
 	// 進BlogUsers主頁controller(未設前端)
-	@RequestMapping(path = "/blogusers", method = RequestMethod.GET)
+	@GetMapping(path = "/blogusers")
 	public String blogUserEntry() {
 		return "bloguserspages/blogusermainpage";
 	}
@@ -51,9 +53,17 @@ public class BlogUserController {
 //	}
 	
 	// 進單一文章頁面(未設前端)
-	@RequestMapping(path = "/blogarticle", method = RequestMethod.GET)
-	public String blogArticleEntry() {
-		return "bloguserspages/blogarticle";
+	@GetMapping(path = "/blogarticleentry")
+	public String blogArticleEntry(@RequestParam(name = "usersArticleId") Integer usersArticleId,
+								   Model m) {
+		System.out.println("Find usersArticleId:" + usersArticleId);
+		if (usersArticleId != 0) {
+			blogUser = bUserService.findByArticleID(usersArticleId);			
+			m.addAttribute("blogUser", blogUser);
+			return "bloguserspages/blogarticle";
+		}
+		m.addAttribute("errors", "此文章已查詢不到");
+		return "redirect:blogusers";
 	}
 
 	// 進新增controller(未設前端)
@@ -166,6 +176,8 @@ public class BlogUserController {
 //		}
 //		return "fail";
 //	}
+	
+	// 使用者文章前端首頁
 	@PostMapping(path = "/blogqueryallbypage/{pageNo}")
 	@ResponseBody
 	public List<BlogUser> queryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
@@ -182,6 +194,22 @@ public class BlogUserController {
 		return page.getContent();
 	}
 	
+	// 管理者文章前端首頁
+	@PostMapping(path = "/empblogallbypage/{pageNo}")
+	@ResponseBody
+	public List<BlogBean> queryByPageActionEmp(@PathVariable("pageNo") int pageNo, Model m) {
+		int pageSize = 6;
+		System.out.println("controller");
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		Page<BlogBean> page = bService.findAllByPage(pageable);
+		
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();// 全部有幾筆資料
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+		
+		return page.getContent();
+	}
 	
 	
 }
