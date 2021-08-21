@@ -42,7 +42,7 @@ public class ShopController {
 	public String shopCar(@RequestParam(name = "Id") Integer Id, HttpServletResponse response,HttpSession session, Model model) {
 		
 		//獲取商品物件
-		Product product=list.get(Id-1);
+		Product product=list.get(Id);
 		//儲存至購物車
 		Map<Integer, Integer> shopcart = (Map<Integer, Integer>) session.getAttribute("shopcart");
 		// 如果session沒有購物車
@@ -59,7 +59,7 @@ public class ShopController {
 		session.setAttribute("shopcart", shopcart);
 		
 		//為了讓購物車存的時間久一點 現在需要手動設定cookie
-		Cookie cookie =new Cookie("JsessionId", session.getId());
+		Cookie cookie =new Cookie("JSESSIONID", session.getId());
 		cookie.setMaxAge(60*60*24*7);
 		response.addCookie(cookie);
 		
@@ -72,13 +72,7 @@ public class ShopController {
 		return "productpages/shopcart";
 	}
 	
-	//顯示商品列表
-	@RequestMapping(path="/listproduct")
-	public String listProduct(Model model) {
-		//準備商品 存商品
-		model.addAttribute("list",list);
-		return "list";
-	}
+	
 
 	@RequestMapping(path = "/shopentrypage", method = RequestMethod.GET)
 	public String userproductMgmtEntry(Model model) {
