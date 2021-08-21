@@ -31,6 +31,10 @@ public class MemberService {
 		return memberRepository.findAll();
 	}
 	
+	public List<Member> findByMemberNameLike(String text){
+		return memberRepository.findByMemberNameLike(text);
+	}
+	
 
 
 }

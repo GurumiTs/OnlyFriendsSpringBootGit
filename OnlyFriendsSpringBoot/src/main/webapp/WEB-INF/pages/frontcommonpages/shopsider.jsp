@@ -19,7 +19,7 @@
                 >
               </li>
               <li>
-                <a class="nav-link" href="blank.html"
+                <a class="nav-link" href="memberfriends"
                   ><i class="fas fa-users"></i> <span>Friends</span></a
                 >
               </li>
