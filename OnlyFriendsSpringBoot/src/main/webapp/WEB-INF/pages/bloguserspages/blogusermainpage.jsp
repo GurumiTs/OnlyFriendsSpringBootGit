@@ -124,8 +124,7 @@ height: 350px;
 					"<div class='col-lg-6'>"+
 						"<div class='card mb-4'>"+
 							"<a href='blogarticle'><img id='blogimg' class='card-img-top'"+
-								"src="+n.usersImages+
-								"alt='...' /></a>"+
+								"src='"+n.usersImages+"'/></a>"+
 							"<div class='card-body'>"+
 								"<div class='small text-muted'>"+n.usersUpdateTime+"</div>"+
 								"<h2 class='card-title h4'>"+n.usersTitle+"</h2>"+
