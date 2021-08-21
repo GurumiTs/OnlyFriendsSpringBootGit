@@ -171,6 +171,8 @@ public class OfficialActiveController {
 			return"redirect:/empofficialactivemgmt.controller";
 	
 	}
+		
+		//homepage
 		@GetMapping(path = "/oauserpage.controller")
 		public String oauserEntry() {
 			return "officialactivepages/oahomepage";
@@ -190,6 +192,23 @@ public class OfficialActiveController {
 			m.addAttribute("totalElements", totalElements);
 			
 			return page.getContent();
+		}
+		
+		//itempage
+
+		@GetMapping("/oaitemEntry.controller")
+		public String oaItemEntry(@RequestParam long anum) {
+			System.out.println(anum);
+			return "officialactivepages/oaitem";
+
+		}
+		
+		@GetMapping("/oaitem.controller")
+		@ResponseBody
+		public List<OfficialActive> oaItem(){
+			List<OfficialActive> oa = officialActiveService.findAll();
+			return oa;
+			
 		}
 		
 }
