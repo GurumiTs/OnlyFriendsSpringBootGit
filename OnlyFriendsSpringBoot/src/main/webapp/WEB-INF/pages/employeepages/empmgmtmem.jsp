@@ -140,13 +140,18 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<i id="+data.memberAccount+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+		              return "<i class='fas fa-user-slash edit' id="+data.memberAccount+"></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
 		            },
 		            "targets": -1
 		        }
 		    ]
 		});		
 		/* load data table */
+		$("#example tbody").on("click", ".edit", function () {
+			console.log("change")
+			
+			
+		})
 				
 		$("#example tbody").on("click", ".delete", function () {
 			let email = $(this).attr("id");
