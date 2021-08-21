@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,26 +30,48 @@ public class PartyUserController {
 	@Autowired
 	private PartyService partyService;
 	@Autowired
-	private Party party;
+	private Party party;	
 	
-	//首頁
-	@RequestMapping(path = "/userparty.entry", method = RequestMethod.GET)
-	public String userpartyenty1(Model m) {
+	//回傳給json 的資料
+	@RequestMapping(path = "/userpartymgmtjson", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Party> userpartymgmtjson(Model m) {
 		List<Party> partyList = partyService.selectAll();
 		m.addAttribute("partyList", partyList);
 
 		System.out.println("partyList:" + partyList);
-		return "partyuserpages/usermgmt";
+		return partyList;
 	}
-	//內頁	
+	
+	//userMgmt 入口
+	@RequestMapping(path = "/userpartymgmt.entry", method = RequestMethod.GET)
+	public String userpartymgmtenty(Model m) {
+		return "partyuserpages/usermgmtjson";
+	}
+	
+	
+	//內頁 
 	@RequestMapping(path = "/userparty.page", method = RequestMethod.GET)
-	public String  userparty2(HttpServletRequest request, Model model) {
+	public String userpartyenty(HttpServletRequest request, Model model) {
 		Integer number = Integer.parseInt(request.getParameter("number"));
 		party = partyService.select(number);
 		model.addAttribute("party", party);
 		
 		return "partyuserpages/example";
 	}
+	
+////	//內頁json
+//	@RequestMapping(path = "/userparty", method = RequestMethod.POST)
+//	@ResponseBody
+//	public Party userpartyjson(HttpServletRequest request, Model model) {
+//		Integer number = Integer.parseInt(request.getParameter("number"));
+//		System.out.print(number);
+//		
+//		party = partyService.select(number);
+//		model.addAttribute("party", party);
+//		
+//		return party;
+//	}
 	//模糊搜尋
 	
 	//各類活動類型

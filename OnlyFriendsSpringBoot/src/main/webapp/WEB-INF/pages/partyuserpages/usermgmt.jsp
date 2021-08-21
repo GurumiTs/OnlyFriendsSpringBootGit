@@ -85,7 +85,8 @@
 												</div>
 												</br> <span class="d-inline-block text-truncate"
 													style="max-width: 300px;" id="${party.number}plany"
-													class="col-30 text-truncate"> ${party.plany}</span> </br> <a
+													class="col-30 text-truncate"> ${party.plany}</span> </br>
+													 <a
 													class="btn btn-primary"
 													href="userparty.page?number=${party.number}">查看活動內容</a>
 											</div>
