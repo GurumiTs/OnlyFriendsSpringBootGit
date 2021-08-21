@@ -66,7 +66,7 @@ public class BlogUserController {
 	@PostMapping(path = "/blogusersinsertform")
 	public String blogUserAdd(@RequestParam(name = "usersImages") MultipartFile multipartFile,
 							  @RequestParam(name = "memberAccount") String memberAccount, 
-							  @RequestParam(name = "userName") String userName,
+							  @RequestParam(name = "usersName") String usersName,
 							  @RequestParam(name = "usersTitle") String usersTitle, 
 							  @RequestParam(name = "usersMainText") String usersMainText,
 							  Model m) {
@@ -75,7 +75,7 @@ public class BlogUserController {
 			blogUser.setUsersCreateTime(ts);
 			blogUser.setUsersUpdateTime(ts);
 			blogUser.setMemberAccount(memberAccount);
-			blogUser.setUserName(userName);
+			blogUser.setUsersName(usersName);
 			blogUser.setUsersMainText(usersMainText);
 			System.out.println("Insert " + memberAccount + "'s Blog time:" + ts);
 
@@ -170,7 +170,7 @@ public class BlogUserController {
 	@ResponseBody
 	public List<BlogUser> queryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
 		int pageSize = 6;
-		
+		System.out.println("controller");
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		Page<BlogUser> page = bUserService.findAllByPage(pageable);
 		
