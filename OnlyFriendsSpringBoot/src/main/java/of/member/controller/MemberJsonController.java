@@ -188,7 +188,12 @@ public class MemberJsonController {
 	@PostMapping(path = "/memberaddfriend/{addfriendid}")
 	@ResponseBody
 	public Object memberAddFriend(@PathVariable(name = "addfriendid") String addfriendid, HttpServletRequest request) {
+	
+		Member mtry = memberService.findByMemberAccount("1011");
+		Users userstry = usersService.findByEmail("1029");
+		userstry.addFriend(mtry);
 
+		usersService.update(userstry);
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		Users users = usersService.findByEmail(memberAccount);
@@ -202,7 +207,26 @@ public class MemberJsonController {
 		users.addFriend(friend);
 		usersService.update(users);
 		return users;
-
+	}
+	
+	@PostMapping(path = "/memberfriendsquery")
+	@ResponseBody
+	public List<Member> memberFriendsQuery(HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		List<Member> friends = usersService.findByEmail(memberAccount).getFriends();
+		
+		return friends;
+	}
+	
+	@PostMapping(path = "/memberfriendssearch/{friendname}")
+	@ResponseBody
+	public List<Member> memberFriendsSearch(@PathVariable(name ="friendname") String friendname,HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		List<Member> friends = memberService.findByMemberNameLike(friendname);
+		
+		return friends;
 	}
 
 }

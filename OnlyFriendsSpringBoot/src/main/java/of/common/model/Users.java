@@ -35,7 +35,7 @@ public class Users implements Serializable{
 	@ManyToMany
 	@JoinTable(
 			name = "friendship",
-			joinColumns = @JoinColumn(name = "userEmail"),
+			joinColumns = @JoinColumn(name = "usersEmail"),
 			inverseJoinColumns = @JoinColumn(name = "memberAccount")			
 			)	
 	private List<Member> friends = new ArrayList<>();

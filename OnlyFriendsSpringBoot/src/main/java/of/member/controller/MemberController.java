@@ -65,6 +65,11 @@ public class MemberController {
 		return "memberpages/memberswipe" ;
 	}
 	
+	@RequestMapping(path="/memberfriends" ,method = RequestMethod.GET )
+	public String memberFriendsEntry() {
+		return "memberpages/memberfriends" ;
+	}
+	
 	@RequestMapping(path="/memberaddfriend" ,method = RequestMethod.GET )
 	@ResponseBody
 	public String memberAddFriend() {

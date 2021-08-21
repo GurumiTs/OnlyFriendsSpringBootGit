@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+body{
+font-size:1.2rem
+}
+</style>
 </head>
 <body>
  <body class="layout-2">
@@ -15,24 +20,34 @@
         <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Chat Box</h1>
+            <h1>My Collection</h1>
           </div>
 
-          <div class="section-body">
+          <div class="section-body ">
             <div class="row align-items-center justify-content-center">
-              <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>Box</h4>
-                  </div>
-                  <div class="card-body">
-                    <ul class="list-unstyled list-unstyled-border" id="friendsarea">                          
+              
+              
+               <div class="col-6 col-sm-6 col-lg-6">
+                  <div class="card chat-box card-success" id="mychatbox2">
+                    <div class="card-header">
+                      <h4>
+                       Box
+                      </h4>
+                    </div>
+                    <div class="card-body chat-content overflow-auto">
+                    <ul class="list-unstyled list-unstyled-border " id="friendsarea">                          
                     </ul>
+                    </div>
+                   <div class="card-footer chat-form" id="cleararea">                    
+                      <input type="text" class="form-control" placeholder="search name" id="searchfriend" />                                                         
+                  </div>
                   </div>
                 </div>
-              </div>
+              
+              
+              
            
-              <div class="col-12 col-sm-6 col-lg-4">
+              <div class="col-6 col-sm-6 col-lg-6">
                 <div class="card chat-box card-success" id="mychatbox2">
                   <div class="card-header">
                     <h4><i class="fas fa-circle text-success mr-2" title="Online" data-toggle="tooltip"></i> Chat with Ryan</h4>
@@ -68,13 +83,15 @@
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
     
-    
+   
     <script >  
     $(function(){
-    	loadfriends()
+    	var friendname = $('#searchfriend').prop('value') 
+    	loadfriends()   
+    	$('#searchfriend').on('change',searchfriend)       	
+    	
     })
     function loadfriends(){
-    	console.log("hi")
     	 $.ajax({
              type: "post",
              url: "memberfriendsquery",
@@ -86,17 +103,52 @@
          	    "<li class='media'>"+
                  "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.memberPic+"'>"+
                  "<div class='media-body'>"+
-                   "<div class='mt-0 mb-1 font-weight-bold'>"+friend.memberName+"</div>"+
-                   "<div class='mt-0 mb-1 font-weight-bold'>"+friend.memberEmail+"</div>"+  
+                   "<div class='mt-0 mb-1 font-weight-bold'>"+friend.memberName+"</div>"+              
                 " </div>"+
                "</li>";
-               $('#friendsarea').append(item);});
+              $('#friendsarea').append(item);});
+            
              },
-             error: function (data) {
+             error: function (data) {           			 
                console.log("無法送出");
              },
            });          
     }
+    
+    function searchfriend(){
+    	var friendname = $('#searchfriend').prop('value') 
+    	$.ajax({
+            type: "post",
+            url: "memberfriendssearch/"+friendname,
+            success: function (data) {
+            	if(data.length == 0){
+                	$('#friendsarea').html('')
+            		console.log("no data")     
+            		$('#friendsarea').append(
+            			$('<p />').html("no result")
+            			
+            		)
+            	}else{
+            	console.log("have data")	
+            	 $('#friendsarea').html('')
+                 $.each(data,function(i,friend){ //i為順序 n為單筆物件
+            	     var item =          	    	 
+            	    "<li class='media'>"+
+                    "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.memberPic+"'>"+
+                    "<div class='media-body'>"+
+                      "<div class='mt-0 mb-1 font-weight-bold'>"+friend.memberName+"</div>"+              
+                   " </div>"+
+                  "</li>";
+                 $('#friendsarea').append(item);}); }            	
+            },
+            error: function (data) {
+            	loadfriends()
+              console.log("無法送出");
+            },
+          });       
+    	
+    }
+   
    
    
     </script>

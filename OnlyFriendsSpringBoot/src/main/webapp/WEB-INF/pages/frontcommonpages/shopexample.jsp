@@ -106,7 +106,7 @@
     	   url:'queryallbypage/' + indexPage,
     	   dataType:'JSON',
     	   contentType:'application/json',
-    	   success: function(data) {
+    	   success: function(data) {    	
     	     var json = JSON.stringify(data, null, 2);
     	     var parsedObjinArray = JSON.parse(json);
     	     var itemarea = $('#itemarea');
