@@ -269,8 +269,7 @@
             	.attr('id','heartid')
             	.attr('value',data.memberAccount)            
             )
-            
-            
+                      
             $("#coinarea").html("");
             $.ajax({
               type: "post",

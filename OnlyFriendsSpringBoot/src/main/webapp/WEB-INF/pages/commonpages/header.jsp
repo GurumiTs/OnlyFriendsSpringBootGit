@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
                   >Blog</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">幸福故事</a></li>
+                  <li><a class="dropdown-item" href="blogofficial">幸福故事</a></li>
                   <li><a class="dropdown-item" href="blogusers">戀人分享</a></li>
                 </ul>
               </li>

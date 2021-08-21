@@ -44,8 +44,8 @@ public class BlogUser implements Serializable {
 	@Column(name = "MemberAccount")
 	private String memberAccount;// 管理人員ID
 
-	@Column(name = "UserName")
-	private String userName;// PO文者ID
+	@Column(name = "UsersName")
+	private String usersName;// PO文者ID
 
 	@Column(name = "LikeNum")
 	private Integer likeNum;// 點讚數
@@ -106,12 +106,12 @@ public class BlogUser implements Serializable {
 		this.memberAccount = memberAccount;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsersName() {
+		return usersName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsersName(String usersName) {
+		this.usersName = usersName;
 	}
 
 	public Integer getLikeNum() {

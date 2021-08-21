@@ -85,6 +85,7 @@
 											<th>Images</th>
 											<th>Title</th>
 											<th>UpdateDate</th>
+											<th>MainText</th>
 											<th>EmpAcc</th>
 											<th>UserID</th>
 											<th>Edit</th>
@@ -98,6 +99,7 @@
 											<th class="d-none">圖片</th>
 											<th class="d-none">文章標題</th>
 											<th class="d-none">最後更新時間</th>
+											<th class="d-none">內容</th>
 											<th class="d-none">PO文者帳號</th>
 											<th class="d-none">暱稱</th>
 											<th class="d-none">Edit</th>
@@ -154,7 +156,18 @@
 		            }
 		        },
 		        { "data": "title" }, 
-		        { "data": "updateTime"},		  
+		        { "data": "updateTime"},
+		        { 
+		        	"data": "mainText",
+		        	render:function(data, type, row)
+		        	{
+		        		if (data) {
+		        			return (data.length > 100)?data.substring(0, 100)+"...":data;
+		        		} else {
+		        			return '';
+		        		}
+		        	}
+		        },
 		        { "data": "empAcc"},		  
 		        { "data": "userID"},		  
 		        {
