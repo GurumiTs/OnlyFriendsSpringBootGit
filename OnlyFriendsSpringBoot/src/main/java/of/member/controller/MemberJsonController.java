@@ -44,6 +44,15 @@ public class MemberJsonController {
 	private UsersService usersService;
 	@Autowired
 	private Users users;
+	
+	@GetMapping(path = "/memalltojson")
+	@ResponseBody
+	public Map allEmployeeToJson(Model m) {
+		List<Member> memberList = memberService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", memberList);
+		return map;
+	}
 
 	@PostMapping(path = "/memberRegister")
 	@ResponseBody
@@ -227,6 +236,13 @@ public class MemberJsonController {
 		List<Member> friends = memberService.findByMemberNameLike(friendname);
 		
 		return friends;
+	}
+	
+	@PostMapping(path = "/memquery")
+	@ResponseBody
+	public Member processRestQueryEmployee(@RequestParam(name = "account") String account) {
+		Member member = memberService.findByMemberAccount(account);
+		return member;
 	}
 
 }
