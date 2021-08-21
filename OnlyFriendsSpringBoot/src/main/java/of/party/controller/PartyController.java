@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,14 +59,7 @@ public class PartyController {
 			@RequestParam(name = "man") String man, @RequestParam(name = "woman") String woman,
 			HttpServletRequest request, Model m)
 			throws SQLException, IllegalStateException, IOException, NullPointerException {
-
-//		String fileName = cover.getOriginalFilename();
-//		System.out.println(fileName);
-//		String path1 = request.getServletContext().getRealPath("/images");
-//		String filePath = path1 + "/partyPic/" + fileName;
-//		File saveFile = new File(filePath);
-//		cover.transferTo(saveFile);
-//		party.setCover("images/partyPic/" + fileName);
+		Party party2 = new Party();
 		
 		String fileName = cover.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
@@ -73,27 +67,28 @@ public class PartyController {
 		String filePath =  path+ "/" + fileName;	
 		File saveFile = new File(filePath);
 		cover.transferTo(saveFile);
-		party.setCover("images/partyPic/" + fileName);
+		party2.setCover("images/partyPic/" + fileName);
 		
 
-		party.setName(name);
-		party.setType(type);
-		party.setTime(time);
-		party.setTime_up(time_up);
-		party.setCounty(county);
-		party.setCondition(condition);
-		party.setDistrict(district);
-		party.setZipcode(zipcode);
-		party.setPlace(place);
+		party2.setName(name);
+		party2.setType(type);
+		party2.setTime(time);
+		party2.setTime_up(time_up);
+		party2.setCounty(county);
+		party2.setCondition(condition);
+		party2.setDistrict(district);
+		party2.setZipcode(zipcode);
+		party2.setPlace(place);
 
-		party.setPlany(plany);
-		party.setCondition(condition);
-		party.setMan(Integer.parseInt(man));
-		party.setWoman(Integer.parseInt(woman));
-		party.setSee(0);
+		party2.setPlany(plany);
+		party2.setCondition(condition);
+		party2.setMan(Integer.parseInt(man));
+		party2.setWoman(Integer.parseInt(woman));
+		party2.setSee(0);
 
-		partyService.add(party);
+		partyService.add(party2);
 
+		System.out.println("活動名稱"+name);
 		return "redirect:/emppartymgmt.controller";
 	}
 
@@ -117,14 +112,6 @@ public class PartyController {
 			@RequestParam(name = "man") String man, @RequestParam(name = "woman") String woman,
 			HttpServletRequest request, Model m)
 			throws SQLException, IllegalStateException, IOException, NullPointerException {
-
-//		String fileName = cover.getOriginalFilename();
-//		System.out.println(fileName);
-//		String path1 = request.getServletContext().getRealPath("/images");
-//		String filePath = path1 + "/partyPic/" + fileName;
-//		File saveFile = new File(filePath);
-//		cover.transferTo(saveFile);
-//		party.setCover("images/partyPic/" + fileName);
 		
 		String fileName = cover.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
@@ -165,9 +152,6 @@ public class PartyController {
 		String id = number;
 		System.out.println(number);
 		partyService.delete(Integer.parseInt(id));
-
-//		List<Party> partyList = partyService.selectAll();
-//		model.addAttribute("partyList", partyList);
 
 		return "partypages/emppartymgmt";
 	}

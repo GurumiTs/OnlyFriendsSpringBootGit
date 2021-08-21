@@ -80,7 +80,6 @@ textarea {
 									<option value="旅遊">旅遊</option>
 									<option value="體能">體能</option>
 									<option value="收藏">收藏</option>
-									<option value="思考">思考</option>
 									<option value="娛樂">娛樂</option>
 									<option value="創作">創作</option>
 									<option value="社會">社會服務</option>

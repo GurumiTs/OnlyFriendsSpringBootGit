@@ -42,18 +42,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"
     />
 
-    <!-- Custom fonts for this template-->
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet"
-    />
-    
-
     <!-- Template CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membermain.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membercomponent.css" />
-    
-   
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membercomponent.css" />   
+  <style>
+	body{
+	font-size:1.2rem
+	}
+</style>
   </head>
 
   <body class="layout-2">

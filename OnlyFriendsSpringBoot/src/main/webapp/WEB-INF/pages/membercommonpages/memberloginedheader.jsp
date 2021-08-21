@@ -17,8 +17,8 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">會員活動</a></li>
-                  <li><a class="dropdown-item" href="#!">官方活動</a></li>
+                  <li><a class="dropdown-item fs-6" href="#!">Member Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -35,6 +35,7 @@ pageEncoding="UTF-8"%>
                   <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
                   <li><a class="dropdown-item" href="couponshop.controller">聯盟票券</a></li>
                   <li><a class="dropdown-item" href="shop.controller">example</a></li>
+
                 </ul>
               </li>
               
@@ -55,7 +56,7 @@ pageEncoding="UTF-8"%>
               </li>
               
               <li class="nav-item">
-                <a href="#" class="nav-link">Swipe</a>
+                <a href="memberswipe" class="nav-link">Cupid Room</a>
               </li>             
             </ul>
           </div>

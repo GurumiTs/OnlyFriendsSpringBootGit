@@ -178,7 +178,7 @@
      	     $('#itemarea').empty("");
      	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
      	 		 
-     	 		if(n.category=="折扣券" || n.category=="開卡禮"){
+     	 		//if(n.category=="折扣券" || n.category=="開卡禮"){
      	     var item = 
      	    "<div class='col mb-5'>"+
               "<div class='card h-100'>"+ 
@@ -205,7 +205,7 @@
                 "</div>"+
               "</div>"+
             "</div>" ;
-     	 		}
+     	 		//}
             itemarea.append(item);
      	       });
   
@@ -215,6 +215,8 @@
      	}
      	});
      	}
+    
+    
     
     
     

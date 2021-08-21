@@ -90,12 +90,16 @@ public class EmployeeSignupController {
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			employee.setEmpPic("images/empPic/" + fileName);
-			empService.insert(employee);
-
+			
+			
 			users.setUsersEmail(empEmail);
 			users.setUsersPassword(empPassword);
 			users.setUsersRole("employee");
 			usersService.insert(users);
+			
+			empService.insert(employee);
+
+			
 			//System.out.println("signupmail" + empEmail);
 			request.setAttribute("email", empEmail);
 			return "forward:/signupmail.controller";
