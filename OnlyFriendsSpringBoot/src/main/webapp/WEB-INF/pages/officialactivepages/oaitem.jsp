@@ -157,8 +157,9 @@
 			
 			if(url.indexOf('?')!=-1){
 				var ary1 = url.split('?');
-				var anum = decodeURI(ary1[0].substr(3));
-				
+				var ary2 = ary[1].split('&')
+				var anum = decodeURI(ary1[0].substr(5));
+				var active = decodeURI(ary2[1].substr(7))
 			}
 			
 			$.ajax({
