@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+
 </head>
 <body>
 <body class="layout-2">
@@ -21,17 +22,17 @@
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." id="img" /></div>
                     <div class="col-md-6">
                         <div class="small mb-1" id = "anum"></div>
-                        <h1 class="display-5 fw-bolder">Shop item template</h1>
+                        <h1 class="display-5 fw-bolder" id= "active"></h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through">$45.00</span>
                             <span>$40.00</span>
                         </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <p class="lead" id="conditions"></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
-                                Add to cart
+                                我要報名
                             </button>
                         </div>
                     </div>
@@ -157,8 +158,9 @@
 			
 			if(url.indexOf('?')!=-1){
 				var ary1 = url.split('?');
-				var anum = decodeURI(ary1[0].substr(3));
-				
+				var ary2 = ary1[1].split('&')
+				var anum = decodeURI(ary2[0].substr(5));
+				var active = decodeURI(ary2[1].substr(7))
 			}
 			
 			$.ajax({
@@ -170,11 +172,13 @@
 				let oa = res;
 				
 				for(let i=0;i<oa.length;i++){
-					if (anum==oa[i].anum){
+					if (anum==oa[i].anum && active== oa[i].active){
 						
-					$('#active').text("活動名稱"+oa[i].active);
-					$('#img').attr("src",oa[i].img)
-					$('#anum').attr(oa[i].anum)
+					$('#active').text(oa[i].active);
+					$('#img').attr("src",oa[i].img);
+					$('#conditions').text(oa[i].conditions);
+					
+					
 					}
 				}
 				}
