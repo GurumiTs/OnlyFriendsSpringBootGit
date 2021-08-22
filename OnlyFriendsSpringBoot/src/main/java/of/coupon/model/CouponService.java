@@ -38,13 +38,23 @@ public class CouponService {
 		return couponRepository.findBycouponNameLike(couponName);
 	}
 	
+	public List<Coupon> findBycouponNameLike2(String couponName) {
+		return couponRepository.findBycouponNameLike2(couponName);
+	}
+	
 	public List<Coupon> findBycategoryName(String category) {
 		return couponRepository.findBycategory(category);
 	}
 	
+	public List<Coupon> findBycategoryLike(String category) {
+		return couponRepository.findBycategoryLike(category);
+	}
+	
+	
 	public Coupon findBycouponName(String couponName){
 		return couponRepository.findBycouponName(couponName);
 	}
+	
 	
 	public Optional<Coupon> findBycouponId(Integer couponId){
 		return couponRepository.findById(couponId);
@@ -53,5 +63,23 @@ public class CouponService {
 	public Page<Coupon> findAllByPage(Pageable pageable){
 		return couponRepository.findAll(pageable);
 	}
+	
+	public Page<Coupon> findBycategorylikes(Pageable pageable,String category) {
+		return couponRepository.findBycategoryLike(pageable, category);
+	}
+	
+	public Page<Coupon> findBycategoryNotlikes(Pageable pageable,String category) {
+		return couponRepository.findBycategoryNotLike(pageable, category);
+	}
+	
+	public Page<Coupon> findBycouponNameLike(Pageable pageable,String couponName) {
+		return couponRepository.findBycouponNameLike(pageable, couponName);
+	}
+	
+	public Page<Coupon> findBycategory(Pageable pageable,String category) {
+		return couponRepository.findBycategory(pageable, category);
+	}
+	
+	
 
 }
