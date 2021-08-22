@@ -17,8 +17,8 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">會員活動</a></li>
-                  <li><a class="dropdown-item" href="#!">官方活動</a></li>
+                  <li><a class="dropdown-item fs-6" href="#!">Member Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
                   >Blog</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">幸福故事</a></li>
+                  <li><a class="dropdown-item" href="blogofficial">幸福故事</a></li>
                   <li><a class="dropdown-item" href="blogusers">戀人分享</a></li>
                 </ul>
               </li>
@@ -57,6 +57,7 @@ pageEncoding="UTF-8"%>
               <li class="nav-item">
                 <a href="#" class="nav-link">Swipe</a>
               </li>             
+
             </ul>
           </div>
           <form class="form-inline ml-auto"></form>

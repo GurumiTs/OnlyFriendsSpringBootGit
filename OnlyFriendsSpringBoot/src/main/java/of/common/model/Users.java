@@ -1,13 +1,23 @@
 package of.common.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import of.member.model.Member;
 
 @Entity @Table(name = "users")
 @Component("users")
@@ -21,6 +31,14 @@ public class Users implements Serializable{
 	
 	@Column(name="usersRole")
 	private String usersRole;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "friendship",
+			joinColumns = @JoinColumn(name = "usersEmail"),
+			inverseJoinColumns = @JoinColumn(name = "memberAccount")			
+			)	
+	private List<Member> friends = new ArrayList<>();
 	
 	public Users() {
 		
@@ -59,6 +77,55 @@ public class Users implements Serializable{
 	public void setUsersRole(String usersRole) {
 		this.usersRole = usersRole;
 	}
+
+	
+	
+	public List<Member> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<Member> friends) {
+		this.friends = friends;
+	}
+
+	public void addFriend(Member member) {
+		this.friends.add(member);
+	}
+	
+	public void remove(Member member) {
+		this.friends.remove(member);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((usersEmail == null) ? 0 : usersEmail.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Users other = (Users) obj;
+		if (usersEmail == null) {
+			if (other.usersEmail != null)
+				return false;
+		} else if (!usersEmail.equals(other.usersEmail))
+			return false;
+		return true;
+	}
+	
+	
+
+	
+	
+	
 	
 	
 

@@ -56,6 +56,7 @@
               <a class="collapse-item" href="employeemgmt.controller">Employee Mgmt</a>
               <a class="collapse-item" href="empsignup">Signup Employee</a>
               <a class="collapse-item" href="chatroom.controller">Chat Room</a>
+              <a class="collapse-item" href="empmgmtmem">Member Mgmt</a>
             </div>
           </div>
         </li>

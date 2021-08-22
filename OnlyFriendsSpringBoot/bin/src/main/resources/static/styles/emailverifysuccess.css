@@ -1,0 +1,70 @@
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100vh;
+  font-family: "Raleway", sans-serif;
+  background: -webkit-gradient(linear, right top, left top, from(#674e7e), to(#354870));
+  background: linear-gradient(270deg, #674e7e 0%, #354870 100%);
+}
+
+h1 {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.container {
+  margin: 30px;
+  width: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container:hover .shine {
+  -webkit-transform: skewX(20deg) translateX(300px);
+          transform: skewX(20deg) translateX(300px);
+}
+
+.hello {
+  border: 0;
+  padding: 30px 15px;
+  width: 200px;
+  background: #5270af;
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+  -webkit-transition: background 0.3s linear;
+  transition: background 0.3s linear;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: -70px;
+  height: 98px;
+  width: 50px;
+  background: rgba(255, 255, 255, 0.4);
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  -webkit-transform: skewX(20deg) translateX(0);
+          transform: skewX(20deg) translateX(0);
+}
+
+a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+/*# sourceMappingURL=emailverifysuccess.css.map */

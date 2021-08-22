@@ -17,8 +17,10 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">會員活動</a></li>
+
+                  <li><a class="dropdown-item" href="userparty.entry">會員活動</a></li>
                   <li><a class="dropdown-item" href="#!">官方活動</a></li>
+
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -32,9 +34,12 @@ pageEncoding="UTF-8"%>
                   >Shop</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
                   <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
                   <li><a class="dropdown-item" href="couponshop.controller">聯盟票券</a></li>
                   <li><a class="dropdown-item" href="shop.controller">example</a></li>
+
                 </ul>
               </li>
               
@@ -49,7 +54,7 @@ pageEncoding="UTF-8"%>
                   >Blog</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">幸福故事</a></li>
+                  <li><a class="dropdown-item" href="blogofficial">幸福故事</a></li>
                   <li><a class="dropdown-item" href="blogusers">戀人分享</a></li>
                 </ul>
               </li>

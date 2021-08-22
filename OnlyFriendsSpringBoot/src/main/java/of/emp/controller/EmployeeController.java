@@ -47,6 +47,11 @@ public class EmployeeController {
 		return "employeepages/empmgmt";
 	}
 	
+	@RequestMapping(path = "/empmgmtmem", method = RequestMethod.GET)
+	public String empMgmtMem(Model model) {
+		return "employeepages/empmgmtmem";
+	}
+	
 	@RequestMapping(path = "/employeeprofile.controller", method = RequestMethod.GET)
 	public String employeeProfile(HttpSession session, Model model) {
 		Employee employee = (Employee) session.getAttribute("personalinfo");
