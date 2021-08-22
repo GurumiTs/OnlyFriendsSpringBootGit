@@ -1,5 +1,6 @@
 package of.shop.controller;
 
+import java.security.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,14 @@ public class ShoppingCartController {
 	private MemberService memberServie;
 	
 	@GetMapping(path = "/cart")
-	public String InsertItemToCart(@RequestParam (name = "account")String account,Model model ) {
+	public String InsertItemToCart(@RequestParam(name = "cartId") Integer cartId,
+									@RequestParam (name = "account")String account,
+									@RequestParam(name = "proId")Integer proId,
+									@RequestParam(name = "amount")Integer amount,
+									@RequestParam(name = "orderdate")Timestamp orderdate,
+									Model model ) {
 		Member member=memberServie.findByMemberAccount(account);
-		List<CartItem> cartItems=shoppingCartService.listCatyCartItems(member);
+		List<CartItem> cartItems=shoppingCartService.listCartItems(member);
 		
 		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("pageTitle", "Shopping Cart");

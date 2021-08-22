@@ -81,6 +81,8 @@ public class ShopController {
 //	
 	
 
+
+	
 	@RequestMapping(path = "/shopentrypage", method = RequestMethod.GET)
 	public String userproductMgmtEntry(Model model) {
 		return "productpages/shopPage";
