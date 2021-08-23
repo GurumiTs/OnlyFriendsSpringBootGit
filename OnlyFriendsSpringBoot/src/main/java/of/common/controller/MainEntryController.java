@@ -50,8 +50,13 @@ public class MainEntryController {
 			String userType = usersService.findByEmail(currentUserName).getUsersRole();
 			System.out.println(userType);
 			if (userType.equals("employee")) {
-				model.addAttribute("employee", "employee");
 				Employee employee = empService.findByEmpEmail(currentUserName);
+				if(employee.getEmpEmailCheck() == 0) {
+					model.addAttribute("errorMsg","please verify email");
+					SecurityContextHolder.clearContext();
+					return "login" ;
+				}
+				model.addAttribute("employee", "employee");
 				model.addAttribute("personalinfo",employee);
 
 			}
