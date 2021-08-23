@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component("member")
 public class Member implements Serializable{
 	
-	@Id@Column(name="memberAccount")
+	@Id@Column(name="memberAccount",length = 50)
 	private String memberAccount;
 	
 	@Column(name="memberEmail")

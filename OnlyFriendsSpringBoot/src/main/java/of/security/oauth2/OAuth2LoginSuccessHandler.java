@@ -53,10 +53,22 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			member.setSwipeTime("3");
 			member.setSwipeDate("0");
 			member.setMemberPic("images/smallicon/nonephoto2.svg");
-			memberService.insert(member);		
+			memberService.insert(member);	
+			request.getSession().setAttribute("member", "member");
+			Member member = memberService.findByMemberAccount(name);
+			request.getSession().setAttribute("personalinfo",member);
+			
+			
+			
+			
 		}
 		else {
-			System.out.println("該用戶已存在");			
+			request.getSession().setAttribute("member", "member");
+			Member member = memberService.findByMemberAccount(name);
+			request.getSession().setAttribute("personalinfo",member);
+			System.out.println("該用戶已存在");	
+			
+			
 		}
 		
 		

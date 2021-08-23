@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -231,7 +231,7 @@
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember-me" class="custom-control-input" tabindex="3" id="remember-me">
+                      <input type="checkbox" name="remember-me" class="custom-control-input" tabindex="3" id="remember-me" value="true">
                       <label class="custom-control-label" for="remember-me">Remember Me</label>
                     </div>
                   </div>

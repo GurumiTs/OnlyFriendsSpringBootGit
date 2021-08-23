@@ -44,58 +44,13 @@ public class MainEntryController {
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String mainEntry(Model model,HttpServletRequest request) {
-		try {
-			
-			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();			
-			String userType = usersService.findByEmail(currentUserName).getUsersRole();
-			System.out.println(userType);
-			if (userType.equals("employee")) {
-				Employee employee = empService.findByEmpEmail(currentUserName);
-				if(employee.getEmpEmailCheck() == 0) {
-					model.addAttribute("errorMsg","please verify email");
-					SecurityContextHolder.clearContext();
-					return "login" ;
-				}
-				model.addAttribute("employee", "employee");
-				model.addAttribute("personalinfo",employee);
-
-			}
-			if (userType.equals("member")) {
-				model.addAttribute("member", "member");
-				Member member = memberService.findByMemberAccount(currentUserName);
-				model.addAttribute("personalinfo",member);
-				
-			}
+		
 			return "index";
-		} catch (Exception e) {
-			return "index";
-		}
-
 	}
 	
 	@RequestMapping(path = "/index", method = RequestMethod.GET)
-	public String indexEntry(Model model) {
-		try {
-			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-			System.out.println(currentUserName);
-			String userType = usersService.findByEmail(currentUserName).getUsersRole();
-			if (userType.equals("employee")) {
-				model.addAttribute("employee", "employee");
-				Employee employee = empService.findByEmpEmail(currentUserName);
-				model.addAttribute("personalinfo",employee);
-
-			}
-			if (userType.equals("member")) {
-				model.addAttribute("member", "member");
-				Member member =memberService.findByMemberAccount(currentUserName);
-				model.addAttribute("personalinfo",member);
-				
-			}
-			return "index";
-		} catch (Exception e) {
-			return "index";
-		}
-
+	public String indexEntry(Model model) {		
+			return "index";	
 	}
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)

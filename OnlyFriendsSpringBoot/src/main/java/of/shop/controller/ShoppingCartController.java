@@ -36,9 +36,9 @@ public class ShoppingCartController {
 									@RequestParam(name = "orderdate")Timestamp orderdate,
 									Model model ) {
 		Member member=memberServie.findByMemberAccount(account);
-		List<CartItem> cartItems=shoppingCartService.listCartItems(member);
+//		List<CartItem> cartItems=shoppingCartService.listCartItems(member);
 		
-		model.addAttribute("cartItems", cartItems);
+//		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("pageTitle", "Shopping Cart");
 		
 		
