@@ -135,7 +135,7 @@
              
                "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
                  "<div class='text-center'>"+
-                  "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"' id='"+n.anum+"''>詳細內容...</a>"+
+                  "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"&active="+n.active+"' id='a'>詳細內容...</a>"+
                  "</div>"+
                "</div>"+
              "</div>"+

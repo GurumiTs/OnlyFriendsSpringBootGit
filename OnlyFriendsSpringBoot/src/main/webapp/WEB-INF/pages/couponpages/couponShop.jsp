@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,10 +25,10 @@
 								<button class="btn" type="submit" id="Search">
 									<i class="fas fa-search"></i>
 								</button>
-								<span class="badge badge-primary mb-2">Travel</span> <span
-									class="badge badge-secondary mb-2">Food</span> <span
-									class="badge badge-success mb-2">Sports</span> <span
-									class="badge badge-danger mb-2">Accommodation</span>
+								<button class="badge badge-primary mb-2" id="travel" name="travel" value="優惠券-旅遊">Travel</button> 
+								<button class="badge badge-secondary mb-2" id="food" name="food" value="優惠券-美食">Food</button> 
+								<button class="badge badge-success mb-2" id="sports" name="sports" value="優惠券-運動"> Sports</button> 
+								<button class="badge badge-danger mb-2" id="accommodation" name="accommodation" value="優惠券-住宿">Accommodation</button>
 							</div>
 						</div>
 					</div>
@@ -125,7 +126,8 @@
     function load(){
     	$.ajax({
      	   type:'POST',
-     	   url:'queryallcouponsbypage/' + indexPage,
+     	   url:'queryallcategorycsobypage/' + indexPage,
+     	   data:{},
      	   dataType:'JSON',
      	   contentType:'application/json',
      	   success: function(data) {
@@ -134,9 +136,7 @@
      	     var itemarea = $('#itemarea');
      	     $('#itemarea').empty("");
      	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-     	 		 
-     	 		//if(n.category=="優惠券-旅遊" || n.category=="優惠券-美食" || n.category=="優惠券-住宿" || n.category=="優惠券-運動"){	 
-     	     var item = 
+     	     var item = 		
      	    "<div class='col mb-5'>"+
               "<div class='card h-100'>"+           
                 "<img class='card-img-top' id='couponImg' src='"+n.couponImg+"'/>"+     
@@ -173,56 +173,396 @@
      	});
      	}
     
+     	//search
+     	$(function () {
+
+      		$('#Search').click(function () {
+      		
+      		var queryVal = $('#queryVal').val();
+      		
+      		console.log(queryVal);
+        	$.ajax({
+         	   type:'POST',
+         	   url:'queryallcoupons/' + indexPage,
+         	   dataType:'JSON',
+         	   data:{"queryVal":queryVal},
+         	   success: function(data) {
+         		   
+         		   
+         		   console.log(data);
+         	     var json = JSON.stringify(data, null, 3);
+         	     var parsedObjinArray = JSON.parse(json);
+         	     var itemarea = $('#itemarea');
+         	     $('#itemarea').empty("");
+         	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+         	     var item = 		
+         	    "<div class='col mb-5'>"+
+                  "<div class='card h-100'>"+           
+                    "<img class='card-img-top' id='couponImg' src='"+n.couponImg+"'/>"+     
+                    "<div class='card-body p-4'>" +
+                      "<div class='text-center'>" +
+                        "<h5 class='fw-bolder' id='couponName'>"+n.couponName+"</h5>"+
+                        "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                       "</div>"+
+                        "<span class='text-muted text-decoration-line-through' id='couponPrice'>$"+n.couponPrice+"</span>" +
+                        "<span id='couponPriceDis'>$"+Math.round(n.couponPrice*0.9)+"</span>" +
+                     " </div>"+
+                    "</div>"+
+                  
+                    "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                      "<div class='text-center'>"+
+                       "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?couponId="+n.couponId+"&couponName="+n.couponName+"' id='a'>Add to cart</a>"+
+                      "</div>"+
+                    "</div>"+
+                  "</div>"+
+                "</div>" ;
+         	 		
+                itemarea.append(item);
+         	       });
+      
+         	},
+         	error: function() {
+         	    console.log("error");
+         	}
+         	});
+         	})
+     	})
+     	//Travel
+     	$(function () {
+
+      		$('#travel').click(function () {
+      		
+      		var travel=$('#travel').val();
+     		
+        	$.ajax({
+         	   type:'POST',
+         	   url:'queryallCategoryTravel/' + indexPage,
+         	   data:{"travel":travel},
+         	   dataType:'JSON',
+         	   success: function(data) {
+         		   
+         		   
+         		 console.log(data);
+         	     var json = JSON.stringify(data, null, 3);
+         	     var parsedObjinArray = JSON.parse(json);
+         	     var itemarea = $('#itemarea');
+         	     $('#itemarea').empty("");
+         	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+         	     var item = 		
+         	    "<div class='col mb-5'>"+
+                  "<div class='card h-100'>"+           
+                    "<img class='card-img-top' id='couponImg' src='"+n.couponImg+"'/>"+     
+                    "<div class='card-body p-4'>" +
+                      "<div class='text-center'>" +
+                        "<h5 class='fw-bolder' id='couponName'>"+n.couponName+"</h5>"+
+                        "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                       "</div>"+
+                        "<span class='text-muted text-decoration-line-through' id='couponPrice'>$"+n.couponPrice+"</span>" +
+                        "<span id='couponPriceDis'>$"+Math.round(n.couponPrice*0.9)+"</span>" +
+                     " </div>"+
+                    "</div>"+
+                  
+                    "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                      "<div class='text-center'>"+
+                       "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?couponId="+n.couponId+"&couponName="+n.couponName+"' id='a'>Add to cart</a>"+
+                      "</div>"+
+                    "</div>"+
+                  "</div>"+
+                "</div>" ;
+         	 		
+                itemarea.append(item);
+         	       });
+      
+         	},
+         	error: function() {
+         	    console.log("error");
+         	}
+         	});
+         	})
+     	})
+     	
+     	//food
+     	$(function () {
+
+      		$('#food').click(function () {
+      		
+      		var food=$('#food').val();
+      		 console.log(food);
+     		
+        	$.ajax({
+         	   type:'POST',
+         	   url:'queryallCategoryFood/' + indexPage,
+         	   data:{"food":food},
+         	   dataType:'JSON',
+         	   success: function(data) {
+         		   
+         		   
+         		 console.log(data);
+         	     var json = JSON.stringify(data, null, 3);
+         	     var parsedObjinArray = JSON.parse(json);
+         	     var itemarea = $('#itemarea');
+         	     $('#itemarea').empty("");
+         	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+         	     var item = 		
+         	    "<div class='col mb-5'>"+
+                  "<div class='card h-100'>"+           
+                    "<img class='card-img-top' id='couponImg' src='"+n.couponImg+"'/>"+     
+                    "<div class='card-body p-4'>" +
+                      "<div class='text-center'>" +
+                        "<h5 class='fw-bolder' id='couponName'>"+n.couponName+"</h5>"+
+                        "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                       "</div>"+
+                        "<span class='text-muted text-decoration-line-through' id='couponPrice'>$"+n.couponPrice+"</span>" +
+                        "<span id='couponPriceDis'>$"+Math.round(n.couponPrice*0.9)+"</span>" +
+                     " </div>"+
+                    "</div>"+
+                  
+                    "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                      "<div class='text-center'>"+
+                       "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?couponId="+n.couponId+"&couponName="+n.couponName+"' id='a'>Add to cart</a>"+
+                      "</div>"+
+                    "</div>"+
+                  "</div>"+
+                "</div>" ;
+         	 		
+                itemarea.append(item);
+         	       });
+      
+         	},
+         	error: function() {
+         	    console.log("error");
+         	}
+         	});
+         	})
+     	})
+     	
+     	//sports
+     	$(function () {
+
+      		$('#sports').click(function () {
+      		
+      		var sports=$('#sports').val();
+      		 console.log(sports);
+     		
+        	$.ajax({
+         	   type:'POST',
+         	   url:'queryallCategorySports/' + indexPage,
+         	   data:{"sports":sports},
+         	   dataType:'JSON',
+         	   success: function(data) {
+         		   
+         		   
+         		 console.log(data);
+         	     var json = JSON.stringify(data, null, 3);
+         	     var parsedObjinArray = JSON.parse(json);
+         	     var itemarea = $('#itemarea');
+         	     $('#itemarea').empty("");
+         	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+         	     var item = 		
+         	    "<div class='col mb-5'>"+
+                  "<div class='card h-100'>"+           
+                    "<img class='card-img-top' id='couponImg' src='"+n.couponImg+"'/>"+     
+                    "<div class='card-body p-4'>" +
+                      "<div class='text-center'>" +
+                        "<h5 class='fw-bolder' id='couponName'>"+n.couponName+"</h5>"+
+                        "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                       "</div>"+
+                        "<span class='text-muted text-decoration-line-through' id='couponPrice'>$"+n.couponPrice+"</span>" +
+                        "<span id='couponPriceDis'>$"+Math.round(n.couponPrice*0.9)+"</span>" +
+                     " </div>"+
+                    "</div>"+
+                  
+                    "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                      "<div class='text-center'>"+
+                       "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?couponId="+n.couponId+"&couponName="+n.couponName+"' id='a'>Add to cart</a>"+
+                      "</div>"+
+                    "</div>"+
+                  "</div>"+
+                "</div>" ;
+         	 		
+                itemarea.append(item);
+         	       });
+      
+         	},
+         	error: function() {
+         	    console.log("error");
+         	}
+         	});
+         	})
+     	})
+     	
+     	//accommodation
+     	$(function () {
+
+      		$('#accommodation').click(function () {
+      		
+      		var accommodation=$('#accommodation').val();
+      		 console.log(accommodation);
+     		
+        	$.ajax({
+         	   type:'POST',
+         	   url:'queryallCategoryAccommodation/' + indexPage,
+         	   data:{"accommodation":accommodation},
+         	   dataType:'JSON',
+         	   success: function(data) {
+         		   
+         		   
+         		 console.log(data);
+         	     var json = JSON.stringify(data, null, 3);
+         	     var parsedObjinArray = JSON.parse(json);
+         	     var itemarea = $('#itemarea');
+         	     $('#itemarea').empty("");
+         	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+         	     var item = 		
+         	    "<div class='col mb-5'>"+
+                  "<div class='card h-100'>"+           
+                    "<img class='card-img-top' id='couponImg' src='"+n.couponImg+"'/>"+     
+                    "<div class='card-body p-4'>" +
+                      "<div class='text-center'>" +
+                        "<h5 class='fw-bolder' id='couponName'>"+n.couponName+"</h5>"+
+                        "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                          "<div class='bi-star-fill'></div>"+
+                       "</div>"+
+                        "<span class='text-muted text-decoration-line-through' id='couponPrice'>$"+n.couponPrice+"</span>" +
+                        "<span id='couponPriceDis'>$"+Math.round(n.couponPrice*0.9)+"</span>" +
+                     " </div>"+
+                    "</div>"+
+                  
+                    "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                      "<div class='text-center'>"+
+                       "<a class='btn btn-outline-dark mt-auto' href='shopCouponItemEntry.controller?couponId="+n.couponId+"&couponName="+n.couponName+"' id='a'>Add to cart</a>"+
+                      "</div>"+
+                    "</div>"+
+                  "</div>"+
+                "</div>" ;
+         	 		
+                itemarea.append(item);
+         	       });
+      
+         	},
+         	error: function() {
+         	    console.log("error");
+         	}
+         	});
+         	})
+     	})
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
+     	
    //寫一半
-    $(function () {
+    //$(function () {
   	  
     	
-  		$('#Search').click(function () {
+  		//$('#Search').click(function () {
            
-  			var queryVal = $('#queryVal').val();
+  			//var queryVal = $('#queryVal').val();
+//console.log(queryVal);
 
-  			 
-			$.ajax({
-				type:'GET',
-				url:'showLikeCoupon.controller',
-				data:{"queryVal":queryVal},
-				dataType:'json',
-				success:function(data){ 
+			//$.ajax({
+				//type:'GET',
+				//url:'showLikeCoupon.controller',
+				//data:{"queryVal":queryVal},
+				//dataType:'json',
+				//success:function(data){ 
 					
 					
-					console.log(data);
+					//console.log(data);
 					
-					var couponVal="";
-					for(let i=0;i<data.length;i++){	
+					//var couponVal="";
+					//for(let i=0;i<data.length;i++){	
 						//couponVal+=data[i].couponImg;
 						//couponVal+=data[i].couponName;
 							//couponVal+=data[i].couponPrice;
 								
 						
-							$('#couponImg').attr("src",data[i].couponImg);
-							$('#couponName').text(data[i].couponName);
-							$('#couponPrice').text("$"+data[i].couponPrice);
-						    $('#couponPriceDis').text("$"+Math.round(data[i].couponPrice*0.9));
-							$('#a').attr("href",'shopCouponItemEntry.controller?couponId='+data[i].couponId+'&couponName='+data[i].couponName);
-							
-				     }
+							//$('#couponImg').attr("src",data[i].couponImg);
+							//$('#couponName').text(data[i].couponName);
+							//$('#couponPrice').text("$"+data[i].couponPrice);
+						    //$('#couponPriceDis').text("$"+Math.round(data[i].couponPrice*0.9));
+							//$('#a').attr("href",'shopCouponItemEntry.controller?couponId='+data[i].couponId+'&couponName='+data[i].couponName);
+							//$('#myPage').change();
+				     //}
 					//$('#couponImg').attr("src",data[i].couponImg);
 					//$('#couponName').text(data[i].couponName);
 					//$('#couponPrice').text("$"+data[i].couponPrice);
 				   // $('#couponPriceDis').text("$"+Math.round(data[i].couponPrice*0.9));
 					//$('#a').attr("href",'shopCouponItemEntry.controller?couponId='+data[i].couponId+'&couponName='+data[i].couponName);
 					// $('#itemarea').append(couponVal);	
-					console.log(couponVal);
-				},error:function(data) 
-		        {
-			         alert('無相關資訊');
-			        }
+					//console.log(couponVal);
+				//},error:function(data) 
+		        //{
+			        // alert('無相關資訊');
+			       // }
 		   
-			})
-  		})
+			//})
+  		//})
   	   
      
-    })
+   // })
 
 
      

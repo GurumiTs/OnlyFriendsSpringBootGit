@@ -22,43 +22,52 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import ch.qos.logback.core.status.Status;
 import of.coupon.model.Coupon;
 import of.coupon.model.CouponService;
 
-
 @Controller
-@SessionAttributes(names = {"totalPages","totalElements"})
+@SessionAttributes(names = { "totalPages", "totalElements" })
 public class CouponController {
-	
+
 	@Autowired
-	private CouponService couponService; 
-	
+	private CouponService couponService;
+
 	@GetMapping("/empCoupons.controller")
 	public String processEntry(Model m) {
-		List<Coupon> coupons = couponService.findAll();	
+		List<Coupon> coupons = couponService.findAll();
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
-	
+
+	@GetMapping("/couponDetailEntry.controller")
+	public String couponDetailEntry() {
+		return "couponpages/couponsDetail";
+	}
+
+	@GetMapping("/couponDetail.controller")
+	@ResponseBody
+	public List<Coupon> couponDetail() {
+		List<Coupon> coupons = couponService.findAll();
+		return coupons;
+	}
+
 	@PostMapping("/getAllCouponToJson.controller")
 	@ResponseBody
 	public Optional<Coupon> showAllCouponToJson(@RequestParam Integer couponId) throws InterruptedException {
 		Optional<Coupon> coupons = couponService.findBycouponId(couponId);
-		if(coupons.isPresent()) {
+		if (coupons.isPresent()) {
 			Thread.sleep(1000);
 			return coupons;
-		}
-		else {
+		} else {
 			return coupons.of(null);
 		}
-		
+
 	}
-	
+
 	@PostMapping("/getAllCouponDetailToJson.controller")
 	@ResponseBody
-	public List<Coupon> showAllCouponDetailToJson()  {
-		 List<Coupon> coupons = couponService.findAll();
+	public List<Coupon> showAllCouponDetailToJson() {
+		List<Coupon> coupons = couponService.findAll();
 		return coupons;
 	}
 
@@ -71,55 +80,54 @@ public class CouponController {
 
 	@PostMapping("/empgetBycategoryName.controller")
 	public String showCategory(@RequestParam String queryVal, Model m) {
-		List<Coupon> coupons = couponService.findBycategoryName(queryVal);	
+		List<Coupon> coupons = couponService.findBycategoryName(queryVal);
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
-    
+
 	@GetMapping("/showLikeCoupon.controller")
 	@ResponseBody
 	public List<Coupon> showLikeCoupon(@RequestParam String queryVal) {
-		List<Coupon> coupons = couponService.findBycouponNameLike("%"+queryVal+"%");		
+		List<Coupon> coupons = couponService.findBycouponNameLike("%" + queryVal + "%");
 		return coupons;
 	}
-	
-	
-	
+
 	@PostMapping("/empgetByLike.controller")
 	public String showLike(@RequestParam String queryVal, Model m) {
-		List<Coupon> coupons = couponService.findBycouponNameLike("%"+queryVal+"%");	
+		List<Coupon> coupons = couponService.findBycouponNameLike("%" + queryVal + "%");
 		m.addAttribute("find", coupons);
 		return "couponpages/couponMgmt";
 	}
 
 	@PostMapping("/empdeleteCoupon.controller")
 	public String deleteCoupon(@RequestParam Integer couponId) {
-		
-	    Optional<Coupon> c = couponService.findBycouponId(couponId);
-	           
-		if(c.isPresent()) {
+
+		Optional<Coupon> c = couponService.findBycouponId(couponId);
+
+		if (c.isPresent()) {
 			couponService.deleteBycouponId(couponId);
 			return "couponpages/deleteCouponComfirm";
-		}else {
+		} else {
 			return "couponpages/deleteCouponError";
 		}
 	}
 
 	@PostMapping("/empinsertCoupon.controller")
 	public String insertCoupon(@RequestParam("couponImg") MultipartFile multipartFile, HttpServletRequest request,
-			@RequestParam String companyName, @RequestParam String category,@RequestParam String couponName,
-			@RequestParam Integer couponPrice, @RequestParam Integer couponQty,@RequestParam String couponStartDate,@RequestParam String couponEndDate, 
-			@RequestParam String couponInfo, @RequestParam String couponUse,Model m) throws IllegalStateException, IOException {
-		
+			@RequestParam String companyName, @RequestParam String category, @RequestParam String couponName,
+			@RequestParam Integer couponPrice, @RequestParam Integer couponQty, @RequestParam String couponStartDate,
+			@RequestParam String couponEndDate, @RequestParam String couponInfo, @RequestParam String couponUse,
+			Model m) throws IllegalStateException, IOException {
+
 		String fileName = multipartFile.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/couponPic").getPath();
-		String filePath =  path+ "/" + fileName;
-	
+		String filePath = path + "/" + fileName;
+
 		File saveFile = new File(filePath);
 		multipartFile.transferTo(saveFile);
 
 		Coupon coupons = new Coupon();
-		
+
 		coupons.setCompanyName(companyName);
 		coupons.setCategory(category);
 		coupons.setCouponEndDate(couponEndDate);
@@ -131,37 +139,35 @@ public class CouponController {
 		coupons.setCouponQty(couponQty);
 		coupons.setCouponStartDate(couponStartDate);
 		coupons.setCouponUse(couponUse);
-	
+
 		Coupon c = couponService.findBycouponName(couponName);
-		
-		if(c!=null) {
+
+		if (c != null) {
 			return "couponpages/couponsError";
-		}else {
+		} else {
 			couponService.update(coupons);
 			m.addAttribute("find", coupons);
 			return "couponpages/couponsResult";
-		}	
-		
+		}
+
 	}
 
 	@PostMapping("/empupdateCoupon.controller")
 	public String updateCoupon(@RequestParam("couponImg") MultipartFile multipartFile, HttpServletRequest request,
-			@RequestParam Integer couponId,@RequestParam String companyName, @RequestParam String category,@RequestParam String couponName,
-			@RequestParam Integer couponPrice, @RequestParam Integer couponQty,@RequestParam String couponStartDate,@RequestParam String couponEndDate, 
-			@RequestParam String couponInfo, @RequestParam String couponUse,Model m) throws IllegalStateException, IOException {
-		
+			@RequestParam Integer couponId, @RequestParam String companyName, @RequestParam String category,
+			@RequestParam String couponName, @RequestParam Integer couponPrice, @RequestParam Integer couponQty,
+			@RequestParam String couponStartDate, @RequestParam String couponEndDate, @RequestParam String couponInfo,
+			@RequestParam String couponUse, Model m) throws IllegalStateException, IOException {
 
 		String fileName = multipartFile.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/couponPic").getPath();
-		String filePath =  path+ "/" + fileName;
-		
-	
+		String filePath = path + "/" + fileName;
+
 		File saveFile = new File(filePath);
 		multipartFile.transferTo(saveFile);
 
-
 		Coupon coupons = new Coupon();
-		
+
 		coupons.setCouponId(couponId);
 		coupons.setCompanyName(companyName);
 		coupons.setCategory(category);
@@ -174,70 +180,228 @@ public class CouponController {
 		coupons.setCouponQty(couponQty);
 		coupons.setCouponStartDate(couponStartDate);
 		coupons.setCouponUse(couponUse);
-		
-		 Optional<Coupon> c = couponService.findBycouponId(couponId);
-		
-		if(c.isPresent()) {
+
+		Optional<Coupon> c = couponService.findBycouponId(couponId);
+
+		if (c.isPresent()) {
 			couponService.update(coupons);
 			m.addAttribute("find", coupons);
 			return "couponpages/couponsResult";
-		}else {
+		} else {
 			return "couponpages/couponsError";
 		}
 
 	}
+
 	@GetMapping("/couponshop.controller")
 	public String couponShopEntry() {
 		return "couponpages/couponShop";
 	}
-	
-	@PostMapping("/queryallcouponsbypage/{pageNo}")
-	@ResponseBody
-	public List<Coupon> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
-		
-		int pageSize = 3;
-		
-		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		Page<Coupon> page = couponService.findAllByPage(pageable);
-		
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-		
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-		
-		return page.getContent();
-	}
-	
+
 	@GetMapping("/shopCouponItemEntry.controller")
-	public String shopItemEntry(@RequestParam Integer couponId) {
+	public String shopItemEntry() {
 		return "couponpages/couponShopItem";
 	}
-	
+
 	@GetMapping("/shopcouponitem.controller")
 	@ResponseBody
 	public List<Coupon> shopCouponItem() {
 		List<Coupon> coupons = couponService.findAll();
 		return coupons;
 	}
-	
+
 	@GetMapping("/couponMember.controller")
 	public String couponMemberEntry() {
 		return "couponpages/couponMember";
 	}
-	
-	@GetMapping("/couponDetailEntry.controller")
-	public String couponDetailEntry() {
-		return "couponpages/couponsDetail";
+
+//	@PostMapping("/queryallcouponsbypage/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
+//		
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+//		Page<Coupon> page = couponService.findAllByPage(pageable);
+//		
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//		
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//		
+//		return page.getContent();
+//	}
+
+	// 分類為優惠券全部
+	@PostMapping("/queryallcategorycsobypage/{pageNo}")
+	@ResponseBody
+	public List<Coupon> queryallcategorycsobypage(@PathVariable("pageNo") int pageNo, Model m) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Page<Coupon> page = couponService.findBycategorylikes(pageable, "優惠券%");
+
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
+	}
+
+	// 分類為優惠券Free
+	@PostMapping("/queryallcategoryfreebypage/{pageNo}")
+	@ResponseBody
+	public List<Coupon> queryallcategoryfreebypage(@PathVariable("pageNo") int pageNo, Model m) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Page<Coupon> page = couponService.findBycategoryNotlikes(pageable, "優惠券%");
+
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
+	}
+
+	// search
+	@PostMapping("/queryallcoupons/{pageNo}")
+	@ResponseBody
+	public List<Coupon> processQueryByPageActioncategory(@PathVariable("pageNo") int pageNo, @RequestParam String queryVal, Model m) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page1 = couponService.findBycategorylikes(pageable, "優惠券%");
+
+		Page<Coupon> page = couponService.findBycouponNameLike(pageable, "%" + queryVal + "%");
+
+		System.out.println(queryVal);
+
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
+	}
+
+	// travel
+	@PostMapping("/queryallCategoryTravel/{pageNo}")
+	@ResponseBody
+	public List<Coupon> queryallCategoryTravel(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String travel) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-旅遊");
+
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
+	}
+
+	// food
+	@PostMapping("/queryallCategoryFood/{pageNo}")
+	@ResponseBody
+	public List<Coupon> queryallCategoryFood(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String food) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-美食");
+		System.out.println(food);
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
+	}
+
+	// sports
+	@PostMapping("/queryallCategorySports/{pageNo}")
+	@ResponseBody
+	public List<Coupon> queryallCategorySports(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String sports) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-運動");
+		System.out.println(sports);
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
+	}
+
+	// accommodation
+	@PostMapping("/queryallCategoryAccommodation/{pageNo}")
+	@ResponseBody
+	public List<Coupon> queryallCategoryAccommodation(@PathVariable("pageNo") int pageNo, Model m,
+			String accommodation) {
+
+		int pageSize = 3;
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-住宿");
+		System.out.println(accommodation);
+		int totalPages = page.getTotalPages();
+		long totalElements = page.getTotalElements();
+
+		m.addAttribute("totalPages", totalPages);
+		m.addAttribute("totalElements", totalElements);
+
+		return page.getContent();
 	}
 	
-	@GetMapping("/couponDetail.controller")
+	@GetMapping("/releteCouponItem")
 	@ResponseBody
-	public List<Coupon> couponDetail() {
-		List<Coupon> coupons = couponService.findAll();
+	public List<Coupon> releteCouponItem(@RequestParam String couponName) {
+		List<Coupon> coupons = couponService.findBycategoryLike("優惠券%");
+		
+		
+		System.out.println(couponName);
+		System.out.println(coupons);
 		return coupons;
 	}
-
-
 	
+//	@GetMapping("/releteCouponItem")
+//	@ResponseBody
+//	public List<Coupon> releteCouponItem(@RequestParam String couponName) {
+//		
+//		char couponSplite=0;
+//		for(int i=0;i<couponName.length();i++) {
+//			//System.out.println(couponName.charAt(i));	
+//			couponSplite=couponName.charAt(i);
+//		//System.out.println(couponSplite);
+//		}
+//		System.out.println(couponSplite);
+//		List<Coupon> coupons = couponService.findBycouponNameLike2(couponName);
+//		
+//		//"%"+couponName+"%"
+//		//System.out.println(couponName);
+//		
+//		//System.out.println(coupons);
+//		return coupons;
+//	}
+	
+	
+
 }

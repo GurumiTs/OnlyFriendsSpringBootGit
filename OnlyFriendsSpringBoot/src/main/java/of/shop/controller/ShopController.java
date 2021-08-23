@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,52 +35,54 @@ public class ShopController {
 	private ProductService productService;
 	@Autowired
 	private Product product;
-	
-	@Autowired
-	private static List<Product> list=new ArrayList<Product>();
+//	@Autowired
+//	private ServletContext context;
+//	
+//	@Autowired
+//	private static List<Product> list=new ArrayList<Product>();
 
-	@RequestMapping(path = "/addtoshopchart", method = RequestMethod.GET)
-	public String shopCar(@RequestParam(name = "Id") Integer Id, HttpServletResponse response,HttpSession session, Model model) {
-		
-		//獲取商品物件
-		Product product=list.get(Id-1);
-		//儲存至購物車
-		Map<Integer, Integer> shopcart = (Map<Integer, Integer>) session.getAttribute("shopcart");
-		// 如果session沒有購物車
-		if (shopcart == null) {
-			shopcart = new HashMap<Integer, Integer>();
-		}
-		if (shopcart.containsKey(Id)) {// 判斷商品是否存在購物車中
-			int number = shopcart.get(Id);
-			// 存在=>數量加一
-			shopcart.put(Id, number + 1);
-		} else {
-			shopcart.put(Id, 1);
-		}
-		session.setAttribute("shopcart", shopcart);
-		
-		//為了讓購物車存的時間久一點 現在需要手動設定cookie
-		Cookie cookie =new Cookie("JsessionId", session.getId());
-		cookie.setMaxAge(60*60*24*7);
-		response.addCookie(cookie);
-		
-		//跳轉頁面
-		return "redirect:productpages/transfer";
-	}
+//	@RequestMapping(path = "/addtoshopchart", method = RequestMethod.GET)
+//	public String shopCar(@RequestParam(name = "Id") Integer Id, HttpServletResponse response,HttpSession session, Model model) {
+//		
+//		
+//		//獲取商品物件
+//		List <Product> products=(List<Product>) context.getAttribute("shopcart");
+//		//儲存至購物車
+//		Map<Product, Integer> shopcart = (Map<Product, Integer>) session.getAttribute("shopcart");
+//		// 如果session沒有購物車
+//		if (shopcart == null) {
+//			shopcart = new HashMap<Product, Integer>();
+//		}
+//		if (shopcart!=null) {// 判斷商品是否存在購物車中
+//			int number = shopcart.get(Id);
+//			// 存在=>數量加一
+//			shopcart.put(product, number + 1);
+//		} else {
+//			System.out.println("failed");
+//		}
+//		session.setAttribute("shopcart", shopcart);
+//		
+//		//為了讓購物車存的時間久一點 現在需要手動設定cookie
+//		Cookie cookie =new Cookie("JSESSIONID", session.getId());
+//		cookie.setMaxAge(60*60*24*7);
+//		response.addCookie(cookie);
+//		
+//		//跳轉頁面
+//		return "redirect:productpages/transfer";
+//	}
 	
-	@RequestMapping(path = "/toCart",method = RequestMethod.GET)
-	public String toCart() {
-		return "productpages/shopcart";
-	}
 	
-	//顯示商品列表
-	@RequestMapping(path="/listproduct")
-	public String listProduct(Model model) {
-		//準備商品 存商品
-		model.addAttribute("list",list);
-		return "list";
-	}
+	
+	
+//	@RequestMapping(path = "/toCart",method = RequestMethod.GET)
+//	public String toCart() {
+//		return "productpages/shopcart";
+//	}
+//	
+	
 
+
+	
 	@RequestMapping(path = "/shopentrypage", method = RequestMethod.GET)
 	public String userproductMgmtEntry(Model model) {
 		return "productpages/shopPage";

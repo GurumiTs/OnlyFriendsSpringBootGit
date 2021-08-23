@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h2><a href="listProduct">繼續購物</a></h2><br><br>
+<h2><a href="shopentrypage">繼續購物</a></h2><br><br>
 
     <h2><a href="toCart">去購物車結算</a></h2><br><br>
 </body>
