@@ -50,7 +50,7 @@ textarea {
 							<div class="st1">
 					<!-- 活動欄位 -->
 					<!-- <legend><strong>創辦活動(測試版)</strong></legend>-->
-					<form action="emppartyinsert.controller" method="post"
+					<form action="userActivity.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">
@@ -68,7 +68,7 @@ textarea {
 							<div>
 								<input type="hidden" name="anum" size="20"
 									placeholder="請輸入活動ID..." value="${party.number}" /> <label
-									for="">活動名稱: </label> <input type="text" name="name">
+									for="">活動名稱: </label> <input type="text" name="Activityname">
 							</div>
 
 
@@ -99,7 +99,7 @@ textarea {
 
 							<div>
 								<label for="comment1" class="">活動內容:</label>
-								<textarea name="plany" id="plan" cols="40" rows="5" value=""></textarea>
+								<textarea name="Detail" id="plan" cols="40" rows="5" value=""></textarea>
 							</div>
 
 							<div>
