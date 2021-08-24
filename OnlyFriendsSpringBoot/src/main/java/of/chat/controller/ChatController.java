@@ -1,5 +1,7 @@
 package of.chat.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,18 +16,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import of.chat.model.ChatMessageModel;
+import of.chat.model.ChatRepository;
+import of.chat.model.ChatService;
+import of.member.model.Member;
 
 @Controller
 public class ChatController {
 	
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplete ;
+	@Autowired
+	private Chat chat;
+	@Autowired
+	private ChatService chatService;
 
 	//傳送訊息給誰 誰可以用select 選取決定
 	@MessageMapping("/chat.send/{to}")
 	public void sendMessage(@DestinationVariable String to,@Payload final ChatMessageModel chatMessageModel) {
-		System.out.println("new msg:"+chatMessageModel.getContent());
+		//System.out.println("new msg:"+chatMessageModel.getContent());
+		//System.out.println("new msg:"+chatMessageModel.getTime());	
+		Chat chat = new Chat();
+		chat.setSender(chatMessageModel.getSender());
+		chat.setReceiver(to);
+		chat.setContent(chatMessageModel.getContent());
+		chatService.insert(chat);
 		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);
+		
 	}
 	
 	//系統回傳給自己加入聊天室的訊息
