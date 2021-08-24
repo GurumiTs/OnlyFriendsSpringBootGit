@@ -66,7 +66,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Blog Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">Employee Blog Tables</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 
@@ -156,7 +156,12 @@
 		            }
 		        },
 		        { "data": "title" }, 
-		        { "data": "updateTime"},
+		        { "data": "updateTime",
+		        	render:function(data, type, row)
+		        	{
+		        		return data.substring(0, 10);
+		        	}	
+		        },
 		        { 
 		        	"data": "mainText",
 		        	render:function(data, type, row)
