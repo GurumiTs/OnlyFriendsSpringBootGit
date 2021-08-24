@@ -80,6 +80,7 @@ const sendMessage = (event) => {
 		flexBox.appendChild(messageElement)
 		chatCard.appendChild(flexBox)
 		messageInput.value = ''
+		
 	}
 	event.preventDefault();
 }
