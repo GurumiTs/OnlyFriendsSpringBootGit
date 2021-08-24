@@ -43,15 +43,7 @@ public class BlogUserController {
 	public String blogUserEntry() {
 		return "bloguserspages/blogusermainpage";
 	}
-	
-//	// 主頁資料轉Json 格式
-//	public Map allBlogUserToJson(Model m) {
-//		List<BlogUser> blogUserList = bUserService.findAll();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("data", blogUserList);
-//		return map;
-//	}
-	
+
 	// 進單一文章頁面(未設前端)
 	@GetMapping(path = "/blogarticleentry")
 	public String blogArticleEntry(@RequestParam(name = "usersArticleId") Integer usersArticleId,
@@ -69,7 +61,7 @@ public class BlogUserController {
 	// 進新增controller(未設前端)
 	@GetMapping(path = "/blogusersinsert")
 	public String blogUserInsertEntry() {
-		return "";
+		return "bloguserspages/bloguserinsert";
 	}
 	
 	// Insert Controller
