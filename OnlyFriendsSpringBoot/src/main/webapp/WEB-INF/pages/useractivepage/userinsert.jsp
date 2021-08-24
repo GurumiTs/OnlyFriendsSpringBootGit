@@ -1,56 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!-- top here -->
-<%@include file="../commonpages/dashboardtop.jsp"%>
+<%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+
 #output {
 	width: 600px;
 	height: 450px;
 }
-
-.st1 {
-	display: inline-block;
-	box-shadow: 3px 3px 9px #D0D0D0;
-}
-
-textarea {
-	resize: none;
-}
 </style>
- </head>
-<body id="page-top">
+</head>
+<body>
+<body class="layout-2">
+	<div id="app">
+		<div class="main-wrapper">
 
-	<!-- Page Wrapper -->
-	<div id="wrapper">
-
-		<!-- Sidebar -->
-		<%@include file="../commonpages/dashboardsidebar.jsp"%>
+			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
 
-		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
 
-			<!-- Main Content -->
-			<div id="content">
+			<!-- Page content-->
+			<div class="container mt-5">
 
-				<!-- Topbar -->
-				<%@include file="../commonpages/dashboardheader.jsp"%>
+				<br /> <br />
+				
+			
+				<div class="row">
+					<!-- Blog entries-->
+					<div class="col-lg-12">
+						<!-- Nested row for non-featured blog posts-->
 
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
-
-<!-- ************************** your content*************************** -->		
-					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">會員新增活動</h1>
-					
-					<div class="card shadow mb-4">
-						<div class="card-body">
-							<div class="st1">
-					<!-- 活動欄位 -->
-					<!-- <legend><strong>創辦活動(測試版)</strong></legend>-->
-					<form action="userInsertActivity.controller" method="post"
+						<form action="userInsertActivity.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">
@@ -66,7 +46,8 @@ textarea {
 
 							</div>
 							<div>
-								 <label
+								<input type="hidden" name="anum" size="20"
+									placeholder="請輸入活動ID..." value="${party.number}" /> <label
 									for="">活動名稱: </label> <input type="text" name="Activityname">
 							</div>
 
@@ -109,11 +90,11 @@ textarea {
 
 							<div>
 								<label>參加條件</label> <input type="text" name="condition">
-								<br> <label for="">男生人數:</label> 
-								<input type="number" name="man"  min="0" max="12" step="1"
-									onchange="numberChange()">
-									 <label for=""> 女生人數:</label> 
-									<input type="number" name="woman"  min="0" max="12" step="1" onchange="numberChange()">
+								<br> <label for="">男生人數:</label> <input type="number"
+									name="man" id="numberInput" min="0" max="12" step="1"
+									onchange="numberChange()"> <label for="">
+									女生人數:</label> <input type="number" name="woman" id="numberInput"
+									min="0" max="12" step="1" onchange="numberChange()">
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary btn-sm">創建活動</button>
@@ -121,32 +102,16 @@ textarea {
 							</div>
 						</div>
 					</form>
+					</div>
 				</div>
-
-<!-- **************************end of your content*************************** -->
-				</div>
-				<!-- /.container-fluid -->
-
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer -->
-			<%@include file="../commonpages/dashboardfooter.jsp"%>
-
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
-		<!-- End of Content Wrapper -->
-
 	</div>
-	<!-- End of Page Wrapper -->
 
-	<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>
-	
+	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
-
-
-	<!-- bottom here -->
-	<%@include file="../commonpages/dashboardbottom.jsp"%>
-<script>
+	<script>
 		// 照片顯示
 		var lovdFile = function(event) {
 			var output = document.getElementById('output');
@@ -176,10 +141,9 @@ textarea {
 		});
 
 		$("#twzipcode").twzipcode("set", {
-			county : "${party.county}",
-			district : "${party.district}",
+			county : "${userActivity.county}",
+			district : "${userActivity.district}",
 		});
 	</script>
- </body>
-</html>	
-	
+</body>
+</html>
