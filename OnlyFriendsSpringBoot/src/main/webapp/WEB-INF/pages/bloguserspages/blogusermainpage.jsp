@@ -22,11 +22,10 @@ height: 350px;
 
 			<!-- Page content-->
 			<div class="container mt-5">
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
+				<br/>
+				<br/>
+				<br/>
+				<br/>
 				<div class="row">
 					<!-- Blog entries-->
 					<div class="col-lg-8">
@@ -64,27 +63,26 @@ height: 350px;
 						</div>
 						<!-- Categories widget-->
 						<div class="card mb-4">
-							<div class="card-header">Categories</div>
+<!-- 							<div class="card-header">快速連結</div> -->
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6">
 										<ul class="list-unstyled mb-0">
-											<li><a href="#!">Web Design</a></li>
-											<li><a href="#!">HTML</a></li>
-											<li><a href="#!">Freebies</a></li>
+											<li><a href="blogofficial">幸福故事</a></li>
+											<li><a href="#!">管理文章</a></li>
+											<li><a href="blogusersinsert">我要分享</a></li>
 										</ul>
 									</div>
-									<div class="col-sm-6">
-										<ul class="list-unstyled mb-0">
-											<li><a href="#!">JavaScript</a></li>
-											<li><a href="#!">CSS</a></li>
-											<li><a href="#!">Tutorials</a></li>
-										</ul>
-									</div>
+<!-- 									<div class="col-sm-6"> -->
+<!-- 										<ul class="list-unstyled mb-0"> -->
+<!-- 											<li><a href="#!">JavaScript</a></li> -->
+<!-- 											<li><a href="#!">CSS</a></li> -->
+<!-- 											<li><a href="#!">Tutorials</a></li> -->
+<!-- 										</ul> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 						</div>
-						
 
 						<!--Side widget -->
 						<div class="card mb-4">
@@ -101,52 +99,52 @@ height: 350px;
 	</div>
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
-	<script>
+	<script type="text/javascript">
 		var indexPage = 1;
+
 		$(function() {	
-			load(indexPage);
+			loadUser(indexPage);
 		})
 	
 		function change(page) {
 			indexPage = page;
-			load(indexPage);
+			loadUser(indexPage);
 		}
-						
-		function load(){
+
+		function loadUser(){
 			$.ajax({
 				type: 'POST',
 				url: 'blogqueryallbypage/' + indexPage,
 				dataType: 'JSON',
 				contentType: 'application/json',
 				success: function(data) {
-				console.log(data);
-				var json = JSON.stringify(data, null, 4);
-				var parsedObjinArray = JSON.parse(json);
-				var itemarea = $('#itemarea');
-				$('#itemarea').empty("");
-				$.each(parsedObjinArray, function(i,n){
-				var item = 
-					"<div class='col-lg-6'>"+
-						"<div class='card mb-4'>"+
-							"<a href='blogarticleentry?usersArticleId="+n.usersArticleID+"'><img id='blogimg' class='card-img-top'"+
-								"src='"+n.usersImages+"'/></a>"+
-							"<div class='card-body'>"+
-								"<div class='small text-muted'>"+n.usersUpdateTime.substr(0,10)+"</div>"+
-								"<h2 class='card-title h4'>"+n.usersTitle+"</h2>"+
-								"<p class='card-text'>"+n.usersMainText.substr(0,90)+" ...</p>"+
-								"<a class='btn btn-primary' href='blogarticleentry?usersArticleId="+n.usersArticleID+"'>Read more →</a>"+
+					console.log(data);
+					var json = JSON.stringify(data, null, 4);
+					var parsedObjinArray = JSON.parse(json);
+					var itemarea = $('#itemarea');
+					$('#itemarea').empty("");
+					$.each(parsedObjinArray, function(i,n){
+					var item = 
+						"<div class='col-lg-6'>"+
+							"<div class='card mb-4'>"+
+								"<a href='blogarticleentry?ArticleId="+n.usersArticleID+"&name=user'><img id='blogimg' class='card-img-top'"+
+									"src='"+n.usersImages+"'/></a>"+
+								"<div class='card-body'>"+
+									"<div class='small text-muted'>"+n.usersUpdateTime.substr(0,10)+"</div>"+
+									"<h2 class='card-title h4'>"+n.usersTitle+"</h2>"+
+									"<p class='card-text'>"+n.usersMainText.substr(0,90)+" ...</p>"+
+									"<a class='btn btn-primary' href='blogarticleentry?ArticleId="+n.usersArticleID+"&name=user'>Read more →</a>"+
+								"</div>"+
 							"</div>"+
-						"</div>"+
-					"</div>";
-				itemarea.append(item);
-				});
-			},
-			error: function() {
-				console.log("error!");
-			}
-		});
-	};
-						
+						"</div>";
+						itemarea.append(item);
+					});
+				},
+				error: function() {
+					console.log("error!");
+				}
+			});
+		};
 	</script>
 
 </body>

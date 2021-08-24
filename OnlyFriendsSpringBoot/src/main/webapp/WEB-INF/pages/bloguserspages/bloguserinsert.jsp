@@ -46,32 +46,33 @@ font-size:1.2rem
 
 							<div class="mb-3">
 								<label for="formFile" class="form-label">文章圖片:</label> <input
-									class="form-control" type="file" id="formFile" name="images"
+									class="form-control" type="file" id="formFile" name="usersImages"
 									onchange="loadFile(event)">
 							</div>
 						</div>
 
 						<div class="col-md-12">
 							<div class="input-group mb-3">
-								<span class="input-group-text" id="inputGroup-sizing-default">管理者ID:</span>
-								<input type="text" class="form-control"
-									placeholder="EmployeeAcc" aria-label="Sizing example input"
-									aria-describedby="basic-addon1" name="empAcc"><span
-									id="errorAcc"></span> <span class="input-group-text"
-									id="inputGroup-sizing-default">暱稱</span> <input type="text"
-									class="form-control" placeholder="UserID"
-									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-default" name="userID"><span
-									id="erroruUserId"></span>
+								<span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
+								<input type="text" class="form-control" disabled="disabled"
+									value="${personalinfo.memberAccount}" aria-label="Sizing example input"
+									aria-describedby="basic-addon1" name="memberAccount">
+								<input type="hidden" class="form-control"
+									value="${personalinfo.memberAccount}" name="memberAccount">
+								<span id="errorAcc"></span> 
+								<span class="input-group-text" id="inputGroup-sizing-default">暱稱</span> 
+								<input type="text" class="form-control" value="${personalinfo.memberName}"
+									aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="usersName">
+								<span id="erroruUserId"></span>
 							</div>
 						</div>
 
 						<div class="col-md-12">
 							<div class="input-group mb-3">
-								<span class="input-group-text" id="inputGroup-sizing-default">文章標題:</span>
+								<span class="input-group-text" id="inputGroup-sizing-default">標題:</span>
 								<input type="text" class="form-control"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-default" name="title"><span
+									aria-describedby="inputGroup-sizing-default" name="usersTitle"><span
 									id="errorTitle"></span>
 							</div>
 						</div>
@@ -79,7 +80,7 @@ font-size:1.2rem
 						<div class="col-md-12">
 							<label for="input-group-text" class="input-group-text">文章內容:</label>
 							<textarea class="form-control" style="resize: none;" id="editor"
-								rows="100" name="mainText"></textarea>
+								rows="100" name="usersMainText"></textarea>
 							<div id="errorMainText"></div>
 						</div>
 						
