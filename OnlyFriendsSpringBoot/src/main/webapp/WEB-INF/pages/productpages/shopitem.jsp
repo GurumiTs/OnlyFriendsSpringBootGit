@@ -29,7 +29,7 @@
                         <p class="lead" id="proDescription" ></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addchart">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
@@ -151,6 +151,46 @@
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
+<!-- shoppingchart -->
+	<div class="modal" id="shopchartbox" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Shopping List</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <table id="shopitem">
+<!-- 				<thead> -->
+<!-- 					<td width="40px">編號</td> -->
+<!-- 					<td width="60px">名稱</td> -->
+<!-- 					<td width="40px">價格</td> -->
+<!-- 					<td width="40px">數量</td> -->
+<!-- 					<td width="40px">小計</td> -->
+<!-- 				</thead> -->
+<!-- 				<tbody> -->
+<!-- 					<tr> -->
+<!-- 						<td id="shopitem"></td> -->
+<!-- 					</tr> -->
+<!-- 				</tbody> -->
+			</table>
+			<table>
+				<tr>
+				<td colspan="3" align="right"><c:forEach var="i"
+												begin="1" end="${totalPages}" step="1">
+												<button class="btn btn-outline-secondary" id="myPage"
+													value="${i}" onclick="change(${i})">${i}</button>
+											</c:forEach></td>
+				</tr>
+			</table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<script>
 	$(function () {
   	  
@@ -181,20 +221,59 @@
 	               			   $('#proPriceDiscount').text("$"+Math.round(products[i].proPrice*0.9));
 	               			   $('#proDescription').text(products[i].proDescription);
 	               			   $('#proPhoto').attr("src",products[i].proPhoto);
-	               			   
-	               			   
-	               			
 	               		   }
 	               	   }
-	               	  
-	               	   
-						
 					}
-			   
 				})
-						
 		});
-   
+	var indexPage = 1;
+    $(function(){
+    	load(indexPage);
+    })
+
+	function change(page){
+	   indexPage = page;
+	   load(indexPage);
+	}
+	$("#shopchartbox").on("click", "#addchart", function () {
+		  let memberAccount = $(this).attr("memberAccount");
+		  $.ajax({
+			  type : "post",
+			  url: "shoplist",   
+		      dataType: "json",   
+		      cache: false,   
+		      data: {"memberAccount":memberAccount}, 
+		      success : function(data) 
+		        {
+		    	  	 var json = JSON.stringify(data, null, 4);
+		    	     var parsedObjinArray = JSON.parse(json);
+		    	     var shopitem = $('#shopitem');
+		    	     $('#shopitem').empty("");
+		    	     if(json=null){
+		    	    	 $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+		    	     }else{
+		    	    	 var table=$('#shopitem')
+		    	     	 table.append("<tr value='Shopping List'><th>編號</th><th>商品名稱</th><th>價格</th><th>數量</th><th>小計</th></tr>)
+			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+			    	     var item = "<tr align='center'>"+
+			    	    	 "<td>"+n.proId+"</td>"+
+			    	    	 "<td>"+n.prName+"</td>"+
+			    	    	 "<td>"+n.proPrice+"</td>"+
+			    	    	 "<td>"+n.amount+"</td>"+
+			    	    	 "<td><span>$"+n.proPrice*n.amount+"</span></td>";
+			    	    	 shopitema.append(item);
+			    	    	 
+			    	    	 
+		    	    	 
+		    	     }
+		    	     
+		    	  
+		        },error: function(data) 
+		        {
+		           console.log('無法送出');
+		        }
+		  });			  
+	});
    
 	</script>
 </body>

@@ -13,9 +13,9 @@ public class ShoppingCartService {
 	@Autowired
 	private ShopRepository shopRepository;
 	
-	public CartItem listCartItems(String memberAccount){
-		Optional<CartItem> memberAccountOptional =shopRepository.findByMemberAccount(memberAccount);
-		return memberAccountOptional.get();
+	public CartItem listCartItems(Integer cartId){
+		Optional<CartItem> cartIdOptional =shopRepository.findByCartId(cartId);
+		return cartIdOptional.get();
 	}
 	
 	public CartItem insert(CartItem cartItem) {
