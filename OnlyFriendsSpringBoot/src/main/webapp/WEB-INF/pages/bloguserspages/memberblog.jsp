@@ -7,13 +7,41 @@ body{
 font-size:1.2rem
 }
 
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
 .img1 {
 	weight: 150px;
 	height: 150px;
 }
-.card-header{
 
+.edit:hover{
+	font-size: 130%;
 }
+
+.delete:hover {
+	font-size: 130%;
+}
+
+.delete {
+	cursor: pointer;
+}
+
+.insert{
+height:50px;
+}
+
 .insert a img:hover {
 	width: 50px;
 	height: 50px;
@@ -45,7 +73,7 @@ font-size:1.2rem
 				<a href="#!"><img src="images/smallicon/BlogmgmtInsert.png" width="45px" height="45px"></a>
               </div>
                   <!-- table -->
-             		 <div class="card shadow mb-4 card-body">
+             		 <div class="card shadow mb-4">
 						<div class="card-body">
 							<div class="table-responsive">
 								<table id="example" class="table table-striped"
@@ -55,7 +83,7 @@ font-size:1.2rem
 											<th>文章編號</th>
 											<th>圖片</th>
 											<th>標題</th>
-											<th>最後修改時間</th>
+											<th style="weight:70px;">最後修改時間</th>
 											<th>內文</th>
 											<th>暱稱</th>
 											<th>修改</th>
@@ -101,11 +129,12 @@ font-size:1.2rem
     
     <script >  
 	/* load data table */
-	var table = $('#example').DataTable({
-	    "ajax": {
+	var table = $('#example').DataTable(
+		{
+	    ajax: {
 	    	"url": "blogalltojson",
 	    },
-	    "columns": [
+	    columns: [
 	        { "data": "articleID" },
 	        { 
 	        	"data": null,
@@ -115,11 +144,12 @@ font-size:1.2rem
 	            }
 	        },
 	        { "data": "title" }, 
-	        { "data": "updateTime",
-	        	render:function(data, type, row)
-	        	{
-	        		return data.substring(0, 10);
-	        	}	
+	        { "data": "updateTime"
+// 	        	,
+// 	        	render:function(data, type, row)
+// 	        	{
+// 	        		return data.substring(0, 10);
+// 	        	}	
 	        },
 	        { 
 	        	"data": "mainText",
@@ -137,7 +167,7 @@ font-size:1.2rem
 	            "data": null,
 	            render:function(data, type, row)
 	            {
-	              return "<a href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit'></i>";
+	              return "<a href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit edit'></i>";
 	            }
 	        },
 	        {
@@ -147,6 +177,39 @@ font-size:1.2rem
 	              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
 	            }
 	        }
+	    ],
+	    columnDefs:[
+	    	{
+	    		targets: [0],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "50px");
+	    		},
+	    	},
+	    	{
+	    		targets: [2],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "300px");
+	    		},
+	    	},
+	    	{
+		    	targets: [3],
+		    	createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    		},
+		    	render: function(data){
+		    		return moment(data).format('YYYY-MM-DD');
+		    	},
+	    	},
+	    	{
+	    		targets: [4],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "600px");
+	    		},
+	    	},
+	    	{
+	    		targets: '_all',
+	    		className: 'text-center'
+	    	},
 	    ]
 	});
     

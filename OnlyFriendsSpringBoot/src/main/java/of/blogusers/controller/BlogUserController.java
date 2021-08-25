@@ -80,11 +80,13 @@ public class BlogUserController {
 							  Model m) {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			BlogUser blogUser = new BlogUser();
 			blogUser.setUsersCreateTime(ts);
 			blogUser.setUsersUpdateTime(ts);
 			blogUser.setMemberAccount(memberAccount);
 			blogUser.setUsersName(usersName);
 			blogUser.setUsersMainText(usersMainText);
+			blogUser.setUsersTitle(usersTitle);
 			System.out.println("Insert " + memberAccount + "'s Blog when time:" + ts);
 
 			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogUsersPic)

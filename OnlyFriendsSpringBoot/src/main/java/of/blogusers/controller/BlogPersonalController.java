@@ -3,8 +3,10 @@ package of.blogusers.controller;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.blog.model.BlogBean;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
@@ -30,10 +33,20 @@ public class BlogPersonalController {
 	@Autowired
 	private BlogUser blogUser;
 	
+	//進個人頁controller
 	@RequestMapping(path="/memberblog" ,method = RequestMethod.GET )
 	public String memberFriendsEntry() {
 		return "bloguserspages/memberblog" ;
 	}
+	
+//	@GetMapping(path = "/blogalltojson")
+//	@ResponseBody
+//	public Map allBlogToJson(Model m) {
+//		List<BlogUser> blogList = bUserService.findAll();
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("data", blogList);
+//		return map;
+//	}
 	
 	// 進Update Controller(未設前端)
 	@GetMapping(path = "/blogusersupdate")
