@@ -38,11 +38,11 @@ font-size:1.2rem
 	cursor: pointer;
 }
 
-.insert{
+.icon1{
 height:50px;
 }
 
-.insert a img:hover {
+.icon1 a img:hover {
 	width: 50px;
 	height: 50px;
 	display: block;
@@ -67,10 +67,9 @@ height:50px;
 
             <div class="section-body">
               <div class="card">
-              <div class="card-header insert">
+              <div class="card-header icon1">
              	<a href="blogusersinsert"><img src="images/smallicon/BlogmgmtInsert.png" width="45px" height="45px"></a>
-				<a href="#!"><img src="images/smallicon/BlogmgmtInsert.png" width="45px" height="45px"></a>
-				<a href="#!"><img src="images/smallicon/BlogmgmtInsert.png" width="45px" height="45px"></a>
+				<a href="#!"><img src="images/smallicon/BlogusersDelete.png" width="45px" height="45px"></a>
               </div>
                   <!-- table -->
              		 <div class="card shadow mb-4">
@@ -132,27 +131,21 @@ height:50px;
 	var table = $('#example').DataTable(
 		{
 	    ajax: {
-	    	"url": "blogalltojson",
+	    	"url": "userblogalltojson",
 	    },
 	    columns: [
-	        { "data": "articleID" },
+	        { "data": "usersArticleID" },
 	        { 
 	        	"data": null,
 	            render:function(data, type, row)
 	            {
-	              return "<img src="+data.images+" class='img1'>";
+	              return "<img src="+data.usersImages+" class='img1'>";
 	            }
 	        },
-	        { "data": "title" }, 
-	        { "data": "updateTime"
-// 	        	,
-// 	        	render:function(data, type, row)
-// 	        	{
-// 	        		return data.substring(0, 10);
-// 	        	}	
-	        },
+	        { "data": "usersTitle" }, 
+	        { "data": "usersUpdateTime" },
 	        { 
-	        	"data": "mainText",
+	        	"data": "usersMainText",
 	        	render:function(data, type, row)
 	        	{
 	        		if (data) {
@@ -162,19 +155,19 @@ height:50px;
 	        		}
 	        	}
 	        },
-	        { "data": "userID"},		  
+	        { "data": "usersName"},		  
 	        {
 	            "data": null,
 	            render:function(data, type, row)
 	            {
-	              return "<a href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit edit'></i>";
+	              return "<a href='blogusersupdate?articleID="+data.usersArticleID+"'><i class='fas fa-edit edit'></i>";
 	            }
 	        },
 	        {
 	            "data": null,
 	            render:function(data, type, row)
 	            {
-	              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
+	              return "<i class='far fa-trash-alt delete' id="+data.usersArticleID+"></i>";
 	            }
 	        }
 	    ],
@@ -231,7 +224,7 @@ height:50px;
 	                if (result.isConfirmed) {
 	                  $.ajax({
 	                        type: "POST",
-	                        url: "empblogdelete/"+articleID,
+	                        url: "usersblogdelete/"+articleID,
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(

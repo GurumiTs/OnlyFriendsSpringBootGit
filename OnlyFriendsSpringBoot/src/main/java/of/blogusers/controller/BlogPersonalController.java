@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import of.blog.model.BlogBean;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
@@ -39,14 +38,14 @@ public class BlogPersonalController {
 		return "bloguserspages/memberblog" ;
 	}
 	
-//	@GetMapping(path = "/blogalltojson")
-//	@ResponseBody
-//	public Map allBlogToJson(Model m) {
-//		List<BlogUser> blogList = bUserService.findAll();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("data", blogList);
-//		return map;
-//	}
+	@GetMapping(path = "/userblogalltojson")
+	@ResponseBody
+	public Map allBlogToJson(Model m) {
+		List<BlogUser> blogList = bUserService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", blogList);
+		return map;
+	}
 	
 	// 進Update Controller(未設前端)
 	@GetMapping(path = "/blogusersupdate")
@@ -103,7 +102,7 @@ public class BlogPersonalController {
 	}
 	
 	// Delete(單一刪除)
-	@PostMapping(path = "/blogdelete/{usersArticleID}")
+	@PostMapping(path = "/usersblogdelete/{usersArticleID}")
 	@ResponseBody
 	public String deleteBlog(@PathVariable("usersArticleID") Integer usersArticleID) {
 		System.out.println("usersArticleID" + usersArticleID);
