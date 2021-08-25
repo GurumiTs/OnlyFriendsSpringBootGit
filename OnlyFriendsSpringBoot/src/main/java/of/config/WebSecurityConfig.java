@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.rememberMe().tokenRepository(persistentTokenRepository())
 			.tokenValiditySeconds(8400)
-			.userDetailsService(userDetailsService) //將使用者資訊存入資料庫表格
+			//.userDetailsService(userDetailsService) //將使用者資訊存入資料庫表格
 		.and()
 		.oauth2Login()
 			.loginPage("/login")
@@ -100,7 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //			username varchar(64) not null,
 //			series varchar(64) primary key,
 //			token varchar(64) not null,
-//			last_used   timestamp  not null
+//			last_used datetime not null
 //
 //		);	
 //NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

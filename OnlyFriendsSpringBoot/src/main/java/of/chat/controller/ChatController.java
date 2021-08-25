@@ -1,5 +1,15 @@
 package of.chat.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +45,15 @@ public class ChatController {
 	public void sendMessage(@DestinationVariable String to,@Payload final ChatMessageModel chatMessageModel) {
 		//System.out.println("new msg:"+chatMessageModel.getContent());
 		//System.out.println("new msg:"+chatMessageModel.getTime());	
+		
+	    //SimpleDateFormat ft =  new SimpleDateFormat ("hh:mm");
+	    //System.out.println(ft.format(dNow));
+		
 		Chat chat = new Chat();
 		chat.setSender(chatMessageModel.getSender());
 		chat.setReceiver(to);
 		chat.setContent(chatMessageModel.getContent());
+		chat.setTexttime(chatMessageModel.getTime());
 		chatService.insert(chat);
 		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);
 		
@@ -51,4 +66,6 @@ public class ChatController {
 		System.out.println("new user:"+chatMessageModel.getSender());
 		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);
 	}
+	
+	
 }
