@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.mapping.MapBasedAttributes2GrantedAuthoritiesMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +22,12 @@ import of.member.model.MemberService;
 import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
-import of.shop.model.ShoppingCartService;
+
 
 @Controller
-@SessionAttributes(names = {"shopList"})
+@SessionAttributes(names = {"cartListMap"})
 public class ShoppingCartController {
-	@Autowired
-	private ShoppingCartService shoppingCartService;
+	
 	
 	@Autowired
 	private MemberService memberServie;
@@ -39,37 +40,51 @@ public class ShoppingCartController {
 	
 	@GetMapping(path = "/cart")
 	@ResponseBody
-	public String InsertItemToCart(@RequestParam(name = "cartId") Integer cartId,
-									Model model,HttpSession session ) {
+	public List<CartItem> InsertItemToCart(@RequestParam (name = "amount")Integer amount,Model model,HttpSession session,HttpServletRequest request ) {
+		
+		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
+//		if( sessionlist.size() == 0) {
+			List<CartItem> list = new ArrayList<CartItem>();
+//			//add item
+//			Product product=productService.findById(proId);
+			CartItem cartItem=new CartItem();
+//			
+			cartItem.setProduct(product);
+			cartItem.setAmount(amount);
+			list.add(cartItem);
+//			model.addAttribute("cartListMap", list);
+//			
+//			return list;
+//		}
 		
 		
-		CartItem cart = new CartItem();
-		cart.setCartId(1099093);
-		
-		List<Product> shopList=new ArrayList<Product>();
-		Map<Product, Integer> shopcartMap=(Map<Product, Integer>)session.getAttribute("shopList");
-		cart.setItems(shopList);
-		if(shopList==null) {
-			shopcartMap=new HashMap<Product, Integer>();
-		}if(shopList!=null) {
-			int number=shopcartMap.get(cartId);
-			shopcartMap.put(product, number+1);
-		}
-		model.addAttribute("shopList",shopList);
+//		Product p1 = productService.findById(1);
+//		CartItem c = new CartItem();
+//		c.setProduct(p1);
+//		c.setAmount(2);
+//		
+//		Product p2 = productService.findById(2);
+//		CartItem c2 = new CartItem();
+//		c2.setProduct(p2);
+//		c2.setAmount(5);
+//		
+//		List<CartItem> list = new ArrayList<CartItem>();
+//		list.add(c2);
+//		list.add(c);
 
+		model.addAttribute("cartListMap", list);
 		
-		return "y";
+		return list;
 	}
 
 //	@GetMapping(path = "/shoppingListtojson")
 //	@ResponseBody
-//	public Map shoppingList(Model model) {
-//		List<CartItem> cartItems=shoppingCartService.findAll();
-//		Map<String, Object> map=new HashMap();
-//		map.put("data", cartItems);
-////		return map;
+//	public List<CartItem> shoppingList(Model model,HttpServletRequest request) {
+//		
+//		List<CartItem> list = (List<CartItem>) request.getSession().getAttribute("cartListMap");
+//		return list ;
 //	}
-//	
+	
 //	@PostMapping(path = "/shoplist")
 //	@ResponseBody
 //	public CartItem shoplistQuery(@RequestParam(name = "cartId")Integer cartId) {

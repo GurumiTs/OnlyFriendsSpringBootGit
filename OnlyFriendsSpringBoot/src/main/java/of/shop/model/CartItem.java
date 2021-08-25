@@ -16,17 +16,33 @@ import javax.persistence.Table;
 
 import of.product.model.Product;
 
-@Entity
-@Table(name = "CartItem")
-public class CartItem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer cartId;
+public class CartItem {
 	
-	@OneToMany
-	@JoinColumn(name = "cartId")
-	private List<Product> items = new ArrayList<>();
+	private Integer amount;
+	private Product product;
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer cartId;
+//	
+//	@OneToMany
+//	@JoinColumn(name = "cartId")
+//	private List<Product> items = new ArrayList<>();
 //	@ManyToOne
 //	@JoinColumn(name = "proId")
 //	private Product proId;
@@ -42,21 +58,21 @@ public class CartItem {
 //	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 //	private Timestamp orderdate;
 
-	public Integer getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(Integer cartId) {
-		this.cartId = cartId;
-	}
-
-	public List<Product> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Product> items) {
-		this.items = items;
-	}
+//	public Integer getCartId() {
+//		return cartId;
+//	}
+//
+//	public void setCartId(Integer cartId) {
+//		this.cartId = cartId;
+//	}
+//
+//	public List<Product> getItems() {
+//		return items;
+//	}
+//
+//	public void setItems(List<Product> items) {
+//		this.items = items;
+//	}
 	
 	
 

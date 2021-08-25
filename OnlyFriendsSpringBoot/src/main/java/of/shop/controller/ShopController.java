@@ -118,4 +118,21 @@ public class ShopController {
 		return products;
 	}
 
+	//Luckyitem
+	@PostMapping("/queryallLuckyItem/{pageNo}")
+	@ResponseBody
+	public List<Product> queryallLuckyItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String LuckyItem){
+		int pageSize = 4;
+		
+		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
+		Page<Product> page=productService.findByItem(pageable,"幸運小物");
+		
+		int totalPages =page.getTotalPages();
+		long totalElements =page.getTotalElements();
+		
+		model.addAttribute("totalPages",totalPages);
+		model.addAttribute("totalElements",totalElements);
+		
+		return page.getContent();
+	}
 }
