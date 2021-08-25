@@ -193,7 +193,7 @@
 	
 	</style>
 
-
+ <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
   <body>
   <div id="app">
@@ -210,7 +210,7 @@
               
               <div class="card-body">
               <form action="${pageContext.request.contextPath}/login"
-					method="post">  
+					method="post" id="loginform">  
                   <div class="form-group">
                    <label for="email" class="form-label">Account</label> <input
 							type="text" class="form-control" name="username" id="username" />                  
@@ -265,7 +265,8 @@
                                                    
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="g-recaptcha btn btn-primary btn-lg btn-block" 
+                     data-sitekey="6Ld_JiIcAAAAAKhNWXoiB--DlXCP1SOSnkFI3K5p" data-callback='onSubmit'   data-action='submit' tabindex="4">
                       Login
                     </button>
                   </div>
@@ -383,9 +384,7 @@
 
 	<!-- bootstrap   -->
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-		crossorigin="anonymous"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
 	<!-- jQuery  -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -427,7 +426,12 @@
 	<script src="../node_modules/sticky-kit/dist/sticky-kit.min.js"></script>
 
 	<!-- Page Specific JS File -->
-	
+	 <script>
+	   function onSubmit(token) {
+	     document.getElementById("loginform").submit();
+	     console.log('hi')
+	   }
+ 	</script>
 
 	<script>
 		$(function() {
