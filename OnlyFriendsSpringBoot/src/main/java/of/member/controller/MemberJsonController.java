@@ -128,7 +128,7 @@ public class MemberJsonController {
 			System.out.println(memberAccount);
 			String fileName = multipartFile.getOriginalFilename();
 			String path = ResourceUtils.getURL("classpath:static/images/memberPic").getPath();
-			System.out.println(path);
+			//System.out.println(path);
 			String filePath = path + "/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
@@ -159,10 +159,10 @@ public class MemberJsonController {
 		List<Member> empList = memberService.findAll();
 		while (true) {
 			int num = (int) (Math.random() * empList.size());
-			System.out.println("random number:"+num);
+			//System.out.println("random number:"+num);
 			member = empList.get(num);
-			System.out.println(member.getMemberAccount());
-			System.out.println("存在與否:"+friends.contains(member));
+			//System.out.println(member.getMemberAccount());
+			//System.out.println("存在與否:"+friends.contains(member));
 			if (member.getMemberAccount().equals(m1account) || friends.contains(member) == true) {
 				
 				continue;
@@ -197,7 +197,7 @@ public class MemberJsonController {
 		String memberAccount = m1.getMemberAccount();
 		// so get the member again
 		Member m2 = memberService.findByMemberAccount(memberAccount);
-		System.out.println("player name:"+m2.getMemberName());
+		//System.out.println("player name:"+m2.getMemberName());
 		Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT :08:00"));
 		String day = Integer.toString(now.get(Calendar.DATE)); 
 		
