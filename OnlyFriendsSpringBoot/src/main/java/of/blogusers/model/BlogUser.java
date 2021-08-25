@@ -42,7 +42,7 @@ public class BlogUser implements Serializable {
 	private String usersImages;// 圖片
 
 	@Column(name = "MemberAccount")
-	private String memberAccount;// 管理人員ID
+	private String memberAccount;// 使用者帳號
 
 	@Column(name = "UsersName")
 	private String usersName;// PO文者ID

@@ -12,8 +12,8 @@ import of.product.model.Product;
 
 @Repository
 public interface ShopRepository extends JpaRepository<CartItem, Integer> {
-	Optional<Product> findByProId(Integer proId);
+//	Optional<Product> findByProId(Integer proId);
 	
-	Optional<CartItem> findByMemberAccount(String memberAccount);
+	Optional<CartItem> findByCartId(Integer cartId);
 	
 }

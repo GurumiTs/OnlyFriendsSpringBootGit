@@ -1,19 +1,19 @@
 package of.shop.model;
 
-import java.security.Timestamp;
 
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import of.member.model.Member;
 import of.product.model.Product;
 
 @Entity
@@ -24,20 +24,23 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cartId;
 	
-	@ManyToOne
-	@JoinColumn(name = "proId")
-	private Product proId;
+	@OneToMany
+	@JoinColumn(name = "cartId")
+	private List<Product> items = new ArrayList<>();
+//	@ManyToOne
+//	@JoinColumn(name = "proId")
+//	private Product proId;
+//	
+//	@ManyToOne
+//	@JoinColumn(name="memberAccount")
+//	private Member memberAccount;
 	
-	@ManyToOne
-	@JoinColumn(name="memberAccount")
-	private Member memberAccount;
-	
-	@Column(name="amount")
-	private Integer amount;
-	
-	@Column(name = "orderdate")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Timestamp orderdate;
+//	@Column(name="amount")
+//	private Integer amount;
+//	
+//	@Column(name = "orderdate")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//	private Timestamp orderdate;
 
 	public Integer getCartId() {
 		return cartId;
@@ -47,37 +50,47 @@ public class CartItem {
 		this.cartId = cartId;
 	}
 
-	public Product getProId() {
-		return proId;
+	public List<Product> getItems() {
+		return items;
 	}
 
-	public void setProId(Product proId) {
-		this.proId = proId;
-	}
-
-	public Member getMemberAccount() {
-		return memberAccount;
-	}
-
-	public void setMemberAccount(Member memberAccount) {
-		this.memberAccount = memberAccount;
-	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
-	public Timestamp getOrderdate() {
-		return orderdate;
-	}
-
-	public void setOrderdate(Timestamp orderdate) {
-		this.orderdate = orderdate;
+	public void setItems(List<Product> items) {
+		this.items = items;
 	}
 	
+	
+
+//	public Product getProId() {
+//		return proId;
+//	}
+//
+//	public void setProId(Product proId) {
+//		this.proId = proId;
+//	}
+
+//	public Member getMemberAccount() {
+//		return memberAccount;
+//	}
+//
+//	public void setMemberAccount(Member memberAccount) {
+//		this.memberAccount = memberAccount;
+//	}
+
+//	public Integer getAmount() {
+//		return amount;
+//	}
+//
+//	public void setAmount(Integer amount) {
+//		this.amount = amount;
+//	}
+//
+//	public Timestamp getOrderdate() {
+//		return orderdate;
+//	}
+//
+//	public void setOrderdate(Timestamp orderdate) {
+//		this.orderdate = orderdate;
+//	}
+//	
 	
 }
