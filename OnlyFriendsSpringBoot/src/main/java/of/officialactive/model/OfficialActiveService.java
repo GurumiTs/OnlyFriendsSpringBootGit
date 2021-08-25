@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import of.common.model.UsersRepository;
+
 
 
 @Service
@@ -17,6 +19,9 @@ public class OfficialActiveService {
 
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
+	
+	
+	
 	
 	public OfficialActive insert(OfficialActive officialActive) {
 		return officialActiveRepository.save(officialActive);
