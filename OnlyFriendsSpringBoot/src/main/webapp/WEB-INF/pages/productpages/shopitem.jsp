@@ -236,13 +236,13 @@
 	   load(indexPage);
 	}
 	$("#shopchartbox").on("click", "#addchart", function () {
-		  let memberAccount = $(this).attr("memberAccount");
+		  let proId = $(this).attr("proId");
 		  $.ajax({
 			  type : "post",
-			  url: "shoplist",   
+			  url: "shoppage.controller/"+indexPage,   
 		      dataType: "json",   
 		      cache: false,   
-		      data: {"memberAccount":memberAccount}, 
+		      data: {"proId":proId}, 
 		      success : function(data) 
 		        {
 		    	  	 var json = JSON.stringify(data, null, 4);
@@ -253,27 +253,25 @@
 		    	    	 $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
 		    	     }else{
 		    	    	 var table=$('#shopitem')
-		    	     	 table.append("<tr value='Shopping List'><th>編號</th><th>商品名稱</th><th>價格</th><th>數量</th><th>小計</th></tr>)
+		    	     	 table.append("<tr value='Shopping List'><th>編號</th><th>商品名稱</th><th>價格</th><th>數量</th><th>小計</th></tr>")
 			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 			    	     var item = "<tr align='center'>"+
-			    	    	 "<td>"+n.proId+"</td>"+
+			    	    	 "<td><a href='cart?proId='"+n.proId+"'>"+n.proId+"</a></td>"+
 			    	    	 "<td>"+n.prName+"</td>"+
 			    	    	 "<td>"+n.proPrice+"</td>"+
 			    	    	 "<td>"+n.amount+"</td>"+
 			    	    	 "<td><span>$"+n.proPrice*n.amount+"</span></td>";
-			    	    	 shopitema.append(item);
-			    	    	 
-			    	    	 
-		    	    	 
-		    	     }
-		    	     
-		    	  
-		        },error: function(data) 
+			    	    	 table.append(tr);
+		    	 }); 
+		        }
+		        },
+		        error: function(data) 
 		        {
 		           console.log('無法送出');
 		        }
-		  });			  
+		  		  
 	});
+	})
    
 	</script>
 </body>
