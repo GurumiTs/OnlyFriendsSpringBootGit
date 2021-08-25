@@ -106,7 +106,7 @@ font-size:1.2rem
 							<!-- <input type="submit" name="confirm" value="送出"> -->
 							<button type="submit" class="btn btn-primary">送出</button>
 
-							<button onclick="location.href='empblogmgmt.controller'"
+							<button onclick="location.href='memberblog'"
 								type="button" class="btn btn-primary">返回</button>
 							<!--  οnclick="javascript:history.back(-1)" -->
 						</div>

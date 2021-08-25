@@ -31,7 +31,7 @@
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
+                                <i id = "joinoa" name="account" class="bi-cart-fill me-1"></i>
                                 我要報名
                             </button>
                         </div>
@@ -146,11 +146,117 @@
             </div>
         </section>
         </div>
+        
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">
+						<i class="fas fa-pencil-alt"></i><span id="modalHeader">Edit</span>
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="basicInfoForm"
+						  class="needs-validation" novalidate>
+						<div class="mb-3">
+							<label for="empEmail" class="form-label">Email</label> <input
+								type="email" class="form-control" name="empEmail" id="empEmail"
+								required readonly />
+						</div>
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="empAcc" class="form-label">Account</label> <input
+									type="text" class="form-control" name="empAcc" id="empAcc"
+									required readonly />
+								<div class="valid-feedback">Looks good!</div>
+								<div class="invalid-feedback">should be 6~12 numbers</div>
+							</div>
+							<div class="col">
+								<label for="empName" class="form-label">Name</label> <input
+									type="text" class="form-control" id="empName" name="empName"
+									required />
+								<div class="valid-feedback">Beautiful!</div>
+								<div class="invalid-feedback">english only!</div>
+							</div>
+						</div>
+
+
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="empBday" class="form-label">Birthday</label> <input
+									type="text" class="form-control" name="empBday" id="empBday"
+									required />
+								<div class="invalid-feedback">Choose your Happy Bday!</div>
+							</div>
+
+						</div>
+
+						<div class="mb-3 row address" id="twzipcode">
+							<div class="col">
+								<input type="text" class="form-control" name="empAddress"
+									id="empAddress" placeholder="addr." />
+							</div>
+						</div>
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="empAuth" class="form-label">Authority</label> <select
+									id="empAuth" class="form-select form-select-sm" name="empAuth"
+									required>
+									<option selected disabled value="">Choose...</option>
+									<option value="1">employee</option>
+									<option value="2">highest</option>
+								</select>
+								<div class="invalid-feedback">Choose one!</div>
+							</div>
+
+							<div class="col">
+								<label for="empDept" class="form-label">Department</label> <select
+									id="empDeptNum" class="form-select form-select-sm"
+									name="empDeptNum" required>
+									<option selected disabled value="">Choose...</option>
+									<option value="7001">活動部</option>
+									<option value="7002">公關部</option>
+									<option value="7003">論壇管理</option>
+									<option value="7004">銷售部</option>
+									<option value="7000">資訊部</option>
+								</select>
+								<div class="invalid-feedback">Choose one!</div>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button id="updateBasicInfo" type="button" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+        
 		
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 </div>
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 	<script>
 
 		$(function(){
@@ -184,6 +290,34 @@
 				}
 			
 			})
+		});
+		  $("#joinoa").on("click", function () {
+			  
+			  $.ajax({
+				  type : "post",
+				  url: "memquery",   
+			      dataType: "json",   
+			      cache: false,   
+			      data: {"email":email}, 
+			      success : function(data) 
+			        {
+			    	  $('#empEmail').prop("value",data.empEmail);
+			    	  $('#empAcc').prop("value",data.empAccount);
+			    	  $('#empName').prop("value",data.empName);
+			    	  $('#empBday').prop("value",data.empBday);
+			    	  $('#empAddress').prop("value",data.empAddress);
+			    	  $("#twzipcode").twzipcode("set", {
+			              county: data.empCounty,
+			              district: data.empDistrict,
+			            });
+			    	  $("#empAuth").prop("value",data.empAuthority);
+			          $("#empDeptNum").prop("value",data.deptNum);
+			    	  
+			        },error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
 		});
 	
 	
