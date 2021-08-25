@@ -44,28 +44,34 @@ public class MemberController {
 	private Users users;
 	@Autowired
 	private JavaMailSender sender;
+	
+	
 		
-	//@Secured({"ROLE_USER"})
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/member" ,method = RequestMethod.GET )
 	public String memberEntry() {
 		return "memberpages/member" ;
 	}
-	//@Secured({"ROLE_USER"})
+	
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberprofile" ,method = RequestMethod.GET )
 	public String memberProfile() {
 		return "memberpages/memberprofile" ;
 	}
 
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipeloading" ,method = RequestMethod.GET )
 	public String memberSwipeLoadingEntry() {
 		return "memberpages/memberswipeloading" ;
 	}
-		
+	
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipe" ,method = RequestMethod.GET )
 	public String memberSwipeEntry() {
 		return "memberpages/memberswipe" ;
 	}
 	
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberfriends" ,method = RequestMethod.GET )
 	public String memberFriendsEntry() {
 		return "memberpages/memberfriends" ;

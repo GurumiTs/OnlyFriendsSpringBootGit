@@ -25,6 +25,8 @@ public class Chat implements Serializable{
 	private String receiver;
 	@Column(name = "content")
 	private String content;
+	@Column(name = "texttime")
+	private String texttime;
 	
 	public Integer getId() {
 		return id;
@@ -49,6 +51,12 @@ public class Chat implements Serializable{
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getTexttime() {
+		return texttime;
+	}
+	public void setTexttime(String texttime) {
+		this.texttime = texttime;
 	}
 	
 	

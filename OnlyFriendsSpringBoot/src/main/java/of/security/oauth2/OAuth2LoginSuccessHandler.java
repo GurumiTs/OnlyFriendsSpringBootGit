@@ -37,41 +37,40 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
-		String name = authentication.getName();
-		String info = authentication.getPrincipal().toString();
-		//OAuth2UserAuthority oauth2UserAuthority = (OAuth2UserAuthority)authentication.getAuthorities();
-		//System.out.println(oauth2UserAuthority);
-		System.out.println(info);
-		if(usersService.checkEmail(name)  == false) {
+		
+		CustomOAuth2User oauth2UserAuthority = (CustomOAuth2User)authentication.getPrincipal();
+		String email = oauth2UserAuthority.getEmail();
+		String name =oauth2UserAuthority.getGivenName();
+		String id = oauth2UserAuthority.getSub();
+		//all info
+		//System.out.println(oauth2UserAuthority.getAttributes());
+	
+
+		if(usersService.checkEmail(id)  == false) {
 			System.out.println("該用戶不存在");
-			users.setUsersEmail(name);
-			users.setUsersRole("member");		
-			usersService.insert(users);
 			
-			member.setMemberName("Users");
-			member.setMemberAccount(name);
+			users.setUsersEmail(id);
+			users.setUsersRole("member");		
+			usersService.insert(users);			
+			
+			member.setMemberAccount(id);
+			member.setMemberEmail(email);
+			member.setMemberName(name);
 			member.setSwipeTime("3");
 			member.setSwipeDate("0");
 			member.setMemberPic("images/smallicon/nonephoto2.svg");
 			memberService.insert(member);	
 			request.getSession().setAttribute("member", "member");
-			Member member = memberService.findByMemberAccount(name);
+			Member member = memberService.findByMemberAccount(id);
 			request.getSession().setAttribute("personalinfo",member);
-			
-			
-			
-			
+				
 		}
 		else {
 			request.getSession().setAttribute("member", "member");
-			Member member = memberService.findByMemberAccount(name);
+			Member member = memberService.findByMemberAccount(id);
 			request.getSession().setAttribute("personalinfo",member);
 			System.out.println("該用戶已存在");	
-			
-			
 		}
-		
-		
 				
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
