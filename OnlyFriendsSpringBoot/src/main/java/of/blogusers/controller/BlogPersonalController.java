@@ -47,13 +47,13 @@ public class BlogPersonalController {
 		return map;
 	}
 	
-	// 進Update Controller(未設前端)
+	// 進Update Controller
 	@GetMapping(path = "/blogusersupdate")
 	public String updateEntry(@RequestParam(name = "usersArticleID") Integer usersArticleID, Model m) {
-		System.out.println("Find articleID:" + usersArticleID + ",to Updatepages");
+		System.out.println("Find articleID:" + usersArticleID + ", to Updatepages!!");
 		blogUser = bUserService.findByArticleID(usersArticleID);
-		m.addAttribute("blogUsers", blogUser);
-		return "";
+		m.addAttribute("blogUser", blogUser);
+		return "bloguserspages/bloguserupdate";
 	}
 	
 	// Update 
@@ -115,14 +115,15 @@ public class BlogPersonalController {
 	}
 	
 	// Delete(多選刪除)
-	public String deleteBatch(@PathVariable("usersArticleID") String usersArticleID) {
-		String[] articleIDList = usersArticleID.split(",");
-		List<Integer> ListString = new ArrayList<Integer>();
-		for (String str : articleIDList) {
-			ListString.add(Integer.parseInt(str));
-		}
-		bUserService.deleteBatch(ListString);
-		return "yes";
-	}
+//	@PostMapping(path = "/usersblogdeletesome")
+//	public String deleteBatch(@PathVariable("usersArticleID") String usersArticleID) {
+//		String[] articleIDList = usersArticleID.split(",");
+//		List<Integer> ListString = new ArrayList<Integer>();
+//		for (String str : articleIDList) {
+//			ListString.add(Integer.parseInt(str));
+//		}
+//		bUserService.deleteBatch(ListString);
+//		return "yes";
+//	}
 	
 }
