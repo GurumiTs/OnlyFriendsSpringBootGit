@@ -38,4 +38,8 @@ public class UserActivityService {
 	public void deleteById(int number) {
 		userActivityRepositor.deleteById(number);
 	}
+	
+	public List<UserActivity> findByAccount(String account){
+		return userActivityRepositor.findByMemberAccount(account);
+	}
 }

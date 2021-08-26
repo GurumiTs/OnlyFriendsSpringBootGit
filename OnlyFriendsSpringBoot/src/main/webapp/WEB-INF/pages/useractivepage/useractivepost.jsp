@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+body {
+	font-size: 1.2rem
+}
 #Grid:hover {
 	transform: scale(1.05);
 }
@@ -15,47 +18,17 @@
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
+			<%@include file="../frontcommonpages/shopsider.jsp"%>
 
-
-			<!-- Page content-->
-			<div class="container mt-5">
-
-				<br /> <br />
-				<!-- 輪播 -->
-				<div id="carouselExampleFade" class="carousel slide carousel-fade"
-					data-bs-ride="carousel">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="images\partyPic\優質單身男女.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 400px;">
-						</div>
-						<div class="carousel-item">
-							<img src="images\partyPic\五分鐘.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 400px;">
-						</div>
-						<div class="carousel-item">
-							<img src="images\partyPic\打到骨折.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 400px;">
-						</div>
+			<!-- Main Content -->
+			<div class="main-content">
+				<section class="section">
+					<div class="section-header">
+						<h1>創辦活動</h1>
+						<a href="activityadd.controller"
+							style="position: absolute; right:100px;"> <img
+							src="images/smallicon/add.svg" alt=""></a>
 					</div>
-					<button class="carousel-control-prev" type="button"
-						data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button"
-						data-bs-target="#carouselExampleFade" data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
-				</div>
-				<!-- 輪播 style="width: 900px; height: 400px;" images\partyPic\party2.jpg-->
-				<br />
-				<div class="col-md-4 col-xs-12">
-												
-				
-				</div>
-					<!-- area star -->
 					<div class="col-lg-12">
 						<!-- Nested row for non-featured blog posts-->
 						<div class="row" id="area">
@@ -63,14 +36,22 @@
 							
 						</div>
 					</div>
-				<!-- area End -->
+					<div class="section-header">
+						<h1>參加活動</h1>
+					</div>
+					<div class="section-body">
+
+						<!-- show profile-->
+					</div>
 			</div>
-			<%@include file="../frontcommonpages/shopfooter.jsp"%>
+			</section>
 		</div>
+		<!-- main content -->
+		<%@include file="../frontcommonpages/shopfooter.jsp"%>
+	</div>
 	</div>
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
-
 	<script>
 	$(function(){
 		load()
@@ -78,7 +59,7 @@
 		function load() {
 			$.ajax({
 				type : 'post',
-				url : 'useractivityjson',
+				url : 'userpost',
 				dataType : 'JSON',
 				contentType : 'application/json',
 				success : function(data) {
@@ -89,9 +70,9 @@
 			    	     $('#area').empty("");
 			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 			    	     var item = 
-			    	    	 "<div class='col-lg-4' id='Grid'>"+
+			    	    	 "<div class='col-lg-4' id='Grid' style='background-color:white;'>"+
 			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' width='700px' height='350px' alt='...' />"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
 			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+
@@ -117,5 +98,8 @@
 			});
 		}
 	</script>
+
+
+
 </body>
 </html>

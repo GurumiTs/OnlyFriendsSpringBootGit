@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,8 +25,8 @@ public class UserActivity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int number;
 
-//	@OneToOne
-	@JoinColumn(name = "memberAccount")
+//	@ManyToMany
+	@JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")
 	private String memberAccount;
 
 	@Column(name = "approve")

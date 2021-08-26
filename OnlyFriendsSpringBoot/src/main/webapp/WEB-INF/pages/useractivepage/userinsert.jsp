@@ -3,10 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
-
-#output {
-	width: 600px;
-	height: 450px;
+body {
+	
 }
 </style>
 </head>
@@ -17,26 +15,18 @@
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
+			<%@include file="../frontcommonpages/shopsider.jsp"%>
 
 
-			<!-- Page content-->
-			<div class="container mt-5">
-
-				<br /> <br />
-				
-			
-				<div class="row">
-					<!-- Blog entries-->
-					<div class="col-lg-12">
-						<!-- Nested row for non-featured blog posts-->
-
-						<form action="userInsertActivity.controller" method="post"
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="col-12 col-md-12 col-lg-5" style="background-color:White;border-radius:10px;">
+					<form action="userInsertActivity.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">
-								<img id="output"
-									src="images\partyPic\party1.jpg"
-									alt=""><br>
+								<img id="output" src="images\partyPic\party1.jpg" alt=""
+									style="width: 600px; height: 450px;border-radius:10px;"><br>
 
 							</div>
 							<div>
@@ -92,9 +82,9 @@
 								<label>參加條件</label> <input type="text" name="condition">
 								<br> <label for="">男生人數:</label> <input type="number"
 									name="man" id="numberInput" min="0" max="12" step="1"
-									onchange="numberChange()"> <label for="">
-									女生人數:</label> <input type="number" name="woman" id="numberInput"
-									min="0" max="12" step="1" onchange="numberChange()">
+									onchange="numberChange()"> <label for=""> 女生人數:</label>
+								<input type="number" name="woman" id="numberInput" min="0"
+									max="12" step="1" onchange="numberChange()">
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary btn-sm">創建活動</button>
@@ -102,48 +92,48 @@
 							</div>
 						</div>
 					</form>
-					</div>
 				</div>
 			</div>
+			<!-- main content -->
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
 	</div>
 
-	<%@include file="../frontcommonpages/shopbottom.jsp"%>
-
-	<script>
-		// 照片顯示
-		var lovdFile = function(event) {
-			var output = document.getElementById('output');
-			output.src = URL.createObjectURL(event.target.files[0]);
-			output.onload = function() {
-				URL.revokeObjectURL(output.src)
+		<%@include file="../frontcommonpages/shopbottom.jsp"%>
+		<script>
+			// 照片顯示
+			var lovdFile = function(event) {
+				var output = document.getElementById('output');
+				output.src = URL.createObjectURL(event.target.files[0]);
+				output.onload = function() {
+					URL.revokeObjectURL(output.src)
+				}
 			}
-		}
-		// 照片欄位判定
-		document.getElementById("cover").addEventListener("blur", checkcover);
+			// 照片欄位判定
+			document.getElementById("cover").addEventListener("blur",
+					checkcover);
 
-		function checkcover() {
-			let cover = document.getElementById("cover");
-			let coverVal = cover.value;
-			let sp_cover = document.getElementById("sp_cover");
-			let coverCheck = /\.jpg$/;
-			if (coverVal == "")
-				sp_cover.innerHTML = "請上傳照片";
-			else if (coverCheck.test(coverVal) == false)
-				sp_cover.innerHTML = "僅支援 .jpg 檔案"
-			else
-				sp_cover.innerHTML = "成功"
-		}
-		// 縣市
-		$("#twzipcode").twzipcode({
-			zipcodeIntoDistrict : true,
-		});
+			function checkcover() {
+				let cover = document.getElementById("cover");
+				let coverVal = cover.value;
+				let sp_cover = document.getElementById("sp_cover");
+				let coverCheck = /\.jpg$/;
+				if (coverVal == "")
+					sp_cover.innerHTML = "請上傳照片";
+				else if (coverCheck.test(coverVal) == false)
+					sp_cover.innerHTML = "僅支援 .jpg 檔案"
+				else
+					sp_cover.innerHTML = "成功"
+			}
+			// 縣市
+			$("#twzipcode").twzipcode({
+				zipcodeIntoDistrict : true,
+			});
 
-		$("#twzipcode").twzipcode("set", {
-			county : "${userActivity.county}",
-			district : "${userActivity.district}",
-		});
-	</script>
+			$("#twzipcode").twzipcode("set", {
+				county : "${userActivity.county}",
+				district : "${userActivity.district}",
+			});
+		</script>
 </body>
 </html>
