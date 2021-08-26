@@ -1,15 +1,23 @@
 package of.shop.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.security.core.authority.mapping.MapBasedAttributes2GrantedAuthoritiesMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +26,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.nimbusds.jose.shaded.json.JSONObject;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+
 
 import of.member.model.MemberService;
 import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
+import of.shop.model.CartResponse;
 
 
 @Controller
@@ -43,7 +53,6 @@ public class ShoppingCartController {
 	@GetMapping(path = "/cart")
 	@ResponseBody
 	public List<CartItem> InsertItemToCart(@RequestParam (name = "amount")Integer amount,Model model,HttpSession session,HttpServletRequest request ) {
-		
 		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
 //		if( sessionlist.size() == 0) {
 			List<CartItem> cartlist = new ArrayList<CartItem>();
@@ -54,6 +63,27 @@ public class ShoppingCartController {
 			cartItem.setProduct(product);
 			cartItem.setAmount(amount);
 			cartlist.add(cartItem);
+			
+//			try {
+//				String urlString = "http://localhost:8080/OnlyFriends/cart?amount=1";
+//				URL connUrl  = new URL(urlString);
+//				System.out.println("AA");
+//				HttpURLConnection conn = (HttpURLConnection) connUrl.openConnection();
+//				System.out.println("BB");
+//				BufferedReader br  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//				StringBuilder sb = new StringBuilder();
+//				String lineString;
+//				System.out.println("開始做是");
+//				while( (lineString = br.readLine())!= null) {
+//					sb.append(lineString);
+//					System.out.println("進來嗎?");
+//				}
+//				br.close();
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//			}
+			
+			
 //			model.addAttribute("cartListMap", list);
 //			
 //			return list;
