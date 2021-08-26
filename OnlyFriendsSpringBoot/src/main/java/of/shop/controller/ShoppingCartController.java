@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.nimbusds.jose.shaded.json.JSONObject;
+
 import of.member.model.MemberService;
 import of.product.model.Product;
 import of.product.model.ProductService;
@@ -25,7 +27,7 @@ import of.shop.model.CartItem;
 
 
 @Controller
-@SessionAttributes(names = {"cartListMap"})
+@SessionAttributes(names = {"cartlist"})
 public class ShoppingCartController {
 	
 	
@@ -44,20 +46,22 @@ public class ShoppingCartController {
 		
 		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
 //		if( sessionlist.size() == 0) {
-			List<CartItem> list = new ArrayList<CartItem>();
+			List<CartItem> cartlist = new ArrayList<CartItem>();
 //			//add item
 //			Product product=productService.findById(proId);
 			CartItem cartItem=new CartItem();
 //			
 			cartItem.setProduct(product);
 			cartItem.setAmount(amount);
-			list.add(cartItem);
+			cartlist.add(cartItem);
 //			model.addAttribute("cartListMap", list);
 //			
 //			return list;
 //		}
 		
 		
+			
+			
 //		Product p1 = productService.findById(1);
 //		CartItem c = new CartItem();
 //		c.setProduct(p1);
@@ -72,9 +76,9 @@ public class ShoppingCartController {
 //		list.add(c2);
 //		list.add(c);
 
-		model.addAttribute("cartListMap", list);
+		model.addAttribute("cartlist", cartlist);
 		
-		return list;
+		return cartlist;
 	}
 
 //	@GetMapping(path = "/shoppingListtojson")

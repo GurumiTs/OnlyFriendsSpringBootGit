@@ -34,10 +34,12 @@
 								<div class="d-flex">
 									<input class="form-control text-center me-3" id="inputQuantity"
 										type="num" value="1" style="max-width: 3rem" />
-									<button class="btn btn-outline-dark flex-shrink-0"
-										type="button" id="addchart">
+									<a href='cart?Id=${proId }' class="btn btn-outline-dark flex-shrink-0"
+										type="button" id="addchart" data-bs-toggle="modal" 
+										data-bs-target="#staticBackdrop" >
 										<i class="bi-cart-fill me-1"></i> Add to cart
-									</button>
+									</a>
+									
 								</div>
 							</div>
 						</div>
@@ -192,15 +194,15 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+					<h5 class="modal-title" id="staticBackdropLabel">Shopping Item</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body">...</div>
+				<div class="modal-body">您購買的商品為:<span id="proId" value="${cartlist}"></span></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Understood</button>
+					<button type="button" class="btn btn-primary">Send</button>
 				</div>
 			</div>
 		</div>
@@ -249,16 +251,24 @@
 // 	   indexPage = page;
 // 	   load(indexPage);
 // 	}
-// 	$("#shopchartbox").on("click", "#addchart", function () {
-// 		  let proId = $(this).attr("proId");
-// 		  $.ajax({
-// 			  type : "post",
-// 			  url: "shoppage.controller/"+indexPage,   
-// 		      dataType: "json",   
-// 		      cache: false,   
-// 		      data: {"proId":proId}, 
-// 		      success : function(data) 
-// 		        {
+	$("#staticBackdrop").on("click", "#addchart", function () {
+		  product.proId=$("#proId").val();
+		  $.ajax({
+			  type : "post",
+			  url: "cart",   
+		      dataType: "json",   
+		      cache: false,   
+		      data: JSON.stringify(product), 
+		      success : function(product) 
+		        {
+		    	  if(data){
+		    		  $.each(data,function(i,item){
+		    			  let inner=
+		    				  {
+		    					  pro
+		    				  }
+		    		  })
+		    	  }
 // 		    	  	 var json = JSON.stringify(data, null, 4);
 // 		    	     var parsedObjinArray = JSON.parse(json);
 // 		    	     var shopitem = $('#shopitem');
@@ -278,31 +288,31 @@
 // 			    	    	 table.append(tr);
 // 		    	 }); 
 // 		        }
-// 		        },
-// 		        error: function(data) 
-// 		        {
-// 		           console.log('無法送出');
-// 		        }
-		  		  
-// 	});
-// 	})
-   $("#staticBackdrop").on("click", "#addchart", function () {
-		  let proId = $(this).attr("proId");
-		  let dtr = $(this).closest("tr");
-		  $.ajax({
-              type: "GET",
-              url: "cart",
-              success: function(response) {  
-              	dtr.remove();
-                   Swal.fire(
-                    'Add to Cart!',
-                    'Please check your shopcart.',
-                    'success'
-                  ) } , 
-                 
+		        },
+		        error: function(data) 
+		        {
+		           console.log('無法送出');
+		        }
 		  		  
 	});
 	})
+//    $("#staticBackdrop").on("click", "#addchart", function () {
+// 		  let proId = $(this).attr("proId");
+// 		  let dtr = $(this).closest("tr");
+// 		  $.ajax({
+//               type: "GET",
+//               url: "cart",
+//               success: function(response) {  
+//               	dtr.remove();
+//                    Swal.fire(
+//                     'Add to Cart!',
+//                     'Please check your shopcart.',
+//                     'success'
+//                   ) } , 
+                 
+		  		  
+// 	});
+// 	})
 	</script>
 </body>
 </html>
