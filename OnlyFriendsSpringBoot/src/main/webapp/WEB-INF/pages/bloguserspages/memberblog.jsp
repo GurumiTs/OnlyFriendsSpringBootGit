@@ -42,7 +42,7 @@ font-size:1.2rem
 height:50px;
 }
 
-.icon1 a img:hover {
+.icon1 img:hover {
 	width: 50px;
 	height: 50px;
 	display: block;
@@ -68,8 +68,9 @@ height:50px;
             <div class="section-body">
               <div class="card">
               <div class="card-header icon1">
-             	<a href="blogusersinsert"><img src="images/smallicon/BlogmgmtInsert.png" width="45px" height="45px"></a>
-				<a href="#!"><img src="images/smallicon/BlogusersDelete.png" width="45px" height="45px"></a>
+             	<div style=""><a href="blogusersinsert"><img src="images/smallicon/BlogmgmtInsert.png" width="45px" height="45px"></a></div>
+<!--              	<input type="submit" class="btn btn-danger" id="deletesome" value="刪除選中">   -->
+<!-- 				<span><img src="images/smallicon/BlogusersDelete.png" width="45px" height="45px" id="deleteSome"></span> -->
               </div>
                   <!-- table -->
              		 <div class="card shadow mb-4">
@@ -134,7 +135,15 @@ height:50px;
 	    	"url": "userblogalltojson",
 	    },
 	    columns: [
-	        { "data": "usersArticleID" },
+// 	        { "data": "usersArticleID" },
+	        { 
+	        	"data": null,
+	            render:function(data, type, row)
+	            {
+	              return "<input class='form-check-input' type='checkbox id='flexCheckDefault' value='"+data.usersArticleID+"'>"
+	              "<label class='form-check-label' for='flexCheckDefault'> Default checkbox </label>";
+	            }
+	        },
 	        { 
 	        	"data": null,
 	            render:function(data, type, row)
@@ -160,7 +169,7 @@ height:50px;
 	            "data": null,
 	            render:function(data, type, row)
 	            {
-	              return "<a href='blogusersupdate?articleID="+data.usersArticleID+"'><i class='fas fa-edit edit'></i>";
+	              return "<a href='blogusersupdate?usersArticleID="+data.usersArticleID+"'><i class='fas fa-edit edit'></i>";
 	            }
 	        },
 	        {
@@ -175,7 +184,7 @@ height:50px;
 	    	{
 	    		targets: [0],
 	    		createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "50px");
+	    			$(td).css("width", "120px");
 	    		},
 	    	},
 	    	{
@@ -205,44 +214,63 @@ height:50px;
 	    	},
 	    ]
 	});
-    
-    
-	 // Delete
-		$("#example tbody").on("click", ".delete", function () {
-			let articleID = $(this).attr("id");
-			console.log($(this).closest("tr"));
-			let dtr = $(this).closest("tr");
-			  Swal.fire({
-	                title: 'Are you sure?',
-	                text: "You won't be able to revert this!",
-	                icon: 'warning',
-	                showCancelButton: true,
-	                confirmButtonColor: '#3085d6',
-	                cancelButtonColor: '#d33',
-	                confirmButtonText: 'Yes, delete it!'
-	              }).then((result) => {
-	                if (result.isConfirmed) {
-	                  $.ajax({
-	                        type: "POST",
-	                        url: "usersblogdelete/"+articleID,
-	                        success: function(response) {  
-	                        	dtr.remove();
-	                             Swal.fire(
-	                              'Deleted!',
-	                              'Your file has been deleted.',
-	                              'success'
-	                            ) } ,
-	                            error: function (xhr) {
-	                            Swal.fire({
-	                              icon: 'error',
-	                              title: 'Oops...',
-	                              text: 'Something went wrong!'
-	                            }) },  //error close
-	                     }); //ajax close          
-	                } //if close 
+
+	// Delete
+	$("#example tbody").on("click", ".delete", function () {
+		let articleID = $(this).attr("id");
+		console.log($(this).closest("tr"));
+		let dtr = $(this).closest("tr");
+		  Swal.fire({
+			  title: 'Are you sure?',
+	          text: "You won't be able to revert this!",
+	          icon: 'warning',
+	          showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+ 	          cancelButtonColor: '#d33',
+	          confirmButtonText: 'Yes, delete it!'
+	      }).then((result) => {
+	          if (result.isConfirmed) {
+	             $.ajax({
+	                  type: "POST",
+	                  url: "usersblogdelete/"+articleID,
+	                  success: function(response) {  
+						dtr.remove();
+	                    Swal.fire(
+	                       'Deleted!',
+	                       'Your file has been deleted.',
+	                       'success'
+	                    ) } ,
+	                  error: function (xhr) {
+	                       Swal.fire({
+	                          icon: 'error',
+	                          title: 'Oops...',
+	                          text: 'Something went wrong!'
+ 	                       }) },  //error close
+	                  }); //ajax close          
+	          } //if close 
+	     }); //then close 
+	});
 	
-	           }); //then close 
-		});
+//     // Delete多選
+// 	$(function(){
+//     	$(#deleteSome).click(function(){
+//     		$.ajax({
+//     			type: "POST",
+//     			url: "usersblogdeletesome",
+//     			dataType: "Json",
+//     			data: "delete="+$(this).next().val(),
+//     			success: function(data){
+//     				if(data.status == 1){
+//     					$(me).parent().parent().remove();
+//     				}else{
+// 						alert('系統故障');
+// 					}
+//     			}
+//     		});
+    		
+//     	});
+//     });    
+    
     </script>
   </body>
 </html>       
