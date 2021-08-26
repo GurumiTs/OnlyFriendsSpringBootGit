@@ -162,7 +162,7 @@ public class ShopController {
 		
 		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
 		Page<Product> page=productService.findByItem(pageable,"其他");
-		
+		System.out.println(otherItem);
 		int totalPages =page.getTotalPages();
 		long totalElements =page.getTotalElements();
 		

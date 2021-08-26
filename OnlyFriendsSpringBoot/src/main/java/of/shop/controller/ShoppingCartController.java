@@ -22,6 +22,7 @@ import org.springframework.security.core.authority.mapping.MapBasedAttributes2Gr
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -50,14 +51,16 @@ public class ShoppingCartController {
 	@Autowired
 	private Product product;
 	
-	@GetMapping(path = "/cart")
+	@GetMapping(path = "/cart/{proId}")
 	@ResponseBody
-	public List<CartItem> InsertItemToCart(@RequestParam (name = "amount")Integer amount,Model model,HttpSession session,HttpServletRequest request ) {
+	public List<CartItem> InsertItemToCart(@PathVariable(name = "proId")Integer proId,@RequestParam (name = "amount")Integer amount,Model model,HttpSession session,HttpServletRequest request ) {
+		
 		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
-//		if( sessionlist.size() == 0) {
+		
+		//		if( sessionlist.size() == 0) {
 			List<CartItem> cartlist = new ArrayList<CartItem>();
 //			//add item
-//			Product product=productService.findById(proId);
+			Product product=productService.findById(proId);
 			CartItem cartItem=new CartItem();
 //			
 			cartItem.setProduct(product);

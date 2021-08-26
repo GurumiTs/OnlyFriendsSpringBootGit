@@ -113,9 +113,9 @@ a.slide-arrow {
 								<button class="btn" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
-								<span class="badge badge-primary mb-2" id="luckyItem" name="luckyItem" value="幸運小物">幸運小物</span> 
-								<span class="badge badge-secondary mb-2" id="candleItem" name="candleItem" value="candleItem">香氛類</span> 
-								<span class="badge badge-success mb-2" id="otherItem" name="otherItem" value="otherItem">其他</span> 
+								<button class="badge badge-primary mb-2" id="luckyItem" name="luckyItem" value="幸運小物">幸運小物</button> 
+								<button class="badge badge-secondary mb-2" id="candleItem" name="candleItem" value="香氛類">香氛類</button> 
+								<button class="badge badge-success mb-2" id="otherItem" name="otherItem" value="其他">其他</button> 
 								
 							</div>
 						</div>
@@ -261,6 +261,121 @@ a.slide-arrow {
      		   
      		 console.log(data);
      	     var json = JSON.stringify(data, null, 3);
+     	     var parsedObjinArray = JSON.parse(json);
+     	     var itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	     var item = 		
+     	    	"<div class='col mb-5'>"+
+                "<div class='card h-100'>"+          
+                "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
+                  +  "Sale"+
+                 "</div>" +    
+                  "<a href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
+                  "<div class='card-body p-4'>" +
+                    "<div class='text-center'>" +
+                      "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
+                      "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                     "</div>"+
+                      "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
+                      "$"+Math.round(n.proPrice*0.9)+
+                   " </div>"+
+                  "</div>"+
+                
+                  
+                "</div>"+
+            "</div>" ;
+     	 		
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
+     	}
+     	});
+     	})
+ 	})
+ 	//candleItem
+ 	$(function () {
+
+  		$('#candleItem').click(function () {
+  		
+  		var candleItem=$('#candleItem').val();
+ 		
+    	$.ajax({
+     	   type:'POST',
+     	   url:'queryallcandleItem/' + indexPage,
+     	   data:{"candleItem":candleItem},
+     	   dataType:'JSON',
+     	   success: function(data) {
+     		   
+     		   
+     		 console.log(data);
+     	     var json = JSON.stringify(data, null, 4);
+     	     var parsedObjinArray = JSON.parse(json);
+     	     var itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	     var item = 		
+     	    	"<div class='col mb-5'>"+
+                "<div class='card h-100'>"+          
+                "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
+                  +  "Sale"+
+                 "</div>" +    
+                  "<a href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
+                  "<div class='card-body p-4'>" +
+                    "<div class='text-center'>" +
+                      "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
+                      "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                        "<div class='bi-star-fill'></div>"+
+                     "</div>"+
+                      "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
+                      "$"+Math.round(n.proPrice*0.9)+
+                   " </div>"+
+                  "</div>"+
+                
+                  
+                "</div>"+
+            "</div>" ;
+     	 		
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
+     	}
+     	});
+     	})
+ 	})
+  
+ 	//otherItem
+ 	$(function () {
+
+  		$('#otherItem').click(function () {
+  		
+  		var candleItem=$('#otherItem').val();
+ 		
+    	$.ajax({
+     	   type:'POST',
+     	   url:'queryallotherItem/' + indexPage,
+     	   data:{"otherItem":otherItem},
+     	   dataType:'JSON',
+     	   success: function(data) {
+     		   
+     		   
+     		 console.log(data);
+     	     var json = JSON.stringify(data, null, 4);
      	     var parsedObjinArray = JSON.parse(json);
      	     var itemarea = $('#itemarea');
      	     $('#itemarea').empty("");
