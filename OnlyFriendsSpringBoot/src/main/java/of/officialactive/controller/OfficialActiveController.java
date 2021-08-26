@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.member.model.Member;
+import of.member.model.MemberRepository;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
@@ -219,6 +222,28 @@ public class OfficialActiveController {
 			return "officialactivepages/oaforuser";
 		}
 		
+//		
+//		@RequestMapping(path = "/userpost",method = RequestMethod.POST)
+//		 @ResponseBody
+//		 public List<UserActivity> useractivity(Model model, HttpServletRequest request) {
+//
+//		  Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//		  String memberAccount = m1.getMemberAccount();
+//
+//		  List<UserActivity> useractivityList = userActivityService.findByAccount(memberAccount);
+//
+//		  model.addAttribute("useractivityList", useractivityList);
+//
+//		  return useractivityList;
+		 }
+					
+		
+
+//		 }
+			
+		
+			  
+			 
 		
 		
-}
+

@@ -8,5 +8,6 @@ public interface OfficialActiveRepository extends JpaRepository<OfficialActive,L
 		   
 	public Optional<OfficialActive> findByAnum(Long anum);
 	
+	
 		}
 
