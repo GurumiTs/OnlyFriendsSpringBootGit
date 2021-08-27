@@ -98,6 +98,7 @@
 
 			<div class="main-sidebar">
 				<aside id="sidebar-wrapper">
+				<%@include file="../frontcommonpages/shopsider.jsp"%>
 					<!-- <div class="card">
 						<div class="card-header">
 							<h4>Search by</h4>
