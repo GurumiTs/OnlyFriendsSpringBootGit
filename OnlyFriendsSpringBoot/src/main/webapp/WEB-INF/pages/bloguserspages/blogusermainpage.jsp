@@ -69,7 +69,7 @@ height: 350px;
 									<div class="col-sm-6">
 										<ul class="list-unstyled mb-0">
 											<li><a href="blogofficial">幸福故事</a></li>
-											<li><a href="#!">管理文章</a></li>
+											<li><a href="memberblog">管理文章</a></li>
 											<li><a href="blogusersinsert">我要分享</a></li>
 										</ul>
 									</div>

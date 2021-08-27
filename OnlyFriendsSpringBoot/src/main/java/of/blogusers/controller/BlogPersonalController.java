@@ -61,13 +61,14 @@ public class BlogPersonalController {
 	public String blogUsersUpdate(@RequestParam(name = "usersArticleID") Integer usersArticleID,
 								  @RequestParam(name = "usersImages") MultipartFile multipartFile,
 								  @RequestParam(name = "memberAccount") String memberAccount, 
-								  @RequestParam(name = "userName") String userName,
+								  @RequestParam(name = "usersName") String usersName,
 								  @RequestParam(name = "usersTitle") String usersTitle, 
 								  @RequestParam(name = "usersMainText") String usersMainText,
 								  @RequestParam(name = "usersCreateTime") Timestamp usersCreateTime,
 								  Model m) {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		System.out.println("UpdateTime:" + ts);
+		BlogUser blog = new BlogUser();
 		
 		try {
 			System.out.println("blogUpdate.controller ID:" + usersArticleID);
@@ -81,19 +82,19 @@ public class BlogPersonalController {
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
-			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
-			blogUser.setUsersCreateTime(usersCreateTime);
-			blogUser.setUsersArticleID(usersArticleID);
-			blogUser.setMemberAccount(memberAccount);
-			blogUser.setUsersName(userName);
-			blogUser.setUsersTitle(usersTitle);
-			blogUser.setUsersMainText(usersMainText);
-			blogUser.setUsersUpdateTime(ts);
+			blog.setUsersImages("images/blogUsersPic/" + fileName);
+			blog.setUsersCreateTime(usersCreateTime);
+			blog.setUsersArticleID(usersArticleID);
+			blog.setMemberAccount(memberAccount);
+			blog.setUsersName(usersName);
+			blog.setUsersTitle(usersTitle);
+			blog.setUsersMainText(usersMainText);
+			blog.setUsersUpdateTime(ts);
 
-			bUserService.updateBlogUser(blogUser);
+			bUserService.updateBlogUser(blog);
 
 			m.addAttribute("success", "更新資料成功!");
-			return "redirect:blogusers";
+			return "redirect:memberblog";
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("errors", "Something is wrong!");
