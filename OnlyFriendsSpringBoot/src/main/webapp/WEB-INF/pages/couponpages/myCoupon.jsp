@@ -94,6 +94,7 @@
 		<div class="main-wrapper">
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
+			
 
 			<div class="main-sidebar">
 				<aside id="sidebar-wrapper">
