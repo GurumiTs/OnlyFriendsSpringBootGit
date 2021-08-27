@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,8 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import of.member.model.Member;
-import of.member.model.MemberRepository;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
@@ -215,20 +212,18 @@ public class OfficialActiveController {
 		}
 		
 		
-		//oaforuserpages home
+//		//oaforuserpages home
+//		
+//		@GetMapping ("/oaforuserpages.controller")
+//		public String oaforuserEntry() {
+//			return "officialactivepages/oaforuser";
+//		}
+//		
 		
-		@GetMapping ("/oaforuserpages.controller")
-		public String oaforuserEntry() {
-			return "officialactivepages/oaforuser";
+	
+			
 		}
 		
-		
-	//	@RequestMapping(path = "/oamember" , method= RequestMethod.POST)
-		//@ResponseBody
-		//public List<OaMember> OaMember(){	
-		// Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-		// String memberAccount = m1.getMemberAccount();
-		}
 //		
 //		@RequestMapping(path = "/userpost",method = RequestMethod.POST)
 //		 @ResponseBody
