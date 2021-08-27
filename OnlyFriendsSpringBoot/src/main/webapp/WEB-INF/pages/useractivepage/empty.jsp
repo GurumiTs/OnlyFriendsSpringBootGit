@@ -14,12 +14,6 @@
 
         <!-- Main Content -->
         <div class="main-content">
-          <section class="section">
-            <div class="section-header">
-              <h1>Account</h1>
-            </div>
-<!-- Main Content -->
-			<div class="main-content">
 				<div class="col-12 col-md-12 col-lg-5" style="background-color:White;border-radius:10px;">
 					<form action="userInsertActivity.controller" method="post"
 						enctype="multipart/form-data">
@@ -81,10 +75,10 @@
 							<div>
 								<label>參加條件</label> <input type="text" name="condition">
 								<br> <label for="">男生人數:</label> <input type="number"
-									name="man" id="numberInput" min="0" max="12" step="1"
+									name="man" id="numberInput" min="0" max="20" step="1"
 									onchange="numberChange()"> <label for=""> 女生人數:</label>
 								<input type="number" name="woman" id="numberInput" min="0"
-									max="12" step="1" onchange="numberChange()">
+									max="20" step="1" onchange="numberChange()">
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary btn-sm">創建活動</button>
@@ -94,11 +88,7 @@
 					</form>
 				</div>
 			</div>
-			<!-- main content -->
-            
-              
-          </section>
-        </div>
+
         <footer class="main-footer">
           <div class="footer-left">
             Copyright &copy; 2018
@@ -113,8 +103,40 @@
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
     
     
-    <script >  
-   
+    <script>  
+ // 照片顯示
+	var lovdFile = function(event) {
+		var output = document.getElementById('output');
+		output.src = URL.createObjectURL(event.target.files[0]);
+		output.onload = function() {
+			URL.revokeObjectURL(output.src)
+		}
+	}
+	// 照片欄位判定
+	document.getElementById("cover").addEventListener("blur",
+			checkcover);
+
+	function checkcover() {
+		let cover = document.getElementById("cover");
+		let coverVal = cover.value;
+		let sp_cover = document.getElementById("sp_cover");
+		let coverCheck = /\.jpg$/;
+		if (coverVal == "")
+			sp_cover.innerHTML = "請上傳照片";
+		else if (coverCheck.test(coverVal) == false)
+			sp_cover.innerHTML = "僅支援 .jpg 檔案"
+		else
+			sp_cover.innerHTML = "成功"
+	}
+	// 縣市
+	$("#twzipcode").twzipcode({
+		zipcodeIntoDistrict : true,
+	});
+
+	$("#twzipcode").twzipcode("set", {
+		county : "${userActivity.county}",
+		district : "${userActivity.district}",
+	});
    
     </script>
   </body>

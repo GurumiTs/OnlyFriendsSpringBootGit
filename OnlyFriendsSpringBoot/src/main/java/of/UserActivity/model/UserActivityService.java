@@ -42,4 +42,8 @@ public class UserActivityService {
 	public List<UserActivity> findByAccount(String account){
 		return userActivityRepositor.findByMemberAccount(account);
 	}
+	
+	public List<UserActivity> findByType(String type){
+		return userActivityRepositor.findByType(type);
+	}
 }

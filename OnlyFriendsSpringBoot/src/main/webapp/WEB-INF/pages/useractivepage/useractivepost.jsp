@@ -31,11 +31,12 @@ body {
 					</div>
 					<div class="col-lg-12">
 						<!-- Nested row for non-featured blog posts-->
-						<div class="row" id="area">
+						<div class="row" id="area" style="background-color:white;">
 				
 							
 						</div>
 					</div>
+					<br/>
 					<div class="section-header">
 						<h1>參加活動</h1>
 					</div>
@@ -70,9 +71,9 @@ body {
 			    	     $('#area').empty("");
 			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 			    	     var item = 
-			    	    	 "<div class='col-lg-4' id='Grid' style='background-color:white;'>"+
-			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"+
+			    	    	 "<div class='col-lg-3' id='Grid' style=' margin-left:5px'>"+
+			    	    	 	"<br/><a href='useractivity.page?number="+n.number+"'>"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"+"<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;'>👁️‍🗨️"+n.see+"</span>"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
 			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+
@@ -84,7 +85,7 @@ body {
 			    	    	 					
 			    	    	 					"<span class='d-inline-block text-truncate'	style='max-width: 250px;' class='col-30 text-truncate'>"+n.detail+"</span>"+
 			    	    	 					"<br/>"+"<br/>"+
-			    	    	 					"<a class='btn btn-primary' href='useractivity.page?number="+n.number+"'>查看活動內容</a>"+"<span style='position: absolute; right:5px;'>👁️‍🗨️"+n.see+"</span>"+
+			    	    	 					"<a class='btn btn-primary' href='useractivity.page?number="+n.number+"'>查看活動內容</a>"+
 			    	    	 				"</div>"+
 			    	    		 	"<div>"+
 			    	    		 "</a>"+
