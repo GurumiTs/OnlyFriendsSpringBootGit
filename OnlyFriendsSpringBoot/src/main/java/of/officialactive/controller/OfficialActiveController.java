@@ -222,6 +222,13 @@ public class OfficialActiveController {
 			return "officialactivepages/oaforuser";
 		}
 		
+		
+	//	@RequestMapping(path = "/oamember" , method= RequestMethod.POST)
+		//@ResponseBody
+		//public List<OaMember> OaMember(){	
+		// Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		// String memberAccount = m1.getMemberAccount();
+		}
 //		
 //		@RequestMapping(path = "/userpost",method = RequestMethod.POST)
 //		 @ResponseBody
@@ -235,7 +242,7 @@ public class OfficialActiveController {
 //		  model.addAttribute("useractivityList", useractivityList);
 //
 //		  return useractivityList;
-		 }
+		 
 					
 		
 
