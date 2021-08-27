@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 #blogimg{
 weight: 700px;
 height: 350px;
@@ -33,7 +37,7 @@ height: 350px;
 								<table id="showpage" class="d-flex justify-content-center">
 									<tr>
 										<td colspan="3" align="right"><c:forEach var="i" begin="1"
-												end="${totalPages}" step="1">
+												end="${blogEmpTotalPages}" step="1">
 												<button class="btn btn-outline-secondary" id="myPage"
 													value="${i}" onclick="change(${i})">${i}</button>
 											</c:forEach></td>
@@ -60,7 +64,7 @@ height: 350px;
 						</div>
 						<!-- Categories widget-->
 						<div class="card mb-4">
-							<div class="card-header">Categories</div>
+<!-- 							<div class="card-header">Categories</div> -->
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6">
@@ -124,13 +128,13 @@ height: 350px;
 				var item = 
 					"<div class='col-lg-6'>"+
 						"<div class='card mb-4'>"+
-							"<a href='#!?usersArticleId="+n.articleID+"'><img id='blogimg' class='card-img-top'"+
+							"<a href='blogarticleentry?ArticleId="+n.articleID+"&name=official'><img id='blogimg' class='card-img-top'"+
 								"src='"+n.images+"'/></a>"+
 							"<div class='card-body'>"+
 								"<div class='small text-muted'>"+n.updateTime.substr(0,10)+"</div>"+
 								"<h2 class='card-title h4'>"+n.title+"</h2>"+
 								"<p class='card-text'>"+n.mainText.substr(0,90)+"  ...</p>"+
-								"<a class='btn btn-primary' href='#!?usersArticleId="+n.articleID+"'>Read more →</a>"+
+								"<a class='btn btn-primary' href='blogarticleentry?ArticleId="+n.articleID+"&name=official'>Read more →</a>"+
 							"</div>"+
 						"</div>"+
 					"</div>";

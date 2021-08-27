@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 .articleimg{
 weight: 900px;
 height: 400px;
@@ -21,15 +26,15 @@ margin: 0 auto;
         <div class="container mt-5">
         <br><br><br><br><br>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 border border-secondary" style="background-color:#FBFBFF;">
                     <!-- Post content-->
-                    <article>
+                    <article >
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">${blogUser.usersTitle}</h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on ${blogUser.usersUpdateTime}, by ${blogUser.usersName}</div>
+                            <div class="text-muted fst-italic mb-2">Posted on ${fn:substring(blogUser.usersUpdateTime,0,10)}, by ${blogUser.usersName}</div>
                             <!-- Post categories-->
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
@@ -49,7 +54,7 @@ margin: 0 auto;
                     </article>
                     <!-- Comments section留言板-->
                     <section class="mb-5">
-                        <div class="card bg-light">
+                        <div class="card " style="background-color:#F0F0F0;">
                             <div class="card-body">
                                 <!-- Comment form-->
                                 <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>

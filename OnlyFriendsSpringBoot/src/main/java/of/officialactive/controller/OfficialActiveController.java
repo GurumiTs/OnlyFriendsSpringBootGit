@@ -211,4 +211,41 @@ public class OfficialActiveController {
 			
 		}
 		
-}
+		
+//		//oaforuserpages home
+//		
+//		@GetMapping ("/oaforuserpages.controller")
+//		public String oaforuserEntry() {
+//			return "officialactivepages/oaforuser";
+//		}
+//		
+		
+	
+			
+		}
+		
+//		
+//		@RequestMapping(path = "/userpost",method = RequestMethod.POST)
+//		 @ResponseBody
+//		 public List<UserActivity> useractivity(Model model, HttpServletRequest request) {
+//
+//		  Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//		  String memberAccount = m1.getMemberAccount();
+//
+//		  List<UserActivity> useractivityList = userActivityService.findByAccount(memberAccount);
+//
+//		  model.addAttribute("useractivityList", useractivityList);
+//
+//		  return useractivityList;
+		 
+					
+		
+
+//		 }
+			
+		
+			  
+			 
+		
+		
+

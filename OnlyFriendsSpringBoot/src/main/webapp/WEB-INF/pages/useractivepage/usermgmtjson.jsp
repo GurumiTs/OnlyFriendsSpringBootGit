@@ -52,16 +52,10 @@
 				<!-- 輪播 style="width: 900px; height: 400px;" images\partyPic\party2.jpg-->
 				<br />
 				<div class="col-md-4 col-xs-12">
-					<select class="from-cotrol">
-						<option value="1">依日期排列</option>
-						<option value="2">依地區排列</option>
-						<option value="2">依活動排列</option>
-					</select>
-					<button type="submit" class="btn btn-sub1">搜尋</button>
-				</div>
-				<!-- area star -->
+												
 				
-					<!-- Blog entries-->
+				</div>
+					<!-- area star -->
 					<div class="col-lg-12">
 						<!-- Nested row for non-featured blog posts-->
 						<div class="row" id="area">
@@ -84,7 +78,7 @@
 		function load() {
 			$.ajax({
 				type : 'post',
-				url : 'userpartymgmtjson',
+				url : 'useractivityjson',
 				dataType : 'JSON',
 				contentType : 'application/json',
 				success : function(data) {
@@ -96,19 +90,20 @@
 			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 			    	     var item = 
 			    	    	 "<div class='col-lg-4' id='Grid'>"+
-			    	    	 	"<a href='userparty.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' width='700px' height='350px' alt='...' />"+
+			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+"<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;' >👁️‍🗨️"+n.see+"</span>"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
-			    	    	 				"<a style='text-decoration: none;' href='userparty.page?number="+n.number+"'>"+n.name+"</a>"+
+			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+
 			    	    	 			"</h2>"+
 			    	    	 				"<div>"+
-			    	    	 					"<span>⏰"+"</span>"+"<span class='card-text'>"+n.time+"</span>"+
+			    	    	 					"<span>📆"+"</span>"+"<span class='card-text'>"+n.time+"</span>"+
 			    	    	 					"<span>❤️"+"</span>"+"<span class='card-text'>"+n.type+"</span>"+
 			    	    	 					"<span>🌎️"+"</span>"+"<span class='card-text'>"+n.county+"</span>"+"<br/>"+
-			    	    	 					"<span class='d-inline-block text-truncate'	style='max-width: 250px;' class='col-30 text-truncate'>"+n.plany+"</span>"+
-			    	    	 					"<br/>"+
-			    	    	 					"<a class='btn btn-primary' href='userparty.page?number="+n.number+"'>查看活動內容</a>"+
+			    	    	 					
+			    	    	 					"<span class='d-inline-block text-truncate'	style='max-width: 250px;' class='col-30 text-truncate'>"+n.detail+"</span>"+
+			    	    	 					"<br/>"+"<br/>"+
+			    	    	 					"<a class='btn btn-primary' href='useractivity.page?number="+n.number+"'>查看活動內容</a>"+
 			    	    	 				"</div>"+
 			    	    		 	"<div>"+
 			    	    		 "</a>"+

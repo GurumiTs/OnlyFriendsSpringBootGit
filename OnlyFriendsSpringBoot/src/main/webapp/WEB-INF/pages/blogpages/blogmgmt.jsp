@@ -24,16 +24,20 @@
 	height: 150px;
 }
 
-.edit a:hover {
+.edit:hover {
 	font-size: 130%;
 }
 
-.delete a:hover {
+.delete:hover {
 	font-size: 130%;
 }
 
 .delete {
 	cursor: pointer;
+}
+
+.insert{
+height:50px;
 }
 
 .insert a img:hover {
@@ -66,7 +70,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Blog Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">Employee Blog Tables</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 
@@ -156,7 +160,12 @@
 		            }
 		        },
 		        { "data": "title" }, 
-		        { "data": "updateTime"},
+		        { "data": "updateTime",
+		        	render:function(data, type, row)
+		        	{
+		        		return data.substring(0, 10);
+		        	}	
+		        },
 		        { 
 		        	"data": "mainText",
 		        	render:function(data, type, row)
@@ -174,7 +183,7 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<a href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit'></i>";
+		              return "<a class='edit' href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit'></i>";
 		            }
 		        },
 		        {

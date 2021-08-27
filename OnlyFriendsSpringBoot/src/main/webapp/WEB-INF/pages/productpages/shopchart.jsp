@@ -16,12 +16,12 @@
 			<td width="100px">小計</td>
 		</thead>
 		<tbody>
-			<tr th:each="entry:${session.shopcart }">
-				<td th:text="${entry.key.proId }">1</td>
-				<td th:text="${entry.key.proName }">2</td>
-				<td th:text="${entry.key.proPrice }">3</td>
-				<td th:text="${entry.key.value }">3</td>
-				<td th:text="${entry.key.proPrice * entry.value }">4</td>
+			<tr>
+				<td name="proId" value="${entry.key.proId }">1</td>
+				<td name="proName" value="${entry.key.proName }">2</td>
+				<td name="proPrice" value="${entry.key.proPrice }">3</td>
+				<td name="" value="${entry.key.value }">3</td>
+				<td name="amount" value="${entry.key.proPrice * entry.value }">4</td>
 			</tr>
 		</tbody>
 	</table>

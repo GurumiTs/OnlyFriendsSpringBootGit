@@ -28,13 +28,76 @@
                             <span>$40.00</span>
                         </div>
                         <p class="lead" id="conditions"></p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                我要報名
-                            </button>
-                        </div>
+                        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  我要報名
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">請填選報名資料</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id = "basicInForm">
+       
+       
+       <div class="mb-3">
+							<label for="memberEmail" class="form-label">Email</label> <input
+								type="email" class="form-control" name="memberEmail" id="memberEmail"
+								required readonly />
+						</div>
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="memberAccount" class="form-label">編號</label> <input
+									type="text" class="form-control" name="memberAccount" id="memberAccount"
+									required readonly />
+								<div class="valid-feedback">Looks good!</div>
+								<div class="invalid-feedback">should be 6~12 numbers</div>
+							</div>
+							<div class="col">
+								<label for="memberName" class="form-label">姓名</label> <input
+									type="text" class="form-control" id="memberName" name="memberName"
+									required />
+								<div class="valid-feedback">Beautiful!</div>
+								<div class="invalid-feedback">english only!</div>
+							</div>
+						</div>
+
+
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="memberAge" class="form-label">年齡</label> <input
+									type="text" class="form-control" name="memberAge" id="memberAge"
+									required />
+								<div class="invalid-feedback">Choose your Happy Bday!</div>
+							</div>
+
+						</div>
+
+						<div class="mb-3 row address" id="twzipcode">
+							<div class="col">
+								<input type="text" class="form-control" name="memberAddress"
+									id="memberAddress" placeholder="addr." />
+							</div>
+						</div>
+       
+       
+       
+       
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary">送出</button>
+      </div>
+    </div>
+  </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -146,14 +209,127 @@
             </div>
         </section>
         </div>
+      
+      
+      
+       <!-- 我要報名按下之後 --> 
+        
+      
+						<div class="mb-3">
+							<label for="memberEmail" class="form-label">Email</label> <input
+								type="email" class="form-control" name="memberEmail" id="memberEmail"
+								required readonly />
+						</div>
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="memberAccount" class="form-label">Account</label> <input
+									type="text" class="form-control" name="memberAccount" id="memberAccount"
+									required readonly />
+								<div class="valid-feedback">Looks good!</div>
+								<div class="invalid-feedback">should be 6~12 numbers</div>
+							</div>
+							<div class="col">
+								<label for="memberName" class="form-label">Name</label> <input
+									type="text" class="form-control" id="memberName" name="memberName"
+									required />
+								<div class="valid-feedback">Beautiful!</div>
+								<div class="invalid-feedback">english only!</div>
+							</div>
+						</div>
+
+
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label for="memberAge" class="form-label">Birthday</label> <input
+									type="text" class="form-control" name="memberAge" id="memberAge"
+									required />
+								<div class="invalid-feedback">Choose your Happy Bday!</div>
+							</div>
+
+						</div>
+
+			<!-- 			<div class="mb-3 row address" id="twzipcode">
+							<div class="col">
+								<input type="text" class="form-control" name="memberAddress"
+									id="memberAddress" placeholder="addr." />
+							</div>
+						</div> -->
+
+
+
+								<!-- 暫時用不到 -->
+								
+								
+					<!-- 	<div class="mb-3 row">
+							<div class="col">
+								<label for="empAuth" class="form-label">Authority</label> <select
+									id="empAuth" class="form-select form-select-sm" name="empAuth"
+									required>
+									<option selected disabled value="">Choose...</option>
+									<option value="1">employee</option>
+									<option value="2">highest</option>
+								</select>
+								<div class="invalid-feedback">Choose one!</div>
+							</div>
+
+							<div class="col">
+								<label for="empDept" class="form-label">Department</label> <select
+									id="empDeptNum" class="form-select form-select-sm"
+									name="empDeptNum" required>
+									<option selected disabled value="">Choose...</option>
+									<option value="7001">活動部</option>
+									<option value="7002">公關部</option>
+									<option value="7003">論壇管理</option>
+									<option value="7004">銷售部</option>
+									<option value="7000">資訊部</option>
+								</select>
+								<div class="invalid-feedback">Choose one!</div> -->
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button id="updateBasicInfo" type="button" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+        
 		
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 </div>
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 	<script>
+	
+	
+	
+	
 
 		$(function(){
+			
+			
+			$("#twzipcode").twzipcode({
+		        detect: true,
+		        zipcodeIntoDistrict: true,
+		        css: ["city form-control col", "town form-control col"],
+		      });
+			
+		
 			var url = location.href;
 			
 			if(url.indexOf('?')!=-1){
@@ -185,7 +361,55 @@
 			
 			})
 		});
+		
+			var table = $('#example').DataTable({
+		    "ajax": {
+		    	"url": "memalltojson",
+		    },
+		    "columns": [
+		        { "data": "memberEmail" },
+		        { "data":"memberAccount"},
+		        { "data": "memberName" }, 
+		        		  
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<i id="+data.memberAccount+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+		            },
+		            "targets": -1
+		        }
+		    ]
+		});		
+		
+		  $("#exampleModalLabel").on("click", function () {
+			  
+			  $.ajax({
+				  type : "post",
+				  url: "memquery",   
+			      dataType: "json",   
+			      cache: false,   
+			      data: {"account":account}, 
+			      success : function(data) 
+			        {
+			    	  $('#memberEmail').prop("value",data.memberEmail);
+			    	  $('#memberAccount').prop("value",data.memberAccount);
+			    	  $('#memberName').prop("value",data.memberName);
+			    	  $("#twzipcode").twzipcode("set", {
+			              county: data.memberCounty,
+			              district: data.memberDistrict,
+			            });
+			    	
+			    	  
+			        },error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
+		});
 	
+		  
+		 
 	
 	
 	

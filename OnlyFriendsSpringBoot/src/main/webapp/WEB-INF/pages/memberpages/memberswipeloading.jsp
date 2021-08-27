@@ -11,7 +11,7 @@
         <div class="title" id="coinarea">
         </div>
         <a href="memberswipe">Back</a>
-        <a href=""><i class="fas fa-inbox fa-2x"></i></a>
+        <a href="memberfriends"><i class="fas fa-inbox fa-2x"></i></a>
       </div>
     </div>
     <div class="backgrounds">
@@ -47,7 +47,7 @@
                       </div>
                     </div>
                     <div class="pricing-cta">
-                      <a id="pickone">Pick <i class="fas fa-arrow-right"></i
+                      <a id="pickone" class="btn">Pick <i class="fas fa-arrow-right"></i
                       ></a>
                     </div>
                   </div>
@@ -64,7 +64,7 @@
                       </div>
                     </div>
                     <div class="pricing-cta">
-                      <a id="picktwo"
+                      <a id="picktwo" class="btn"
                         >Pick <i class="fas fa-arrow-right"></i
                       ></a>
                     </div>
@@ -82,7 +82,7 @@
                       </div>
                     </div>
                     <div class="pricing-cta">
-                      <a id="pickthree"
+                      <a id="pickthree" class="btn"
                         >Pick <i class="fas fa-arrow-right"></i
                       ></a>
                     </div>
@@ -276,6 +276,14 @@
               url: "membercoinsquery",
               success: function (data) {
                 let coins = data.swipeTime;
+                if(coins == 0){
+                	$("#pickone").addClass('disabled')
+                	$("#pickone").html('本日硬幣已用完')
+                	$("#picktwo").addClass('disabled')
+                	$("#picktwo").html('本日硬幣已用完')
+                	$("#pickthree").addClass('disabled')
+                	$("#pickthree").html('本日硬幣已用完')
+                }
                 console.log("coins num :" + coins);
                 for (i = 1; i <= coins; i++) {
                   $("#coinarea").append(

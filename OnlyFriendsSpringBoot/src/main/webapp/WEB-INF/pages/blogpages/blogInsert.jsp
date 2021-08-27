@@ -29,7 +29,12 @@
 		font-size: 3.5rem;
 	}
 }
+
+#editor{
+
+}
 </style>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
  </head>
 <body id="page-top">
 
@@ -99,13 +104,31 @@
 							</div>
 						</div>
 
-						<div class="input-group">
+						<div class="col-md-12">
 							<label for="input-group-text" class="input-group-text">文章內容:</label>
-							<textarea class="form-control" style="resize: none;" id=""
-								rows="10" name="mainText"></textarea>
+							<textarea class="form-control" style="resize: none;" id="editor"
+								rows="100" name="mainText"></textarea>
 							<div id="errorMainText"></div>
 						</div>
-
+						
+						<script>
+				        	ClassicEditor
+				              .create( document.querySelector( '#editor' ),{
+				            	  toolbar: {
+				            		    items: [
+				            		        'heading', '|',
+// 				            		        'Font', 'Fontfamily', 'Fontsize', '|',
+				            		        'bold', 'italic', '|',
+				            		        'undo', 'redo'
+				            		    ],
+				            		    shouldNotGroupWhenFull: true
+				            	  },
+				              } )
+				          	  .catch( error => {
+				            	    console.error(error);
+				            } );
+				  		</script>
+						
 						<div style="margin: 10px auto; text-align: center;">
 							<!-- <input type="submit" name="confirm" value="送出"> -->
 							<button type="submit" class="btn btn-primary">送出</button>
@@ -139,16 +162,6 @@
 
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
-	<script type="text/javascript">
-		var loadFile = function(event) {
-			var output = document.getElementById('output');
-			output.src = URL.createObjectURL(event.target.files[0]);
-			output.onload = function() {
-				URL.revokeObjectURL(output.src) // free memory
-			}
-		};
-	</script>
-
 	<script type="text/javascript">
 		var loadFile = function(event) {
 			var output = document.getElementById('output');

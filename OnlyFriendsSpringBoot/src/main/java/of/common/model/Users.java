@@ -2,9 +2,7 @@ package of.common.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -23,10 +20,10 @@ import of.member.model.Member;
 @Component("users")
 public class Users implements Serializable{
 	
-	@Id@Column(name="usersEmail")
+	@Id@Column(name="usersEmail",length = 50)
 	private String usersEmail;
 	
-	@Column(name="usersPassword")
+	@Column(name="usersPassword",length = 100)
 	private String usersPassword;
 	
 	@Column(name="usersRole")
@@ -35,7 +32,7 @@ public class Users implements Serializable{
 	@ManyToMany
 	@JoinTable(
 			name = "friendship",
-			joinColumns = @JoinColumn(name = "usersEmail"),
+			joinColumns = @JoinColumn(name = "usersEmail" ),
 			inverseJoinColumns = @JoinColumn(name = "memberAccount")			
 			)	
 	private List<Member> friends = new ArrayList<>();

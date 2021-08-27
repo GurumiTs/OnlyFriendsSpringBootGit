@@ -25,20 +25,20 @@
 
 							</header>
 							<!-- Preview image figure-->
-							<a href="userpartymgmt.entry" style="text-decoration: none;"><p>↩
+							<a href="useractivity.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
-								<img class="img-fluid rounded" src="${party.cover}" alt="..." />
+								<img class="img-fluid rounded" src="${userActivity.cover}" alt="..." />
 							</figure>
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">
-									活動名稱: ${party.name} <br /> 活動類型: ${party.type} <br />
-									活動日期:${party.time} <br /> 報名截止日: ${party.time_up} <br /> <br />
-									活動內容: ${party.plany} <br /> <br /> 活動地點: ${party.county}
-									${party.district} ${party.place} <br />
-									參加條件:${party.condition} <br /> 男生人數: ${party.man}
-									女生人數:${party.woman}
+									活動名稱: ${userActivity.activityname} <br /> 活動類型: ${userActivity.type} <br />
+									活動日期:${userActivity.time} <br /> 報名截止日: ${userActivity.time_up} <br /> <br />
+									活動內容: ${userActivity.detail} <br /> <br /> 活動地點: ${userActivity.county}
+									${userActivity.district} ${userActivity.place} <br />
+									參加條件:${userActivity.condition} <br /> 男生人數: ${userActivity.man}
+									女生人數:${userActivity.woman}
 								</p>
 							</section>
 							<!-- Button trigger modal -->
@@ -52,11 +52,11 @@
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">確定報名 ${party.name}</h5>
+											<h5 class="modal-title" id="exampleModalLabel">確定報名 ${userActivity.activityname}</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="modal-body">參加條件:${party.condition}</div>
+										<div class="modal-body">參加條件:${userActivity.condition}</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">返回</button>

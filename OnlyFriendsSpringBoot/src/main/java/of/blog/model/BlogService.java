@@ -39,7 +39,7 @@ public class BlogService {
 	}
 	
 	public List<BlogBean> findAll(){
-		System.out.println("service findAll");
+//		System.out.println("service findAll");
 		return blogRepository.findAll();
 	}
 	

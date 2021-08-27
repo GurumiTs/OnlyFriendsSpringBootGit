@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,28 +45,33 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender sender;
 	
-
 	
+		
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/member" ,method = RequestMethod.GET )
 	public String memberEntry() {
 		return "memberpages/member" ;
 	}
 	
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberprofile" ,method = RequestMethod.GET )
 	public String memberProfile() {
 		return "memberpages/memberprofile" ;
 	}
 
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipeloading" ,method = RequestMethod.GET )
 	public String memberSwipeLoadingEntry() {
 		return "memberpages/memberswipeloading" ;
 	}
 	
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipe" ,method = RequestMethod.GET )
 	public String memberSwipeEntry() {
 		return "memberpages/memberswipe" ;
 	}
 	
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberfriends" ,method = RequestMethod.GET )
 	public String memberFriendsEntry() {
 		return "memberpages/memberfriends" ;

@@ -2,9 +2,15 @@ package of.member.controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -122,7 +128,7 @@ public class MemberJsonController {
 			System.out.println(memberAccount);
 			String fileName = multipartFile.getOriginalFilename();
 			String path = ResourceUtils.getURL("classpath:static/images/memberPic").getPath();
-			System.out.println(path);
+			//System.out.println(path);
 			String filePath = path + "/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
@@ -153,10 +159,10 @@ public class MemberJsonController {
 		List<Member> empList = memberService.findAll();
 		while (true) {
 			int num = (int) (Math.random() * empList.size());
-			System.out.println("random number:"+num);
+			//System.out.println("random number:"+num);
 			member = empList.get(num);
-			System.out.println(member.getMemberAccount());
-			System.out.println("存在與否:"+friends.contains(member));
+			//System.out.println(member.getMemberAccount());
+			//System.out.println("存在與否:"+friends.contains(member));
 			if (member.getMemberAccount().equals(m1account) || friends.contains(member) == true) {
 				
 				continue;
@@ -191,6 +197,17 @@ public class MemberJsonController {
 		String memberAccount = m1.getMemberAccount();
 		// so get the member again
 		Member m2 = memberService.findByMemberAccount(memberAccount);
+		//System.out.println("player name:"+m2.getMemberName());
+		Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT :08:00"));
+		String day = Integer.toString(now.get(Calendar.DATE)); 
+		
+		System.out.println("i'm date:"+day);
+		if(m2.getSwipeDate().equals(day) == false) {
+			m2.setSwipeTime("3");
+			memberService.update(m2);
+		}
+		m2.setSwipeDate(day);
+		memberService.update(m2);
 		return m2;
 	}
 
@@ -233,9 +250,16 @@ public class MemberJsonController {
 	public List<Member> memberFriendsSearch(@PathVariable(name ="friendname") String friendname,HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
-		List<Member> friends = memberService.findByMemberNameLike(friendname);
+		List<Member> friends = usersService.findByEmail(memberAccount).getFriends();
+		List<Member> searchFriends = new ArrayList<Member>();
+		for(int i = 0;i<friends.size();i++) {
+			if(friends.get(i).getMemberName().contains(friendname) == true) {
+				searchFriends.add(friends.get(i));
+			}
+		}
+		//List<Member> friends = memberService.findByMemberNameLike(friendname);
 		
-		return friends;
+		return searchFriends;
 	}
 	
 	@PostMapping(path = "/memquery")
