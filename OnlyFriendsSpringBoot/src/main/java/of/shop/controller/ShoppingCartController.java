@@ -51,9 +51,9 @@ public class ShoppingCartController {
 	@Autowired
 	private Product product;
 	
-	@GetMapping(path = "/cart/{proId}")
+	@GetMapping(path = "/cart")
 	@ResponseBody
-	public List<CartItem> InsertItemToCart(@PathVariable(name = "proId")Integer proId,@RequestParam (name = "amount")Integer amount,Model model,HttpSession session,HttpServletRequest request ) {
+	public List<CartItem> InsertItemToCart(@RequestParam(name = "proId")Integer proId,@RequestParam (name = "amount")Integer amount,Model model,HttpSession session,HttpServletRequest request ) {
 		
 		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
 		
@@ -66,26 +66,7 @@ public class ShoppingCartController {
 			cartItem.setProduct(product);
 			cartItem.setAmount(amount);
 			cartlist.add(cartItem);
-			
-//			try {
-//				String urlString = "http://localhost:8080/OnlyFriends/cart?amount=1";
-//				URL connUrl  = new URL(urlString);
-//				System.out.println("AA");
-//				HttpURLConnection conn = (HttpURLConnection) connUrl.openConnection();
-//				System.out.println("BB");
-//				BufferedReader br  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//				StringBuilder sb = new StringBuilder();
-//				String lineString;
-//				System.out.println("開始做是");
-//				while( (lineString = br.readLine())!= null) {
-//					sb.append(lineString);
-//					System.out.println("進來嗎?");
-//				}
-//				br.close();
-//			}catch (Exception e) {
-//				e.printStackTrace();
-//			}
-			
+		
 			
 //			model.addAttribute("cartListMap", list);
 //			

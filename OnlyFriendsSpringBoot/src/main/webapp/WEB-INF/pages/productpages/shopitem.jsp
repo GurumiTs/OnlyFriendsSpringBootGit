@@ -34,7 +34,7 @@
 								<div class="d-flex">
 									<input class="form-control text-center me-3" id="inputQuantity"
 										type="num" value="1" style="max-width: 3rem" />
-									<a href='cart?Id=${proId }' class="btn btn-outline-dark flex-shrink-0"
+									<a href='#0' class="btn btn-outline-dark flex-shrink-0 add-to-cart"
 										type="button" id="addchart" data-bs-toggle="modal" 
 										data-bs-target="#staticBackdrop" >
 										<i class="bi-cart-fill me-1"></i> Add to cart
@@ -185,28 +185,74 @@
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<!-- shoppingchart -->
-	
-
-	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Shopping Item</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+	<div class="cd-cart-container empty">
+<!-- 		<a href="#0" class="cd-cart-trigger"> -->
+<!-- 			購物車 -->
+<!-- 			<!-- cart items count --> -->
+<!-- 			<ul class="count"> -->
+<!-- 				<li>0</li> -->
+<!-- 				<li>0</li> -->
+<!-- 			</ul> -->
+<!-- 		</a> -->
+		
+		<div class="cd-cart">
+			<div class="wrapper">
+				<header>
+					<h2>購物車</h2>
+					<span class="undo">已刪除<a href="#0">復原</a></span>
+				</header>
+				
+				<div class="body">
+					<ul>
+						<li class="product">
+							<div class="product-image">
+								<a href="#0"><img alt="placeholder" src="images/productPic/S__10068028.jpg"></a>
+							</div>
+							<div class="product-details">
+								<h3><a href="#0">商品名稱</a></h3>
+								<span class="price">$400</span>
+								<div class="actions">
+									<a href="#0" class="delete-item">刪除</a>
+									
+									<div class="quantity">
+										<label for="cd-product-'+proId+'">件數</label>
+										<span class="select">
+											<span class="select"><i id="cd-product='+proId+'">1</i></span>
+										</span>21
+									</div>
+								</div>
+								
+							</div>	
+						</li>				
+					</ul>
 				</div>
-				<div class="modal-body">您購買的商品為:<span id="proId" value="${cartlist}"></span></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send</button>
-				</div>
+				<footer>
+					<a href="#0" class="checkout"><em>結算 - $<span>0</span></em></a>
+				</footer>
 			</div>
 		</div>
 	</div>
+
+	<!-- Modal -->
+<!-- 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" -->
+<!-- 		data-bs-keyboard="false" tabindex="-1" -->
+<!-- 		aria-labelledby="staticBackdropLabel" aria-hidden="true"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<h5 class="modal-title" id="staticBackdropLabel">Shopping Item</h5> -->
+<!-- 					<button type="button" class="btn-close" data-bs-dismiss="modal" -->
+<!-- 						aria-label="Close"></button> -->
+<!-- 				</div> -->
+<%-- 				<div class="modal-body">您購買的商品為:<span id="proId">${proId}</span></div> --%>
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-secondary" -->
+<!-- 						data-bs-dismiss="modal">Close</button> -->
+<!-- 					<button type="button" class="btn btn-primary">Send</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<script>
 	$(function () {
   	  
@@ -242,77 +288,237 @@
 					}
 				})
 		});
-// 	var indexPage = 1;
-//     $(function(){
-//     	load(indexPage);
-//     })
-
-// 	function change(page){
-// 	   indexPage = page;
-// 	   load(indexPage);
-// 	}
-	$("#staticBackdrop").on("click", "#addchart", function () {
-		  product.proId=$("#proId").val();
-		  $.ajax({
-			  type : "post",
-			  url: "cart",   
-		      dataType: "json",   
-		      cache: false,   
-		      data: JSON.stringify(product), 
-		      success : function(product) 
-		        {
-		    	  if(data){
-		    		  $.each(data,function(i,item){
-		    			  let inner=
-		    				  {
-		    					  pro
-		    				  }
-		    		  })
-		    	  }
-// 		    	  	 var json = JSON.stringify(data, null, 4);
-// 		    	     var parsedObjinArray = JSON.parse(json);
-// 		    	     var shopitem = $('#shopitem');
-// 		    	     $('#shopitem').empty("");
-// 		    	     if(json=null){
-// 		    	    	 $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-// 		    	     }else{
-// 		    	    	 var table=$('#shopitem')
-// 		    	     	 table.append("<tr value='Shopping List'><th>編號</th><th>商品名稱</th><th>價格</th><th>數量</th><th>小計</th></tr>")
-// 			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-// 			    	     var item = "<tr align='center'>"+
-// 			    	    	 "<td><a href='cart?proId='"+n.proId+"'>"+n.proId+"</a></td>"+
-// 			    	    	 "<td>"+n.prName+"</td>"+
-// 			    	    	 "<td>"+n.proPrice+"</td>"+
-// 			    	    	 "<td>"+n.number+"</td>"+
-// 			    	    	 "<td><span>$"+n.proPrice*n.number+"</span></td>";
-// 			    	    	 table.append(tr);
-// 		    	 }); 
-// 		        }
-		        },
-		        error: function(data) 
-		        {
-		           console.log('無法送出');
-		        }
-		  		  
+	//addcharticon
+	$(document).ready(function() {
+	var count = 0;
+	$("a.add-to-cart").click(function(event) {
+		count++;
+		$("a.add-to-cart").addClass("size");
+		setTimeout(function() {
+			$("a.add-to-cart").addClass("hover");
+		}, 200);
+		setTimeout(function() {
+			$("a.cart > span").addClass("counter");
+			$("a.cart > span.counter").text(count);
+		}, 400);
+		setTimeout(function() {
+			$("a.add-to-cart").removeClass("hover");
+			$("a.add-to-cart").removeClass("size");
+		}, 600);
+		event.preventDefault();
 	});
-	})
-//    $("#staticBackdrop").on("click", "#addchart", function () {
-// 		  let proId = $(this).attr("proId");
-// 		  let dtr = $(this).closest("tr");
-// 		  $.ajax({
-//               type: "GET",
-//               url: "cart",
-//               success: function(response) {  
-//               	dtr.remove();
-//                    Swal.fire(
-//                     'Add to Cart!',
-//                     'Please check your shopcart.',
-//                     'success'
-//                   ) } , 
-                 
-		  		  
-// 	});
-// 	})
+});
+	
+// addtocart
+// function addProduct(proName,proId,proPrice,proPhoto) {
+//  var quantity = $("#cd-product-"+proId).text();
+//  var select='',productAdded='';
+ 
+//  if(quantity==''){
+//   var select = '<span class="select">x<i id="cd-product-'+proId+'">1</i></span>';
+//   var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img src="'+proPhoto+'" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">'+proName+'</a></h3><span class="price">￥'+proPrice+'</span><div class="actions"><a href="#0" class="delete-item">删除</a><div class="quantity"><label for="cd-product-'+ proId +'">件数</label>'+select+'</div></div></div></li>');
+//   cartList.prepend(productAdded);
+//  }else{
+//   quantity = parseInt(quantity);
+//   $("#cd-product-"+proId).html(quantity+1);
+//  }
+// }
+// jQuery(document).ready(function($){
+//  var cartWrapper = $('.cd-cart-container');
+//  //product id - you don't need a counter in your real project but you can use your real product id
+//  var productId = 0;
+ 
+//  if( cartWrapper.length > 0 ) {
+//   //store jQuery objects
+//   var cartBody = cartWrapper.find('.body')
+//   var cartList = cartBody.find('ul').eq(0);
+//   var cartTotal = cartWrapper.find('.checkout').find('span');
+//   var cartTrigger = cartWrapper.children('.cd-cart-trigger');
+//   var cartCount = cartTrigger.children('.count')
+//   //var addToCartBtn = $('.cd-add-to-cart');
+//   var addToCartBtn = $('.add-button');
+//   var undo = cartWrapper.find('.undo');
+//   var undoTimeoutId;
+ 
+//   //add product to cart
+//   addToCartBtn.on('click', function(event){
+//    event.preventDefault();
+//    addToCart($(this));
+//   });
+ 
+//   //open/close cart
+//   cartTrigger.on('click', function(event){
+//    event.preventDefault();
+//    toggleCart();
+//   });
+ 
+//   //close cart when clicking on the .cd-cart-container::before (bg layer)
+//   cartWrapper.on('click', function(event){
+//    if( $(event.target).is($(this)) ) toggleCart(true);
+//   });
+ 
+//   //delete an item from the cart
+//   cartList.on('click', '.delete-item', function(event){
+//    event.preventDefault();
+//    removeProduct($(event.target).parents('.product'));
+//   });
+ 
+//   //update item quantity
+//   cartList.on('change', 'select', function(event){
+//    quickUpdateCart();
+//   });
+ 
+//   //reinsert item deleted from the cart
+//   undo.on('click', 'a', function(event){
+//    clearInterval(undoTimeoutId);
+//    event.preventDefault();
+//    cartList.find('.deleted').addClass('undo-deleted').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(){
+//     $(this).off('webkitAnimationEnd oanimationend msAnimationEnd animationend').removeClass('deleted undo-deleted').removeAttr('style');
+//     quickUpdateCart();
+//    });
+//    undo.removeClass('visible');
+//   });
+//  }
+ 
+//  function toggleCart(bool) {
+//   var cartIsOpen = ( typeof bool === 'undefined' ) ? cartWrapper.hasClass('cart-open') : bool;
+  
+//   if( cartIsOpen ) {
+//    cartWrapper.removeClass('cart-open');
+//    //reset undo
+//    clearInterval(undoTimeoutId);
+//    undo.removeClass('visible');
+//    cartList.find('.deleted').remove();
+ 
+//    setTimeout(function(){
+//     cartBody.scrollTop(0);
+//     //check if cart empty to hide it
+//     if( Number(cartCount.find('li').eq(0).text()) == 0) cartWrapper.addClass('empty');
+//    }, 500);
+//   } else {
+//    cartWrapper.addClass('cart-open');
+//   }
+//  }
+ 
+//  function addToCart(trigger) {
+//   var cartIsEmpty = cartWrapper.hasClass('empty');
+//   //update cart product list
+//   var proprice = trigger.data('proPrice'),
+//    proName = trigger.data('proName'),
+//    proId = trigger.data('proId'),
+//    proPhoto = trigger.data('proPhoto');
+//   addProduct(proName,proId,proPrice,proPhoto);
+//   //console.log();
+  
+//   //update number of items 
+//   updateCartCount(cartIsEmpty);
+//   //update total price
+//   updateCartTotal(trigger.data('proPrice'), true);
+//   //show cart
+//   cartWrapper.removeClass('empty');
+//  }
+ 
+//  function addProduct(proName,proId,proPrice,proPhoto) {
+//   //this is just a product placeholder
+//   //you should insert an item with the selected product info
+//   //replace productId, productName, price and url with your real product info
+//   productId = productId + 1;
+  
+//   var quantity = $("#cd-product-"+proId).text();
+//   var select='',productAdded='';
+  
+//   //console.log(Number(quantity));
+//   //console.log(quantity);
+  
+//   if(quantity==''){
+//    var select = '<span class="select">x<i id="cd-product-'+proId+'">1</i></span>';
+//    var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img src="'+proPhoto+'" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">'+proName+'</a></h3><span class="price">￥'+proPrice+'</span><div class="actions"><a href="#0" class="delete-item">删除</a><div class="quantity"><label for="cd-product-'+ proId +'">件数</label>'+select+'</div></div></div></li>');
+//    cartList.prepend(productAdded);
+//   }else{
+//    quantity = parseInt(quantity);
+//    //var select = '<span class="select">x<i id="cd-product-'+proid+'">'+quantity+'</i></span>';
+//    $("#cd-product-"+proId).html(quantity+1);
+//   }
+  
+  
+//   //var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img src="img/product-preview.png" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">'+proname+'</a></h3><span class="price">￥'+price+'</span><div class="actions"><a href="#0" class="delete-item">删除</a><div class="quantity"><label for="cd-product-'+ proid +'">件数x</label><span class="select"><select id="cd-product-'+ proid +'" name="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></span></div></div></div></li>');
+//   //cartList.prepend(productAdded);
+//  }
+ 
+//  function removeProduct(product) {
+//   clearInterval(undoTimeoutId);
+//   cartList.find('.deleted').remove();
+  
+//   var topPosition = product.offset().top - cartBody.children('ul').offset().top ,
+//    productQuantity = Number(product.find('.quantity').find('.select').find('i').text()),
+//    productTotPrice = Number(product.find('.proPrice').text().replace('$', '')) * productQuantity;
+  
+//   product.css('top', topPosition+'px').addClass('deleted');
+ 
+//   //update items count + total price
+//   updateCartTotal(productTotPrice, false);
+//   updateCartCount(true, -productQuantity);
+//   undo.addClass('visible');
+ 
+//   //wait 8sec before completely remove the item
+//   undoTimeoutId = setTimeout(function(){
+//    undo.removeClass('visible');
+//    cartList.find('.deleted').remove();
+//   }, 8000);
+//  }
+ 
+//  function quickUpdateCart() {
+//   var quantity = 0;
+//   var price = 0;
+  
+//   cartList.children('li:not(.deleted)').each(function(){
+//    var singleQuantity = Number($(this).find('.select').find('i').text());
+//    quantity = quantity + singleQuantity;
+//    price = price + singleQuantity*Number($(this).find('.proPrice').text().replace('￥', ''));
+//   });
+ 
+//   cartTotal.text(price.toFixed(2));
+//   cartCount.find('li').eq(0).text(quantity);
+//   cartCount.find('li').eq(1).text(quantity+1);
+//  }
+ 
+//  function updateCartCount(emptyCart, quantity) {
+//   if( typeof quantity === 'undefined' ) {
+//    var actual = Number(cartCount.find('li').eq(0).text()) + 1;
+//    var next = actual + 1;
+   
+//    if( emptyCart ) {
+//     cartCount.find('li').eq(0).text(actual);
+//     cartCount.find('li').eq(1).text(next);
+//    } else {
+//     cartCount.addClass('update-count');
+ 
+//     setTimeout(function() {
+//      cartCount.find('li').eq(0).text(actual);
+//     }, 150);
+ 
+//     setTimeout(function() {
+//      cartCount.removeClass('update-count');
+//     }, 200);
+ 
+//     setTimeout(function() {
+//      cartCount.find('li').eq(1).text(next);
+//     }, 230);
+//    }
+//   } else {
+//    var actual = Number(cartCount.find('li').eq(0).text()) + quantity;
+//    var next = actual + 1;
+   
+//    cartCount.find('li').eq(0).text(actual);
+//    cartCount.find('li').eq(1).text(next);
+//   }
+//  }
+ 
+//  function updateCartTotal(proPrice, bool) {
+//   bool ? cartTotal.text( (Number(cartTotal.text()) + Number(proPrice)).toFixed(2) )  : cartTotal.text( (Number(cartTotal.text()) - Number(price)).toFixed(2) );
+//  }
+// });
+
 	</script>
 </body>
 </html>
