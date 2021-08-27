@@ -116,6 +116,11 @@ public class MemberController {
 		return "y" ;
 	}
 	
+	@RequestMapping(path = "/invoice.controller", method = RequestMethod.GET)
+	public String invoiceEntry() {
+		return "memberpages/invoice";
+	}
+	
 	
 	
 
