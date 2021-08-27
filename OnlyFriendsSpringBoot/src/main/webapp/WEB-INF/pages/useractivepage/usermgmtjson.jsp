@@ -52,9 +52,7 @@
 				<!-- 輪播 style="width: 900px; height: 400px;" images\partyPic\party2.jpg-->
 				<br />
 				<div class="col-md-4 col-xs-12">
-								
-				<a href="activityadd.controller">
-				<img src="images/smallicon/add.svg" alt=""></a>
+												
 				
 				</div>
 					<!-- area star -->
@@ -93,7 +91,7 @@
 			    	     var item = 
 			    	    	 "<div class='col-lg-4' id='Grid'>"+
 			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' width='700px' height='350px' alt='...' />"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+"<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;' >👁️‍🗨️"+n.see+"</span>"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
 			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style type="text/css">
@@ -58,7 +58,7 @@
 							size="2" value="${blog.articleID}" style="text-align: center"/> <input type="hidden"
 							name="articleId" size="3" value="${blog.articleID}"/> <em
 							name="errors">${errors}</em>
-						<label>文章建立時間:</label> <input name="createTime" disabled="disabled" size="22" value="${blog.createTime}" />
+						<label>文章建立時間:</label> <input name="createTime" disabled="disabled" size="10" value="${fn:substring(blog.createTime,0,10)}" />
 						<input type="hidden" name="createTime" size="22" value="${blog.createTime}" />
 					</div>
 					<!-- 圖片 -->
@@ -136,16 +136,6 @@
 
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
-	<script type="text/javascript">
-		var loadFile = function(event) {
-			var output = document.getElementById('output');
-			output.src = URL.createObjectURL(event.target.files[0]);
-			output.onload = function() {
-				URL.revokeObjectURL(output.src) // free memory
-			}
-		};
-	</script>
-
 	<script type="text/javascript">
 		var loadFile = function(event) {
 			var output = document.getElementById('output');

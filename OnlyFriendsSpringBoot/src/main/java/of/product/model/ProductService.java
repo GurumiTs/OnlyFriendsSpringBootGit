@@ -46,4 +46,8 @@ public class ProductService {
 		Optional<Product> pOptional = productRepository.findById(Id);
 		return pOptional.isPresent();
 	}
+	
+	public Page<Product> findByItem(Pageable pageable,String proItem){
+		return productRepository.findByProItem(pageable,proItem);
+	}
 }

@@ -55,7 +55,8 @@ public class OfficialActive {
 	private String female;//女性
 	@Column(name="Img")
 	private String img;//圖片
-
+	
+	
 	@ManyToMany
 	@JoinTable(
 			name = "memberactive",
@@ -63,6 +64,17 @@ public class OfficialActive {
 			inverseJoinColumns= @JoinColumn(name = "active"))
 	private List<OfficialActive> memberactive = new ArrayList<>();
 	
+
+
+
+	public List<OfficialActive> getMemberactive() {
+		return memberactive;
+	}
+
+	public void setMemberactive(List<OfficialActive> memberactive) {
+		this.memberactive = memberactive;
+	}
+
 			
 	public String getEmpAcc() {
 		return empAcc;

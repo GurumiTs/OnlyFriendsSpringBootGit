@@ -118,4 +118,57 @@ public class ShopController {
 		return products;
 	}
 
+	//Luckyitem
+	@PostMapping("/queryallLuckyItem/{pageNo}")
+	@ResponseBody
+	public List<Product> queryallLuckyItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String luckyItem){
+		int pageSize = 4;
+		
+		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
+		Page<Product> page=productService.findByItem(pageable,"幸運小物");
+		
+		int totalPages =page.getTotalPages();
+		long totalElements =page.getTotalElements();
+		
+		model.addAttribute("totalPages",totalPages);
+		model.addAttribute("totalElements",totalElements);
+		
+		return page.getContent();
+	}
+	
+	//candle
+	@PostMapping("/queryallcadleItem/{pageNo}")
+	@ResponseBody
+	public List<Product> queryallCandleItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String candleItem){
+		int pageSize = 4;
+		
+		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
+		Page<Product> page=productService.findByItem(pageable,"香氛類");
+		
+		int totalPages =page.getTotalPages();
+		long totalElements =page.getTotalElements();
+		
+		model.addAttribute("totalPages",totalPages);
+		model.addAttribute("totalElements",totalElements);
+		
+		return page.getContent();
+	}
+	
+	//Other
+	@PostMapping("/queryallOtherItem/{pageNo}")
+	@ResponseBody
+	public List<Product> queryallOtherItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String otherItem){
+		int pageSize = 4;
+		
+		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
+		Page<Product> page=productService.findByItem(pageable,"其他");
+		System.out.println(otherItem);
+		int totalPages =page.getTotalPages();
+		long totalElements =page.getTotalElements();
+		
+		model.addAttribute("totalPages",totalPages);
+		model.addAttribute("totalElements",totalElements);
+		
+		return page.getContent();
+	}
 }

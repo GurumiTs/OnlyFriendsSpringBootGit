@@ -179,13 +179,13 @@ span {
 							<div class="col-md-4 col-sm-6">
 								<div class="card border-primary mb-3"
 									style="max-width: 20rem; max-height: 50rem;">
-									<div class="card-header">${find.companyName} 
+									<div class="card-header">序號:${find.couponId} 
 									<a href="couponDetailEntry.controller?couponImg=${find.couponId}&couponName=${find.couponName}"><i class="fas fa-search" style="font-size: 1.5em;" id="couponDetail"></i></a>
 									</div>
 									<div class="card-body">
 										<img src="${find.couponImg}" id="mainImg" />
 										<ul id="ul">
-										    <li>優惠券序號:${find.couponId}</li>
+										    <li>公司名稱:${find.companyName}</li>
 											<li>優惠券名稱:${find.couponName}</li>
 											<li>價格:${find.couponPrice}</li>
 											<li>庫存量:${find.couponQty}</li>
@@ -284,11 +284,9 @@ span {
 												<select name="category" id="caNameInsert" required>
 													<option value="">請選擇</option>
 													<option value="開卡禮">開卡禮</option>
-													<option value="折扣券">折扣券</option>
-													<option value="優惠券-旅遊">優惠券-旅遊</option>
-													<option value="優惠券-住宿">優惠券-住宿</option>
-													<option value="優惠券-美食">優惠券-美食</option>
-													<option value="優惠券-運動">優惠券-運動</option>
+													<option value="折價券">折價券</option>
+													<option value="贈品券">贈品券</option>
+													<option value="運費券">運費券</option>
 												</select><span id="spCaNameInsert"></span>
 											</div>
 											<br> <label for="couponName" class="formName">優惠券名稱</label>
@@ -343,7 +341,7 @@ span {
 						</div>
 					</div>
 				</div>
-		<script>
+	<!-- 	<script>
 			document.getElementById("caNameInsert").onblur = checkCaName;
 			document.getElementById("coNameInsert").onblur = checkCoName;
 			document.getElementById("pNameInsert").onblur = checkPName;
@@ -476,7 +474,7 @@ span {
 					sp6.innerHTML = "<img src='images/couponPic/error.png' class='error'>請輸入";
 				}
 			}
-		</script>
+		</script> -->
 		<!-- 新增區域!!------------------------------------------------------------------------- -->
 
 		<!-- 修改Modal ----------------------------------------------------------------------------->
@@ -504,7 +502,7 @@ span {
 										<h6 style="font-weight: bold; font-size: 18px">以下請輸入待修改的優惠券項目:</h6>
 									<div id="top2">
 										<br> <img id="up" name="img" src="images/couponPic/pic.JPG"
-											style="width: 100%; height: 50%;"><br> <input type="file" name="couponImg"
+											style="width: 100%; height: 50%;"><br> <input type="file" name="couponImg" id="couponImgInsert"
 											accept="image/*" onchange="loadFile2(event)" required><span
 											id="spImgInsert"></span>
 									</div>
@@ -536,11 +534,9 @@ span {
 												<select name="category" id="caNameUpdate" required>
 													<option value="">請選擇</option>
 													<option value="開卡禮">開卡禮</option>
-													<option value="折扣券">折扣券</option>
-													<option value="優惠券-旅遊">優惠券-旅遊</option>
-													<option value="優惠券-住宿">優惠券-住宿</option>
-													<option value="優惠券-美食">優惠券-美食</option>
-													<option value="優惠券-運動">優惠券-運動</option>
+													<option value="折價券">折價券</option>
+													<option value="贈品券">贈品券</option>
+													<option value="運費券">運費券</option>
 												</select><span id="spCaNameUpdate"></span>
 											</div>
 											<br> <label for="couponPrice">優惠券價格</label>
@@ -613,9 +609,10 @@ span {
 										dataType:'json',
 										
 										success:function(data){ 
+											
 											$('#loadImg').css("display","none");
 											
-											$('#up').attr("src",data.couponImg);
+											$('#up').attr("src",data.couponImg);						
 											$('#pNameUpdate2').val(data.couponName);
 											$('#coNameUpdate').val(data.companyName);
 											$('#caNameUpdate').val(data.category);
@@ -630,7 +627,7 @@ span {
 										},error:function(data) 
 								        {
 											$('#loadImg').css("display","none");
-									         alert('無此優惠券名稱');
+											  Swal.fire('Error!');										   
 									        }
 								   
 									})
