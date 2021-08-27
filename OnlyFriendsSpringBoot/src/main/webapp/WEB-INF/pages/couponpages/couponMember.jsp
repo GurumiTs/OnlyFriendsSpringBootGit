@@ -160,7 +160,7 @@
 							<form action="updatecouponUsers.controller" method="post" enctype="multipart/form-data">
 							<div id="button">
 							<input placeholder="請輸入優惠券序號" type="text" name="couponRecord" id="couponRecord">
-							<button id="couponGet" class="btn btn-primary">領取</button>
+							<button id="couponGet" class="btn btn-primary">領取</button><span>${Error}</span>
 							</div>
 							</form>				
 								<div
