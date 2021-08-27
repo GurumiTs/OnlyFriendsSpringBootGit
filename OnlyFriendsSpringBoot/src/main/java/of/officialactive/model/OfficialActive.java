@@ -55,7 +55,7 @@ public class OfficialActive {
 	private String female;//女性
 	@Column(name="Img")
 	private String img;//圖片
-	@Column (name = "joinmember")
+	@Column (name = "Joinmember")
 	private String joinmember;
 	
 	@ManyToMany
