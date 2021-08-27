@@ -34,8 +34,8 @@
 								<div class="d-flex">
 									<input class="form-control text-center me-3" id="inputQuantity"
 										type="num" value="1" style="max-width: 3rem" />
-									<a href='#0' class="btn btn-outline-dark flex-shrink-0 add-to-cart"
-										type="button" id="addchart" data-bs-toggle="modal" 
+									<a href='#0' class="btn btn-outline-dark flex-shrink-0 add-to-cart addCart"
+										type="submit" id="addchart" data-bs-toggle="modal" 
 										data-bs-target="#staticBackdrop" >
 										<i class="bi-cart-fill me-1"></i> Add to cart
 									</a>
@@ -226,7 +226,6 @@
 				})
 		});
 	//addcharticon
-
 	
 // addtocart
 

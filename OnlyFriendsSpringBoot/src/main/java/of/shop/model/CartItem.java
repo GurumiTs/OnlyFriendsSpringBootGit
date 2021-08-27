@@ -21,6 +21,13 @@ public class CartItem {
 	
 	private Integer amount;
 	private Product product;
+	private Integer total;
+	public Integer getTotal() {
+		return total;
+	}
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 	public Integer getAmount() {
 		return amount;
 	}

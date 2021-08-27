@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<body>
 <div class="navbar-bg"></div>
 <nav class="navbar navbar-expand-lg main-navbar">
 	<a href="${pageContext.request.contextPath}/"
@@ -42,11 +43,11 @@
 	<form class="form-inline ml-auto"></form>
 	<ul class="navbar-nav navbar-right">
 		<li class="dropdown dropdown-list-toggle">
-			<button class="btn" type="submit"
+			<button class="btn" type="submit" id="addtocarticon"
 				data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
 				aria-controls="offcanvasRight">
 				<i class="fas fa-shopping-cart text-white cart"></i> <span
-					class="badge bg-light text-dark ms-1 rounded-pill">0</span>
+					class="badge bg-light text-dark ms-1 rounded-pill numberCart" id="count">0</span>
 			</button>
 			
 
@@ -57,33 +58,8 @@
 					<button type="button" class="btn-close text-reset"
 						data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
-				<div class="offcanvas-body">
-					<div class="list-group">
-					  <a href="#" class="list-group-item list-group-item-action active">
-					    <div class="d-flex w-100 justify-content-between">
-					      <h5 class="mb-1"> <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."></h5>
-					      <small>3 days ago</small>
-					    </div>
-					    <p class="mb-1">Some placeholder content in a paragraph.</p>
-					    <small>And some small print.</small>
-					  </a>
-					  <a href="#" class="list-group-item list-group-item-action">
-					    <div class="d-flex w-100 justify-content-between">
-					      <h5 class="mb-1">List group item heading</h5>
-					      <small class="text-muted">3 days ago</small>
-					    </div>
-					    <p class="mb-1">Some placeholder content in a paragraph.</p>
-					    <small class="text-muted">And some muted small print.</small>
-					  </a>
-					  <a href="#" class="list-group-item list-group-item-action">
-					    <div class="d-flex w-100 justify-content-between">
-					      <h5 class="mb-1">List group item heading</h5>
-					      <small class="text-muted">3 days ago</small>
-					    </div>
-					    <p class="mb-1">Some placeholder content in a paragraph.</p>
-					    <small class="text-muted">And some muted small print.</small>
-					  </a>
-					</div>				
+				<div class="offcanvas-body" id="cartlist">
+					<table class="table table-hover center" id="shoppingCartTable"></table>			
 				</div>
 			</div>
 			
@@ -95,3 +71,36 @@
 		</a></li>
 	</ul>
 </nav>
+<script type="text/javascript">
+// updateShoppingCars();
+// function updateShoppingCars() {
+// 	var shoppingCarTable = document.getElementById("shoppingCarTable");
+// 	var allShoppingCars = getAttribute();
+// 	shoppingCarTable.innerHTML = "";
+// 	var html = '<tr>'+
+// 					'<th>是否購買</th>'+
+// 					'<th>商品名稱</th>'+
+// 					'<th>商品單價</th>'+
+// 					'<th>商品數量</th>'+
+// 				'</tr>';
+// 	for(var i=0;i<allShoppingCars.length;i++){
+// 		var product = getProductById(allShoppingCars[i].proId);
+// 		html  += '<tr>'+
+// 				'<td>'+
+// 				'<div class="checkbox">'+
+// 				'<label>'+
+// 				'<input type="checkbox" id="checkbox'+allShoppingCars[i].proId+'" value="option1">'+
+// 				'</label>'+
+// 				'</div>'+
+// 				'</td>'+
+// 				'<td>'+product.proName+'</td>'+
+// 				'<td>'+product.proPrice+'</td>'+
+// 				'<td>'+allShoppingCars[i].amount+'</td>'+
+// 				'</tr>';
+// 	}
+// 	shoppingCarTable.innerHTML += html;
+// }
+
+</script>
+</body>
+
