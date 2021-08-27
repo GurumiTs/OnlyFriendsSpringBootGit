@@ -29,8 +29,6 @@ body {
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
 			<!-- Page content-->
-			<div name="successDiv" style="display: none;"></div>
-			<div name="errorsDiv" style="display: none;"></div>
 			<div class="container mt-5">
 				<br>
 				<!-- Page Heading -->
