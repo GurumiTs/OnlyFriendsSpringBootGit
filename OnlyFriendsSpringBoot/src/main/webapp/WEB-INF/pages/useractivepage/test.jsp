@@ -1,20 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="../frontcommonpages/shoptop.jsp"%>
-
+<%@ page language="java" contentType="text/html; charset=BIG5"
+    pageEncoding="BIG5"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 </head>
 <body>
-<body class="layout-2">
-	<div id="app">
-		<div class="main-wrapper">
-
-			<%@include file="../frontcommonpages/shopheader.jsp"%>
-
-			<%@include file="../frontcommonpages/shopsider.jsp"%>
-
-
-			<!-- Main Content -->
+<!-- Main Content -->
 			<div class="main-content">
 				<div class="col-12 col-md-12 col-lg-5" style="background-color:White;border-radius:10px;">
 					<form action="userInsertActivity.controller" method="post"
@@ -26,78 +22,74 @@
 
 							</div>
 							<div>
-								<label class="form-label" for="">å°é¢ç…§ç‰‡</label><span id="sp_cover"></span>
+								<label class="form-label" for="">«Ê­±·Ó¤ù</label><span id="sp_cover"></span>
 								<input name="cover" class="form-control" type="file" id="cover"
 									multiple onchange="lovdFile(event)">
 
 							</div>
 							<div>
 								<input type="hidden" name="anum" size="20"
-									placeholder="è«‹è¼¸å…¥æ´»å‹•ID..." value="${party.number}" /> <label
-									for="">æ´»å‹•åç¨±: </label> <input type="text" name="Activityname">
+									placeholder="½Ğ¿é¤J¬¡°ÊID..." value="${party.number}" /> <label
+									for="">¬¡°Ê¦WºÙ: </label> <input type="text" name="Activityname">
 							</div>
 
 
 							<div>
 								<select name="type" class="form-select form-select-sm"
 									aria-label=".form-select-sm example">
-									<option selected>æ´»å‹•é¡å‹</option>
-									<option value="ç´„æœƒ">ç´„æœƒ</option>
-									<option value="æ—…éŠ">æ—…éŠ</option>
-									<option value="é«”èƒ½">é«”èƒ½</option>
-									<option value="æ”¶è—">æ”¶è—</option>
-									<option value="å¨›æ¨‚">å¨›æ¨‚</option>
-									<option value="å‰µä½œ">å‰µä½œ</option>
-									<option value="ç¤¾æœƒ">ç¤¾æœƒæœå‹™</option>
-									<option value="é£¼é¤Š">æ ½åŸ¹é£¼é¤Š</option>
+									<option selected>¬¡°ÊÃş«¬</option>
+									<option value="¬ù·|">¬ù·|</option>
+									<option value="®È¹C">®È¹C</option>
+									<option value="Åé¯à">Åé¯à</option>
+									<option value="¦¬ÂÃ">¦¬ÂÃ</option>
+									<option value="®T¼Ö">®T¼Ö</option>
+									<option value="³Ğ§@">³Ğ§@</option>
+									<option value="ªÀ·|">ªÀ·|ªA°È</option>
+									<option value="¹}¾i">®â°ö¹}¾i</option>
 								</select>
 							</div>
 							<div>
 								<!-- yyyy-mm-dd  -->
-								<label class="" for="">æ´»å‹•æ—¥æœŸ:</label> <input type="date"
+								<label class="" for="">¬¡°Ê¤é´Á:</label> <input type="date"
 									name="time" id="time">
 							</div>
 							<div>
 								<!-- yyyy-mm-dd  -->
-								<label class="" for="">æˆªæ­¢æ—¥æœŸ:</label> <input
+								<label class="" for="">ºI¤î¤é´Á:</label> <input
 									type="datetime-local" name="time_up" id="time_up">
 							</div>
 
 							<div>
-								<label for="comment1" class="">æ´»å‹•å…§å®¹:</label>
+								<label for="comment1" class="">¬¡°Ê¤º®e:</label>
 								<textarea name="Detail" id="plan" cols="40" rows="5" value="" style=" resize: none;"></textarea>
 							</div>
 
 							<div>
-								<!-- ç¸£å¸‚ å€åŸŸ è·Ÿ å®Œæ•´åœ°å€ -->
-								<label for="">æ´»å‹•åœ°é»:</label> <span id="twzipcode"></span><input
+								<!-- ¿¤¥« °Ï°ì ¸ò §¹¾ã¦a§} -->
+								<label for="">¬¡°Ê¦aÂI:</label> <span id="twzipcode"></span><input
 									type="text" name="place">
 							</div>
 
 							<div>
-								<label>åƒåŠ æ¢ä»¶</label> <input type="text" name="condition">
-								<br> <label for="">ç”·ç”Ÿäººæ•¸:</label> <input type="number"
+								<label>°Ñ¥[±ø¥ó</label> <input type="text" name="condition">
+								<br> <label for="">¨k¥Í¤H¼Æ:</label> <input type="number"
 									name="man" id="numberInput" min="0" max="12" step="1"
-									onchange="numberChange()"> <label for=""> å¥³ç”Ÿäººæ•¸:</label>
+									onchange="numberChange()"> <label for=""> ¤k¥Í¤H¼Æ:</label>
 								<input type="number" name="woman" id="numberInput" min="0"
 									max="12" step="1" onchange="numberChange()">
 							</div>
 							<div>
-								<button type="submit" class="btn btn-primary btn-sm">å‰µå»ºæ´»å‹•</button>
-								<button type="reset" class="btn btn-secondary btn-sm" style="margin-right:100px">æ¸…é™¤è³‡æ–™</button>
+								<button type="submit" class="btn btn-primary btn-sm">³Ğ«Ø¬¡°Ê</button>
+								<button type="reset" class="btn btn-secondary btn-sm" style="margin-right:100px">²M°£¸ê®Æ</button>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 			<!-- main content -->
-			<%@include file="../frontcommonpages/shopfooter.jsp"%>
-		</div>
-	</div>
-
-		<%@include file="../frontcommonpages/shopbottom.jsp"%>
-		<script>
-			// ç…§ç‰‡é¡¯ç¤º
+			
+			<script>
+			// ·Ó¤ùÅã¥Ü
 			var lovdFile = function(event) {
 				var output = document.getElementById('output');
 				output.src = URL.createObjectURL(event.target.files[0]);
@@ -105,7 +97,7 @@
 					URL.revokeObjectURL(output.src)
 				}
 			}
-			// ç…§ç‰‡æ¬„ä½åˆ¤å®š
+			// ·Ó¤ùÄæ¦ì§P©w
 			document.getElementById("cover").addEventListener("blur",
 					checkcover);
 
@@ -115,13 +107,13 @@
 				let sp_cover = document.getElementById("sp_cover");
 				let coverCheck = /\.jpg$/;
 				if (coverVal == "")
-					sp_cover.innerHTML = "è«‹ä¸Šå‚³ç…§ç‰‡";
+					sp_cover.innerHTML = "½Ğ¤W¶Ç·Ó¤ù";
 				else if (coverCheck.test(coverVal) == false)
-					sp_cover.innerHTML = "åƒ…æ”¯æ´ .jpg æª”æ¡ˆ"
+					sp_cover.innerHTML = "¶È¤ä´© .jpg ÀÉ®×"
 				else
-					sp_cover.innerHTML = "æˆåŠŸ"
+					sp_cover.innerHTML = "¦¨¥\"
 			}
-			// ç¸£å¸‚
+			// ¿¤¥«
 			$("#twzipcode").twzipcode({
 				zipcodeIntoDistrict : true,
 			});
