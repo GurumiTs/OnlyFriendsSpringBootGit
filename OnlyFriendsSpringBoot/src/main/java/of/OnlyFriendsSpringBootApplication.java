@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @SpringBootApplication
 @ServletComponentScan
-@PropertySource(value = {"classpath:jdbc.properties"}, ignoreResourceNotFound = true)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnlyFriendsSpringBootApplication {
 

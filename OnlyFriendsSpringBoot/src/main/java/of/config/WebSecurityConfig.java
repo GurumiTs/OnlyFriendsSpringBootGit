@@ -43,9 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private CustomLoginSuccessHandler customLoginSuccessHandler;
 	@Autowired
 	private DataSource dataSource;
-	
-	
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
@@ -64,10 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers("/oauth2/**").permitAll()
 		.antMatchers("/emp**").hasRole("employee")
-//		.antMatchers("/member**").hasAnyAuthority("member,ROLE_USER")
 		.anyRequest().permitAll()
 		.and()
-		.addFilterBefore(getCustomLoginFilter(),CustomLoginFilter.class)
+//		.addFilterBefore(getCustomLoginFilter(),CustomLoginFilter.class)
 		.csrf().disable()
 		.formLogin()
 			.loginPage("/login")
@@ -117,14 +114,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		});
 		return filter;
 	}
-
-//
-//	create table persistent_logins (
-//			username varchar(64) not null,
-//			series varchar(64) primary key,
-//			token varchar(64) not null,
-//			last_used datetime not null
-//
-//		);	
-//NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 }
