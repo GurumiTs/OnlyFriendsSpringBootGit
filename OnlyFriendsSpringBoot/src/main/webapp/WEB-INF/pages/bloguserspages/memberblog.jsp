@@ -109,6 +109,7 @@ height:50px;
 					</div>
 			<!-- table end -->
                 <div class="card-footer bg-whitesmoke">This is card footer</div>
+               
               </div>
             </div>
           </section>
@@ -125,6 +126,30 @@ height:50px;
     </div>
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
+     			<c:if test="${not empty success}">
+						<script>
+							Swal.fire({
+								  position: 'center',
+								  icon: 'success',
+								  title: '更新成功!',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+					
+						</script>						
+					<c:remove var="success" scope="session" />
+				</c:if>
+     			<c:if test="${not empty error}">
+						<script>
+							Swal.fire({
+								  icon: 'error',
+								  title: 'Oops...',
+								  text: '更新失敗，請確認資料後再次更新!',
+								})
+					
+						</script>						
+					<c:remove var="error" scope="session" />
+				</c:if>
     
     
     <script >  
@@ -135,15 +160,15 @@ height:50px;
 	    	"url": "userblogalltojson",
 	    },
 	    columns: [
-// 	        { "data": "usersArticleID" },
-	        { 
-	        	"data": null,
-	            render:function(data, type, row)
-	            {
-	              return "<input class='form-check-input' type='checkbox id='flexCheckDefault' value='"+data.usersArticleID+"'>"
-	              "<label class='form-check-label' for='flexCheckDefault'> Default checkbox </label>";
-	            }
-	        },
+	        { "data": "usersArticleID" },
+// 	        { 
+// 	        	"data": null,
+// 	            render:function(data, type, row)
+// 	            {
+// 	              return "<input class='form-check-input' type='checkbox id='flexCheckDefault' value='"+data.usersArticleID+"'>"
+// 	              "<label class='form-check-label' for='flexCheckDefault'> Default checkbox </label>";
+// 	            }
+// 	        },
 	        { 
 	        	"data": null,
 	            render:function(data, type, row)
@@ -184,13 +209,13 @@ height:50px;
 	    	{
 	    		targets: [0],
 	    		createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "120px");
+	    			$(td).css("width", "50px");
 	    		},
 	    	},
 	    	{
 	    		targets: [2],
 	    		createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "300px");
+	    			$(td).css("width", "250px");
 	    		},
 	    	},
 	    	{
@@ -205,7 +230,7 @@ height:50px;
 	    	{
 	    		targets: [4],
 	    		createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "600px");
+	    			$(td).css("width", "500px");
 	    		},
 	    	},
 	    	{
@@ -267,7 +292,6 @@ height:50px;
 // 					}
 //     			}
 //     		});
-    		
 //     	});
 //     });    
     

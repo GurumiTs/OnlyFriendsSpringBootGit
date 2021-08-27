@@ -56,32 +56,21 @@
                 </tr>
             </thead>
             <tbody>
-     	<c:if test='${not empty allofficialActive}'>
-			<c:forEach var="oaBean" items="${allofficialActive}">
+     	<c:if test='${not empty alloaMember}'>
+			<c:forEach var="oaBean" items="${alloaMember}">
          
-          <tr id="${oaBean.anum}">
+          <tr id="${oaBean.active}">
           		   
-		           <td id="${oaBean.anum}imges"><img src="${oaBean.img}" width=100px height=100px></td>
-		           <td id="${oaBean.empAcc}EmpAcc">${oaBean.empAcc}</td>
-		           <td id="${oaBean.anum}anum">${oaBean.anum}</td>
-		           <td id="${oaBean.aname}aname">${oaBean.aname}</td>
+		           <td id="${oaBean.active}imges"><img src="${oaBean.img}" width=100px height=100px></td>
+		           <td id="${oaBean.active}active">${oaBean.active}</td>
+		           <td id="${oaBean.date}date">${oaBean.date}</td>
 		           <td id="${oaBean.atype}atype">${oaBean.atype}</td>
 		           <td id="${oaBean.atype2}atype2">${oaBean.atype2}</td>
-		           <td id="${oaBean.adate}adate">${oaBean.adate}</td>
-		           <td id="${oaBean.startDeadline}startDeadline">${oaBean.startDeadline}</td>
-		           <td id="${oaBean.finishDeadline}finishDeadline">${oaBean.finishDeadline}</td>
-		           <td id="${oaBean.active}active">${oaBean.active}</td>
 		           <td id="${oaBean.county}county">${oaBean.county}</td>
 		           <td id="${oaBean.district}district">${oaBean.district}</td>
-		           <td id="${oaBean.conditions}conditions">${oaBean.conditions}</td>
-		           <td id="${oaBean.male}male">${oaBean.male}</td>
-		           <td id="${oaBean.female}female">${oaBean.female}</td>
-		        	
-		     
-		           <td class="edit"><a href="empofficialactivesaveorupdate.controller?anum=${oaBean.anum}"><i
-						class="fas fa-edit"></i></a></td>
-					<td class="delete"><a href="empdeleteofficailactive.controller?anum=${oaBean.anum}">
-						<i class="far fa-trash-alt"></i></a></td>
+
+		           
+					
 							</c:forEach>
 									</c:if>
 		           

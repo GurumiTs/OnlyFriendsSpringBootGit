@@ -1,11 +1,10 @@
 package of.coupon.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,10 +37,6 @@ public class CouponService {
 		return couponRepository.findBycouponNameLike(couponName);
 	}
 	
-	public List<Coupon> findBycouponNameLike2(String couponName) {
-		return couponRepository.findBycouponNameLike2(couponName);
-	}
-	
 	public List<Coupon> findBycategoryName(String category) {
 		return couponRepository.findBycategory(category);
 	}
@@ -60,25 +55,29 @@ public class CouponService {
 		return couponRepository.findById(couponId);
 	}
 	
-	public Page<Coupon> findAllByPage(Pageable pageable){
-		return couponRepository.findAll(pageable);
+	public List<Coupon> findBycouponIdIn(List<Integer> couponIds) {
+		return couponRepository.findBycouponIdIn(couponIds);
 	}
 	
-	public Page<Coupon> findBycategorylikes(Pageable pageable,String category) {
-		return couponRepository.findBycategoryLike(pageable, category);
-	}
+//	public Page<Coupon> findAllByPage(Pageable pageable){
+//		return couponRepository.findAll(pageable);
+//	}
 	
-	public Page<Coupon> findBycategoryNotlikes(Pageable pageable,String category) {
-		return couponRepository.findBycategoryNotLike(pageable, category);
-	}
-	
-	public Page<Coupon> findBycouponNameLike(Pageable pageable,String couponName) {
-		return couponRepository.findBycouponNameLike(pageable, couponName);
-	}
-	
-	public Page<Coupon> findBycategory(Pageable pageable,String category) {
-		return couponRepository.findBycategory(pageable, category);
-	}
+//	public Page<Coupon> findBycategorylikes(Pageable pageable,String category) {
+//		return couponRepository.findBycategoryLike(pageable, category);
+//	}
+//	
+//	public Page<Coupon> findBycategoryNotlikes(Pageable pageable,String category) {
+//		return couponRepository.findBycategoryNotLike(pageable, category);
+//	}
+//	
+//	public Page<Coupon> findBycouponNameLike(Pageable pageable,String couponName) {
+//		return couponRepository.findBycouponNameLike(pageable, couponName);
+//	}
+//	
+//	public Page<Coupon> findBycategory(Pageable pageable,String category) {
+//		return couponRepository.findBycategory(pageable, category);
+//	}
 	
 	
 

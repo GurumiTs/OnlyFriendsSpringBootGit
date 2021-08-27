@@ -18,5 +18,8 @@ public interface UserActivityRepositor extends JpaRepository<UserActivity, Integ
 
 	// 查詢已參加活動
 //	public List<UserActivity> finByMemberAccont(String accont);
-
+	
+	//類別查詢 
+	@Query(value = "SELECT * FROM UserActivity u WHERE u.type = ?1", nativeQuery = true)
+	public List<UserActivity> findBytype(String type);
 }

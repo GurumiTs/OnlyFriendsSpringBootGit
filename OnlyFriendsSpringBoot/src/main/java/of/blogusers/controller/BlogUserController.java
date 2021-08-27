@@ -26,7 +26,7 @@ import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
 @Controller
-@SessionAttributes(names = {"totalPages", "totalElements"})
+@SessionAttributes(names = {"blogUserTotalPages", "blogUserTotalElements", "blogEmpTotalPages", "blogEmpTotalElements"})
 public class BlogUserController {
 
 	@Autowired
@@ -122,8 +122,8 @@ public class BlogUserController {
 		
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();// 全部有幾筆資料
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
+		m.addAttribute("blogUserTotalPages", totalPages);
+		m.addAttribute("blogUserTotalElements", totalElements);
 		
 		return page.getContent();
 	}
@@ -145,8 +145,8 @@ public class BlogUserController {
 		
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();// 全部有幾筆資料
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
+		m.addAttribute("blogEmpTotalPages", totalPages);
+		m.addAttribute("blogEmpTotalElements", totalElements);
 		
 		return page.getContent();
 	}

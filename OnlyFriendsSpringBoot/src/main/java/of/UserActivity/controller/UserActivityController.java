@@ -81,11 +81,21 @@ public class UserActivityController {
 	}
 
 	// 會員首頁分類查詢
+//	@RequestMapping(path = "/serchtype", method = RequestMethod.POST)
+//	@ResponseBody
+//	public List<UserActivity> activitytype(Model model, @RequestParam(name = "type") String type) {
+//
+//		List<UserActivity> useractivityList = userActivityService.findByType(type);
+//
+//		model.addAttribute("useractivityList", useractivityList);
+//
+//		return useractivityList;
+//	}
 
 	// 會員新增頁面
 	@RequestMapping(path = "/activityadd.controller", method = RequestMethod.GET)
 	public String processIntoInsert() {
-		return "useractivepage/userinsert";
+		return "useractivepage/empty";
 	}
 
 	// 會員新增活動
@@ -104,11 +114,13 @@ public class UserActivityController {
 		UserActivity userActivity = new UserActivity();
 
 		String fileName = cover.getOriginalFilename();
+		System.out.println("fulename:" + fileName);
 		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
-		System.out.println(path);
+		System.out.println("path:" + path);
 		String filePath = path + "/" + fileName;
 		File saveFile = new File(filePath);
 		cover.transferTo(saveFile);
+		System.out.println("step after save");
 		userActivity.setCover("images/partyPic/" + fileName);
 
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -148,8 +160,8 @@ public class UserActivityController {
 		return "useractivepage/useractivepost";
 	}
 
-	// 會員查看創辦活動 
-	@RequestMapping(path = "/userpost",method = RequestMethod.POST)
+	// 會員查看創辦活動
+	@RequestMapping(path = "/userpost", method = RequestMethod.POST)
 	@ResponseBody
 	public List<UserActivity> useractivity(Model model, HttpServletRequest request) {
 

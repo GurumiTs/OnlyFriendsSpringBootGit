@@ -24,6 +24,7 @@
 
 .p {
 	word-wrap: break-word;
+	border-bottom:1px solid #555;
 }
 
 .a {
@@ -32,8 +33,10 @@
 }
 
 #button {
-	padding-left: 281.5px;
+	text-align:center;
 }
+
+
 </style>
 
 </head>
@@ -53,7 +56,7 @@
 				</div>
 				<br>
 
-				<table id="button">
+				<table>
 
 					<tr>
 						<td class="a">廠商名稱:</td>
