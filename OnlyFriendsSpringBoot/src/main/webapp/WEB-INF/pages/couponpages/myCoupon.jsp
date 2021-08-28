@@ -99,29 +99,7 @@
 			<div class="main-sidebar">
 				<aside id="sidebar-wrapper">
 				<%@include file="../frontcommonpages/shopsider.jsp"%>
-					<!-- <div class="card">
-						<div class="card-header">
-							<h4>Search by</h4>
-						</div>
-						<div class="card-body">
-							<div class="container d-flex flex-column">
-								<input name="queryVal" id="queryVal" class="form-control"
-									type="search" placeholder="Search" aria-label="Search"
-									data-width="250">
-								<button class="btn" type="submit" id="Search">
-									<i class="fas fa-search"></i>
-								</button>
-								<button class="badge badge-primary mb-2" id="travel"
-									name="travel" value="優惠券-旅遊">Travel</button>
-								<button class="badge badge-secondary mb-2" id="food" name="food"
-									value="優惠券-美食">Food</button>
-								<button class="badge badge-success mb-2" id="sports"
-									name="sports" value="優惠券-運動">Sports</button>
-								<button class="badge badge-danger mb-2" id="accommodation"
-									name="accommodation" value="優惠券-住宿">Accommodation</button>
-							</div>
-						</div>
-					</div>-->
+					
 				</aside>
 			</div>
 
