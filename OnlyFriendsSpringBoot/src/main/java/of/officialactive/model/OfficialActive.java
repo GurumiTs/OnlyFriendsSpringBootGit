@@ -55,8 +55,7 @@ public class OfficialActive {
 	private String female;//女性
 	@Column(name="Img")
 	private String img;//圖片
-	@Column (name = "Joinmember")
-	private String joinmember;
+	
 	
 	@ManyToMany
 	@JoinTable(
@@ -66,13 +65,7 @@ public class OfficialActive {
 	private List<OfficialActive> memberactive = new ArrayList<>();
 	
 
-	public String getJoinmember() {
-		return joinmember;
-	}
 
-	public void setJoinmember(String joinmember) {
-		this.joinmember = joinmember;
-	}
 
 	public List<OfficialActive> getMemberactive() {
 		return memberactive;
