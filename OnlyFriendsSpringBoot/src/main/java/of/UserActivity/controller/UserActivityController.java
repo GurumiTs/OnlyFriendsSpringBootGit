@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import of.UserActivity.model.UserActivity;
 import of.UserActivity.model.UserActivityService;
 import of.member.model.Member;
+import of.officialactive.model.OfficialActive;
+import of.party.model.Party;
 
 @Controller
 @SessionAttributes(names = { "useractivityList" })
@@ -132,8 +134,7 @@ public class UserActivityController {
 		userActivity.setType(type);
 		userActivity.setTime(time);
 
-		String Deadline = time_up.replace("T", " ⌚");
-		userActivity.setTime_up(Deadline);
+		userActivity.setTime_up(time_up);
 
 		userActivity.setCounty(county);
 		userActivity.setCondition(condition);
@@ -151,9 +152,84 @@ public class UserActivityController {
 		userActivityService.insert(userActivity);
 
 		System.out.println("活動名稱" + Activityname);
-		return "redirect:/useractivity.entry";
+		return "redirect:/useractivity.post";
 	}
 
+	//會員修改
+	@RequestMapping(path = "/userActivity.up.controller", method = RequestMethod.GET)
+	public String partyupenty(HttpServletRequest request, Model model) {
+		Integer number = Integer.parseInt(request.getParameter("number"));
+		userActivity = userActivityService.select(number);
+		model.addAttribute("userActivity", userActivity);
+		return "useractivepage/useractivityup";
+	}
+	
+	@RequestMapping(path = "/userActivityup.controller", method = RequestMethod.POST)
+	public String partup(@RequestParam(name = "cover") MultipartFile cover,
+			@RequestParam(name = "activityname") String activityname,
+//			@RequestParam(name = "memberAccount") String memberAccount,
+			@RequestParam(name = "type") String type,
+			@RequestParam(name = "time") String time,
+			@RequestParam(name = "time_up") String time_up,
+			@RequestParam(name = "county") String county,
+			@RequestParam(name = "district") String district,
+			@RequestParam(name = "zipcode") String zipcode,
+			@RequestParam(name = "place") String place,
+
+			@RequestParam(name = "detail") String detail,
+			@RequestParam(name = "condition") String condition,
+			@RequestParam(name = "man") String man,
+			@RequestParam(name = "woman") String woman,
+			
+			HttpServletRequest request, Model model)
+			throws SQLException, IllegalStateException, IOException, NullPointerException {
+		
+		String fileName = cover.getOriginalFilename();
+		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
+		System.out.println(path);
+		String filePath =  path+ "/" + fileName;	
+		File saveFile = new File(filePath);
+		cover.transferTo(saveFile);
+		userActivity.setCover("images/partyPic/" + fileName);
+
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		userActivity.setMemberAccount(memberAccount);
+		
+		userActivity.setActivityname(activityname);
+		userActivity.setApprove("false");
+		userActivity.setType(type);
+		userActivity.setTime(time);
+		userActivity.setTime_up(time_up);
+		userActivity.setDetail(detail);
+		
+		userActivity.setCounty(county);
+		userActivity.setCondition(condition);
+		userActivity.setDistrict(district);
+		userActivity.setZipcode(zipcode);
+		userActivity.setPlace(place);
+
+		userActivity.setCondition(condition);
+		userActivity.setMan(Integer.parseInt(man));
+		userActivity.setWoman(Integer.parseInt(woman));
+		userActivity.setTotal(Integer.parseInt(man) + Integer.parseInt(woman));
+		
+
+		userActivityService.updata(userActivity);
+
+
+		return "redirect:/useractivity.post";
+	}
+	//會員刪除
+	@RequestMapping(path = "/deleteactivity.controller", method = RequestMethod.GET)
+	public String Deleteactivity(@RequestParam(name = "number") int number, Model model) {
+//		Integer number = Integer.parseInt(request.getParameter("number"));
+		userActivity = userActivityService.select(number);
+		model.addAttribute("userActivity", userActivity);
+		userActivityService.deleteById(number);
+		return "redirect:/useractivity.post";
+	}
+	
 	// 會員查看POST首頁
 	@RequestMapping(path = "/useractivity.post", method = RequestMethod.GET)
 	public String userActivityPost(Model m) {

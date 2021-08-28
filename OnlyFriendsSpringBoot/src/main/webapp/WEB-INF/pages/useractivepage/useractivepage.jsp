@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+body{
+font-size:1.2rem
+}
+</style>
 </head>
 <body>
 <body class="layout-2">

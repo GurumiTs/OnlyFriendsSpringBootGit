@@ -6,6 +6,9 @@
 #Grid:hover {
 	transform: scale(1.05);
 }
+body{
+font-size:1.2rem
+}
 </style>
 </head>
 <body>

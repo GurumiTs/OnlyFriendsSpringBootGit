@@ -36,6 +36,9 @@
 	height: 50px;
 	display: block;
 }
+body{
+font-size:1.2rem
+}
 </style>
 </head>
 <body id="page-top">
