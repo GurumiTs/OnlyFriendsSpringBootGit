@@ -49,6 +49,24 @@ public class BlogController {
 	}
 
 	// Datatable Tab管理者及使用者json資料
+	@GetMapping(path = "/empblogtojson")
+	@ResponseBody
+	public Map empBlogToJson(Model m) {
+		List<BlogBean> blogList = bService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", blogList);
+		return map;
+	}
+	
+	@GetMapping(path = "/usersblogtojson")
+	@ResponseBody
+	public Map usersBlogToJson(Model m) {
+		List<BlogUser> bUserList = bUserService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("bloguser", bUserList);
+		return map;
+	}
+	//test json
 //	@GetMapping(path = "/blogalltojson")
 //	@ResponseBody
 //	public Map allBlogToJson(Model m) {
@@ -59,16 +77,6 @@ public class BlogController {
 //		map.put("bloguser", blogList);
 //		return map;
 //	}
-	
-	@GetMapping(path = "/blogalltojson")
-	@ResponseBody
-	public Map allBlogToJson(Model m) {
-		List<BlogBean> blogList = bService.findAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data", blogList);
-		return map;
-	}
-
 	// Delete
 	@PostMapping(path = "/empblogdelete/{articleID}")
 	@ResponseBody
