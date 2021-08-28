@@ -33,7 +33,7 @@ font-size:1.2rem
 							<a href="useractivity.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
-								<img class="img-fluid rounded" src="${userActivity.cover}" alt="..." />
+								<img class="img-fluid rounded" style="width:700px;height:500px; src="${userActivity.cover}" alt="..." />
 							</figure>
 							<!-- Post content-->
 							<section class="mb-5">

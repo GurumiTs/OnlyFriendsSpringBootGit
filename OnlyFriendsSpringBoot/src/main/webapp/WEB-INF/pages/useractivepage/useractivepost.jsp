@@ -83,9 +83,6 @@ body {
 														+ n.number
 														+ "'>"
 														+ "<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"
-														+ "<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;'>👁️‍🗨️"
-														+ n.see
-														+ "</span>"
 
 														+ "<div class='card-body'>"
 														+ "<h2 class='card-title h4'>"
@@ -162,10 +159,7 @@ body {
 														+ "<br/><a href='useractivity.page2?number="
 														+ n.number
 														+ "'>"
-														+ "<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"
-														+ "<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;'>👁️‍🗨️"
-														+ n.see
-														+ "</span>"
+														+ "<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"							
 
 														+ "<div class='card-body'>"
 														+ "<h2 class='card-title h4'>"
