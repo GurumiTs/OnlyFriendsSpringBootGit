@@ -14,6 +14,5 @@
 //public interface ShopRepository extends JpaRepository<CartItem, Integer> {
 ////	Optional<Product> findByProId(Integer proId);
 //	
-//	Optional<CartItem> findByCartId(Integer cartId);
-//	
+////	Optional<CartItem> findBymemberAccount(Integer memberAccount);
 //}

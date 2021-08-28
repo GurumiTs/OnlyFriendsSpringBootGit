@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<body>
+
 <div class="navbar-bg"></div>
 <nav class="navbar navbar-expand-lg main-navbar">
 	<a href="${pageContext.request.contextPath}/"
@@ -47,7 +47,7 @@
 				data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
 				aria-controls="offcanvasRight">
 				<i class="fas fa-shopping-cart text-white cart"></i> <span
-					class="badge bg-light text-dark ms-1 rounded-pill numberCart" id="count">0</span>
+					class="badge bg-light text-dark ms-1 rounded-pill numberCart" id="cartcount">0</span>
 			</button>
 			
 
@@ -59,7 +59,18 @@
 						data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body" id="cartlist">
-					<table class="table table-hover center" id="shoppingCartTable"></table>			
+					<table class="table table-hover center" id="shoppingCartTable">
+						<thead>
+						<tr>
+							<th>是否購買</th>
+							<th>商品名稱</th>
+							<th>商品單價</th>
+							<th>商品數量</th>
+						</tr>
+						</thead>
+						<tbody id="cartlistitem"></tbody>
+						
+					</table>			
 				</div>
 			</div>
 			
@@ -71,36 +82,6 @@
 		</a></li>
 	</ul>
 </nav>
-<script type="text/javascript">
-// updateShoppingCars();
-// function updateShoppingCars() {
-// 	var shoppingCarTable = document.getElementById("shoppingCarTable");
-// 	var allShoppingCars = getAttribute();
-// 	shoppingCarTable.innerHTML = "";
-// 	var html = '<tr>'+
-// 					'<th>是否購買</th>'+
-// 					'<th>商品名稱</th>'+
-// 					'<th>商品單價</th>'+
-// 					'<th>商品數量</th>'+
-// 				'</tr>';
-// 	for(var i=0;i<allShoppingCars.length;i++){
-// 		var product = getProductById(allShoppingCars[i].proId);
-// 		html  += '<tr>'+
-// 				'<td>'+
-// 				'<div class="checkbox">'+
-// 				'<label>'+
-// 				'<input type="checkbox" id="checkbox'+allShoppingCars[i].proId+'" value="option1">'+
-// 				'</label>'+
-// 				'</div>'+
-// 				'</td>'+
-// 				'<td>'+product.proName+'</td>'+
-// 				'<td>'+product.proPrice+'</td>'+
-// 				'<td>'+allShoppingCars[i].amount+'</td>'+
-// 				'</tr>';
-// 	}
-// 	shoppingCarTable.innerHTML += html;
-// }
 
-</script>
-</body>
+
 

@@ -226,8 +226,65 @@
 				})
 		});
 	//addcharticon
+// 	var cartcount = document.getElementById("cartcount"); //顯示商品總數量的標籤節點物件
+// 	var btns = document.querySelectorAll(".addCart"); //所有的購物車按鈕
+// 	//約定好用名稱為datas的cookie來存放購物車裡的資料資訊 datas裡所存放的就是一個json字串
+// 	var listStr = session.get("cartlist");
+// 	/*判斷一下本地是否有一個購物車（datas），沒有的話，建立一個空的購物車，有的話就直接拿來使用*/
+// 	if(!listStr) { //沒有購物車 datas json
+// 	session.set({
+// 	name: "cartlist",
+// 	value: "[]"
+// 	});
+// 	listStr = cartlist.get("cartlist");
+// 	}
+// 	var listObj = JSON.parse(listStr); //陣列
+// 	/*迴圈遍歷陣列，獲取每一個物件中的pCount值相加總和*/
+// 	var totalCount = 0; //預設為0
+// 	for(var i = 0, len = listObj.length; i < len; i  ) {
+// 	totalCount = listObj[i].amount   totalCount;
+// 	}
+// 	cartcount.innerHTML = totalCount;
 	
-// addtocart
+		//addtocart
+		$(document).ready(function(){
+			$("#cartlistitem").click(function(){
+			$.ajax({
+				type:"GET",
+				url:"cart",
+				dataType:'JSON',
+				success:function(cartlist){
+					 console.log(cartlist);
+		     	     var json = JSON.stringify(cartlist,null,4);
+		     	     var parsedObjinArray = JSON.parse(json);
+		     	     var shoppingCartTable = $('#cartlistitem');
+		     	     $('#cartlistitem').empty("");
+		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+		     	     var item = '<tr>'+
+		 				'<td>'+
+		 				'<div class="checkbox">'+
+		 				'<label>'+
+		 				'<input type="checkbox" id="checkbox'+n.product.proId+'" value="option1">'+
+		 				'</label>'+
+		 				'</div>'+
+		 				'</td>'+
+		 				'<td>'+n.product.proName+'</td>'+
+		 				'<td>'+n.product.proPrice+'</td>'+
+		 				'<td>'+n.amount+'</td>'+
+		 				'</tr>';
+		     	    shoppingCartTable.append(item);
+				});
+				},
+				error:function(){
+					console.log("error");
+				}
+			});
+			})
+		})
+		
+		
+
+
 
 
 	</script>

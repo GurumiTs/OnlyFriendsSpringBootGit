@@ -8,6 +8,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -65,10 +66,11 @@ public class ShoppingCartController {
 											@RequestParam (name = "amount")Integer amount,
 											Model model,HttpSession session,HttpServletRequest request ) {
 		
-		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
-		
+		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
 		CartItem cartItem=(CartItem)session.getAttribute("cartlist");
 		List<CartItem> cartlist = new ArrayList<CartItem>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
 		
 		if(cartItem ==null) {
 			//add item
@@ -79,6 +81,7 @@ public class ShoppingCartController {
 			cartItem.setAmount(amount);
 			cartItem.setTotal(productService.findIdToGetPrice(proId)*amount);
 			cartlist.add(cartItem);
+			resultMap.put("result", cartlist);
 			
 		}else {
 			cartItem.setAmount(cartItem.getAmount()+amount);
@@ -94,15 +97,35 @@ public class ShoppingCartController {
 	
 	
 
-	@RequestMapping(value = "/getShoppingCars",method = RequestMethod.POST)
+	@RequestMapping(path = "/getShoppingCars",method = RequestMethod.POST)
 	@ResponseBody
-	public List<CartItem> getShoppingCars(Model model,HttpServletRequest request) {
+	public Map<String, Object> getShoppingCars(Model model,HttpServletRequest request) {
 		
-		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
-		String shoppingcartlist=JSONArray.toJSONString(cartlist);
+		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
+//		String shoppingcartlist=JSONArray.toJSONString(cartlist);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", cartlist);
-		return cartlist ;
+		return resultMap ;
+	}
+	
+	@RequestMapping(path = "/getcartitemcounts",method = RequestMethod.POST)
+	public Integer getCartItemCounts(@RequestParam(name = "proId") Integer proId,Model model,HttpServletRequest request) {
+		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
+		
+		
+		
+		System.out.println(request.getAttributeNames());
+		
+		
+		for(CartItem c:cartlist) {
+			Integer cartfindproid =c.getProduct().getProId();
+//			if(cartfindproid==cartlist.get(proId)){
+//				
+//			}
+		}
+		
+		
+		return 1;
 	}
 	
 //	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
