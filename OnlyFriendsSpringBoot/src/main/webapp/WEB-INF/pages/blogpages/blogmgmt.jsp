@@ -35,6 +35,13 @@
 .delete {
 	cursor: pointer;
 }
+.deleteUser:hover {
+	font-size: 130%;
+}
+
+.deleteUser {
+	cursor: pointer;
+}
 
 .insert{
 height:50px;
@@ -105,69 +112,70 @@ height:50px;
 								<!-- 第一table -->
 									<div class="tab-pane fade show active" id="nav-home"
 										role="tabpanel" aria-labelledby="nav-home-tab">
-									<table id="example" class="table table-striped"
-										style="width: 100%">
-										<thead>
-											<tr>
-												<th>ID</th>
-												<th>Images</th>
-												<th>Title</th>
-												<th>UpdateDate</th>
-												<th>MainText</th>
-												<th>EmpAcc</th>
-												<th>UserID</th>
-												<th>Edit</th>
-												<th>Delete</th>
-											</tr>
-										</thead>
-
-										<tfoot>
-											<tr>
-												<th class="d-none">文章編號</th>
-												<th class="d-none">圖片</th>
-												<th class="d-none">文章標題</th>
-												<th class="d-none">最後更新時間</th>
-												<th class="d-none">內容</th>
-												<th class="d-none">PO文者帳號</th>
-												<th class="d-none">暱稱</th>
-												<th class="d-none">Edit</th>
-												<th class="d-none">Del</th>
-											</tr>
-										</tfoot>
-									</table>
+										<table id="example" class="table table-striped"
+											style="width: 100%">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Images</th>
+													<th>Title</th>
+													<th>UpdateDate</th>
+													<th>MainText</th>
+													<th>EmpAcc</th>
+													<th>UserID</th>
+													<th>Edit</th>
+													<th>Delete</th>
+												</tr>
+											</thead>
+	
+											<tfoot>
+												<tr>
+													<th class="d-none">文章編號</th>
+													<th class="d-none">圖片</th>
+													<th class="d-none">文章標題</th>
+													<th class="d-none">最後更新時間</th>
+													<th class="d-none">內容</th>
+													<th class="d-none">PO文者帳號</th>
+													<th class="d-none">暱稱</th>
+													<th class="d-none">Edit</th>
+													<th class="d-none">Del</th>
+												</tr>
+											</tfoot>
+										</table>
 									</div>
+									
 								<!-- 第二table -->
 									<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 										aria-labelledby="nav-profile-tab">
-									<table id="example2" class="table table-striped"
-										style="width: 100%">
-										<thead>
-											<tr>
-												<th>ID</th>
-												<th>Images</th>
-												<th>Title</th>
-												<th>UpdateDate</th>
-												<th>MainText</th>
-												<th>MemberAccount</th>
-												<th>UsersName</th>
-												<th>Edit</th>
-												<th>Delete</th>
-											</tr>
-										</thead>
-										<tfoot>
-											<tr>
-												<th class="d-none">文章編號</th>
-												<th class="d-none">圖片</th>
-												<th class="d-none">文章標題</th>
-												<th class="d-none">最後更新時間</th>
-												<th class="d-none">內容</th>
-												<th class="d-none">PO文者帳號</th>
-												<th class="d-none">暱稱</th>
-												<th class="d-none">Edit</th>
-												<th class="d-none">Del</th>
-											</tr>
-										</tfoot>
-									</table>
+										<table id="example2" class="table table-striped"
+											style="width: 100%">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Images</th>
+													<th>Title</th>
+													<th>UpdateDate</th>
+													<th>MainText</th>
+													<th>MemberAccount</th>
+													<th>UsersName</th>
+													<th>Edit</th>
+													<th>Delete</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th class="d-none">文章編號</th>
+													<th class="d-none">圖片</th>
+													<th class="d-none">文章標題</th>
+													<th class="d-none">最後更新時間</th>
+													<th class="d-none">內容</th>
+													<th class="d-none">PO文者帳號</th>
+													<th class="d-none">暱稱</th>
+													<th class="d-none">Edit</th>
+													<th class="d-none">Del</th>
+												</tr>
+											</tfoot>
+										</table>
 									</div>
 								</div>
 							</div>
@@ -205,56 +213,8 @@ height:50px;
 
 		var table1 = $('#example').DataTable({
 		    "ajax": {
-		    	"url": "empblogtojson",
-		    },
-		    "columns": [
-		        { "blogemp": "articleID" },
-		        { 
-		        	"blogemp": null,
-		            render:function(data, type, row)
-		            {
-		              return "<img src="+blogemp.images+" class='img1'>";
-		            }
-		        },
-		        { "blogemp": "title" }, 
-		        { "blogemp": "updateTime",
-		        	render:function(data, type, row)
-		        	{
-		        		return data.substring(0, 10);
-		        	}	
-		        },
-		        { 
-		        	"blogemp": "mainText",
-		        	render:function(data, type, row)
-		        	{
-		        		if (data) {
-		        			return (data.length > 100)?data.substring(0, 100)+"...":data;
-		        		} else {
-		        			return '';
-		        		}
-		        	}
-		        },
-		        { "blogemp": "empAcc"},		  
-		        { "blogemp": "userID"},		  
-		        {
-		            "blogemp": null,
-		            render:function(data, type, row)
-		            {
-		              return "<a class='edit' href='empupdateentry.controller?articleID="+blogemp.articleID+"'><i class='fas fa-edit'></i>";
-		            }
-		        },
-		        {
-		            "blogemp": null,
-		            render:function(data, type, row)
-		            {
-		              return "<i class='far fa-trash-alt delete' id="+blogemp.articleID+"></i>";
-		            }
-		        }
-		    ]
-		});
-		var table2 = $('#example2').DataTable({
-		    "ajax": {
 		    	"url": "blogalltojson",
+		    	"dataSrc": "blogemp",
 		    },
 		    "columns": [
 		        { "data": "articleID" },
@@ -302,56 +262,81 @@ height:50px;
 		    ]
 		});
 		
-		/* load data table */
-// 		var table = $('#example').DataTable({
-// 		    "ajax": {
-// 		    	"url": "blogalltojson",
-// 		    },
-// 		    "columns": [
-// 		        { "data": "articleID" },
-// 		        { 
-// 		        	"data": null,
-// 		            render:function(data, type, row)
-// 		            {
-// 		              return "<img src="+data.images+" class='img1'>";
-// 		            }
-// 		        },
-// 		        { "data": "title" }, 
-// 		        { "data": "updateTime",
-// 		        	render:function(data, type, row)
-// 		        	{
-// 		        		return data.substring(0, 10);
-// 		        	}	
-// 		        },
-// 		        { 
-// 		        	"data": "mainText",
-// 		        	render:function(data, type, row)
-// 		        	{
-// 		        		if (data) {
-// 		        			return (data.length > 100)?data.substring(0, 100)+"...":data;
-// 		        		} else {
-// 		        			return '';
-// 		        		}
-// 		        	}
-// 		        },
-// 		        { "data": "empAcc"},		  
-// 		        { "data": "userID"},		  
-// 		        {
-// 		            "data": null,
-// 		            render:function(data, type, row)
-// 		            {
-// 		              return "<a class='edit' href='empupdateentry.controller?articleID="+data.articleID+"'><i class='fas fa-edit'></i>";
-// 		            }
-// 		        },
-// 		        {
-// 		            "data": null,
-// 		            render:function(data, type, row)
-// 		            {
-// 		              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
-// 		            }
-// 		        }
-// 		    ]
-// 		});
+		var table2 = $('#example2').DataTable(
+					{
+				    ajax: {
+				    	"url": "blogalltojson",
+				    	"dataSrc": "bloguser",
+				    },
+				    columns: [
+				        { "data": "usersArticleID" },
+				        { 
+				        	"data": null,
+				            render:function(data, type, row)
+				            {
+				              return "<img src="+data.usersImages+" class='img1'>";
+				            }
+				        },
+				        { "data": "usersTitle" }, 
+				        { "data": "usersUpdateTime" },
+				        { 
+				        	"data": "usersMainText",
+				        	render:function(data, type, row)
+				        	{
+				        		if (data) {
+				        			return (data.length > 100)?data.substring(0, 100)+"...":data;
+				        		} else {
+				        			return '';
+				        		}
+				        	}
+				        },
+				        { "data": "memberAccount"},
+				        { "data": "usersName"},		
+				        {
+				            "data": null,
+				            render:function(data, type, row)
+				            {
+				              return "<a href='blogusersupdate?usersArticleID="+data.usersArticleID+"'><i class='fas fa-edit edit'></i>";
+				            }
+				        },
+				        {
+				            "data": null,
+				            render:function(data, type, row)
+				            {
+				              return "<i class='far fa-trash-alt deleteUser' id="+data.usersArticleID+"></i>";
+				            }
+				        }
+				    ],
+// 				    columnDefs:[
+// 				    	{
+// 				    		targets: [0],
+// 				    		createdCell: function (td, cellData, rowData, row, col){
+// 				    			$(td).css("width", "50px");
+// 				    		},
+// 				    	},
+// 				    	{
+// 				    		targets: [2],
+// 				    		createdCell: function (td, cellData, rowData, row, col){
+// 				    			$(td).css("width", "250px");
+// 				    		},
+// 				    	},
+// 				    	{
+// 					    	targets: [3],
+// 					    	createdCell: function (td, cellData, rowData, row, col){
+// 				    			$(td).css("width", "100px");
+// 				    		},
+// 					    	render: function(data){
+// 					    		return moment(data).format('YYYY-MM-DD');
+// 					    	},
+// 				    	},
+// 				    	{
+// 				    		targets: [4],
+// 				    		createdCell: function (td, cellData, rowData, row, col){
+// 				    			$(td).css("width", "500px");
+// 				    		},
+// 				    	},
+// 				    ]
+				});
 		
 		// Delete
 		$("#example tbody").on("click", ".delete", function () {
@@ -371,6 +356,43 @@ height:50px;
 	                  $.ajax({
 	                        type: "POST",
 	                        url: "empblogdelete/"+articleID,
+	                        success: function(response) {  
+	                        	dtr.remove();
+	                             Swal.fire(
+	                              'Deleted!',
+	                              'Your file has been deleted.',
+	                              'success'
+	                            ) } ,
+	                            error: function (xhr) {
+	                            Swal.fire({
+	                              icon: 'error',
+	                              title: 'Oops...',
+	                              text: 'Something went wrong!'
+	                            }) },  //error close
+	                     }); //ajax close          
+	                } //if close 
+
+	           }); //then close 
+		});
+		
+		// Delete userblog
+		$("#example2 tbody").on("click", ".deleteUser", function () {
+			let usersArticleID = $(this).attr("id");
+			console.log($(this).closest("tr"));
+			let dtr = $(this).closest("tr");
+			  Swal.fire({
+	                title: 'Are you sure?',
+	                text: "You won't be able to revert this!",
+	                icon: 'warning',
+	                showCancelButton: true,
+	                confirmButtonColor: '#3085d6',
+	                cancelButtonColor: '#d33',
+	                confirmButtonText: 'Yes, delete it!'
+	              }).then((result) => {
+	                if (result.isConfirmed) {
+	                  $.ajax({
+	                        type: "POST",
+	                        url: "usersblogdelete/"+usersArticleID,
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(

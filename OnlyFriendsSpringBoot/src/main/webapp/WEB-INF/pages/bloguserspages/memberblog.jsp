@@ -161,14 +161,6 @@ height:50px;
 	    },
 	    columns: [
 	        { "data": "usersArticleID" },
-// 	        { 
-// 	        	"data": null,
-// 	            render:function(data, type, row)
-// 	            {
-// 	              return "<input class='form-check-input' type='checkbox id='flexCheckDefault' value='"+data.usersArticleID+"'>"
-// 	              "<label class='form-check-label' for='flexCheckDefault'> Default checkbox </label>";
-// 	            }
-// 	        },
 	        { 
 	        	"data": null,
 	            render:function(data, type, row)
