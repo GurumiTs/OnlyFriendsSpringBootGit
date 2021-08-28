@@ -36,7 +36,7 @@ height: 350px;
 								<table id="showpage" class="d-flex justify-content-center">
 									<tr>
 										<td colspan="3" align="right"><c:forEach var="i" begin="1"
-												end="${totalPages}" step="1">
+												end="${blogUserTotalPages}" step="1">
 												<button class="btn btn-outline-secondary" id="myPage"
 													value="${i}" onclick="change(${i})">${i}</button>
 											</c:forEach></td>
@@ -69,7 +69,7 @@ height: 350px;
 									<div class="col-sm-6">
 										<ul class="list-unstyled mb-0">
 											<li><a href="blogofficial">幸福故事</a></li>
-											<li><a href="#!">管理文章</a></li>
+											<li><a href="memberblog">管理文章</a></li>
 											<li><a href="blogusersinsert">我要分享</a></li>
 										</ul>
 									</div>

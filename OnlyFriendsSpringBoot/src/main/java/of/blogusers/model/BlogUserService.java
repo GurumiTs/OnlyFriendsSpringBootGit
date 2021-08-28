@@ -49,10 +49,16 @@ public class BlogUserService {
 	}
 
 	// 確認id存在
-	public Boolean checkArticleID(Integer memberAccount) {
-		Optional<BlogUser> bOptional = bUserRepository.findById(memberAccount);
+	public Boolean checkArticleID(Integer usersArticleID) {
+		Optional<BlogUser> bOptional = bUserRepository.findById(usersArticleID);
 		return bOptional.isPresent();
 	}
+	
+	// 確認id存在
+//	public Boolean checkArticleID(Integer memberAccount) {
+//		Optional<BlogUser> bOptional = bUserRepository.findById(memberAccount);
+//		return bOptional.isPresent();
+//	}
 
 	// pageable
 	public Page<BlogUser> findAllByPage(Pageable pageable) {

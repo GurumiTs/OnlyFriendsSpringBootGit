@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import of.blog.model.BlogBean;
 import of.blog.model.BlogService;
+import of.blogusers.model.BlogUser;
+import of.blogusers.model.BlogUserService;
 
 @Controller
 public class BlogController {
@@ -37,22 +39,34 @@ public class BlogController {
 	private BlogService bService;
 	@Autowired
 	private BlogBean blog;
-
+	@Autowired
+	private BlogUserService bUserService;
+	
 	// 進主頁controller
 	@RequestMapping(path = "/empblogmgmt.controller", method = RequestMethod.GET)
 	public String blogMgmtEntry(Model model) {
 		return "blogpages/blogmgmt";
+	}
+	
+	@GetMapping(path = "/usersblogtojson")
+	@ResponseBody
+	public Map usersBlogToJson(Model m) {
+		List<BlogUser> bUserList = bUserService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", bUserList);
+		return map;
 	}
 
 	@GetMapping(path = "/blogalltojson")
 	@ResponseBody
 	public Map allBlogToJson(Model m) {
 		List<BlogBean> blogList = bService.findAll();
+		List<BlogUser> bUserList = bUserService.findAll();
 		Map<String, Object> map = new HashMap<>();
-		map.put("data", blogList);
+		map.put("blogemp", blogList);
+		map.put("bloguser", bUserList);
 		return map;
 	}
-
 	// Delete
 	@PostMapping(path = "/empblogdelete/{articleID}")
 	@ResponseBody

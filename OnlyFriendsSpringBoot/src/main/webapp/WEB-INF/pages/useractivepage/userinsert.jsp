@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
-body {
-	
+body{
+font-size:1.2rem
 }
 </style>
 </head>
@@ -26,7 +26,7 @@ body {
 						<div class="st1">
 							<div class="">
 								<img id="output" src="images\partyPic\party1.jpg" alt=""
-									style="width: 600px; height: 450px;border-radius:10px;"><br>
+									style="width: 600px; height: 450px; border-radius:10px; margin:10px"><br>
 
 							</div>
 							<div>
@@ -69,7 +69,7 @@ body {
 
 							<div>
 								<label for="comment1" class="">活動內容:</label>
-								<textarea name="Detail" id="plan" cols="40" rows="5" value=""></textarea>
+								<textarea name="Detail" id="plan" cols="40" rows="5" value="" style=" resize: none;"></textarea>
 							</div>
 
 							<div>
@@ -88,7 +88,7 @@ body {
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary btn-sm">創建活動</button>
-								<button type="reset" class="btn btn-secondary btn-sm">清除資料</button>
+								<button type="reset" class="btn btn-secondary btn-sm" style="margin-right:100px">清除資料</button>
 							</div>
 						</div>
 					</form>

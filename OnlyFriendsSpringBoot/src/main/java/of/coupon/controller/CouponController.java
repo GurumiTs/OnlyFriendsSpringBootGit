@@ -8,25 +8,19 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.coupon.model.Coupon;
 import of.coupon.model.CouponService;
 
 @Controller
-@SessionAttributes(names = { "totalPages", "totalElements" })
 public class CouponController {
 
 	@Autowired
@@ -212,9 +206,14 @@ public class CouponController {
 
 	@GetMapping("/couponMember.controller")
 	public String couponMemberEntry() {
+		
 		return "couponpages/couponMember";
 	}
+	
+	
 
+	
+	
 //	@PostMapping("/queryallcouponsbypage/{pageNo}")
 //	@ResponseBody
 //	public List<Coupon> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m){
@@ -227,6 +226,10 @@ public class CouponController {
 //		int totalPages = page.getTotalPages();
 //		long totalElements = page.getTotalElements();
 //		
+//		
+//		System.out.println(totalPages);
+//		System.out.println(totalElements);
+//		
 //		m.addAttribute("totalPages", totalPages);
 //		m.addAttribute("totalElements", totalElements);
 //		
@@ -234,171 +237,165 @@ public class CouponController {
 //	}
 
 	// 分類為優惠券全部
-	@PostMapping("/queryallcategorycsobypage/{pageNo}")
-	@ResponseBody
-	public List<Coupon> queryallcategorycsobypage(@PathVariable("pageNo") int pageNo, Model m) {
-
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Page<Coupon> page = couponService.findBycategorylikes(pageable, "優惠券%");
-
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
+//	@PostMapping("/queryallcategorycsobypage/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallcategorycsobypage(@PathVariable("pageNo") int pageNo, Model m) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycategorylikes(pageable, "優惠券%");
+//
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 
 	// 分類為優惠券Free
-	@PostMapping("/queryallcategoryfreebypage/{pageNo}")
-	@ResponseBody
-	public List<Coupon> queryallcategoryfreebypage(@PathVariable("pageNo") int pageNo, Model m) {
+//	@PostMapping("/queryallcategoryfreebypage/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallcategoryfreebypage(@PathVariable("pageNo") int pageNo, Model m) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycategoryNotlikes(pageable, "優惠券%");
+//
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Page<Coupon> page = couponService.findBycategoryNotlikes(pageable, "優惠券%");
-
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
-
+	
 	// search
-	@PostMapping("/queryallcoupons/{pageNo}")
-	@ResponseBody
-	public List<Coupon> processQueryByPageActioncategory(@PathVariable("pageNo") int pageNo, @RequestParam String queryVal, Model m) {
-
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-//		Page<Coupon> page1 = couponService.findBycategorylikes(pageable, "優惠券%");
-
-		Page<Coupon> page = couponService.findBycouponNameLike(pageable, "%" + queryVal + "%");
-
-		System.out.println(queryVal);
-
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
+//	@PostMapping("/queryallcoupons/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallcoupons(@PathVariable("pageNo") int pageNo, @RequestParam String queryVal, Model m) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycouponNameLike(pageable, "%" + queryVal + "%");
+//
+//		System.out.println(queryVal);
+//
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//		
+//		System.out.println(totalPages);
+//		System.out.println(totalElements);
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 
 	// travel
-	@PostMapping("/queryallCategoryTravel/{pageNo}")
-	@ResponseBody
-	public List<Coupon> queryallCategoryTravel(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String travel) {
-
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-旅遊");
-
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
+//	@PostMapping("/queryallCategoryTravel/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallCategoryTravel(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String travel) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-旅遊");
+//
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//		
+//		System.out.println(totalPages);
+//		System.out.println(totalElements);
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 
 	// food
-	@PostMapping("/queryallCategoryFood/{pageNo}")
-	@ResponseBody
-	public List<Coupon> queryallCategoryFood(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String food) {
-
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-美食");
-		System.out.println(food);
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
+//	@PostMapping("/queryallCategoryFood/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallCategoryFood(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String food) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-美食");
+//		System.out.println(food);
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//		
+//		System.out.println(totalPages);
+//		System.out.println(totalElements);
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 
 	// sports
-	@PostMapping("/queryallCategorySports/{pageNo}")
-	@ResponseBody
-	public List<Coupon> queryallCategorySports(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String sports) {
-
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-運動");
-		System.out.println(sports);
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
+//	@PostMapping("/queryallCategorySports/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallCategorySports(@PathVariable("pageNo") int pageNo, Model m, @RequestParam String sports) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-運動");
+//		System.out.println(sports);
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//		
+//		System.out.println(totalPages);
+//		System.out.println(totalElements);
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 
 	// accommodation
-	@PostMapping("/queryallCategoryAccommodation/{pageNo}")
-	@ResponseBody
-	public List<Coupon> queryallCategoryAccommodation(@PathVariable("pageNo") int pageNo, Model m,
-			String accommodation) {
-
-		int pageSize = 3;
-
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-住宿");
-		System.out.println(accommodation);
-		int totalPages = page.getTotalPages();
-		long totalElements = page.getTotalElements();
-
-		m.addAttribute("totalPages", totalPages);
-		m.addAttribute("totalElements", totalElements);
-
-		return page.getContent();
-	}
-	
-	@GetMapping("/releteCouponItem")
-	@ResponseBody
-	public List<Coupon> releteCouponItem(@RequestParam String couponName) {
-		List<Coupon> coupons = couponService.findBycategoryLike("優惠券%");
-		
-		
-		System.out.println(couponName);
-		System.out.println(coupons);
-		return coupons;
-	}
+//	@PostMapping("/queryallCategoryAccommodation/{pageNo}")
+//	@ResponseBody
+//	public List<Coupon> queryallCategoryAccommodation(@PathVariable("pageNo") int pageNo, Model m,
+//			String accommodation) {
+//
+//		int pageSize = 3;
+//
+//		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//		Page<Coupon> page = couponService.findBycategory(pageable, "優惠券-住宿");
+//		System.out.println(accommodation);
+//		int totalPages = page.getTotalPages();
+//		long totalElements = page.getTotalElements();
+//		
+//		System.out.println(totalPages);
+//		System.out.println(totalElements);
+//
+//		m.addAttribute("totalPages", totalPages);
+//		m.addAttribute("totalElements", totalElements);
+//
+//		return page.getContent();
+//	}
 	
 //	@GetMapping("/releteCouponItem")
 //	@ResponseBody
 //	public List<Coupon> releteCouponItem(@RequestParam String couponName) {
+//		List<Coupon> coupons = couponService.findBycategoryLike("優惠券%");
 //		
-//		char couponSplite=0;
-//		for(int i=0;i<couponName.length();i++) {
-//			//System.out.println(couponName.charAt(i));	
-//			couponSplite=couponName.charAt(i);
-//		//System.out.println(couponSplite);
-//		}
-//		System.out.println(couponSplite);
-//		List<Coupon> coupons = couponService.findBycouponNameLike2(couponName);
 //		
-//		//"%"+couponName+"%"
-//		//System.out.println(couponName);
-//		
-//		//System.out.println(coupons);
+//		System.out.println(couponName);
+//		System.out.println(coupons);
 //		return coupons;
 //	}
 	

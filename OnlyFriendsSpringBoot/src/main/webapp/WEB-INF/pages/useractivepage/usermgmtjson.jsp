@@ -6,6 +6,9 @@
 #Grid:hover {
 	transform: scale(1.05);
 }
+body{
+font-size:1.2rem
+}
 </style>
 </head>
 <body>
@@ -91,7 +94,7 @@
 			    	     var item = 
 			    	    	 "<div class='col-lg-4' id='Grid'>"+
 			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' width='700px' height='350px' alt='...' />"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+"<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;' >👁️‍🗨️"+n.see+"</span>"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
 			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+
@@ -103,7 +106,7 @@
 			    	    	 					
 			    	    	 					"<span class='d-inline-block text-truncate'	style='max-width: 250px;' class='col-30 text-truncate'>"+n.detail+"</span>"+
 			    	    	 					"<br/>"+"<br/>"+
-			    	    	 					"<a class='btn btn-primary' href='useractivity.page?number="+n.number+"'>查看活動內容</a>"+"<span style='position: absolute; right:5px;'>👁️‍🗨️"+n.see+"</span>"+
+			    	    	 					"<a class='btn btn-primary' href='useractivity.page?number="+n.number+"'>查看活動內容</a>"+
 			    	    	 				"</div>"+
 			    	    		 	"<div>"+
 			    	    		 "</a>"+

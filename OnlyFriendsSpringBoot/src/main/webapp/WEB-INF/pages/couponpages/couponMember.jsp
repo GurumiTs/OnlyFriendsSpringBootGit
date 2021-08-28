@@ -4,16 +4,87 @@
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 </head>
 <style>
-    .coupon {
-        position: relative;
-        width: 100%;
-       
-        margin: 50px auto;
-        background-image: radial-gradient( circle at 1px 8px, transparent 6px, #ff9e6d 6px, #ff9e6d 0px), radial-gradient( circle at 199px 8px, transparent 6px, #ff9e6d 6px, #ff9e6d 0px); background-size: 200px 18px; background-position: 0 0, 200px 0; background-repeat-x: no-repeat;
-        font-size: 60px; color: #fff; font-weight: bold; line-height: 160px; padding-left: 60px; box-sizing: border-box; cursor: pointer;   
-    }
-    .coupon::before { position: absolute; content: ""; left: 240px; top: 0; bottom: 0; width: 0; border-left: 1px dashed #fff; }
-    .coupon::after { position: absolute; content: "立即領取"; font-size: 26px; width: 70px; top: 50%; right: 2%; transform: translate(-50%, -50%); line-height: 40px; letter-spacing: 5px; }
+
+.card1 {
+  width: 400px;
+  height: 180px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  padding: 10px 10px;
+  position: relative;
+  margin:20px;
+
+}
+.card1::after {
+  position: absolute;
+  content: "";
+  height: 40px;
+  right: -20px;
+  border-radius: 40px;
+  z-index: 1;
+  top: 70px;
+  background-color: #DDDDDD;
+
+  width: 40px;
+}
+
+.card1::before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  left: -20px;
+  border-radius: 40px;
+  z-index: 1;
+  top: 70px;
+  background-color:	#DDDDDD;
+ 
+  width: 40px;
+}
+
+.main1 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+  width:100%;
+  margin-top:13px;
+}
+
+
+.co-img img {
+ width:30%;
+
+}
+.vertical {
+  border-left: 5px dotted black;
+  height: 100px;
+  position: absolute;
+  left: 40%;
+}
+.content{
+  color: #565656;
+  width:70%;
+  text-align:center;
+}
+.content h1 {
+  font-size: 35px;
+}
+
+.content h1 span {
+  font-size: 18px;
+}
+.content h2 {
+  font-size: 18px;
+  text-transform: uppercase; 
+}
+
+.content p {
+  font-size: 16px;
+  color: #696969;
+}
+
+#button{padding-left:7%;margin-buttom:5%;}
 
 </style>
 <body>
@@ -23,30 +94,11 @@
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
-			<div class="main-sidebar">
+			 <div class="main-sidebar">
+			 
 				<aside id="sidebar-wrapper">
-					<div class="card">
-						<div class="card-header">
-							<h4>Search by</h4>
-						</div>
-						<div class="card-body">
-							<div class="container d-flex flex-column">
-								<input class="form-control" type="search" placeholder="Search"
-									aria-label="Search" data-width="250">
-								<button class="btn" type="submit">
-									<i class="fas fa-search"></i>
-								</button>
-								<span class="badge badge-primary mb-2">clothes</span> <span
-									class="badge badge-secondary mb-2">lucky stuff</span> <span
-									class="badge badge-success mb-2">Success</span> <span
-									class="badge badge-danger mb-2">Danger</span> <span
-									class="badge badge-warning mb-2">Warning</span> <span
-									class="badge badge-info mb-2">Info</span> <span
-									class="badge badge-light mb-2">Light</span> <span
-									class="badge badge-dark mb-2">Dark</span>
-							</div>
-						</div>
-					</div>
+			<%@include file="../frontcommonpages/shopsider.jsp"%>
+					
 				</aside>
 			</div>
 
@@ -56,7 +108,10 @@
 			<div class="main-content">
 				<section class="section">
 
-					<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+					<div class="section-body">
+						<div class="card">
+							<div >
+								<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 						<div class="container-fluid">
 							<button class="navbar-toggler" type="button"
 								data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -67,25 +122,31 @@
 
 							<div class="collapse navbar-collapse" id="navbarColor01">
 								<ul class="navbar-nav me-auto">
-									<li class="nav-item"><a class="nav-link active" href="#">領取優惠券
-											<span class="visually-hidden">(current)</span>
+									<li class="nav-item"><a class="nav-link active"
+										href="couponMember.controller">領取優惠券 <span
+											class="visually-hidden">(current)</span>
 									</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">我的優惠券</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">優惠券紀錄</a>
+									<li class="nav-item"><a class="nav-link" href="myCouponEntry.controller" id="mycoupon">我的優惠券</a>
 									</li>
 								</ul>
-								
+
 							</div>
 						</div>
 					</nav>
-
-					<div class="section-body" >
-						<div class="card" >
-							<div class="card-header">
-								<h4>On Sale</h4>
 							</div>
-							<div class="card-body " >
+																				
+							<div class="card-body " style="background-color: #DDDDDD;">
+						<!-- 	<div>
+							<button type="button" class="btn btn-light disabled">現金券</button>
+							<button type="button" class="btn btn-light disabled">折扣券</button>
+							<button type="button" class="btn btn-light disabled">運費券</button>
+							</div> -->
+							<form action="updatecouponUsers.controller" method="post" enctype="multipart/form-data">
+							<div id="button">
+							<input placeholder="請輸入優惠券序號" type="text" name="couponRecord" id="couponRecord">
+							<button id="couponGet" class="btn btn-primary">領取</button><span>${Error}</span>
+							</div>
+							</form>				
 								<div
 									class="
 							            row
@@ -94,19 +155,7 @@
 							            justify-content-center
 							          "
 									id="itemarea"></div>
-							</div>
-							--<div class="card-footer bg-whitesmoke">
-								<table id="showpage" class="d-flex justify-content-center">
-									<tr>
-										<td colspan="2" align="right"><c:forEach var="i"
-												begin="1" end="${totalPages}" step="1">
-												<button class="btn btn-outline-secondary" id="myPage"
-													value="${i}" onclick="change(${i})">${i}</button>
-											</c:forEach></td>
-									</tr>
-								</table>
-
-							--</div>
+							</div>	
 						</div>
 					</div>
 				</section>
@@ -116,93 +165,210 @@
 	</div>
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
-	
-	
-	<section style="margin-top: 3%;">
-	<div class="container">
-		<div class="row">
-			
-				<div class="col-md-4 col-sm-6">
-					<div class="card  mb-3"
-						style="max-width: 20rem; max-height: 50rem;">
-						<div class="card-header"></div>
-						<div class="card-body">
-							<div
-									class="
-							            row
-							            gx-4 gx-lg-5
-							            row-cols-2 row-cols-md-3 row-cols-xl-4
-							            justify-content-center
-							          "
-									id="itemarea"></div>
-						</div>
-					</div>
-				</div>
-			
-		</div>
-		
-	</div>
-</section>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	<script>  
-    var indexPage = 1;
-    $(function(){
-    	load(indexPage);
-    })
 
-	function change(page){
-	   indexPage = page;
-	   load(indexPage);
-	}
-    function load(){
+
+	<script>
+	
+	 $(function () {
+   
+				$.ajax({
+				 type:'GET',
+			     url:'couponMemberCheck.controller',
+			     dataType:'JSON',     
+			     contentType:'application/json',
+			     success(res) {
+			              var json = JSON.stringify(res, null, 3);
+                          var parsedObjinArray = JSON.parse(json);
+			              var itemarea = $('#itemarea');
+			               $('#itemarea').empty("");
+			               $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件			    
+
+				               	var d=new Date();
+				                let theYear = d.getFullYear();
+				               	let theMonth = d.getMonth()+1 ;
+				               	let theDate = d.getDate();  				               	
+				                let d1=n.couponEndDate.split("-");
+
+			            	   
+				            if(d1[0]>theYear || d1[0]>=theYear && d1[1]>theMonth || d1[0]>=theYear && d1[1]==theMonth && d1[2]>=theDate)     {				            					       
+   	                       var item =    
+   	     	                "<div class='card1'>"+
+   	                        "<div class='main1'>"+
+   	                        "<div class='co-img'>"+ 
+   	                        
+   	                        "<img class='card-img-top'src='"+n.couponImg+"' style='width: 135px'/>"+ 
+   	                        "</div>"+
+   	                        "<div class='vertical'></div>"+    
+   	                        "<div class='content'>" +
+   	                        "<h6>序號:"+n.couponId+"</h6>"+
+   	                        "<h2>"+n.couponName+"</h2>"+
+   	                        "<h1>$"+n.couponPrice+"<span>Coupon</span></h1> "+
+   	                        "<p>截止日:"+n.couponEndDate+"</p>"+
+   	                        " </div>"+
+   	                     "</div>"+
+   	                   "</div>" ;
+				            }
+   	                   itemarea.append(item);
+   	            	       });			               		                 	         
+   	            	},
+   	            	error: function() {
+   	            	    console.log("error");
+   	            	}		    
+				})
+     })
+     
+     
+      $(function () {
+            $('#mycoupon').click(function(){
+            	       	
+            		$.ajax({
+       				 type:'GET',
+       			     url:'couponMemberCheck.controller',
+       			     dataType:'JSON',     
+       			     contentType:'application/json',
+       			     success(res) {
+       			              var json = JSON.stringify(res, null, 3);
+                                 var parsedObjinArray = JSON.parse(json);
+       			              var itemarea = $('#itemarea');
+       			               $('#itemarea').empty("");
+       			               $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件			    
+
+       				               	var d=new Date();
+       				                let theYear = d.getFullYear();
+       				               	let theMonth = d.getMonth()+1 ;
+       				               	let theDate = d.getDate();  				               	
+       				                let d1=n.couponEndDate.split("-");
+
+       			            	   
+       				            if(d1[0]>theYear || d1[0]>=theYear && d1[1]>theMonth || d1[0]>=theYear && d1[1]==theMonth && d1[2]>=theDate)     {				            					       
+          	                       var item =    
+          	     	                "<div class='card1'>"+
+          	                        "<div class='main1'>"+
+          	                        "<div class='co-img'>"+ 	                       
+          	                        "<img class='card-img-top'src='"+n.couponImg+"' style='width: 135px'/>"+ 
+          	                        "</div>"+
+          	                        "<div class='vertical'></div>"+    
+          	                        "<div class='content'>" +
+          	                        "<h6>序號:"+n.couponId+"</h6>"+
+          	                        "<h2>"+n.couponName+"</h2>"+
+          	                        "<h1>$"+n.couponPrice+"<span>Coupon</span></h1> "+
+          	                        "<p>截止日:"+n.couponEndDate+"</p>"+
+          	                        " </div>"+          	                   
+          	                     "</div>"+
+          	                   "</div>" ;
+       				            }
+          	                   itemarea.append(item);
+          	            	       });
+       			               
+       			                 	         
+          	            	},
+          	            	error: function() {
+          	            	    console.log("error");
+          	            	}		
+            })	
+     })  
+      }) 
+ 
+    // $(function () {
+        //    $('#couponGet').click(function(){
+          //  	var couponGetId=$('#couponGetId').val();
+          //  	console.log(couponGetId);
+           // 	$('#loadImg').css("display","none");
+          //  	$.ajax({
+				//	   type:'GET',
+	          //     	   url:'updatecouponUsers.controller',
+	          //     	   dataType:'JSON',
+	          //     	   contentType:'application/json',
+	          //     	   success(res) {
+	          //     	   let coupons=res;
+	          //     	console.log(coupons);
+	          //     	for(let i=0;i<coupons.length;i++){  
+	               		
+	             //  		var couponId=coupons[i].couponId;               		
+	             //  		console.log(couponId);              		               		
+	            //   	if(couponId==couponGetId){
+	           //    	   Swal.fire('Get this coupon!!!');					 			
+	               		
+	          //     	}
+
+	               	
+	       //        	}
+	           		
+			//		}				   
+			//	})			
+         //   })	
+   //  })      
+	 
+	
+	
+	
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    </script>
+
+
+
+	<!--   <script>
+    
+  //search
+ 	$(function () {
+
+  		$('#Search').click(function () {
+  		let indexPage = 1;
+  		let queryVal = $('#queryVal').val();
+  		console.log(queryVal);
     	$.ajax({
      	   type:'POST',
-     	   url:'queryallcategoryfreebypage/' + indexPage,
+     	   url:'queryallcoupons/' + indexPage,
      	   dataType:'JSON',
-     	   contentType:'application/json',
+     	   data:{"queryVal":queryVal},
      	   success: function(data) {
-     	     var json = JSON.stringify(data, null, 2);
-     	     var parsedObjinArray = JSON.parse(json);
-     	     var itemarea = $('#itemarea');
+     		   
+     		   
+     		   console.log(data);
+     	     let json = JSON.stringify(data, null, 3);
+     	     let parsedObjinArray = JSON.parse(json);
+     	     let itemarea = $('#itemarea');
      	     $('#itemarea').empty("");
+     	  
+     	   
      	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-     	     var item = 
-     	    "<div class='col mb-5'>"+
-              "<div class='card h-100'>"+ 
-       
-                "<div class='card-body p-4'>" +
-                  "<div class='text-center'>" +
-                    "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
-                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
-                      "<div class='bi-star-fill'></div>"+
-                      "<div class='bi-star-fill'></div>"+
-                      "<div class='bi-star-fill'></div>"+
-                      "<div class='bi-star-fill'></div>"+
-                      "<div class='bi-star-fill'></div>"+
+     	     let item = 		
+     	    	 "<div class='col mb-5'>"+
+                 "<div class='card h-100'>"+   
+                 
+                   "<div class='card-body p-4'>" +
+                     "<div class='text-center'>" +
+                       "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                      "</div>"+
+                       "<span>$"+n.couponPrice+"</span>" +
+                    " </div>"+
                    "</div>"+
-                    "<span>$"+n.couponPrice+"</span>" +
-                 " </div>"+
-                "</div>"+
-               
-              
-                "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
-                  "<div class='text-center'>"+
-                   "<a class='btn btn-outline-dark mt-auto' href='#' >立即領取</a>"+
-                  "</div>"+
-                "</div>"+
-              "</div>"+
-            "</div>" ;
+                  
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='#' >立即領取</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+     	 		
             itemarea.append(item);
      	       });
   
@@ -211,13 +377,252 @@
      	    console.log("error");
      	}
      	});
+     	})
+ 	})
+ 	//Travel
+ 	$(function () {
+
+  		$('#travel').click(function () {
+  		let indexPage = 1;
+  		let travel=$('#travel').val();
+ 		
+    	$.ajax({
+     	   type:'POST',
+     	   url:'queryallCategoryTravel/' + indexPage,
+     	   data:{"travel":travel},
+     	   dataType:'JSON',
+     	   success: function(data) {
+     		   
+     		   
+     		 console.log(data);
+     	     let json = JSON.stringify(data, null, 3);
+     	     let parsedObjinArray = JSON.parse(json);
+     	     let itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+     	  
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	     let item = 		
+     	    	 "<div class='col mb-5'>"+
+                 "<div class='card h-100'>"+   
+                 
+                   "<div class='card-body p-4'>" +
+                     "<div class='text-center'>" +
+                       "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                      "</div>"+
+                       "<span>$"+n.couponPrice+"</span>" +
+                    " </div>"+
+                   "</div>"+
+                  
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='#' >立即領取</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+     	 		
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
      	}
-    
-    
-    
+     	});
+     	})
+ 	})
+ 	
+ 	//food
+ 	$(function () {
+
+  		$('#food').click(function () {
+  			let indexPage = 1;
+  		let food=$('#food').val();
+  		 console.log(food);
+ 		
+    	$.ajax({
+     	   type:'POST',
+     	   url:'queryallCategoryFood/' + indexPage,
+     	   data:{"food":food},
+     	   dataType:'JSON',
+     	   success: function(data) {
+     		   
+     		   
+     		 console.log(data);
+     	     let json = JSON.stringify(data, null, 3);
+     	     let parsedObjinArray = JSON.parse(json);
+     	     let itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+     
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	     let item = 		
+     	    	 "<div class='col mb-5'>"+
+                 "<div class='card h-100'>"+   
+                 
+                   "<div class='card-body p-4'>" +
+                     "<div class='text-center'>" +
+                       "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                      "</div>"+
+                       "<span>$"+n.couponPrice+"</span>" +
+                    " </div>"+
+                   "</div>"+
+                  
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='#' >立即領取</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+     	 		
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
+     	}
+     	});
+     	})
+ 	})
+ 	
+ 	//sports
+ 	$(function () {
+
+  		$('#sports').click(function () {
+  			let indexPage = 1;
+  		let sports=$('#sports').val();
+  		 console.log(sports);
+ 		
+    	$.ajax({
+     	   type:'POST',
+     	   url:'queryallCategorySports/' + indexPage,
+     	   data:{"sports":sports},
+     	   dataType:'JSON',
+     	   success: function(data) {
+     		   
+     		   
+     		 console.log(data);
+     	     let json = JSON.stringify(data, null, 3);
+     	     let parsedObjinArray = JSON.parse(json);
+     	     let itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+ 
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	     let item = 		
+     	    	 "<div class='col mb-5'>"+
+                 "<div class='card h-100'>"+   
+                 
+                   "<div class='card-body p-4'>" +
+                     "<div class='text-center'>" +
+                       "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                      "</div>"+
+                       "<span>$"+n.couponPrice+"</span>" +
+                    " </div>"+
+                   "</div>"+
+                  
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='#' >立即領取</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+     	 		
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
+     	}
+     	});
+     	})
+ 	})
+ 	
+ 	//accommodation
+ 	$(function () {
+
+  		$('#accommodation').click(function () {
+  			let indexPage = 1;
+  		let accommodation=$('#accommodation').val();
+  		 console.log(accommodation);
+ 		
+    	$.ajax({
+     	   type:'POST',
+     	   url:'queryallCategoryAccommodation/' + indexPage,
+     	   data:{"accommodation":accommodation},
+     	   dataType:'JSON',
+     	   success: function(data) {
+     		   
+     		   
+     		 console.log(data);
+     	     let json = JSON.stringify(data, null, 3);
+     	     let parsedObjinArray = JSON.parse(json);
+     	     let itemarea = $('#itemarea');
+     	     $('#itemarea').empty("");
+     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+     	     let item = 		
+     	    	 "<div class='col mb-5'>"+
+                 "<div class='card h-100'>"+   
+                 
+                   "<div class='card-body p-4'>" +
+                     "<div class='text-center'>" +
+                       "<h5 class='fw-bolder'>"+n.couponName+"</h5>"+
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                         "<div class='bi-star-fill'></div>"+
+                      "</div>"+
+                       "<span>$"+n.couponPrice+"</span>" +
+                    " </div>"+
+                   "</div>"+
+                  
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='#' >立即領取</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+     	 		
+            itemarea.append(item);
+     	       });
+  
+     	},
+     	error: function() {
+     	    console.log("error");
+     	}
+     	});
+     	})
+ 	})
     
     
      
-     </script>
+     </script>-->
 </body>
 </html>

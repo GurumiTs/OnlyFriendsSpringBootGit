@@ -1,6 +1,8 @@
 package of.UserActivity.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import of.member.model.Member;
 
 @Entity
 @Table(name = "UserActivity")
@@ -23,9 +27,8 @@ public class UserActivity implements Serializable {
 	@Id
 	@Column(name = "number")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int number;
+	private Integer number;
 
-//	@ManyToMany
 	@JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")
 	private String memberAccount;
 
@@ -67,9 +70,34 @@ public class UserActivity implements Serializable {
 	@Column(name = "see")
 	private int see;
 	
+	
+	@ManyToMany
+	@JoinTable(name = "participate", 
+	joinColumns = @JoinColumn(name = "number"),
+	inverseJoinColumns = @JoinColumn(name = "memberAccount"))
+	private List<Member> participate = new ArrayList<Member>();
+	
+		
+	public List<Member> getParticipate() {
+		return participate;
+	}
+
+	public void setParticipate(List<Member> participate) {
+		this.participate = participate;
+	}
+	
+	
+	public void addFriend(Member member) {
+		this.participate.add(member);
+	}
+	
+	public void remove(Member member) {
+		this.participate.remove(member);
+	}
+
 	public UserActivity() {	}
 	
-	public UserActivity(int number, String memberAccount, String approve, String activityname, String cover,
+	public UserActivity(Integer number, String memberAccount, String approve, String activityname, String cover,
 			String type, String time, String time_up, String detail, String county, String district, String zipcode,
 			String place, String condition, int man, int woman, int total, int see) {
 		this.number = number;
@@ -91,10 +119,12 @@ public class UserActivity implements Serializable {
 		this.total = total;
 		this.see = see;
 	}
-	public int getNumber() {
+	
+	public Integer getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 	public String getMemberAccount() {

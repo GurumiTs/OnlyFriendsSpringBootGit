@@ -36,7 +36,7 @@ body {
 				<div class="box1">
 					<form class="row g-3" action="blogusersupdateform" method="post"
 						enctype="multipart/form-data">
-						<legend style="text-align: center;">更新資料</legend>
+<!-- 						<legend style="text-align: center;">更新資料</legend> -->
 						<div class="mb-3">
 							<label>文章編號:</label> 
 							<input name="usersArticleID" disabled="disabled"
@@ -133,6 +133,14 @@ body {
 				URL.revokeObjectURL(output.src) // free memory
 			}
 		};
+		$(function(){
+			var seccess = '${success}';
+			var successDiv = document.getElementById("successDiv");
+			if(model != ''){
+				
+			}
+			
+		});
 	</script>
 </body>
 </html>

@@ -11,10 +11,12 @@ import org.springframework.stereotype.Component;
 @Table(name="OaMember")
 @Component("OaMember")
 public class OaMember {
+	@Id
+	@Column(name= "anum") //活動編號
+	private long anum ;
 	@Column(name="Img") //圖片
 	private String img;
 	@Column(name="Active")//活動名稱
-	@Id
 	private String active;
 	@Column(name="Atype")//活動類型
 	private String atype;

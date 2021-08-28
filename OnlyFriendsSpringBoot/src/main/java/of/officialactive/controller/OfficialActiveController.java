@@ -212,13 +212,13 @@ public class OfficialActiveController {
 		}
 		
 		
-//		//oaforuserpages home
-//		
-//		@GetMapping ("/oaforuserpages.controller")
-//		public String oaforuserEntry() {
-//			return "officialactivepages/oaforuser";
-//		}
-//		
+		//oaforuserpages home
+		
+		@GetMapping ("/oaforuserpages.controller")
+		public String oaforuserEntry() {
+			return "officialactivepages/oaforuser";
+		}
+		
 		
 	
 			

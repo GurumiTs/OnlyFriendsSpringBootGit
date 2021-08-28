@@ -43,6 +43,8 @@
 	href="${pageContext.request.contextPath}/css/membermain.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/membercomponent.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/verify.css" />	
 	    <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
@@ -193,10 +195,11 @@
 	
 	</style>
 
-
+ <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
 </head>
   <body>
   <div id="app">
+  
     <section class="section">
       <div class="container mt-5">
         <div class="row">
@@ -210,7 +213,7 @@
               
               <div class="card-body">
               <form action="${pageContext.request.contextPath}/login"
-					method="post">  
+					method="post" id="loginform">  
                   <div class="form-group">
                    <label for="email" class="form-label">Account</label> <input
 							type="text" class="form-control" name="username" id="username" />                  
@@ -262,12 +265,22 @@
 							${signupErrorMsg}</p>
 						<c:remove var="signupErrorMsg" scope="session" />
 					</c:if>
+					
+				
+				<div id="content" style="margin-top:30px;margin-bottom:30px">
+				</div>
                                                    
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                  	<button id="cbt"  type="submit" class="btn btn-primary btn-lg btn-block d-none" 
+                      tabindex="4">
                       Login
                     </button>
+                  
+                  <!--    <button type="submit" class="g-recaptcha btn btn-primary btn-lg btn-block" 
+                     data-sitekey="6Ld_JiIcAAAAAKhNWXoiB--DlXCP1SOSnkFI3K5p" data-callback='onSubmit'   data-action='submit' tabindex="4">
+                      Login
+                    </button>-->
                   </div>
                 </form>
                 <div class="text-center mt-4 mb-3">
@@ -294,6 +307,7 @@
 
               </div>
             </div>
+          
           
             <div class="simple-footer">
               Copyright &copy; OnlyFriends 2021
@@ -377,15 +391,15 @@
 			</div>
 		</div>
 	</div>  
+	
+	
 
 
 
 
 	<!-- bootstrap   -->
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-		crossorigin="anonymous"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
 	<!-- jQuery  -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -423,11 +437,72 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
-	<!-- JS Libraies -->
-	<script src="../node_modules/sticky-kit/dist/sticky-kit.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/crypto-js.js"></script>
+		<script src="${pageContext.request.contextPath}/js/ase.js"></script>
+        <script src="${pageContext.request.contextPath}/js/verify.js" ></script>
 
-	<!-- Page Specific JS File -->
-	
+	 <!--  <script>
+	   function onSubmit(token) {
+	     document.getElementById("loginform").submit();
+	     console.log('hi')
+	   }
+ 	</script>-->
+ 	<script type="text/javascript">
+ 	
+ 	$(function(){
+ 		
+ 		 $('#content').slideVerify({
+ 	        baseUrl:'https://captcha.anji-plus.com/captcha-api',  //服务器请求地址, 默认地址为安吉服务器;
+ 	       	//containerId:'btn',
+ 	        mode:'fixed',     //展示模式
+ 	        imgSize : {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
+ 	            width: '310px',
+ 	            height: '155px',
+ 	        },
+ 	        barSize:{          //下方滑块的大小对象,有默认值{ width: '310px',height: '50px'},可省略
+ 	            width: '310px',
+ 	            height: '50px',
+ 	        },
+ 	        beforeCheck:function(){  //检验参数合法性的函数  mode ="pop"有效
+ 	            let flag = true;
+ 	            //实现: 参数合法性的判断逻辑, 返回一个boolean值
+ 	            return flag
+ 	        },
+ 	        ready : function() {},  //加载完毕的回调
+ 	        success : function(params) { //成功的回调
+ 	        	$('#cbt').removeClass('d-none')
+ 	        	console.log(params)
+ 	            // params为返回的二次验证参数 需要在接下来的实现逻辑回传服务器
+ 	            //例如: login($.extend({}, params))
+ 	            
+ 	        	 $.ajax({
+ 		            type: "post",
+ 		            url: "ajcheck",
+ 		           	data: {"captchaVerification":params.captchaVerification}, 
+ 		            success: function (data) {
+ 		              console.log(data)
+ 		            },
+ 		            error: function (e) {
+ 		              console.log(e);
+ 		            },
+ 		          });
+
+ 	            
+ 	        },
+ 	        error : function() {
+ 	        	$('#cbt').addClass('d-none')
+ 	        	console.log('failed')
+ 	        	
+ 	        }        //失败的回调
+ 	    });
+ 	})
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	</script>
 
 	<script>
 		$(function() {
@@ -487,10 +562,9 @@
 			 
 			 
 		});
-	</script>
+</script>
 	
-	<script>
-		
+	<script>	
 		//須以大寫字母為開頭,至少個數字以及特殊符號總長8~12
 		const pwdCheckR = /^[A-Z]{1}(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{7,11}$/;
 

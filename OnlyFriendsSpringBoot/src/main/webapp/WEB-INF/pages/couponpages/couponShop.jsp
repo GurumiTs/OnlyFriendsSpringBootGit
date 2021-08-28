@@ -3,6 +3,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+img{height:200px}
+
+.card{border:3px solid black;}
+.container{margin-left:5%;}
+.jumbotron{margin-top:5%;margin-left:10%;background-color: cornsilk;}
+.main-wrapper{background-color: cornsilk;}
+</style>
 </head>
 <body>
 <body class="layout-2">
@@ -11,7 +19,7 @@
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
-			<div class="main-sidebar">
+		  <!--	<div class="main-sidebar">
 				<aside id="sidebar-wrapper">
 					<div class="card">
 						<div class="card-header">
@@ -33,13 +41,12 @@
 						</div>
 					</div>
 				</aside>
-			</div>
+			</div> -->
 
 
 
 			<!-- Main Content -->
-			<div class="main-content">
-				<section class="section">
+			<div>
 
 					<!--  <div class="bg-dark py-5">
 							<div class="container px-4 px-lg-5 my-5">
@@ -50,18 +57,19 @@
 								</div>
 							</div>
 						</div>-->
-
+ <div class="jumbotron">
+        <div class="d-flex justify-content-center top" >
 					<div id="carouselExampleInterval" class="carousel slide"
 						data-bs-ride="carousel" >
 						<div class="carousel-inner" style="width:100%;height:400px;margin:auto;">
 							<div class="carousel-item active" data-bs-interval="10000">
-								<img src="images/couponPic/1.JPG" class="d-block w-100" style="height:400px;">
+								<img src="images/couponPic/mos.jpg" class="d-block w-100 " style="height:350px;">
 							</div>
 							<div class="carousel-item" data-bs-interval="2000">
-								<img src="images/couponPic/ss2.JPG" class="d-block w-100" style="height:400px;">
+								<img src="images/couponPic/MoDonald's.png" class="d-block w-100" style="height:350px;">
 							</div>
 							<div class="carousel-item">
-								<img src="images/couponPic/rr9.JPG" class="d-block w-100" style="height:400px;">
+								<img src="images/couponPic/uniqlo.jpg" class="d-block w-100" style="height:350px;">
 							</div>
 						</div>
 						<button class="carousel-control-prev" type="button"
@@ -75,37 +83,32 @@
 							<span class="visually-hidden">Next</span>
 						</button>
 					</div>
+        </div>
+    </div>
 
-					<div class="section-body">
-						<div class="card">
-							<div class="card-header">
-								<h4>On Sale</h4>
-							</div>
-							<div class="card-body">
-								<div
-									class="
-							            row
-							            gx-4 gx-lg-5
-							            row-cols-2 row-cols-md-3 row-cols-xl-4
-							            justify-content-center
-							          "
-									id="itemarea"></div>
-							</div>
-							<div class="card-footer bg-whitesmoke">
-								<table id="showpage" class="d-flex justify-content-center">
-									<tr>
-										<td colspan="3" align="right"><c:forEach var="i"
-												begin="1" end="${totalPages}" step="1">
-												<button class="btn btn-outline-secondary" id="myPage"
-													value="${i}" onclick="change(${i})">${i}</button>
-											</c:forEach></td>
-									</tr>
-								</table>
-
-							</div>
-						</div>
-					</div>
-				</section>
+					<section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="card" >
+                        <img src="images/couponPic/mos.jpg" >
+                    </div>
+                </div>
+                 <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="images/couponPic/MoDonald's.png" >
+                    </div>
+                </div>
+                 <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="images/couponPic/uniqlo.jpg" >
+                    </div>
+                </div>
+                
+               
+            </div>
+        </div>
+    </section>
 			</div>
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
@@ -113,7 +116,7 @@
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
-	<script>  
+<!-- 	<script>  
     var indexPage = 1;
     $(function(){
     	load(indexPage);
@@ -566,6 +569,6 @@
 
 
      
-     </script>
+     </script> -->
 </body>
 </html>

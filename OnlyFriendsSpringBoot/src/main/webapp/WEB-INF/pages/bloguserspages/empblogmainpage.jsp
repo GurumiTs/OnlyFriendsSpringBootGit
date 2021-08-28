@@ -37,7 +37,7 @@ height: 350px;
 								<table id="showpage" class="d-flex justify-content-center">
 									<tr>
 										<td colspan="3" align="right"><c:forEach var="i" begin="1"
-												end="${totalPages}" step="1">
+												end="${blogEmpTotalPages}" step="1">
 												<button class="btn btn-outline-secondary" id="myPage"
 													value="${i}" onclick="change(${i})">${i}</button>
 											</c:forEach></td>

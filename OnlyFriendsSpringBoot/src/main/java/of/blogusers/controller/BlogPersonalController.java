@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 
 @Controller
+@SessionAttributes(names = {"success", "error"})
 public class BlogPersonalController {
 
 	@Autowired
@@ -61,21 +63,22 @@ public class BlogPersonalController {
 	public String blogUsersUpdate(@RequestParam(name = "usersArticleID") Integer usersArticleID,
 								  @RequestParam(name = "usersImages") MultipartFile multipartFile,
 								  @RequestParam(name = "memberAccount") String memberAccount, 
-								  @RequestParam(name = "userName") String userName,
+								  @RequestParam(name = "usersName") String usersName,
 								  @RequestParam(name = "usersTitle") String usersTitle, 
 								  @RequestParam(name = "usersMainText") String usersMainText,
 								  @RequestParam(name = "usersCreateTime") Timestamp usersCreateTime,
 								  Model m) {
-		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		System.out.println("UpdateTime:" + ts);
 		
 		try {
-			System.out.println("blogUpdate.controller ID:" + usersArticleID);
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			System.out.println("UpdateTime:" + ts);
+			BlogUser blogUser = new BlogUser();
 
 			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
 			String fileName = multipartFile.getOriginalFilename();
 			System.out.println("fileName:" + fileName);
-			String saveFilePath = ResourceUtils.getURL("classpath:static/images/blogPic").getPath();
+			String saveFilePath;
+			saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
 			System.out.println("saveFilePath:" + saveFilePath);
 			String filePath = saveFilePath + "/" + fileName;
 			File saveFile = new File(filePath);
@@ -85,7 +88,7 @@ public class BlogPersonalController {
 			blogUser.setUsersCreateTime(usersCreateTime);
 			blogUser.setUsersArticleID(usersArticleID);
 			blogUser.setMemberAccount(memberAccount);
-			blogUser.setUsersName(userName);
+			blogUser.setUsersName(usersName);
 			blogUser.setUsersTitle(usersTitle);
 			blogUser.setUsersMainText(usersMainText);
 			blogUser.setUsersUpdateTime(ts);
@@ -93,7 +96,7 @@ public class BlogPersonalController {
 			bUserService.updateBlogUser(blogUser);
 
 			m.addAttribute("success", "更新資料成功!");
-			return "redirect:blogusers";
+			return "redirect:memberblog";
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("errors", "Something is wrong!");

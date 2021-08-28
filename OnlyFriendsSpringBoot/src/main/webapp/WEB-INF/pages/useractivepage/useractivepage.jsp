@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+body{
+font-size:1.2rem
+}
+</style>
 </head>
 <body>
 <body class="layout-2">
@@ -28,7 +33,7 @@
 							<a href="useractivity.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
-								<img class="img-fluid rounded" src="${userActivity.cover}" alt="..." />
+								<img class="img-fluid rounded" style="width:700px;height:500px;" src="${userActivity.cover}" alt="..." />
 							</figure>
 							<!-- Post content-->
 							<section class="mb-5">
@@ -60,7 +65,8 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">返回</button>
-											<button type="button" class="btn btn-primary">確定</button>
+												<a href="addactivity?number=${userActivity.number}">
+											<button type="button" class="btn btn-primary" >確定</button></a>
 										</div>
 									</div>
 								</div>
