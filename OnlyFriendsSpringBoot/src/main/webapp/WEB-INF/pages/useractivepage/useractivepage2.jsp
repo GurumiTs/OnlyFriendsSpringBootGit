@@ -33,7 +33,7 @@ font-size:1.2rem
 							<a href="useractivity.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
-								<img class="img-fluid rounded" style="width:700px;height:500px;" src="${userActivity.cover}" alt="..." />
+								<img class="img-fluid rounded" src="${userActivity.cover}" alt="..." />
 							</figure>
 							<!-- Post content-->
 							<section class="mb-5">
@@ -46,31 +46,13 @@ font-size:1.2rem
 									女生人數:${userActivity.woman}
 								</p>
 							</section>
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary"
+							<button type="button" disabled="disabled" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
-								我要報名</button>
+								已參加此活動</button>
 
+						
 							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">確定報名 ${userActivity.activityname}</h5>
-											<button type="button" class="btn-close"
-												data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">參加條件:${userActivity.condition}</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-bs-dismiss="modal">返回</button>
-												<a href="addactivity?number=${userActivity.number}">
-											<button type="button" class="btn btn-primary" >確定</button></a>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 						</article>
 					</div>
 					<!-- Side widgets-->
