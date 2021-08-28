@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import of.UserActivity.model.UserActivity;
 import of.UserActivity.model.UserActivityService;
 import of.member.model.Member;
+import of.member.model.MemberService;
 import of.officialactive.model.OfficialActive;
 import of.party.model.Party;
 
@@ -35,6 +36,9 @@ public class UserActivityController {
 
 	@Autowired
 	private UserActivityService userActivityService;
+
+	@Autowired
+	private MemberService memberService;
 
 	// 管理員首頁
 	@RequestMapping(path = "/emppActivity.Entry")
@@ -155,7 +159,7 @@ public class UserActivityController {
 		return "redirect:/useractivity.post";
 	}
 
-	//會員修改
+	// 會員修改
 	@RequestMapping(path = "/userActivity.up.controller", method = RequestMethod.GET)
 	public String partyupenty(HttpServletRequest request, Model model) {
 		Integer number = Integer.parseInt(request.getParameter("number"));
@@ -163,31 +167,26 @@ public class UserActivityController {
 		model.addAttribute("userActivity", userActivity);
 		return "useractivepage/useractivityup";
 	}
-	
+
 	@RequestMapping(path = "/userActivityup.controller", method = RequestMethod.POST)
 	public String partup(@RequestParam(name = "cover") MultipartFile cover,
 			@RequestParam(name = "activityname") String activityname,
 //			@RequestParam(name = "memberAccount") String memberAccount,
-			@RequestParam(name = "type") String type,
-			@RequestParam(name = "time") String time,
-			@RequestParam(name = "time_up") String time_up,
-			@RequestParam(name = "county") String county,
-			@RequestParam(name = "district") String district,
-			@RequestParam(name = "zipcode") String zipcode,
+			@RequestParam(name = "type") String type, @RequestParam(name = "time") String time,
+			@RequestParam(name = "time_up") String time_up, @RequestParam(name = "county") String county,
+			@RequestParam(name = "district") String district, @RequestParam(name = "zipcode") String zipcode,
 			@RequestParam(name = "place") String place,
 
-			@RequestParam(name = "detail") String detail,
-			@RequestParam(name = "condition") String condition,
-			@RequestParam(name = "man") String man,
-			@RequestParam(name = "woman") String woman,
-			
+			@RequestParam(name = "detail") String detail, @RequestParam(name = "condition") String condition,
+			@RequestParam(name = "man") String man, @RequestParam(name = "woman") String woman,
+
 			HttpServletRequest request, Model model)
 			throws SQLException, IllegalStateException, IOException, NullPointerException {
-		
+
 		String fileName = cover.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/partyPic").getPath();
 		System.out.println(path);
-		String filePath =  path+ "/" + fileName;	
+		String filePath = path + "/" + fileName;
 		File saveFile = new File(filePath);
 		cover.transferTo(saveFile);
 		userActivity.setCover("images/partyPic/" + fileName);
@@ -195,14 +194,14 @@ public class UserActivityController {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		userActivity.setMemberAccount(memberAccount);
-		
+
 		userActivity.setActivityname(activityname);
 		userActivity.setApprove("false");
 		userActivity.setType(type);
 		userActivity.setTime(time);
 		userActivity.setTime_up(time_up);
 		userActivity.setDetail(detail);
-		
+
 		userActivity.setCounty(county);
 		userActivity.setCondition(condition);
 		userActivity.setDistrict(district);
@@ -213,14 +212,13 @@ public class UserActivityController {
 		userActivity.setMan(Integer.parseInt(man));
 		userActivity.setWoman(Integer.parseInt(woman));
 		userActivity.setTotal(Integer.parseInt(man) + Integer.parseInt(woman));
-		
 
 		userActivityService.updata(userActivity);
 
-
 		return "redirect:/useractivity.post";
 	}
-	//會員刪除
+
+	// 會員刪除
 	@RequestMapping(path = "/deleteactivity.controller", method = RequestMethod.GET)
 	public String Deleteactivity(@RequestParam(name = "number") int number, Model model) {
 //		Integer number = Integer.parseInt(request.getParameter("number"));
@@ -229,7 +227,7 @@ public class UserActivityController {
 		userActivityService.deleteById(number);
 		return "redirect:/useractivity.post";
 	}
-	
+
 	// 會員查看POST首頁
 	@RequestMapping(path = "/useractivity.post", method = RequestMethod.GET)
 	public String userActivityPost(Model m) {
@@ -250,7 +248,33 @@ public class UserActivityController {
 
 		return useractivityList;
 	}
-	// 會員參加活動
-	// 會員查詢自己參加活動
 
+	// 會員參加活動
+	@RequestMapping(path = "/addactivity",method = RequestMethod.GET)
+	@ResponseBody
+	public List<Member> addactivity(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
+
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+//		add member
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		
+		
+		//尋找活動
+		UserActivity ua = userActivityService.select(number);
+		
+		
+		List<Member> par = ua.getParticipate();
+		par.add(m2);
+		userActivityService.updata(ua);
+		
+		//判斷是否增加成功
+		return par;
+	}
+	// 會員查詢自己參加活動
+//	抓參加者值
+//	System.out.println("step1");
+//	UserActivity ua = userActivityService.select(22);
+//	System.out.println("controller ua name:"+ua.getActivityname());
+//	List<Member> listmemberList = ua.getParticipate();
 }

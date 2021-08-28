@@ -65,7 +65,8 @@ font-size:1.2rem
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">返回</button>
-											<button type="button" class="btn btn-primary">確定</button>
+												<a href="addactivity?number=${userActivity.number}">
+											<button type="button" class="btn btn-primary" >確定</button></a>
 										</div>
 									</div>
 								</div>
