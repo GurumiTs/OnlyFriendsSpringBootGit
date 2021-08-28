@@ -94,6 +94,7 @@ public class CouponUsersController {
 
 					List<String> list = Arrays.asList(c);
 					List<Integer> newList = list.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+					System.out.println("newList:"+newList);
 					List<Coupon> coupon = couponService.findBycouponIdIn(newList);
 
 					return coupon;
