@@ -29,10 +29,10 @@ public class OaMemberController {
 	//進個人頁Controller
 	
 	
-	@GetMapping ("/oaforuserpages.controller")
-	public String oaforuserEntry() {
-		return "officialactivepages/oaforuser";
-	}
+//	@GetMapping ("/oaforuserpages.controller")
+//	public String oaforuserEntry() {
+//		return "officialactivepages/oaforuser";
+//	}
 	
 	@GetMapping(path="/oamemberalljson")
 	@ResponseBody
