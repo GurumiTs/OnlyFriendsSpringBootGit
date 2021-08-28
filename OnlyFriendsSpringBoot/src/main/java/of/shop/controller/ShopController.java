@@ -113,7 +113,7 @@ public class ShopController {
 
 	@GetMapping("/shopitempage.controller")
 	@ResponseBody
-	public List<Product> shopCouponItem() {
+	public List<Product> shopProducts() {
 		List<Product> products = productService.findAll();
 		return products;
 	}

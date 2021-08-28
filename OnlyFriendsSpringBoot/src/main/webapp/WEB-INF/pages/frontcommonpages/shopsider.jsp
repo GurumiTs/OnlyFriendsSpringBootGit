@@ -24,10 +24,17 @@
                 >
               </li>
               <li>
-                <a class="nav-link" href="blank.html"
+                <a class="nav-link" href="memberblog"
                   ><i class="fas fa-paste"></i> <span>Post</span></a
                 >
               </li>
+              
+              <li>
+                <a class="nav-link" href="couponMember.controller"
+                  ><i class="fas fa-paste"></i> <span>My Coupon</span></a
+                >
+              </li>
+              
             </ul>
           </aside>
         </div>

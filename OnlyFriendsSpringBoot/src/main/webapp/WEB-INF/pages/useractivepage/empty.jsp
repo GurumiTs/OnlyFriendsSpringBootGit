@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+body{
+font-size:1.2rem
+}
+</style>
 </head>
 <body>
  <body class="layout-2">
@@ -58,7 +63,7 @@
 							<div>
 								<!-- yyyy-mm-dd  -->
 								<label class="" for="">截止日期:</label> <input
-									type="datetime-local" name="time_up" id="time_up">
+									type="date" name="time_up" id="time_up">
 							</div>
 
 							<div>
