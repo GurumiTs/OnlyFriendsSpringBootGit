@@ -27,7 +27,7 @@ public class UserActivityService {
 		return userActivityRepositor.findAll();
 	}
 	
-	public UserActivity select(int number) {
+	public UserActivity select(Integer number) {
 		Optional<UserActivity> useravtivity = userActivityRepositor.findByNumber(number);
 		if (useravtivity.isPresent()) {
 			return useravtivity.get();
