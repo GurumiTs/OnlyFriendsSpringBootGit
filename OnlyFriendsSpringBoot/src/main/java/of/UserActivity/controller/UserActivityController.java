@@ -3,6 +3,7 @@ package of.UserActivity.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -275,7 +276,7 @@ public class UserActivityController {
 
 	// 會員參加活動
 	@RequestMapping(path = "/addactivity",method = RequestMethod.GET)
-	@ResponseBody
+//	@ResponseBody
 	public String addactivity(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
 
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -292,8 +293,9 @@ public class UserActivityController {
 		par.add(m2);
 		userActivityService.updata(ua);
 		
+		
 		//判斷是否增加成功
-		return "redirect:/useractivity.post";
+		return "useractivepage/usermgmtjson";
 	}
 	// 會員查詢自己參加活動
 //	抓參加者值
@@ -309,7 +311,12 @@ public class UserActivityController {
 		List<Integer> activitynumber=userActivityService.findByparticipate(Integer.parseInt(memberAccount));
 		
 		System.out.println("number"+activitynumber);
-		List<UserActivity> activity = userActivityService.findBynumber(activitynumber);
+		List<UserActivity> activity = new ArrayList<UserActivity>();
+		
+		for(Integer num : activitynumber) {
+		UserActivity ac = userActivityService.select(num);
+		activity.add(ac);
+		}
 //		userActivityService.f
 				
 		return activity;
