@@ -234,14 +234,11 @@ public class OfficialActiveController {
 		}
 		
 		
-		@RequestMapping (path = "/addmember.controller")
+		@RequestMapping (path = "/addmember")
 		@ResponseBody
-		public void addmember (@RequestParam(name = "anum" ,required = false) Integer anum,
-				@RequestParam(name= "memberAccount") String memberAccount) {
-			
-			addmember.setAnum(anum);
-			addmember.setMemberAccount(memberAccount);
-			
+		public void addmember (@RequestParam(name = "anum" ,required = false) Integer anum,HttpServletRequest request) {
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
 			addMemberService.insert(addmember);
 			System.out.println("幹");
 		}
