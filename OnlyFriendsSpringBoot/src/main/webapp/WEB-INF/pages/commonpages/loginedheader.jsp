@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item fs-6" href="#!">Member Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
                   <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
                 </ul>
               </li>

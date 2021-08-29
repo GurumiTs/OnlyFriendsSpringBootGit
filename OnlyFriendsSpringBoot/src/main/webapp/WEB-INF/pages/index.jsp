@@ -61,15 +61,17 @@
 			<%@include file="./commonpages/loginedheader.jsp"%>
 		</c:when>
 		<c:when test="${not empty member}">
-			<%@include file="./membercommonpages/memberloginedheader.jsp"%>
+			<%@include file="./membercommonpages/memberloginedheader.jsp"%>	
+			 <input id="getAccount" value="${personalinfo.memberAccount}"
+				class="d-none"></input>		 
 		</c:when>
 		<c:otherwise>
 			<%@include file="./commonpages/header.jsp"%>
 		</c:otherwise>
 		</c:choose>
         
-        
-        
+       
+         
         <!-- Main Content -->
         <div class="main-content">
           <!-- Heading Row-->
@@ -227,9 +229,12 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
- 
-
-    <!-- Page Specific JS File -->
+ 	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	
+ 	 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>
   </body>
 </html>
 

@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                  <li><a class="dropdown-item" href="userparty.entry">會員活動</a></li>
+               <li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
                   <li><a class="dropdown-item" href="#!">官方活動</a></li>
 
                 </ul>

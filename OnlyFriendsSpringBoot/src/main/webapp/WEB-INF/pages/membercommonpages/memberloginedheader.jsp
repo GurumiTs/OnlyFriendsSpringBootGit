@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item fs-6" href="#!">Member Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
                   <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
                 </ul>
               </li>
@@ -73,6 +73,28 @@ pageEncoding="UTF-8"%>
                 >
               </button>
             </li>
+            
+                 <!-- official message -->
+          
+         <li class="dropdown dropdown-list-toggle">
+              <a
+                href="#"
+                data-toggle="dropdown"
+                class="nav-link notification-toggle nav-link-lg beep"
+                ><i class="far fa-bell"></i
+              ></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Notifications</div>
+                <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="bellarea"></div>
+                <div class="dropdown-footer text-center">
+                  <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </li>
+         
+           <!-- official message -->
+ 
+            
             <li class="dropdown">
               <a
                 href="#"
@@ -94,5 +116,8 @@ pageEncoding="UTF-8"%>
                 </a>
               </div>
             </li>
+            
+       
+            
           </ul>
         </nav>
