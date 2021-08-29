@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 					<table class="table table-hover center" id="shoppingCartTable">
 						<thead>
 						<tr>
-							<th>是否購買</th>
+							<th>√</th>
 							<th>名稱</th>
 							<th>單價</th>
 							<th>數量</th>
