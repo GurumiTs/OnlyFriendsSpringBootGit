@@ -278,7 +278,12 @@ height:50px;
 				            }
 				        },
 				        { "data": "usersTitle" }, 
-				        { "data": "usersUpdateTime" },
+				        { "data": "usersUpdateTime", 
+				        	render:function(data, type, row)
+				        	{
+				        		return data.substring(0, 10);
+				        	}	
+				        },
 				        { 
 				        	"data": "usersMainText",
 				        	render:function(data, type, row)
