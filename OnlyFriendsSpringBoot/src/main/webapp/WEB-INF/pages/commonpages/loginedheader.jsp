@@ -59,15 +59,7 @@ pageEncoding="UTF-8"%>
             </ul>
           </div>
           <form class="form-inline ml-auto"></form>
-          <ul class="navbar-nav navbar-right">
-            <li class="dropdown dropdown-list-toggle">
-              <button class="btn" type="submit">
-                <i class="fas fa-shopping-cart text-white " ></i>
-                <span class="badge bg-light text-dark ms-1 rounded-pill"
-                  >0</span
-                >
-              </button>
-            </li>
+          <ul class="navbar-nav navbar-right">          
             <li class="dropdown">
               <a
                 href="#"
