@@ -31,5 +31,12 @@ public class ChatJsonController {
 		List<Chat> list = chatService.findAllChat(m1account, to);
 		return list;
 	}
+	
+	@PostMapping(path = "/bellhistory/{username}")
+	@ResponseBody
+	public List<Chat> bellHistoryQuery(HttpServletRequest request,@PathVariable(name = "username") String username) {		
+		List<Chat> list = chatService.findAllChat(username,"official");
+		return list;
+	}
 
 }
