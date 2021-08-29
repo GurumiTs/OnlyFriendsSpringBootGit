@@ -2,14 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
-<style>
-#shoppingCartTable{
-	font-size:5px;
-}
-
-</style>
 </head>
-
 <body>
 <body class="layout-2">
 	<div id="app">
@@ -31,7 +24,7 @@
 									alt="..." />
 							</div>
 							<div class="col-md-6">
-								<div class="small mb-1 d-none" id="proId"></div>
+								<div class="small mb-1" id="proId"></div>
 								<h1 class="display-5 fw-bolder" id="proName"></h1>
 								<div class="fs-5 mb-5">
 									<span class="text-decoration-line-through" id="proPrice"></span>
@@ -39,10 +32,10 @@
 								</div>
 								<p class="lead" id="proDescription"></p>
 								<div class="d-flex">
-									<input class="form-control text-center me-3" id="amount" name="amount"
-										type="text" value="1" style="max-width: 3rem" />
-									<a class="btn btn-outline-dark flex-shrink-0 add-to-cart addCart"
-										 id="addchart" data-bs-toggle="modal" 
+									<input class="form-control text-center me-3" id="inputQuantity"
+										type="num" value="1" style="max-width: 3rem" />
+									<a href='#0' class="btn btn-outline-dark flex-shrink-0 add-to-cart addCart"
+										type="submit" id="addchart" data-bs-toggle="modal" 
 										data-bs-target="#staticBackdrop" >
 										<i class="bi-cart-fill me-1"></i> Add to cart
 									</a>
@@ -199,9 +192,7 @@
 
 	<script>
 	$(function () {
-  	
-  	  findcart()
-  	  $('#addchart').on('click',loadcart)
+  	  
   	  var url = location.href;
   	  
   	  if(url.indexOf('?')!=-1){
@@ -210,6 +201,7 @@
   		  var proId =decodeURI(ary2[0].substr(6));
   		  var proName =decodeURI(ary2[1].substr(8));
   	  }
+
 				$.ajax({
 					   type:'GET',
 	               	   url:'shopitempage.controller',
@@ -222,7 +214,7 @@
 	               		  
 	               		   if(proId==products[i].proId && proName==products[i].proName){
 	               			   
-	               			   $('#proId').text(products[i].proId);
+	               			   $('#proId').text("序號:"+products[i].proId);
 	               			   $('#proName').text(products[i].proName);
 	               			   $('#proPrice').text("$"+products[i].proPrice);
 	               			   $('#proPriceDiscount').text("$"+Math.round(products[i].proPrice*0.9));
@@ -255,85 +247,42 @@
 // 	cartcount.innerHTML = totalCount;
 	
 		//addtocart
-	
-			function loadcart () {
-				let proId=$('#proId').text();
-				console.log(proId)
-				let amount=$('#amount').val();
-				console.log("stpe1")
-				console.log(amount)
+		$(document).ready(function(){
+			$("#cartlistitem").click(function(){
 			$.ajax({
-				type:"post",
+				type:"GET",
 				url:"cart",
-				dataType: "json",
-				data:{ "proId":proId,"amount":amount},
-				success:function(data){
-					 console.log(data);
-					 var json = JSON.stringify(data,null,4);
+				dataType:'JSON',
+				success:function(cartlist){
+					 console.log(cartlist);
+		     	     var json = JSON.stringify(cartlist,null,4);
 		     	     var parsedObjinArray = JSON.parse(json);
-		     	     var cartlistitem = $('#cartlistitem');
+		     	     var shoppingCartTable = $('#cartlistitem');
 		     	     $('#cartlistitem').empty("");
 		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 		     	     var item = '<tr>'+
 		 				'<td>'+
 		 				'<div class="checkbox">'+
 		 				'<label>'+
-		 				'<input type="checkbox" id="checkbox'+n.proId+'" value="option1">'+
+		 				'<input type="checkbox" id="checkbox'+n.product.proId+'" value="option1">'+
 		 				'</label>'+
 		 				'</div>'+
 		 				'</td>'+
 		 				'<td>'+n.product.proName+'</td>'+
 		 				'<td>'+n.product.proPrice+'</td>'+
 		 				'<td>'+n.amount+'</td>'+
-		 				'<td>'+Math.round(n.product.proPrice*n.amount)+'</td>'+
 		 				'</tr>';
-		 				cartlistitem.append(item);
-		     	    });
+		     	    shoppingCartTable.append(item);
+				});
 				},
 				error:function(){
 					console.log("error");
 				}
+			});
 			})
-		}	
+		})
 		
-
-			function findcart () {
-				let proId=$('#proId').text();
-				console.log(proId)
-				let amount=$('#amount').val();
-				console.log("stpe1")
-				console.log(amount)
-			$.ajax({
-				type:"post",
-				url:"getShoppingCars",
-				success:function(data){
-					 console.log(data);
-					 var json = JSON.stringify(data,null,4);
-		     	     var parsedObjinArray = JSON.parse(json);
-		     	     var cartlistitem = $('#cartlistitem');
-		     	     $('#cartlistitem').empty("");
-		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-		     	     var item = '<tr>'+
-		 				'<td>'+
-		 				'<div class="checkbox">'+
-		 				'<label>'+
-		 				'<input type="checkbox" id="checkbox'+n.proId+'" value="option1">'+
-		 				'</label>'+
-		 				'</div>'+
-		 				'</td>'+
-		 				'<td class="proname">'+n.product.proName+'</td>'+
-		 				'<td>'+n.product.proPrice+'</td>'+
-		 				'<td>'+n.amount+'</td>'+
-		 				'<td>'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-		 				'</tr>';
-		 				cartlistitem.append(item);
-		     	    });
-				},
-				error:function(){
-					console.log("error");
-				}
-			})
-		}	
+		
 
 
 

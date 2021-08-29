@@ -23,6 +23,7 @@ public class CartItem {
 	private Integer amount;
 	private Product product;
 	private Integer total;
+	private Member memberAccount;
 	public Integer getTotal() {
 		return total;
 	}
@@ -41,7 +42,13 @@ public class CartItem {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
+	public Member getMemberAccount() {
+		return memberAccount;
+	}
+	public void setMemberAccount(Member memberAccount) {
+		this.memberAccount = memberAccount;
+	}
+	
 	
 	
 
