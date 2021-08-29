@@ -8,7 +8,7 @@
 	width: 400px;
 	height: 180px;
 	border-radius: 5px;
-	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.5);
 	background-color: #fff;
 	padding: 10px 10px;
 	position: relative;
@@ -23,7 +23,6 @@
 	border-radius: 40px;
 	z-index: 1;
 	top: 70px;
-	background-color: #DDDDDD;
 	width: 40px;
 }
 
@@ -35,7 +34,6 @@
 	border-radius: 40px;
 	z-index: 1;
 	top: 70px;
-	background-color: #DDDDDD;
 	width: 40px;
 }
 
@@ -87,6 +85,14 @@
 	padding-left: 7%;
 	margin-buttom: 5%;
 }
+
+body {
+	font-size: 1.2rem
+}
+
+#sidebar-wrapper {
+	margin-top: -50%;
+}
 </style>
 <body>
 <body class="layout-2">
@@ -94,12 +100,12 @@
 		<div class="main-wrapper">
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
-			
+
 
 			<div class="main-sidebar">
 				<aside id="sidebar-wrapper">
-				<%@include file="../frontcommonpages/shopsider.jsp"%>
-					
+					<%@include file="../frontcommonpages/shopsider.jsp"%>
+
 				</aside>
 			</div>
 
@@ -110,9 +116,9 @@
 				<section class="section">
 
 					<div class="section-body">
-						<div class="card">
+						<div class="card" style="background-color: ##FFFAF2;">
 							<div>
-								<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+								<!-- 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 									<div class="container-fluid">
 										<button class="navbar-toggler" type="button"
 											data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -133,9 +139,23 @@
 
 										</div>
 									</div>
-								</nav>
+								</nav>-->
+								<ul class="nav nav-tabs">
+									<li class="nav-item"><a class="nav-link "
+										aria-current="page" href="couponMember.controller" id="money">現金券</a></li>
+									<li class="nav-item"><a class="nav-link"
+										href="couponMember.controller" id="discount">折扣券</a></li>
+									<li class="nav-item"><a class="nav-link"
+										href="couponMember.controller" id="freight">運費券</a></li>
+									<li class="nav-item"><a class="nav-link" href="#"
+										id="cooperate">異業券</a></li>
+									<li class="nav-item"><a class="nav-link"
+										href="myCouponEntry.controller" id="mycoupon">我的優惠券</a></li>
+
+								</ul>
 							</div>
-							<div class="card-body " style="background-color: #DDDDDD;">					
+							<div class="card-body ">
+
 								<div
 									class="
 							            row
@@ -192,7 +212,7 @@
    	                        "<div class='content'>" +
    	                        "<h6>序號:"+n.couponId+"</h6>"+
    	                        "<h2>"+n.couponName+"</h2>"+
-   	                        "<h1>$"+n.couponPrice+"<span>Coupon</span></h1> "+
+   	                        "<h1><span>使用方式請詳Coupon說明</span></h1> "+
    	                        "<p>截止日:"+n.couponEndDate+"</p>"+
    	                        " </div>"+  	              	               
    	                     "</div>"+
@@ -207,10 +227,7 @@
 			    
 				})
      })
-     
-     
-    </script>
-
+     </script>
 
 </body>
 </html>

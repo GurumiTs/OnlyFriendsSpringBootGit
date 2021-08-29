@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
                   >Fun</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item fs-6" href="#!">Member Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
                   <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
                 </ul>
               </li>
@@ -57,22 +57,69 @@ pageEncoding="UTF-8"%>
               
               <li class="nav-item">
                 <a href="memberswipe" class="nav-link">Cupid Room</a>
-              </li>        
-              
-         
-                   
+              </li>           
             </ul>
           </div>
           <form class="form-inline ml-auto"></form>
           <ul class="navbar-nav navbar-right">
-            <li class="dropdown dropdown-list-toggle">
-              <button class="btn" type="submit">
-                <i class="fas fa-shopping-cart text-white " ></i>
-                <span class="badge bg-light text-dark ms-1 rounded-pill"
-                  >0</span
-                >
-              </button>
+          <li class="dropdown dropdown-list-toggle">
+			<button class="btn" type="submit" id="addtocarticon"
+				data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+				aria-controls="offcanvasRight">
+				<i class="fas fa-shopping-cart text-white cart"></i> <span
+					class="badge bg-light text-dark ms-1 rounded-pill numberCart" id="cartcount">0</span>
+			</button>
+			
+
+			<div class="offcanvas offcanvas-end" tabindex="-1"
+				id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+				<div class="offcanvas-header">
+					<h5 id="offcanvasRightLabel">購物車</h5>
+					<button type="button" class="btn-close text-reset"
+						data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body" id="cartlist">
+					<table class="table table-hover center" id="shoppingCartTable">
+						<thead>
+						<tr>
+							<th>√</th>
+							<th>名稱</th>
+							<th>單價</th>
+							<th>數量</th>
+							<th>小計</th>
+						</tr>
+						</thead>
+						<tbody id="cartlistitem">
+						</tbody>
+						
+					</table>			
+				</div>
+			</div>
+			
+			
+		</li>
+            
+                 <!-- official message -->
+          
+         <li class="dropdown dropdown-list-toggle">
+              <a
+                href="#"
+                data-toggle="dropdown"
+                class="nav-link notification-toggle nav-link-lg beep"
+                ><i class="far fa-bell"></i
+              ></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Notifications</div>
+                <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="bellarea"></div>
+                <div class="dropdown-footer text-center">
+                  <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                </div>
+              </div>
             </li>
+         
+           <!-- official message -->
+ 
+            
             <li class="dropdown">
               <a
                 href="#"
@@ -94,5 +141,8 @@ pageEncoding="UTF-8"%>
                 </a>
               </div>
             </li>
+            
+       
+            
           </ul>
         </nav>

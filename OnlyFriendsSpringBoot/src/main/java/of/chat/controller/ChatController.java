@@ -24,10 +24,12 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import of.chat.model.ChatMessageModel;
 import of.chat.model.ChatRepository;
 import of.chat.model.ChatService;
+import of.chat.model.MessageType;
 import of.member.model.Member;
 
 @Controller
@@ -55,8 +57,7 @@ public class ChatController {
 		chat.setContent(chatMessageModel.getContent());
 		chat.setTexttime(chatMessageModel.getTime());
 		chatService.insert(chat);
-		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);
-		
+		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);		
 	}
 	
 	//系統回傳給自己加入聊天室的訊息
@@ -67,5 +68,25 @@ public class ChatController {
 		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);
 	}
 	
+	@GetMapping("/officialsend")
+	public void tryMessage() {
+		//System.out.println("new msg:"+chatMessageModel.getContent());
+		//System.out.println("new msg:"+chatMessageModel.getTime());	
+		
+	    //SimpleDateFormat ft =  new SimpleDateFormat ("hh:mm");
+	    //System.out.println(ft.format(dNow));
+		
+		
+		
+		
+		ChatMessageModel cm = new ChatMessageModel();		
+		cm.setType(MessageType.CHAT);
+		cm.setSender("official");
+		cm.setContent("test1");
+		cm.setTime("09:47AM");
+		simpMessagingTemplete.convertAndSend("/topic/public/1011",cm);		
+	}
+	
+
 	
 }
