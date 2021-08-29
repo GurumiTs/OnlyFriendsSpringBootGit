@@ -25,7 +25,7 @@ font-size:1.2rem
 							<!-- Post header-->
 							<header class="mb-4">
 								<!-- Post title-->
-								<h1 class="fw-bolder mb-1" name="name" value="${party.name}"></h1>
+								<h1 class="fw-bolder mb-1" name="name" value="${userActivity.activityname}"></h1>
 								<!-- Post meta content-->
 
 							</header>
@@ -46,9 +46,9 @@ font-size:1.2rem
 									女生人數:${userActivity.woman}
 								</p>
 							</section>
-							<button type="button" disabled="disabled" class="btn btn-primary"
+							<a href="userActivity.up.controller?number=${userActivity.number}"><button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
-								已參加此活動</button>
+								修改活動</button></a>
 
 						
 							<!-- Modal -->

@@ -79,14 +79,14 @@ body {
 											parsedObjinArray,
 											function(i, n) { //i為順序 n為單筆物件
 												var item = "<div class='col-lg-3' id='Grid' style=' margin-left:5px'>"
-														+ "<br/><a href='useractivity.page?number="
+														+ "<br/><a href='useractivity.page3?number="
 														+ n.number
 														+ "'>"
 														+ "<img class='card-img-top' src='"+n.cover+"' style='width:250px; height:200px;border-radius:10px'; alt='...' />"
 
 														+ "<div class='card-body'>"
 														+ "<h2 class='card-title h4'>"
-														+ "<a style='text-decoration: none;' href='useractivity.page?number="
+														+ "<a style='text-decoration: none;' href='useractivity.page3?number="
 														+ n.number
 														+ "'>"
 														+ n.activityname
@@ -116,7 +116,7 @@ body {
 														+ "</span>"
 														+ "<br/>"
 														+ "<br/>"
-														+ "<a class='btn btn-primary' href='useractivity.page?number="
+														+ "<a class='btn btn-primary' href='useractivity.page3?number="
 														+ n.number
 														+ "'>查看活動內容</a>"
 
