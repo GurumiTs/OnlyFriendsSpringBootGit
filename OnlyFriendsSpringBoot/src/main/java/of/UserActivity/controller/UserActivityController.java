@@ -85,6 +85,16 @@ public class UserActivityController {
 
 		return "useractivepage/useractivepage";
 	}
+	//已報名的內頁 
+	@RequestMapping(path = "/useractivity.page2", method = RequestMethod.GET)
+	public String userpartyenty2(HttpServletRequest request, Model model) {
+		Integer number = Integer.parseInt(request.getParameter("number"));
+		userActivity = userActivityService.select(number);
+		// 進到內頁後see+1
+		model.addAttribute("userActivity", userActivity);
+
+		return "useractivepage/useractivepage2";
+	}
 
 	// 會員首頁分類查詢
 //	@RequestMapping(path = "/serchtype", method = RequestMethod.POST)
@@ -107,13 +117,19 @@ public class UserActivityController {
 	// 會員新增活動
 	@RequestMapping(path = "/userInsertActivity.controller", method = RequestMethod.POST)
 	public String partadd(@RequestParam(name = "cover") MultipartFile cover,
-			@RequestParam(name = "Activityname") String Activityname, @RequestParam(name = "type") String type,
-			@RequestParam(name = "time") String time, @RequestParam(name = "time_up") String time_up,
-			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
-			@RequestParam(name = "zipcode") String zipcode, @RequestParam(name = "place") String place,
+			@RequestParam(name = "Activityname") String Activityname,
+			@RequestParam(name = "type") String type,
+			@RequestParam(name = "time") String time,
+			@RequestParam(name = "time_up") String time_up,
+			@RequestParam(name = "county") String county,
+			@RequestParam(name = "district") String district,
+			@RequestParam(name = "zipcode") String zipcode,
+			@RequestParam(name = "place") String place,
 
-			@RequestParam(name = "Detail") String Detail, @RequestParam(name = "condition") String condition,
-			@RequestParam(name = "man") String man, @RequestParam(name = "woman") String woman,
+			@RequestParam(name = "Detail") String Detail,
+			@RequestParam(name = "condition") String condition,
+			@RequestParam(name = "man") String man,
+			@RequestParam(name = "woman") String woman,
 			HttpServletRequest request, Model m)
 			throws SQLException, IllegalStateException, IOException, NullPointerException {
 
@@ -252,7 +268,7 @@ public class UserActivityController {
 	// 會員參加活動
 	@RequestMapping(path = "/addactivity",method = RequestMethod.GET)
 	@ResponseBody
-	public List<Member> addactivity(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
+	public String addactivity(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
 
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
@@ -269,12 +285,27 @@ public class UserActivityController {
 		userActivityService.updata(ua);
 		
 		//判斷是否增加成功
-		return par;
+		return "redirect:/useractivity.post";
 	}
 	// 會員查詢自己參加活動
 //	抓參加者值
+	@RequestMapping(path = "/AlreadyParticipated",method = RequestMethod.POST)
+	@ResponseBody
+	public List<UserActivity> userparty(Model model, HttpServletRequest request) {
+		
+		//先找到使用著帳號
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		
+//		使用帳號在 participate 找到使用著有參加哪些活動
+		List<Integer> activitynumber=userActivityService.findByparticipate(Integer.parseInt(memberAccount));
+		
+		List<UserActivity> activity = userActivityService.findBynumber(activitynumber);
+
+//		userActivityService.f
+				
+		return activity;
+	}
 //	System.out.println("step1");
-//	UserActivity ua = userActivityService.select(22);
 //	System.out.println("controller ua name:"+ua.getActivityname());
-//	List<Member> listmemberList = ua.getParticipate();
 }

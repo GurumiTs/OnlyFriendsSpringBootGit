@@ -1,5 +1,6 @@
 package of.oamember.model;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface OaMemberRepository extends JpaRepository<OaMember, String> {
 
 
-	Optional<OaMember> findByMemberAccount(String MemberAccount);
+	List<OaMember> findByMemberAccount(String MemberAccount);
 
 	
 	
