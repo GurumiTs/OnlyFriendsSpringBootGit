@@ -23,8 +23,7 @@ public class OaMemberService {
 	}
 	
 	//透過MemberAccoount查詢
-	public OaMember findByMemberAccount(String memberAccount) {
-		Optional<OaMember> OaMemberAccountOptional = oamRepository.findByMemberAccount(memberAccount);
-		return OaMemberAccountOptional.get();
+	public List<OaMember> findByMemberAccount(String memberAccount) {
+		return oamRepository.findByMemberAccount(memberAccount);
 	}
 }
