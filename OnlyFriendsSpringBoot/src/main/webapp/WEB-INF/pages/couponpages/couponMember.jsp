@@ -439,7 +439,7 @@ font-size:1.2rem
           	                        "<div class='content'>" +
           	                        "<h6>序號:"+n.couponId+"</h6>"+
           	                        "<h2>"+n.couponName+"</h2>"+
-          	                        "<h1>$"+n.couponPrice+"<span>Coupon</span></h1> "+
+          	                        "<h1>"+n.couponPrice+"%<span>Coupon</span></h1> "+
           	                        "<p>截止日:"+n.couponEndDate+"</p>"+
           	                        " </div>"+          	                   
           	                     "</div>"+
