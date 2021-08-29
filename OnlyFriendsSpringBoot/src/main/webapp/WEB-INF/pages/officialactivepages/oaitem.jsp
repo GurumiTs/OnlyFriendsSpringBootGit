@@ -45,10 +45,14 @@
        
        
        <div class="mb-3">
+       
+       <form action = "addmember.controller" method="post"  enctype="multipart/form-data">
+       
+       <input type = "hidden" value ="" name= "anum">
 							<label for="memberEmail" class="form-label">Email</label> <input
 								type="email" class="form-control" name="memberEmail" id="memberEmail" value="${personalinfo.memberEmail}" 
 								required readonly />
-						</div>
+						</div> 
 
 						<div class="mb-3 row">
 							<div class="col">
@@ -93,7 +97,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary">送出</button>
+		    
+        <button  type="submit" class="btn btn-primary">送出</button>
+        
       </div>
     </div>
   </div>
@@ -102,6 +108,7 @@
                 </div>
             </div>
         </section>
+        </form>
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
@@ -212,6 +219,7 @@
       
       
       
+      
        
 						</div>
 
@@ -289,26 +297,7 @@
 			})
 		});
 		
-			var table = $('#example').DataTable({
-		    "ajax": {
-		    	"url": "memalltojson",
-		    },
-		    "columns": [
-		        { "data": "memberEmail" },
-		        { "data":"memberAccount"},
-		        { "data": "memberName" }, 
-		        		  
-		        {
-		            "data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<i id="+data.memberAccount+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
-		            },
-		            "targets": -1
-		        }
-		    ]
-		});		
-		
+	
 		  $("#exampleModalLabel").on("click", function () {
 			  let email = $(this).attr("id")
 			  $.ajax({
@@ -334,6 +323,8 @@
 			        }
 			  });			  
 		});
+		  
+		  
 	
 		  
 		 

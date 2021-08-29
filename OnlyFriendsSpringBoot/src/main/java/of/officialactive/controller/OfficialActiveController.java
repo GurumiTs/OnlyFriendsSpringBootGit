@@ -27,9 +27,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.member.model.Member;
-import of.oamember.model.OaMember;
-import of.oamember.model.OaMemberRepository;
+import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
+import of.officialactive.model.AddMember;
+import of.officialactive.model.AddMemberService;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
@@ -43,6 +44,13 @@ public class OfficialActiveController {
 	private OfficialActive officialActive;
 	@Autowired 
 	private OaMemberService oamService;
+	@Autowired 
+	private MemberService memberService;
+	@Autowired
+	private AddMember addmember;
+	@Autowired 
+	private AddMemberService addMemberService;
+
 	
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
@@ -225,20 +233,86 @@ public class OfficialActiveController {
 			return "officialactivepages/oaforuser";
 		}
 		
-		@RequestMapping(path= "/memberinf",method = RequestMethod.POST)
+		
+		@RequestMapping (path = "/addmember.controller")
 		@ResponseBody
-		public List<OaMember> memberinf(Model model, HttpServletRequest  request){
-			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-			String memberAccount = m1.getMemberAccount();
+		public void addmember (@RequestParam(name = "anum" ,required = false) Integer anum,
+				@RequestParam(name= "memberAccount") String memberAccount) {
 			
-			List<OaMember> oamemberList = oamService.findByMemberAccount(memberAccount);
-			model.addAttribute("oamemberList", oamemberList);
-			return oamemberList;
+			addmember.setAnum(anum);
+			addmember.setMemberAccount(memberAccount);
+			
+			addMemberService.insert(addmember);
+			System.out.println("幹");
 		}
 		
 		
 		
+		
+//		@RequestMapping(path= "/memberinf",method = RequestMethod.POST)
+//		@ResponseBody
+//		public List<OaMember> memberinf(Model model, HttpServletRequest  request){
+//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//			String memberAccount = m1.getMemberAccount();
+//			
+//			List<OaMember> oamemberList = oamService.findByMemberAccount(memberAccount);
+//			model.addAttribute("oamemberList", oamemberList);
+//			
+//			return oamemberList;
+//			
+//		}
+		
+		
+		
+		
+		// 參加活動
+		
+		@RequestMapping(path = "/addoamember", method = RequestMethod.GET)
+		@ResponseBody
+		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
+			
+			Member m2 = memberService.findByMemberAccount(memberAccount);
+			
+			//抓活動
+			
+			OfficialActive oam = officialActiveService.select(anum);
+			
+			List <Member> oamemberList = oam.getMemberactive();
+			oamemberList.add(m2);
+			officialActiveService.update(oam);
+			
+			return "/oaforuserpages.controller";
+		}
+		
+		
+		
+		
 }
+		
+		 
+			
+			
+		
+			
+			
+		
+
+		
+//		public String addoaMember(@RequestParam(name = "memberAccount") String memberAccount
+//				,@RequestParam(name = "anum" ,required = false) Integer anum) {
+//			
+//		officialActive.setMemberAccount(memberAccount);
+//		officialActive.setAnum(anum);
+//		
+			
+//		}
+		
+		
+	
+		
+//}
 	
 
 
