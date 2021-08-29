@@ -23,8 +23,7 @@ font-size:1.2rem
         
         <%@include file="../frontcommonpages/shopsider.jsp"%>
         
-        <input id="getAccount" value="${personalinfo.memberAccount}"
-				class="d-none"></input>
+     
 		<input id="getPic" value="${personalinfo.memberPic}"
 				class="d-none"></input>		
         
@@ -36,8 +35,7 @@ font-size:1.2rem
 
           <div class="section-body ">
             <div class="row align-items-center justify-content-center" id="row">
-              
-              
+               
                <div class="col-6 col-sm-6 col-lg-6">
                   <div class="card chat-box card-success" id="">
                     <div class="card-header">
@@ -68,7 +66,7 @@ font-size:1.2rem
         </section>
       </div>
 
-       <%@include file="../frontcommonpages/shopbottom.jsp"%>
+       <%@include file="../frontcommonpages/shopfooter.jsp"%>
       </div>
     </div>
     
@@ -79,7 +77,7 @@ font-size:1.2rem
 		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
    
     <script >  
-    
+  
     let stompClient;
     let username = $('#getAccount').prop('value');
     let usernamepic = $('#getPic').prop('value');
@@ -99,6 +97,33 @@ font-size:1.2rem
     	const socket = new SockJS('/OnlyFriends/chat-example')
 		stompClient = Stomp.over(socket)
 		stompClient.connect({}, onConnected, onError)
+		
+		$.ajax({
+            type: "post",
+            url: "bellhistory/"+username,
+            success: function (data) {      	
+            console.log("username:"+username)
+            $.each(data,function(i,item){ //i為順序 n為單筆物件   
+			var bell = 
+			"<a href='#' class='dropdown-item dropdown-item-unread'>"+
+            "<div class='dropdown-item-icon bg-primary text-white'>"+
+              "<i class='far fa-user'></i>"+
+            "</div>"+
+            "<div class='dropdown-item-desc'>"+
+              item.content+
+              "<div class='time text-primary'>"+item.texttime+"</div>"+
+            "</div>"+
+         	" </a>";
+			$('#bellarea').prepend(bell)            	   
+        	    });
+  
+             },
+             error: function (data) {           			 
+               console.log("載入歷史訊息發生錯誤");
+             },
+           });   
+		
+		
     })
     
     
@@ -162,11 +187,38 @@ font-size:1.2rem
 		$('#chat-content').append(d)
 		scrollbtm()
 		}
-		else if(selectUser != message.sender){		
+		//如果傳訊息的對象不是正在聊天的對象,不是官方訊息,不是自己,就會傳送通知到bell
+		else if(selectUser != message.sender & message.sender != 'official' & message.sender != username){		
    		 let tnum = $("#"+message.sender+"").find('span').prop('id')
    		 tnum++;
    		 $("#"+message.sender+"").find('span').html("+"+tnum)
    		 $("#"+message.sender+"").find('span').prop('id',tnum)
+   		 var bell = 
+			"<a href='#' class='dropdown-item dropdown-item-unread'>"+
+            "<div class='dropdown-item-icon bg-primary text-white'>"+
+              "<i class='fas fa-bell'></i>"+
+            "</div>"+
+            "<div class='dropdown-item-desc'>"+
+              "New message in box"+
+              "<div class='time text-primary'>"+message.time+"</div>"+
+            "</div>"+
+         	" </a>";
+			$('#bellarea').prepend(bell)	   		 
+		}
+		//show official messages on the bellarea
+		else if(message.sender == 'official'){
+			console.log('official test')
+			var bell = 
+			"<a href='#' class='dropdown-item dropdown-item-unread'>"+
+            "<div class='dropdown-item-icon bg-primary text-white'>"+
+              "<i class='far fa-user'></i>"+
+            "</div>"+
+            "<div class='dropdown-item-desc'>"+
+              message.content+
+              "<div class='time text-primary'>"+message.time+"</div>"+
+            "</div>"+
+         	" </a>";
+			$('#bellarea').prepend(bell)
 		}
 
 }

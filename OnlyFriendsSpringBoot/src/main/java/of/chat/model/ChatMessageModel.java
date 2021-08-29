@@ -6,6 +6,15 @@ public class ChatMessageModel {
 	private String sender;
 	private String time;
 	
+	public ChatMessageModel() {
+		
+	}
+	public ChatMessageModel(MessageType type, String content, String sender, String time) {
+		this.type = type;
+		this.content = content;
+		this.sender = sender;
+		this.time = time;
+	}
 	public MessageType getType() {
 		return type;
 	}

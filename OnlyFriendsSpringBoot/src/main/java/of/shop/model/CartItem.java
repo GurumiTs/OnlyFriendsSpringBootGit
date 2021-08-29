@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import of.member.model.Member;
 import of.product.model.Product;
 
 
@@ -40,6 +41,7 @@ public class CartItem {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	
 	
 

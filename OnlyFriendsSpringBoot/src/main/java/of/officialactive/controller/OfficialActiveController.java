@@ -26,6 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.member.model.Member;
+import of.oamember.model.OaMember;
+import of.oamember.model.OaMemberRepository;
+import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
@@ -37,6 +41,8 @@ public class OfficialActiveController {
 	private OfficialActiveService officialActiveService;
 	@Autowired
 	private OfficialActive officialActive;
+	@Autowired 
+	private OaMemberService oamService;
 	
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
@@ -219,29 +225,29 @@ public class OfficialActiveController {
 			return "officialactivepages/oaforuser";
 		}
 		
-		
-	
+		@RequestMapping(path= "/memberinf",method = RequestMethod.POST)
+		@ResponseBody
+		public List<OaMember> memberinf(Model model, HttpServletRequest  request){
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
 			
+			List<OaMember> oamemberList = oamService.findByMemberAccount(memberAccount);
+			model.addAttribute("oamemberList", oamemberList);
+			return oamemberList;
 		}
 		
-//		
-//		@RequestMapping(path = "/userpost",method = RequestMethod.POST)
-//		 @ResponseBody
-//		 public List<UserActivity> useractivity(Model model, HttpServletRequest request) {
-//
-//		  Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-//		  String memberAccount = m1.getMemberAccount();
-//
-//		  List<UserActivity> useractivityList = userActivityService.findByAccount(memberAccount);
-//
-//		  model.addAttribute("useractivityList", useractivityList);
-//
-//		  return useractivityList;
-		 
-					
+		
+		
+}
+	
+
+
+			
 		
 
-//		 }
+		
+
+		 
 			
 		
 			  

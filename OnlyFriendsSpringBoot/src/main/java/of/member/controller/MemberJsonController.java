@@ -4,6 +4,8 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -30,6 +33,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.chat.controller.Chat;
+import of.chat.model.ChatMessageModel;
+import of.chat.model.ChatService;
+import of.chat.model.MessageType;
 import of.common.model.Users;
 import of.common.model.UsersService;
 import of.common.util.BCrypt;
@@ -50,7 +57,13 @@ public class MemberJsonController {
 	private UsersService usersService;
 	@Autowired
 	private Users users;
-	
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplete;
+	@Autowired
+	private Chat chat;
+	@Autowired
+	private ChatService chatService;
+
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
 	public Map allEmployeeToJson(Model m) {
@@ -128,7 +141,7 @@ public class MemberJsonController {
 			System.out.println(memberAccount);
 			String fileName = multipartFile.getOriginalFilename();
 			String path = ResourceUtils.getURL("classpath:static/images/memberPic").getPath();
-			//System.out.println(path);
+			// System.out.println(path);
 			String filePath = path + "/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
@@ -159,12 +172,12 @@ public class MemberJsonController {
 		List<Member> empList = memberService.findAll();
 		while (true) {
 			int num = (int) (Math.random() * empList.size());
-			//System.out.println("random number:"+num);
+			// System.out.println("random number:"+num);
 			member = empList.get(num);
-			//System.out.println(member.getMemberAccount());
-			//System.out.println("存在與否:"+friends.contains(member));
+			// System.out.println(member.getMemberAccount());
+			// System.out.println("存在與否:"+friends.contains(member));
 			if (member.getMemberAccount().equals(m1account) || friends.contains(member) == true) {
-				
+
 				continue;
 			}
 			break;
@@ -197,12 +210,12 @@ public class MemberJsonController {
 		String memberAccount = m1.getMemberAccount();
 		// so get the member again
 		Member m2 = memberService.findByMemberAccount(memberAccount);
-		//System.out.println("player name:"+m2.getMemberName());
+		// System.out.println("player name:"+m2.getMemberName());
 		Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT :08:00"));
-		String day = Integer.toString(now.get(Calendar.DATE)); 
-		
-		System.out.println("i'm date:"+day);
-		if(m2.getSwipeDate().equals(day) == false) {
+		String day = Integer.toString(now.get(Calendar.DATE));
+
+		System.out.println("i'm date:" + day);
+		if (m2.getSwipeDate().equals(day) == false) {
 			m2.setSwipeTime("3");
 			memberService.update(m2);
 		}
@@ -214,7 +227,7 @@ public class MemberJsonController {
 	@PostMapping(path = "/memberaddfriend/{addfriendid}")
 	@ResponseBody
 	public Object memberAddFriend(@PathVariable(name = "addfriendid") String addfriendid, HttpServletRequest request) {
-	
+
 		Member mtry = memberService.findByMemberAccount("1011");
 		Users userstry = usersService.findByEmail("1029");
 		userstry.addFriend(mtry);
@@ -232,36 +245,53 @@ public class MemberJsonController {
 		}
 		users.addFriend(friend);
 		usersService.update(users);
+		
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+
+		ChatMessageModel cm = new ChatMessageModel(MessageType.CHAT, "Followed by " + m1.getMemberName(), "official",
+				formattedDate);
+		
+		Chat chat = new Chat();
+		chat.setSender(cm.getSender());
+		chat.setReceiver(addfriendid);
+		chat.setContent(cm.getContent());
+		chat.setTexttime(cm.getTime());
+		chatService.insert(chat);
+		simpMessagingTemplete.convertAndSend("/topic/public/" + addfriendid, cm);
+
 		return users;
 	}
-	
+
 	@PostMapping(path = "/memberfriendsquery")
 	@ResponseBody
 	public List<Member> memberFriendsQuery(HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		List<Member> friends = usersService.findByEmail(memberAccount).getFriends();
-		
+
 		return friends;
 	}
-	
+
 	@PostMapping(path = "/memberfriendssearch/{friendname}")
 	@ResponseBody
-	public List<Member> memberFriendsSearch(@PathVariable(name ="friendname") String friendname,HttpServletRequest request) {
+	public List<Member> memberFriendsSearch(@PathVariable(name = "friendname") String friendname,
+			HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		List<Member> friends = usersService.findByEmail(memberAccount).getFriends();
 		List<Member> searchFriends = new ArrayList<Member>();
-		for(int i = 0;i<friends.size();i++) {
-			if(friends.get(i).getMemberName().contains(friendname) == true) {
+		for (int i = 0; i < friends.size(); i++) {
+			if (friends.get(i).getMemberName().contains(friendname) == true) {
 				searchFriends.add(friends.get(i));
 			}
 		}
-		//List<Member> friends = memberService.findByMemberNameLike(friendname);
-		
+		// List<Member> friends = memberService.findByMemberNameLike(friendname);
+
 		return searchFriends;
 	}
-	
+
 	@PostMapping(path = "/memquery")
 	@ResponseBody
 	public Member processRestQueryEmployee(@RequestParam(name = "account") String account) {
