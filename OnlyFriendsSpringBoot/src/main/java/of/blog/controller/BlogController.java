@@ -96,6 +96,7 @@ public class BlogController {
 
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			BlogBean blog = new BlogBean();
 			blog.setEmpAcc(empAcc);
 			blog.setUserID(userID);
 			blog.setTitle(title);
@@ -158,6 +159,7 @@ public class BlogController {
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
+			BlogBean blog = new BlogBean();
 			blog.setImages("images/blogPic/" + fileName);
 			blog.setCreateTime(createTime);
 			blog.setArticleID(articleID);
