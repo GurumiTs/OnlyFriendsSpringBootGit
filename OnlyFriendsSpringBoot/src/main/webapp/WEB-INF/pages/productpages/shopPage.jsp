@@ -113,9 +113,9 @@ a.slide-arrow {
 								<button class="btn" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
-								<button class="badge badge-primary mb-2" id="luckyItem" name="luckyItem" value="幸運小物">幸運小物</button> 
+								<button class="badge badge-primary mb-2" id="luckyItem" name="luckyItem" value="幸運小物類">幸運小物</button> 
 								<button class="badge badge-secondary mb-2" id="candleItem" name="candleItem" value="香氛類">香氛類</button> 
-								<button class="badge badge-success mb-2" id="otherItem" name="otherItem" value="其他">其他</button> 
+								<button class="badge badge-success mb-2" id="otherItem" name="otherItem" value="其他類">其他</button> 
 								
 							</div>
 						</div>
