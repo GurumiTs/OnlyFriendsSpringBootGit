@@ -66,12 +66,14 @@
 						<thead>
 						<tr>
 							<th>是否購買</th>
-							<th>商品名稱</th>
-							<th>商品單價</th>
-							<th>商品數量</th>
+							<th>名稱</th>
+							<th>單價</th>
+							<th>數量</th>
+							<th>小計</th>
 						</tr>
 						</thead>
-						<tbody id="cartlistitem"></tbody>
+						<tbody id="cartlistitem">
+						</tbody>
 						
 					</table>			
 				</div>
