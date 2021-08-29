@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 <style type="text/css">
 .container {
 	font-family: 微軟正黑體;
@@ -99,10 +100,10 @@
 
 						<div class="input-group">
 							<label for="input-group-text" class="input-group-text">文章內容:</label>
-							<textarea class="form-control" style="resize: none;" rows="10"
+							<textarea class="form-control" style="resize: none;" rows="10" id="editor"
 								name="mainText">${blog.mainText}</textarea>
 						</div>
-
+						
 						<div style="margin: 10px auto; text-align: center;">
 							<!-- <input type="submit" name="confirm" value="送出"> -->
 							<button type="submit" class="btn btn-primary">送出</button>
@@ -144,6 +145,23 @@
 				URL.revokeObjectURL(output.src) // free memory
 			}
 		};
+		
+		ClassicEditor
+        .create( document.querySelector( '#editor' ),{
+      	  toolbar: {
+      		    items: [
+      		        'heading', '|',
+//       		        'Font', 'Fontfamily', 'Fontsize', '|',
+      		        'bold', 'italic', '|',
+      		        'undo', 'redo'
+      		    ],
+      		    shouldNotGroupWhenFull: true
+      	  },
+        } )
+    	  .catch( error => {
+      	    console.error(error);
+      } );
+		
 	</script>
 
  </body>
