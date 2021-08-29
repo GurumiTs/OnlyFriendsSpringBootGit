@@ -27,7 +27,7 @@ public class UserActivityService {
 		return userActivityRepositor.findAll();
 	}
 	
-	public UserActivity select(int number) {
+	public UserActivity select(Integer number) {
 		Optional<UserActivity> useravtivity = userActivityRepositor.findByNumber(number);
 		if (useravtivity.isPresent()) {
 			return useravtivity.get();
@@ -35,7 +35,7 @@ public class UserActivityService {
 		return null;
 	}
 
-	public void deleteById(int number) {
+	public void deleteById(Integer number) {
 		userActivityRepositor.deleteById(number);
 	}
 	
@@ -46,4 +46,13 @@ public class UserActivityService {
 	public List<UserActivity> findByType(String type){
 		return userActivityRepositor.findByType(type);
 	}
+	
+	public List<UserActivity> findBynumber(List<Integer> activitynumber){
+		return userActivityRepositor.findBynumber(activitynumber);
+	}
+	
+	public List<Integer> findByparticipate(Integer activitynumber){
+		return userActivityRepositor.findByparticipate(activitynumber);
+	}
+	
 }

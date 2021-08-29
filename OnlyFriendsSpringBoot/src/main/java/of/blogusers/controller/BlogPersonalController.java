@@ -68,32 +68,32 @@ public class BlogPersonalController {
 								  @RequestParam(name = "usersMainText") String usersMainText,
 								  @RequestParam(name = "usersCreateTime") Timestamp usersCreateTime,
 								  Model m) {
-		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		System.out.println("UpdateTime:" + ts);
-		BlogUser blog = new BlogUser();
 		
 		try {
-			System.out.println("blogUpdate.controller ID:" + usersArticleID);
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			System.out.println("UpdateTime:" + ts);
+			BlogUser blogUser = new BlogUser();
 
 			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
 			String fileName = multipartFile.getOriginalFilename();
 			System.out.println("fileName:" + fileName);
-			String saveFilePath = ResourceUtils.getURL("classpath:static/images/blogPic").getPath();
+			String saveFilePath;
+			saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
 			System.out.println("saveFilePath:" + saveFilePath);
 			String filePath = saveFilePath + "/" + fileName;
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
-			blog.setUsersImages("images/blogUsersPic/" + fileName);
-			blog.setUsersCreateTime(usersCreateTime);
-			blog.setUsersArticleID(usersArticleID);
-			blog.setMemberAccount(memberAccount);
-			blog.setUsersName(usersName);
-			blog.setUsersTitle(usersTitle);
-			blog.setUsersMainText(usersMainText);
-			blog.setUsersUpdateTime(ts);
+			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
+			blogUser.setUsersCreateTime(usersCreateTime);
+			blogUser.setUsersArticleID(usersArticleID);
+			blogUser.setMemberAccount(memberAccount);
+			blogUser.setUsersName(usersName);
+			blogUser.setUsersTitle(usersTitle);
+			blogUser.setUsersMainText(usersMainText);
+			blogUser.setUsersUpdateTime(ts);
 
-			bUserService.updateBlogUser(blog);
+			bUserService.updateBlogUser(blogUser);
 
 			m.addAttribute("success", "更新資料成功!");
 			return "redirect:memberblog";

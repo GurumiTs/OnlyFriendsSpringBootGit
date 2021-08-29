@@ -50,4 +50,10 @@ public class ProductService {
 	public Page<Product> findByItem(Pageable pageable,String proItem){
 		return productRepository.findByProItem(pageable,proItem);
 	}
+	
+	public Integer findIdToGetPrice(Integer Id) {
+		
+		
+		return productRepository.findById(Id).get().getProPrice();
+	}
 }

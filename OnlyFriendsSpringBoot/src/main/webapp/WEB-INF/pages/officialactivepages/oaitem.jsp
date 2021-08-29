@@ -46,21 +46,21 @@
        
        <div class="mb-3">
 							<label for="memberEmail" class="form-label">Email</label> <input
-								type="email" class="form-control" name="memberEmail" id="memberEmail"
+								type="email" class="form-control" name="memberEmail" id="memberEmail" value="${personalinfo.memberEmail}" 
 								required readonly />
 						</div>
 
 						<div class="mb-3 row">
 							<div class="col">
 								<label for="memberAccount" class="form-label">編號</label> <input
-									type="text" class="form-control" name="memberAccount" id="memberAccount"
+									type="text" class="form-control" name="memberAccount" id="memberAccount" value = "${personalinfo.memberAccount}"
 									required readonly />
 								<div class="valid-feedback">Looks good!</div>
 								<div class="invalid-feedback">should be 6~12 numbers</div>
 							</div>
 							<div class="col">
 								<label for="memberName" class="form-label">姓名</label> <input
-									type="text" class="form-control" id="memberName" name="memberName"
+									type="text" class="form-control" id="memberName" name="memberName" value = "${personalinfo.memberName}"
 									required />
 								<div class="valid-feedback">Beautiful!</div>
 								<div class="invalid-feedback">english only!</div>
@@ -72,7 +72,7 @@
 						<div class="mb-3 row">
 							<div class="col">
 								<label for="memberAge" class="form-label">年齡</label> <input
-									type="text" class="form-control" name="memberAge" id="memberAge"
+									type="text" class="form-control" name="memberAge" id="memberAge" value = "${personalinfo.memberAge}"
 									required />
 								<div class="invalid-feedback">Choose your Happy Bday!</div>
 							</div>
@@ -81,7 +81,7 @@
 
 						<div class="mb-3 row address" id="twzipcode">
 							<div class="col">
-								<input type="text" class="form-control" name="memberAddress"
+								<input type="text" class="form-control" name="memberAddress" value ="${personalinfo.memberZipcode}"
 									id="memberAddress" placeholder="addr." />
 							</div>
 						</div>
@@ -212,88 +212,10 @@
       
       
       
-       <!-- 我要報名按下之後 --> 
-        
-      
-						<div class="mb-3">
-							<label for="memberEmail" class="form-label">Email</label> <input
-								type="email" class="form-control" name="memberEmail" id="memberEmail"
-								required readonly />
+       
 						</div>
 
-						<div class="mb-3 row">
-							<div class="col">
-								<label for="memberAccount" class="form-label">Account</label> <input
-									type="text" class="form-control" name="memberAccount" id="memberAccount"
-									required readonly />
-								<div class="valid-feedback">Looks good!</div>
-								<div class="invalid-feedback">should be 6~12 numbers</div>
-							</div>
-							<div class="col">
-								<label for="memberName" class="form-label">Name</label> <input
-									type="text" class="form-control" id="memberName" name="memberName"
-									required />
-								<div class="valid-feedback">Beautiful!</div>
-								<div class="invalid-feedback">english only!</div>
-							</div>
-						</div>
-
-
-
-						<div class="mb-3 row">
-							<div class="col">
-								<label for="memberAge" class="form-label">Birthday</label> <input
-									type="text" class="form-control" name="memberAge" id="memberAge"
-									required />
-								<div class="invalid-feedback">Choose your Happy Bday!</div>
-							</div>
-
-						</div>
-
-			<!-- 			<div class="mb-3 row address" id="twzipcode">
-							<div class="col">
-								<input type="text" class="form-control" name="memberAddress"
-									id="memberAddress" placeholder="addr." />
-							</div>
-						</div> -->
-
-
-
-								<!-- 暫時用不到 -->
-								
-								
-					<!-- 	<div class="mb-3 row">
-							<div class="col">
-								<label for="empAuth" class="form-label">Authority</label> <select
-									id="empAuth" class="form-select form-select-sm" name="empAuth"
-									required>
-									<option selected disabled value="">Choose...</option>
-									<option value="1">employee</option>
-									<option value="2">highest</option>
-								</select>
-								<div class="invalid-feedback">Choose one!</div>
-							</div>
-
-							<div class="col">
-								<label for="empDept" class="form-label">Department</label> <select
-									id="empDeptNum" class="form-select form-select-sm"
-									name="empDeptNum" required>
-									<option selected disabled value="">Choose...</option>
-									<option value="7001">活動部</option>
-									<option value="7002">公關部</option>
-									<option value="7003">論壇管理</option>
-									<option value="7004">銷售部</option>
-									<option value="7000">資訊部</option>
-								</select>
-								<div class="invalid-feedback">Choose one!</div> -->
-							</div>
-						</div>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button id="updateBasicInfo" type="button" class="btn btn-primary">Submit</button>
-						</div>
+					
 					</form>
 				</div>
 
@@ -329,6 +251,11 @@
 		        css: ["city form-control col", "town form-control col"],
 		      });
 			
+			$("#twzipcode").twzipcode("set", {
+				county : "${personalinfo.memberCounty}",
+				district : "${personalinfo.memberDistrict}",
+			});
+		
 		
 			var url = location.href;
 			
@@ -383,13 +310,13 @@
 		});		
 		
 		  $("#exampleModalLabel").on("click", function () {
-			  
+			  let email = $(this).attr("id")
 			  $.ajax({
 				  type : "post",
-				  url: "memquery",   
+				  url: "memberinf",   
 			      dataType: "json",   
 			      cache: false,   
-			      data: {"account":account}, 
+			      data: {"email":email}, 
 			      success : function(data) 
 			        {
 			    	  $('#memberEmail').prop("value",data.memberEmail);

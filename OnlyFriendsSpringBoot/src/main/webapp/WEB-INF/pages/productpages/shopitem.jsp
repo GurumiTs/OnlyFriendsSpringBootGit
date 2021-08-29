@@ -34,8 +34,8 @@
 								<div class="d-flex">
 									<input class="form-control text-center me-3" id="inputQuantity"
 										type="num" value="1" style="max-width: 3rem" />
-									<a href='cart?Id=${proId }' class="btn btn-outline-dark flex-shrink-0"
-										type="button" id="addchart" data-bs-toggle="modal" 
+									<a href='#0' class="btn btn-outline-dark flex-shrink-0 add-to-cart addCart"
+										type="submit" id="addchart" data-bs-toggle="modal" 
 										data-bs-target="#staticBackdrop" >
 										<i class="bi-cart-fill me-1"></i> Add to cart
 									</a>
@@ -185,28 +185,11 @@
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<!-- shoppingchart -->
-	
+			
+		
 
 	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Shopping Item</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">您購買的商品為:<span id="proId" value="${cartlist}"></span></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<script>
 	$(function () {
   	  
@@ -242,77 +225,11 @@
 					}
 				})
 		});
-// 	var indexPage = 1;
-//     $(function(){
-//     	load(indexPage);
-//     })
+	//addcharticon
+	
+// addtocart
 
-// 	function change(page){
-// 	   indexPage = page;
-// 	   load(indexPage);
-// 	}
-	$("#staticBackdrop").on("click", "#addchart", function () {
-		  product.proId=$("#proId").val();
-		  $.ajax({
-			  type : "post",
-			  url: "cart",   
-		      dataType: "json",   
-		      cache: false,   
-		      data: JSON.stringify(product), 
-		      success : function(product) 
-		        {
-		    	  if(data){
-		    		  $.each(data,function(i,item){
-		    			  let inner=
-		    				  {
-		    					  pro
-		    				  }
-		    		  })
-		    	  }
-// 		    	  	 var json = JSON.stringify(data, null, 4);
-// 		    	     var parsedObjinArray = JSON.parse(json);
-// 		    	     var shopitem = $('#shopitem');
-// 		    	     $('#shopitem').empty("");
-// 		    	     if(json=null){
-// 		    	    	 $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-// 		    	     }else{
-// 		    	    	 var table=$('#shopitem')
-// 		    	     	 table.append("<tr value='Shopping List'><th>編號</th><th>商品名稱</th><th>價格</th><th>數量</th><th>小計</th></tr>")
-// 			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-// 			    	     var item = "<tr align='center'>"+
-// 			    	    	 "<td><a href='cart?proId='"+n.proId+"'>"+n.proId+"</a></td>"+
-// 			    	    	 "<td>"+n.prName+"</td>"+
-// 			    	    	 "<td>"+n.proPrice+"</td>"+
-// 			    	    	 "<td>"+n.number+"</td>"+
-// 			    	    	 "<td><span>$"+n.proPrice*n.number+"</span></td>";
-// 			    	    	 table.append(tr);
-// 		    	 }); 
-// 		        }
-		        },
-		        error: function(data) 
-		        {
-		           console.log('無法送出');
-		        }
-		  		  
-	});
-	})
-//    $("#staticBackdrop").on("click", "#addchart", function () {
-// 		  let proId = $(this).attr("proId");
-// 		  let dtr = $(this).closest("tr");
-// 		  $.ajax({
-//               type: "GET",
-//               url: "cart",
-//               success: function(response) {  
-//               	dtr.remove();
-//                    Swal.fire(
-//                     'Add to Cart!',
-//                     'Please check your shopcart.',
-//                     'success'
-//                   ) } , 
-                 
-		  		  
-// 	});
-// 	})
+
 	</script>
 </body>
 </html>
