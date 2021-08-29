@@ -57,10 +57,7 @@ pageEncoding="UTF-8"%>
               
               <li class="nav-item">
                 <a href="memberswipe" class="nav-link">Cupid Room</a>
-              </li>        
-              
-         
-                   
+              </li>           
             </ul>
           </div>
           <form class="form-inline ml-auto"></form>
