@@ -17,15 +17,16 @@ font-size:1.2rem
         
         <%@include file="../frontcommonpages/shopsider.jsp"%>
 
-        <!-- Main Content -->
-        <div class="main-content">
+        <!-- Main Content  -->
+        <div class="main-content" >
+        <h3>活 動 創 辦 中~旁邊有點空!所以注意力請放這邊</h3>
 				<div class="col-12 col-md-12 col-lg-5" style="background-color:White;border-radius:10px;">
 					<form action="userInsertActivity.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">
 								<img id="output" src="images\partyPic\party1.jpg" alt=""
-									style="width: 600px; height: 450px; border-radius:10px; margin:10px"><br>
+									style="width:700px;height:500px; border-radius:10px; margin:10px"><br>
 
 							</div>
 							<div>
@@ -86,8 +87,8 @@ font-size:1.2rem
 									max="20" step="1" onchange="numberChange()">
 							</div>
 							<div>
-								<button type="submit" class="btn btn-primary btn-sm">創建活動</button>
-								<button type="reset" class="btn btn-secondary btn-sm" style="margin-right:100px">清除資料</button>
+								<button type="submit" class="btn btn-primary btn-md">創建活動</button>
+								<button type="reset" class="btn btn-secondary btn-md" style="margin-right:100px">清除資料</button>
 							</div>
 						</div>
 					</form>

@@ -7,13 +7,16 @@
 		class="navbar-brand sidebar-gone-hide">OnlyFriends</a>
 	<div class="nav-collapse">
 
+
+               
+
 		<ul class="navbar-nav">
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
 				role="button" data-bs-toggle="dropdown" aria-expanded="false">Fun</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-					<li><a class="dropdown-item" href="useractivity.entry">會員活動</a></li>
+
+					<li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
 					<li><a class="dropdown-item" href="#!">官方活動</a></li>
 
 				</ul></li>

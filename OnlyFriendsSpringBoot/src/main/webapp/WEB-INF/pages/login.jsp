@@ -238,8 +238,7 @@
                       <label class="custom-control-label" for="remember-me">Remember Me</label>
                     </div>
                   </div>
-                  
-                  
+
                   
 					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 						<p style="color: rgb(184, 58, 58); font-style: italic">email

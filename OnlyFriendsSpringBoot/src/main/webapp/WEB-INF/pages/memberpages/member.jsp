@@ -17,8 +17,7 @@ font-size:1.2rem
 
 			<%@include file="../frontcommonpages/shopsider.jsp"%>
 
-			<div id="getAccount" value="${personalinfo.memberAccount}"
-				class="d-none">${personalinfo.memberAccount}</div>
+		
 
 			<!-- Main Content -->
 			<div class="main-content">
@@ -224,7 +223,12 @@ font-size:1.2rem
     <!-- end of modal -->	
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
-	    <script>
+	 <script
+		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/broadcast.js"></script>
+	  <script>
       $("#twzipcode").twzipcode({
         zipcodeIntoDistrict: true,
         css: ["county form-control col", "district form-control col"],
@@ -286,7 +290,7 @@ font-size:1.2rem
     </script>
     <script>
       $(function () {
-        let memberAccount = $("#getAccount").text();
+        let memberAccount = $("#getAccount").prop('value');
         $.ajax({
           type: "post",
           url: "memberBasicInfoQuery",

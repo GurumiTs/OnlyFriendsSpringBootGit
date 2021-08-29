@@ -99,6 +99,17 @@ public class BlogUserController {
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
+			
+			String fileName1 = multipartFile.getOriginalFilename();
+			System.out.println("1");
+			String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
+			System.out.println("2");
+			String filePath1 = saveFilePath1 + "/" + fileName;
+			System.out.println("3");
+			File saveFile1 = new File(saveFilePath1);
+			System.out.println("4");
+//			multipartFile.transferTo(saveFile1);
+			System.out.println("存入資料夾成功");
 			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
 			
 			bUserService.insertBlogUser(blogUser);

@@ -1,5 +1,7 @@
 package of.oamember.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,11 +12,14 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="OaMember")
 @Component("OaMember")
-public class OaMember {
+public class OaMember implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name= "anum") //活動編號
+	private long anum ;
 	@Column(name="Img") //圖片
 	private String img;
 	@Column(name="Active")//活動名稱
-	@Id
 	private String active;
 	@Column(name="Atype")//活動類型
 	private String atype;

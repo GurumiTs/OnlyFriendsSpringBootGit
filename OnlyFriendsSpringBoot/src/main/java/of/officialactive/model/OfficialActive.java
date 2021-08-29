@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.stereotype.Component;
 
+import of.member.model.Member;
+
 
 @Entity
 @Table(name= "OfficialActive")
@@ -61,17 +63,17 @@ public class OfficialActive {
 	@JoinTable(
 			name = "memberactive",
 			joinColumns = @JoinColumn(name = "memberAccount"),
-			inverseJoinColumns= @JoinColumn(name = "active"))
-	private List<OfficialActive> memberactive = new ArrayList<>();
+			inverseJoinColumns= @JoinColumn(name = "anum"))
+	private List<Member> memberactive = new ArrayList<Member>();
 	
 
 
 
-	public List<OfficialActive> getMemberactive() {
+	public List<Member> getMemberactive() {
 		return memberactive;
 	}
 
-	public void setMemberactive(List<OfficialActive> memberactive) {
+	public void setMemberactive(List<Member> memberactive) {
 		this.memberactive = memberactive;
 	}
 

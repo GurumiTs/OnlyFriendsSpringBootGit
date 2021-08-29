@@ -22,14 +22,13 @@ import of.member.model.Member;
 @Table(name = "UserActivity")
 @Component("UserActivity")
 public class UserActivity implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "number")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer number;
 
-//	@ManyToMany
 	@JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")
 	private String memberAccount;
 
@@ -95,15 +94,10 @@ public class UserActivity implements Serializable {
 	public void remove(Member member) {
 		this.participate.remove(member);
 	}
-	
-	
-	
-	
-	
 
 	public UserActivity() {	}
 	
-	public UserActivity(int number, String memberAccount, String approve, String activityname, String cover,
+	public UserActivity(Integer number, String memberAccount, String approve, String activityname, String cover,
 			String type, String time, String time_up, String detail, String county, String district, String zipcode,
 			String place, String condition, int man, int woman, int total, int see) {
 		this.number = number;
@@ -125,9 +119,11 @@ public class UserActivity implements Serializable {
 		this.total = total;
 		this.see = see;
 	}
-	public int getNumber() {
+	
+	public Integer getNumber() {
 		return number;
 	}
+
 	public void setNumber(Integer number) {
 		this.number = number;
 	}

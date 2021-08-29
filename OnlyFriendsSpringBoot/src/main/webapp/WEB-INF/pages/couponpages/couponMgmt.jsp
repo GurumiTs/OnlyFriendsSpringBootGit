@@ -282,11 +282,11 @@ span {
 											<br> <label for="category" class="formName">分類名稱</label>
 											<div class="line">
 												<select name="category" id="caNameInsert" required>
-													<option value="">請選擇</option>
-													<option value="開卡禮">開卡禮</option>
-													<option value="折價券">折價券</option>
-													<option value="贈品券">贈品券</option>
+													<option value="">請選擇</option>												
+													<option value="現金券">現金券</option>
+													<option value="折扣券">折扣券</option>
 													<option value="運費券">運費券</option>
+													<option value="異業券">異業券</option>
 												</select><span id="spCaNameInsert"></span>
 											</div>
 											<br> <label for="couponName" class="formName">優惠券名稱</label>
@@ -532,11 +532,11 @@ span {
 											<br><label for="category">分類名稱</label>
 											<div class="line">
 												<select name="category" id="caNameUpdate" required>
-													<option value="">請選擇</option>
-													<option value="開卡禮">開卡禮</option>
-													<option value="折價券">折價券</option>
-													<option value="贈品券">贈品券</option>
+													<option value="">請選擇</option>												
+													<option value="現金券">現金券</option>
+													<option value="折扣券">折扣券</option>
 													<option value="運費券">運費券</option>
+													<option value="異業券">異業券</option>
 												</select><span id="spCaNameUpdate"></span>
 											</div>
 											<br> <label for="couponPrice">優惠券價格</label>
