@@ -128,8 +128,6 @@
                      "<div class='bi-star-fill'></div>"+
                      "<div class='bi-star-fill'></div>"+
                   "</div>"+
-                   "<span class='text-muted text-decoration-line-through'>$20.00</span>" +
-                   "$18.00"+
                 " </div>"+
                "</div>"+
              

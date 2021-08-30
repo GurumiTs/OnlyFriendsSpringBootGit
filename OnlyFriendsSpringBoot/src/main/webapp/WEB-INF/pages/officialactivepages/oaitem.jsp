@@ -22,11 +22,7 @@
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." id="img" /></div>
                     <div class="col-md-6">
                         <div class="small mb-1" id = "anum"></div>
-                        <h1 class="display-5 fw-bolder" id= "active"></h1>
-                        <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$45.00</span>
-                            <span>$40.00</span>
-                        </div>
+                        <h1 class="display-5 fw-bolder" id= "active"></h1>     
                         <p class="lead" id="conditions"></p>
                         <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -45,10 +41,14 @@
        
        
        <div class="mb-3">
+       
+       <form action = "addmember.controller" method="post"  enctype="multipart/form-data" >
+       
+       <input type = "hidden" id= "anum" name= "anum">
 							<label for="memberEmail" class="form-label">Email</label> <input
 								type="email" class="form-control" name="memberEmail" id="memberEmail" value="${personalinfo.memberEmail}" 
 								required readonly />
-						</div>
+						</div> 
 
 						<div class="mb-3 row">
 							<div class="col">
@@ -93,7 +93,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary">送出</button>
+		    
+        <button  type="button" class="btn btn-primary" id = "sand">送出</button>
+        
       </div>
     </div>
   </div>
@@ -102,6 +104,7 @@
                 </div>
             </div>
         </section>
+        </form>
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
@@ -115,9 +118,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
+                                    
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -145,9 +146,8 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
+                                    
+                                   
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -168,8 +168,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">Sale Item</h5>
                                     <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
+                                   
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -195,8 +194,7 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    <!-- Product price-->
-                                    $40.00
+                                  
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -209,6 +207,7 @@
             </div>
         </section>
         </div>
+      
       
       
       
@@ -276,7 +275,8 @@
 				
 				for(let i=0;i<oa.length;i++){
 					if (anum==oa[i].anum && active== oa[i].active){
-						
+					console.log("im anum"+anum)	
+					$('#anum').attr('value',anum)
 					$('#active').text(oa[i].active);
 					$('#img').attr("src",oa[i].img);
 					$('#conditions').text(oa[i].conditions);
@@ -287,53 +287,20 @@
 				}
 			
 			})
-		});
+	
+			  
+		});//function
 		
-			var table = $('#example').DataTable({
-		    "ajax": {
-		    	"url": "memalltojson",
-		    },
-		    "columns": [
-		        { "data": "memberEmail" },
-		        { "data":"memberAccount"},
-		        { "data": "memberName" }, 
-		        		  
-		        {
-		            "data": null,
-		            render:function(data, type, row)
-		            {
-		              return "<i id="+data.memberAccount+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
-		            },
-		            "targets": -1
-		        }
-		    ]
-		});		
 		
-		  $("#exampleModalLabel").on("click", function () {
-			  let email = $(this).attr("id")
-			  $.ajax({
-				  type : "post",
-				  url: "memberinf",   
-			      dataType: "json",   
-			      cache: false,   
-			      data: {"email":email}, 
-			      success : function(data) 
-			        {
-			    	  $('#memberEmail').prop("value",data.memberEmail);
-			    	  $('#memberAccount').prop("value",data.memberAccount);
-			    	  $('#memberName').prop("value",data.memberName);
-			    	  $("#twzipcode").twzipcode("set", {
-			              county: data.memberCounty,
-			              district: data.memberDistrict,
-			            });
-			    	
-			    	  
-			        },error: function(data) 
-			        {
-			           console.log('無法送出');
-			        }
-			  });			  
-		});
+		
+		
+	
+		
+		  
+		
+		  
+		  
+		  
 	
 		  
 		 
