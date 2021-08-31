@@ -154,7 +154,7 @@ font-size:1.2rem
 		$("#type").val("體能");
 		$("#time").val("2021-08-28");
 		$("#time_up").val("2021-08-27");
-		$("#Detail").val("2打2");
+		$("#Detail").val("跟第四組成員廝殺羽毛球");
 		
 		$("#twzipcode").twzipcode("set", {
 			county : "桃園市",
@@ -162,7 +162,7 @@ font-size:1.2rem
 		});
 		
 		$("#place").val("中央大學依仁堂");
-		$("#condition").val("需要學員證+口罩");
+		$("#condition").val("需要學員證+口罩+自備球拍");
 		$("#man").val("2");
 		$("#woman").val("2");
 		

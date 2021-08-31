@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +48,17 @@ public class UserActivityController {
 		List<UserActivity> useractivityList = userActivityService.selectAll();
 		model.addAttribute("useractivityList", useractivityList);
 
-		return "useractivepage/empactivemgmt";
+		return "useractivepage/empactivemgmt2";
+	}
+	//管理員資料 json 
+	@GetMapping(path = "/Alluseractivity")
+	@ResponseBody
+	public Map AllActivity(Model model) {
+		List<UserActivity> activityList= userActivityService.selectAll();
+		Map<String, Object> map=new HashMap<>();
+		map.put("data", activityList);
+		
+		return map;
 	}
 
 	// 管理員修改-刪除
@@ -54,7 +69,29 @@ public class UserActivityController {
 		userActivityService.deleteById(number);
 		return "redirect:/emppActivity.Entry";
 	}
+	// 管理員修改-刪除 json
+	@PostMapping(path = "/delete/{number}")
+	@ResponseBody
+	public String deleteEmployee(@PathVariable("number") String number){
+		System.out.println("number"+number);
+		userActivityService.deleteById(Integer.parseInt(number));
+
+		return "yes";
+	}
 	// 管理員修改開放權限
+	@RequestMapping(path = "/approve", method = RequestMethod.POST)
+	public void approve(@RequestParam(name = "number") int number, Model model) {
+
+		userActivity = userActivityService.select(number);
+
+		String appove = userActivity.getApprove();
+		if (appove == "false") {
+			userActivity.setApprove("true");
+		} else if (appove == "true") {
+			userActivity.setApprove("false");
+		}
+		userActivityService.updata(userActivity);
+	}
 
 	// 首頁資料抓取
 	@RequestMapping(path = "/useractivityjson", method = RequestMethod.POST)
@@ -77,10 +114,11 @@ public class UserActivityController {
 	public String userpartyenty(HttpServletRequest request, Model model) {
 		Integer number = Integer.parseInt(request.getParameter("number"));
 		userActivity = userActivityService.select(number);
-		
+
 		// 進到內頁後see+1
-		userActivity.setSee(userActivity.getSee()+1);
+		userActivity.setSee(userActivity.getSee() + 1);
 		userActivityService.updata(userActivity);
+
 		model.addAttribute("userActivity", userActivity);
 
 		return "useractivepage/useractivepage";
@@ -312,6 +350,5 @@ public class UserActivityController {
 
 		return activity;
 	}
-//	System.out.println("step1");
-//	System.out.println("controller ua name:"+ua.getActivityname());
+
 }
