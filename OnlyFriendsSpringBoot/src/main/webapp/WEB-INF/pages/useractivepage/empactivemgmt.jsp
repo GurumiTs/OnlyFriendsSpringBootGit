@@ -107,8 +107,7 @@ body {
 													<td id="${userActivity.number}memberAccount">${userActivity.memberAccount}</td>
 													<td id="${userActivity.number}activityname">${userActivity.activityname}</td>
 													<td id="${userActivity.number}approve">
-														<div class="form-check form-switch"
-															style="position: relative; right: -40px;">
+														<div class="form-check form-switch"														style="position: relative; right: -40px;">
 															<input class="form-check-input" type="checkbox"
 																id="flexSwitchCheckChecked" checked> <label
 																class="form-check-label" for="flexSwitchCheckChecked"></label>

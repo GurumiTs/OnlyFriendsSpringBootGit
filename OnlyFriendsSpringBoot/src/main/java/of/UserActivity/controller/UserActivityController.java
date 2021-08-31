@@ -80,7 +80,6 @@ public class UserActivityController {
 		
 		// 進到內頁後see+1
 		userActivity.setSee(userActivity.getSee()+1);
-		System.out.println("-----------------see--------"+userActivity.getSee());
 		userActivityService.updata(userActivity);
 		model.addAttribute("userActivity", userActivity);
 
