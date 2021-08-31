@@ -10,7 +10,7 @@
       <div class="header">
         <div class="title" id="coinarea">
         </div>
-        <a href="memberswipe">Back</a>
+        <a href="memberswipe">返回</a>
         <a href="memberfriends"><i class="fas fa-inbox fa-2x"></i></a>
       </div>
     </div>
@@ -47,7 +47,7 @@
                       </div>
                     </div>
                     <div class="pricing-cta">
-                      <a id="pickone" class="btn">Pick <i class="fas fa-arrow-right"></i
+                      <a id="pickone" class="btn">選取<i class="fas fa-arrow-right"></i
                       ></a>
                     </div>
                   </div>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="pricing-cta">
                       <a id="picktwo" class="btn"
-                        >Pick <i class="fas fa-arrow-right"></i
+                        >選取<i class="fas fa-arrow-right"></i
                       ></a>
                     </div>
                   </div>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="pricing-cta">
                       <a id="pickthree" class="btn"
-                        >Pick <i class="fas fa-arrow-right"></i
+                        >選取<i class="fas fa-arrow-right"></i
                       ></a>
                     </div>
                   </div>
@@ -124,7 +124,7 @@
         
         </div>
         <div class="col-md-5">
-          <h1 class="display-5 fw-bolder text-white" id="membername">Today Special</h1>
+          <h1 class="display-5 fw-bolder text-white" id="membername">本日精選</h1>
           <div class="fs-5 mb-5">
             <span class="text-white" id="memberage"></span>
           </div>

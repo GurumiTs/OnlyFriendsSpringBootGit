@@ -10,7 +10,7 @@
       <div class="header">
         <div class="title" id="coinarea">
         </div>
-        <a href="${pageContext.request.contextPath}/">Back</a>       
+        <a href="${pageContext.request.contextPath}/">返回</a>       
       </div>
     </div>
     <div class="backgrounds">
@@ -34,7 +34,7 @@
                       <p class="lead text-white">
                       
                       </p>
-                      <a href="memberswipeloading" class="btn btn-primary mt-4">Let's Go</a>
+                      <a href="memberswipeloading" class="btn btn-primary mt-4">開始遊戲</a>
                     </div>
                   </div>
                 </div>               

@@ -30,7 +30,7 @@ font-size:1.2rem
         <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>My Collection</h1>
+            <h1>我的好友</h1>
           </div>
 
           <div class="section-body ">
@@ -40,7 +40,7 @@ font-size:1.2rem
                   <div class="card chat-box card-success" id="">
                     <div class="card-header">
                       <h4>
-                       Box
+                       聊天盒子
                       </h4>
                     </div>
                     <div class="card-body chat-content overflow-auto">

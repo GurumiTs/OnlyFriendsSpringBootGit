@@ -14,11 +14,11 @@ pageEncoding="UTF-8"%>
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Fun</a
+                  >活動專區</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
-                  <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="useractivity.entry">會員活動</a></li>
+                  <li><a class="dropdown-item fs-6" href="#!">官方活動</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%>
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Shop</a
+                  >招桃商城</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Blog</a
+                  >愛情討論版</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="blogofficial">幸福故事</a></li>
@@ -56,48 +56,22 @@ pageEncoding="UTF-8"%>
               </li>
               
               <li class="nav-item">
-                <a href="memberswipe" class="nav-link">Cupid Room</a>
+                <a href="memberswipe" class="nav-link">邱比房間</a>
               </li>           
             </ul>
           </div>
-          <form class="form-inline ml-auto"></form>
+           <form class="form-inline ml-auto"></form>
           <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle">
-			<button class="btn" type="submit" id="addtocarticon"
-				data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-				aria-controls="offcanvasRight">
-				<i class="fas fa-shopping-cart text-white cart"></i> <span
-					class="badge bg-light text-dark ms-1 rounded-pill numberCart" id="cartcount">0</span>
-			</button>
-			
-
-			<div class="offcanvas offcanvas-end" tabindex="-1"
-				id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-				<div class="offcanvas-header">
-					<h5 id="offcanvasRightLabel">購物車</h5>
-					<button type="button" class="btn-close text-reset"
-						data-bs-dismiss="offcanvas" aria-label="Close"></button>
-				</div>
-				<div class="offcanvas-body" id="cartlist">
-					<table class="table table-hover center" id="shoppingCartTable">
-						<thead>
-						<tr>
-							<th>√</th>
-							<th>名稱</th>
-							<th>單價</th>
-							<th>數量</th>
-							<th>小計</th>
-						</tr>
-						</thead>
-						<tbody id="cartlistitem">
-						</tbody>
-						
-					</table>			
-				</div>
-			</div>
-			
-			
-		</li>
+            <li class="dropdown dropdown-list-toggle">
+              <button class="btn" type="submit">
+                <i class="fas fa-shopping-cart text-white " ></i>
+                <span class="badge bg-light text-dark ms-1 rounded-pill"
+                  >0</span
+                >
+              </button>
+            </li>
+          
+         
             
          <!-- official message -->   
          <li class="dropdown dropdown-list-toggle" id="notificationicon">
@@ -108,10 +82,10 @@ pageEncoding="UTF-8"%>
                 ><i class="far fa-bell"></i
               ></a>
               <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">Notifications</div>
+                <div class="dropdown-header">通知</div>
                 <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="notificationarea"></div>
                 <div class="dropdown-footer text-center">
-                  <a href="#" id="clearnotification">Clear All <i class="fas fa-chevron-right"></i></a>
+                  <a href="#" id="clearnotification">清除全部<i class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
             </li>        
@@ -126,10 +100,10 @@ pageEncoding="UTF-8"%>
                 ><i class="fas fa-user-plus"></i
               ></a>
               <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">Friends request</div>
+                <div class="dropdown-header">交友邀請</div>
                 <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="invitearea"></div>
                 <div class="dropdown-footer text-center">
-                  <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                  <a href="#">瀏覽全部 <i class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
             </li>
@@ -150,12 +124,12 @@ pageEncoding="UTF-8"%>
               >
               <div class="dropdown-menu dropdown-menu-right">
                 <a href="member" class="dropdown-item has-icon">
-                  <i class="far fa-user"></i> Personal Page
+                  <i class="far fa-user"></i> 個人主頁
                 </a>
                                
                 <div class="dropdown-divider"></div>
                 <a href="logout" class="dropdown-item has-icon text-danger">
-                  <i class="fas fa-sign-out-alt"></i> Logout
+                  <i class="fas fa-sign-out-alt"></i> 登出
                 </a>
               </div>
             </li>
