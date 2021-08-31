@@ -84,21 +84,21 @@
                 </div>
                 <div>
                     <lebel> 請選擇活動類型2(多選):<br>
-                        <input type="checkbox" name="atype2" value="rom">浪漫
-                        <input type="checkbox" name="atype2" value="view">賞景
-                        <input type="checkbox" name="atype2" value="travl">郊遊
-                        <input type="checkbox" name="atype2" value="heart">談心
-                        <input type="checkbox" name="atype2" value="pair">配對
-                        <input type="checkbox" name="atype2" value="talk">閒聊
+                        <input type="checkbox" name="atype2" value="浪漫">浪漫
+                        <input type="checkbox" name="atype2" value="賞景">賞景
+                        <input type="checkbox" name="atype2" value="郊遊">郊遊
+                        <input type="checkbox" name="atype2" value="談心">談心
+                        <input type="checkbox" name="atype2" value="配對">配對
+                        <input type="checkbox" name="atype2" value="閒聊">閒聊
                     </lebel>
 
                     <div>
-                        <input type="checkbox" name="atype2" value="adventure">冒險
-                        <input type="checkbox" name="atype2" value="high">High起來
-                        <input type="checkbox" name="atype2" value="photo">攝影
-                        <input type="checkbox" name="atype2" value="sport">運動
-                        <input type="checkbox" name="atype2" value="game">遊戲
-                        <input type="checkbox" name="atype2" value="other">其它
+                        <input type="checkbox" name="atype2" value="冒險">冒險
+                        <input type="checkbox" name="atype2" value="High起來">High起來
+                        <input type="checkbox" name="atype2" value="攝影">攝影
+                        <input type="checkbox" name="atype2" value="運動">運動
+                        <input type="checkbox" name="atype2" value="遊戲">遊戲
+                        <input type="checkbox" name="atype2" value="其它">其它
 
                     </div>
                     <br>

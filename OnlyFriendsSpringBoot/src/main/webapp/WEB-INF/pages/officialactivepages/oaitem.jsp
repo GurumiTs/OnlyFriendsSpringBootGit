@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+.lead{
+width:500px;height:500px;border:3px
+}
+</style>
 
 </head>
 <body>
@@ -23,7 +28,14 @@
                     <div class="col-md-6">
                         <div class="small mb-1" id = "anum"></div>
                         <h1 class="display-5 fw-bolder" id= "active"></h1>     
-                        <p class="lead" id="conditions"></p>
+                        		<div ><h4>
+                        			活動標籤 :<label id = "atype2"> </label><br>
+									活動日期 :<label id = "adate"></label> <br>
+									報名截止日期 :<label id = "finishDeadline"></label> <br>
+									活動地點 :<label id ="county"></label> <label id="district"></label><br>
+									男性人數 : <label id = "male"></label> <br>
+									女性人數 : <label id = "female"></label><br> 
+									</h4></div> 
                         <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   我要報名
@@ -105,10 +117,21 @@
             </div>
         </section>
         </form>
+        
+        <P>---------------------------------------------------------------------------------------
+      <section class="mb-5">
+								<div class="fs-5 mb-4">
+								
+								<div class="lead" id="conditions">
+								</div>
+									
+								</div>  
+								
+		<P>----------------------------------------------------------------------------------------
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Related products</h2>
+                <h2 class="fw-bolder mb-4">相關活動</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -280,7 +303,13 @@
 					$('#active').text(oa[i].active);
 					$('#img').attr("src",oa[i].img);
 					$('#conditions').text(oa[i].conditions);
-					
+					$('#atype2').text(oa[i].atype2);
+					$('#adate').text(oa[i].adate);
+					$('#finishDeadline').text(oa[i].finishDeadline);
+					$('#county').text(oa[i].county);
+					$('#district').text(oa[i].district);
+					$('#male').text(oa[i].male);
+					$('#female').text(oa[i].female);
 					
 					}
 				}
