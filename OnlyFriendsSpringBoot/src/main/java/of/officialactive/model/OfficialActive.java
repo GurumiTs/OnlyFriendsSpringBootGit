@@ -57,18 +57,28 @@ public class OfficialActive {
 	private String female;//女性
 	@Column(name="Img")
 	private String img;//圖片
+	@JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")
+	private String memberAccount;
 	
-	
+
 	@ManyToMany
 	@JoinTable(
 			name = "memberactive",
-			joinColumns = @JoinColumn(name = "memberAccount"),
-			inverseJoinColumns= @JoinColumn(name = "anum"))
+			joinColumns = @JoinColumn(name = "anum"),
+			inverseJoinColumns= @JoinColumn(name = "memberAccount"))
 	private List<Member> memberactive = new ArrayList<Member>();
 	
 
 
 
+	
+	public String getMemberAccount() {
+		return memberAccount;
+	}
+	
+	public void setMemberAccount(String memberAccount) {
+		this.memberAccount = memberAccount;
+	}
 	public List<Member> getMemberactive() {
 		return memberactive;
 	}

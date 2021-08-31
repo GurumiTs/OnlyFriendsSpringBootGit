@@ -3,6 +3,7 @@ package of.UserActivity.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,7 +96,15 @@ public class UserActivityController {
 
 		return "useractivepage/useractivepage2";
 	}
+	@RequestMapping(path = "/useractivity.page3", method = RequestMethod.GET)
+	public String userpartyenty3(HttpServletRequest request, Model model) {
+		Integer number = Integer.parseInt(request.getParameter("number"));
+		userActivity = userActivityService.select(number);
+		// 進到內頁後see+1
+		model.addAttribute("userActivity", userActivity);
 
+		return "useractivepage/useractivepage3";
+	}
 	// 會員首頁分類查詢
 //	@RequestMapping(path = "/serchtype", method = RequestMethod.POST)
 //	@ResponseBody
@@ -267,7 +276,7 @@ public class UserActivityController {
 
 	// 會員參加活動
 	@RequestMapping(path = "/addactivity",method = RequestMethod.GET)
-	@ResponseBody
+//	@ResponseBody
 	public String addactivity(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
 
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -284,8 +293,9 @@ public class UserActivityController {
 		par.add(m2);
 		userActivityService.updata(ua);
 		
+		
 		//判斷是否增加成功
-		return "redirect:/useractivity.post";
+		return "useractivepage/usermgmtjson";
 	}
 	// 會員查詢自己參加活動
 //	抓參加者值
@@ -296,12 +306,17 @@ public class UserActivityController {
 		//先找到使用著帳號
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
-		
+		System.out.println("會員參加活動");
 //		使用帳號在 participate 找到使用著有參加哪些活動
 		List<Integer> activitynumber=userActivityService.findByparticipate(Integer.parseInt(memberAccount));
 		
-		List<UserActivity> activity = userActivityService.findBynumber(activitynumber);
-
+		System.out.println("number"+activitynumber);
+		List<UserActivity> activity = new ArrayList<UserActivity>();
+		
+		for(Integer num : activitynumber) {
+		UserActivity ac = userActivityService.select(num);
+		activity.add(ac);
+		}
 //		userActivityService.f
 				
 		return activity;
