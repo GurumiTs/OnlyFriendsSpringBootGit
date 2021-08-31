@@ -126,6 +126,33 @@ height:50px;
     </div>
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
+				<!-- 新增彈窗 -->
+     			<c:if test="${not empty insertSuccess}">
+						<script>
+							Swal.fire({
+								  position: 'center',
+								  icon: 'insertSuccess',
+								  title: '投稿成功! 待審核通過後通知您!',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+					
+						</script>						
+					<c:remove var="insertSuccess" scope="session" />
+				</c:if>
+     			<c:if test="${not empty insertError}">
+						<script>
+							Swal.fire({
+								  icon: 'insertError',
+								  title: 'Oops...',
+								  text: '投稿失敗，請確認資料後再次更新!',
+								})
+					
+						</script>						
+					<c:remove var="insertError" scope="session" />
+				</c:if>
+				
+				<!-- 修改彈窗 -->
      			<c:if test="${not empty success}">
 						<script>
 							Swal.fire({
@@ -150,7 +177,6 @@ height:50px;
 						</script>						
 					<c:remove var="error" scope="session" />
 				</c:if>
-    
     
     <script >  
 	/* load data table */

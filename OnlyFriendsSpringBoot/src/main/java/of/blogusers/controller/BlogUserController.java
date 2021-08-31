@@ -4,6 +4,8 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ import of.blog.model.BlogBean;
 import of.blog.model.BlogService;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
+import of.member.model.Member;
 
 @Controller
 @SessionAttributes(names = {"blogUserTotalPages", "blogUserTotalElements", "blogEmpTotalPages", "blogEmpTotalElements"})
@@ -63,63 +66,6 @@ public class BlogUserController {
 		m.addAttribute("errors", "此文章已查詢不到");
 		return "redirect:blogusers";
 	}
-
-	// 進新增controller
-	@GetMapping(path = "/blogusersinsert")
-	public String blogUserInsertEntry() {
-		return "bloguserspages/bloguserinsert";
-	}
-	
-	// Insert Controller
-	@PostMapping(path = "/blogusersinsertform")
-	public String blogUserAdd(@RequestParam(name = "usersImages") MultipartFile multipartFile,
-							  @RequestParam(name = "memberAccount") String memberAccount, 
-							  @RequestParam(name = "usersName") String usersName,
-							  @RequestParam(name = "usersTitle") String usersTitle, 
-							  @RequestParam(name = "usersMainText") String usersMainText,
-							  Model m) {
-		try {
-			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			BlogUser blogUser = new BlogUser();
-			blogUser.setUsersCreateTime(ts);
-			blogUser.setUsersUpdateTime(ts);
-			blogUser.setMemberAccount(memberAccount);
-			blogUser.setUsersName(usersName);
-			blogUser.setUsersMainText(usersMainText);
-			blogUser.setUsersTitle(usersTitle);
-			System.out.println("Insert " + memberAccount + "'s Blog when time:" + ts);
-
-			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogUsersPic)
-			String fileName = multipartFile.getOriginalFilename();
-			System.out.println("fileName:" + fileName);
-			String saveFilePath;
-			saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
-			System.out.println("saveFilePath:" + saveFilePath);
-			String filePath = saveFilePath + "/" + fileName;
-			File saveFile = new File(filePath);
-			multipartFile.transferTo(saveFile);
-			System.out.println("filePath:" + filePath);
-			
-			String fileName1 = multipartFile.getOriginalFilename();
-			System.out.println("1");
-			String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
-			System.out.println("2");
-			String filePath1 = saveFilePath1 + "/" + fileName;
-			System.out.println("3");
-			File saveFile1 = new File(saveFilePath1);
-			System.out.println("4");
-//			multipartFile.transferTo(saveFile1);
-			System.out.println("存入資料夾成功");
-			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
-			
-			bUserService.insertBlogUser(blogUser);
-			m.addAttribute("success", "新增資料成功!");
-			return "redirect:blogusers";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "redirect:blogusersinsert";
-		}
-	}
 	
 
 	// 使用者文章前端首頁
@@ -139,7 +85,7 @@ public class BlogUserController {
 		return page.getContent();
 	}
 	
-	// 進BlogUsers主頁controller(未設前端)
+	// 進empBlog主頁controller
 		@GetMapping(path = "/blogofficial")
 		public String blogEmpEntry() {
 			return "bloguserspages/empblogmainpage";

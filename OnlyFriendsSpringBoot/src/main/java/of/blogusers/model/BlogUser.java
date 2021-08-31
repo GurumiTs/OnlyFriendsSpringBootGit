@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -41,7 +42,7 @@ public class BlogUser implements Serializable {
 	@Column(name = "UsersImages")
 	private String usersImages;// 圖片
 
-	@Column(name = "MemberAccount")
+	@JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")
 	private String memberAccount;// 使用者帳號
 
 	@Column(name = "UsersName")
@@ -49,7 +50,10 @@ public class BlogUser implements Serializable {
 
 	@Column(name = "LikeNum")
 	private Integer likeNum;// 點讚數
-
+	
+	@Column(name = "WatchNum")
+	private Integer watchNum;//觀看數
+	
 	public Integer getUsersArticleID() {
 		return usersArticleID;
 	}
@@ -122,4 +126,14 @@ public class BlogUser implements Serializable {
 		this.likeNum = likeNum;
 	}
 
+	public Integer getWatchNum() {
+		return watchNum;
+	}
+
+	public void setWatchNum(Integer watchNum) {
+		this.watchNum = watchNum;
+	}
+
+	
+	
 }
