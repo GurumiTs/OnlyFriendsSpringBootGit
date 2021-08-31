@@ -52,14 +52,20 @@ public class BlogUserController {
 	public String blogArticleEntry(@RequestParam(name = "ArticleId") Integer articleId,
 								   @RequestParam(name = "name") String user,
 								   Model m) {
+		
 		System.out.println("Find ArticleId:" + articleId);
 		System.out.println("Find kind blog:" + user);
 		if (user.equals("user")) {
-			blogUser = bUserService.findByArticleID(articleId);			
+			BlogUser blogUser = bUserService.findByArticleID(articleId);
+			
+			blogUser.setWatchNum(blogUser.getWatchNum()+1);
+			bUserService.updateBlogUser(blogUser);
 			m.addAttribute("blogUser", blogUser);
 			return "bloguserspages/blogarticle";
 		} else if(user.equals("official")) {
-			blog = bService.findByArticleID(articleId);
+			BlogBean blog = bService.findByArticleID(articleId);
+			blog.setWatchNum(blog.getWatchNum()+1);
+			bService.updateBlog(blog);
 			m.addAttribute("blogOfficial", blog);
 			return "bloguserspages/empblogarticle";
 		}
