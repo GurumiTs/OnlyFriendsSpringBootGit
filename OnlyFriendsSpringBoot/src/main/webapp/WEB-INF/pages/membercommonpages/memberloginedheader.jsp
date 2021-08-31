@@ -99,9 +99,8 @@ pageEncoding="UTF-8"%>
 			
 		</li>
             
-                 <!-- official message -->
-          
-         <li class="dropdown dropdown-list-toggle">
+         <!-- official message -->   
+         <li class="dropdown dropdown-list-toggle" id="notificationicon">
               <a
                 href="#"
                 data-toggle="dropdown"
@@ -110,16 +109,35 @@ pageEncoding="UTF-8"%>
               ></a>
               <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">Notifications</div>
-                <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="bellarea"></div>
+                <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="notificationarea"></div>
+                <div class="dropdown-footer text-center">
+                  <a href="#" id="clearnotification">Clear All <i class="fas fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </li>        
+           <!-- official message -->
+           
+           <!-- invite message -->
+             <li class="dropdown dropdown-list-toggle" id="inviteicon">
+              <a
+                href="#"
+                data-toggle="dropdown"
+                class="nav-link notification-toggle nav-link-lg beep"
+                ><i class="fas fa-user-plus"></i
+              ></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Friends request</div>
+                <div class="dropdown-list-content dropdown-list-icons overflow-auto" id="invitearea"></div>
                 <div class="dropdown-footer text-center">
                   <a href="#">View All <i class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
             </li>
-         
-           <!-- official message -->
- 
-            
+           <!-- invite message -->
+           
+           
+           
+
             <li class="dropdown">
               <a
                 href="#"
@@ -141,8 +159,6 @@ pageEncoding="UTF-8"%>
                 </a>
               </div>
             </li>
-            
-       
             
           </ul>
         </nav>

@@ -88,7 +88,8 @@ font-size:1.2rem
     	var friendname = $('#searchfriend').prop('value') 
     	loadfriends()   
     	$('#searchfriend').on('change',searchfriend)  
-    	
+    	$("#inviteicon").on('click', loadinvitemsg)
+		$("#notificationicon").on('click', loadnotifymsg)
     	
     	 setTimeout(function () {
          createroom()}, 2000);
@@ -187,39 +188,6 @@ font-size:1.2rem
 		$('#chat-content').append(d)
 		scrollbtm()
 		}
-		//如果傳訊息的對象不是正在聊天的對象,不是官方訊息,不是自己,就會傳送通知到bell
-		else if(selectUser != message.sender & message.sender != 'official' & message.sender != username){		
-   		 let tnum = $("#"+message.sender+"").find('span').prop('id')
-   		 tnum++;
-   		 $("#"+message.sender+"").find('span').html("+"+tnum)
-   		 $("#"+message.sender+"").find('span').prop('id',tnum)
-   		 var bell = 
-			"<a href='#' class='dropdown-item dropdown-item-unread'>"+
-            "<div class='dropdown-item-icon bg-primary text-white'>"+
-              "<i class='fas fa-bell'></i>"+
-            "</div>"+
-            "<div class='dropdown-item-desc'>"+
-              "New message in box"+
-              "<div class='time text-primary'>"+message.time+"</div>"+
-            "</div>"+
-         	" </a>";
-			$('#bellarea').prepend(bell)	   		 
-		}
-		//show official messages on the bellarea
-		else if(message.sender == 'official'){
-			console.log('official test')
-			var bell = 
-			"<a href='#' class='dropdown-item dropdown-item-unread'>"+
-            "<div class='dropdown-item-icon bg-primary text-white'>"+
-              "<i class='far fa-user'></i>"+
-            "</div>"+
-            "<div class='dropdown-item-desc'>"+
-              message.content+
-              "<div class='time text-primary'>"+message.time+"</div>"+
-            "</div>"+
-         	" </a>";
-			$('#bellarea').prepend(bell)
-		}
 
 }
 	function scrollbtm(){
@@ -253,9 +221,7 @@ font-size:1.2rem
              error: function (data) {           			 
                console.log("load friends無法送出");
              },
-           });   
-
-      	
+           });         	
     }
     
     function searchfriend(){
@@ -370,6 +336,99 @@ font-size:1.2rem
                  },
                });   
            });
+    	
+    }
+    
+    function loadinvitemsg() {
+    	$('#invitearea').html('')
+    	$.ajax({
+    		type: "post",
+    		url: "invitehistory",
+    		success: function(data) {
+    			$.each(data, function(i, item) { //i為順序 n為單筆物件   
+    				var bell =
+    					"<a href='#' class='dropdown-item dropdown-item-unread'>" +
+    					"<div class='dropdown-item-icon bg-primary text-white'>" +
+    					"<img alt='image' class='mr-3 rounded-circle' width='50' src='" + item.texttime + "'>" +
+    					"</div>" +
+    					"<div class='dropdown-item-desc'>" +
+    					item.content +
+    					"</div>" +
+    					"<button class='btn btn-primary mx-2 confirminvite' >確認<span class='d-none'>" + item.id + "</span></button>" +
+    					"<button class='btn btn-secondary mx-2 deleteinvite'>刪除<span class='d-none'>" + item.id + "</span></button>" +
+    					" </a>";
+    				$('#invitearea').prepend(bell)
+    			});
+    			$(".confirminvite").on('click', confirminvite)
+    			$(".deleteinvite").on('click', deleteinvite)
+    		},
+    		error: function(data) {
+    			console.log("載入歷史訊息發生錯誤");
+    		},
+    	});
+    }
+
+    function loadnotifymsg() {
+    	$('#notificationarea').html('')
+    	console.log(username)
+    	$.ajax({
+    		type: "post",
+    		url: "notificationhistory/"+username,
+    		success: function(data) {
+    			console.log(data)
+    			$.each(data, function(i, item) { //i為順序 n為單筆物件   
+    			console.log(item.chattype)
+    			if(item.type == 'NOTIFICATION'){
+    				var bell =
+    					"<a href='#' class='dropdown-item dropdown-item-unread'>" +
+    					"<div class='dropdown-item-icon bg-primary text-white'>" +
+    					"<i class='far fa-user'></i>" +
+    					"</div>" +
+    					"<div class='dropdown-item-desc'>" +
+    					item.content +
+    					"<div class='time text-primary'>" + item.texttime + "</div>" +
+    					"</div>" +
+    					" </a>";
+    				$('#notificationarea').prepend(bell)
+    			}
+    				
+    			});
+
+    		},
+    		error: function(data) {
+    			console.log("載入歷史訊息發生錯誤");
+    		},
+    	});
+    }
+
+
+
+    function confirminvite() {
+    	let inviteid = $(this).find('span').text();
+    	console.log(inviteid)
+    	$.ajax({
+    		type: "post",
+    		url: "memberaddfriend/" + inviteid,
+    		success: function(data) {
+    			loadinvitemsg()
+    		},
+    		error: function(xhr) {
+
+    		},
+    	});
+    };
+
+    function deleteinvite(){
+    	let inviteid = $(this).find('span').text();
+    	$.ajax({
+    		type: "post",
+    		url: "deleteinvite/" + inviteid,
+    		success: function(data) {
+    			loadinvitemsg()
+    		},
+    		error: function(xhr) {
+    		},
+    	});
     	
     }
     

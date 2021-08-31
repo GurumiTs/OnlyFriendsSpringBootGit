@@ -358,6 +358,17 @@
                   </div>
                    </div>	                
                   </div>
+                  
+                  <div class="form-group">
+                    <div class="row">
+                    <div class="col-8">
+                    <label for="email" class="form-label">Email</label> 
+                    <input type="text" class="form-control" name="email" id="email" required />
+	                </div>
+	                </div>	                
+                  </div>
+                  
+                  
 
                   <div class="form-group">
                     <div class="row">
@@ -551,6 +562,8 @@
 		              $('#memberAccount').prop('value',"")	
 		              $('#empPwd1').prop('value','')
 		              $('#empPwd2').prop('value','')
+		              $('#email').prop('value','')
+		              
 		   			  Swal.fire("Success!", "", "success");		              
 		            },
 		            error: function (e) {

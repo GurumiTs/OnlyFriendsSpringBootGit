@@ -321,11 +321,11 @@
     	  let heartid = $('#heartid').attr('value')
     	  $.ajax({
               type: "post",
-              url: "memberaddfriend/"+heartid,
+              url: "memberInvitefriend/"+heartid,
               success: function (data) {
             	  Swal.fire({
             		  icon: 'success',
-            		  title: 'save successful',
+            		  title: 'invite successful',
             		  showConfirmButton: false,
             		  timer: 1500
             		})
