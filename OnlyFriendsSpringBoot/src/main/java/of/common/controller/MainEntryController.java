@@ -85,6 +85,7 @@ public class MainEntryController {
 	@GetMapping(path = "/login.error")
 	public String loginErrorEntry() {
 		System.out.println("step2");
+		
 		return "login";
 	}
 		
