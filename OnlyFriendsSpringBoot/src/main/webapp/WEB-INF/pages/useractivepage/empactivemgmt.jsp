@@ -36,8 +36,9 @@
 	height: 50px;
 	display: block;
 }
-body{
-font-size:1.2rem
+
+body {
+	font-size: 1.2rem
 }
 </style>
 </head>
@@ -78,6 +79,7 @@ font-size:1.2rem
 											<th>ID</th>
 											<th>Member</th>
 											<th>name</th>
+											<th>Approve</th>
 											<th>Type</th>
 											<th>Time</th>
 											<th>Deadline</th>
@@ -88,13 +90,8 @@ font-size:1.2rem
 											<th>Man</th>
 											<th>Woman</th>
 											<th>Total</th>
-											<th>see</th>
-											<th>Approve</th>
+											<th>see</th>											
 											<th>Delete</th>
-
-
-
-
 
 										</tr>
 									</thead>
@@ -104,12 +101,18 @@ font-size:1.2rem
 
 												<tr id="${userActivity.number}">
 
-
 													<td id="${userActivity.number}cover"><img
 														src="${userActivity.cover}" width=200px height=150px></td>
 													<td id="${userActivity.number}number">${userActivity.number}</td>
 													<td id="${userActivity.number}memberAccount">${userActivity.memberAccount}</td>
 													<td id="${userActivity.number}activityname">${userActivity.activityname}</td>
+													<td id="${userActivity.number}approve">
+														<div class="form-check form-switch"														style="position: relative; right: -40px;">
+															<input class="form-check-input" type="checkbox"
+																id="flexSwitchCheckChecked" checked> <label
+																class="form-check-label" for="flexSwitchCheckChecked"></label>
+														</div>
+													</td>
 													<td id="${userActivity.number}type">${userActivity.type}</td>
 													<td id="${userActivity.number}time">${userActivity.time}</td>
 													<td id="${userActivity.number}time_up">${userActivity.time_up}</td>
@@ -120,29 +123,23 @@ font-size:1.2rem
 													<td id="${userActivity.number}man">${userActivity.man}</td>
 													<td id="${userActivity.number}woman">${userActivity.woman}</td>
 													<td id="${userActivity.number}total">${userActivity.total}</td>
-													<td id="${userActivity.number}see">${userActivity.see}</td>
-													<td id="${userActivity.number}approve">${userActivity.approve}</td>
-													<td class="edit">
-													<a href="empdeleteactivity.controller?number=${userActivity.number}">
+													<td id="${userActivity.number}see">${userActivity.see}</td>													
+													<td class="edit"><a
+														href="empdeleteactivity.controller?number=${userActivity.number}">
 															<i class="far fa-trash-alt"></i>
 													</a></td>
-
-
-
-
-
 												</tr>
 											</c:forEach>
 										</c:if>
 									</tbody>
 									<tfoot>
 										<tr>
-
-
+										
 											<th>封面</th>
 											<th>編號</th>
-											<th>會員ID</th>											
+											<th>會員ID</th>
 											<th>名稱</th>
+											<th>權限</th>
 											<th>類型</th>
 											<th>時間</th>
 											<th>截止時間</th>
@@ -153,15 +150,9 @@ font-size:1.2rem
 											<th>男生人數</th>
 											<th>女生人數</th>
 											<th>總人數</th>
-											<th>遊覽人數</th>
-											<th>權限</th>
+											<th>遊覽人數</th>										
 											<th>刪除</th>
 											
-
-
-
-
-
 										</tr>
 									</tfoot>
 								</table>
@@ -195,10 +186,9 @@ font-size:1.2rem
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 	<script>
-	$(document).ready(function() {
-		$('#example').DataTable();
-	});
-	
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
 	</script>
 </body>
 </html>
