@@ -35,7 +35,7 @@ import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
-@SessionAttributes(names = { "allofficialActive" })
+@SessionAttributes(names = { "allofficialActive","totalPages","totalElements" })
 public class OfficialActiveController {
 
 	@Autowired
@@ -88,7 +88,7 @@ public class OfficialActiveController {
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
-
+			OfficialActive  officialActive =new OfficialActive();
 		String fileName = img.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
 		System.out.println(path);
@@ -193,14 +193,16 @@ public class OfficialActiveController {
 			
 		}
 		
+		//分頁顯示
 		@PostMapping("/queryalloabypage/{pageNo}")
 		@ResponseBody
 		public List<OfficialActive> processQueryByPageAction(@PathVariable("pageNo")int pageNo,Model m){
-			int pageSize = 3;
+			int pageSize = 6;
 					
 			Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 			Page<OfficialActive> page = officialActiveService.findAllByPage(pageable);
 			int totalPages = page.getTotalPages();
+			System.out.println(totalPages);
 			long totalElements = page.getTotalElements();
 			m.addAttribute("totalPages",totalPages);
 			m.addAttribute("totalElements", totalElements);
@@ -240,7 +242,7 @@ public class OfficialActiveController {
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
 			addMemberService.insert(addmember);
-			System.out.println("幹");
+			
 		}
 		
 		
