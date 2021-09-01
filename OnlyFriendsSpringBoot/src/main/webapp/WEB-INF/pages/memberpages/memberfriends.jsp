@@ -81,6 +81,7 @@ font-size:1.2rem
     let stompClient;
     let username = $('#getAccount').prop('value');
     let usernamepic = $('#getPic').prop('value');
+    let myname = $('#getName').prop('value');
     let selectUser;
     let selectUserPic;
     
@@ -90,6 +91,7 @@ font-size:1.2rem
     	$('#searchfriend').on('change',searchfriend)  
     	$("#inviteicon").on('click', loadinvitemsg)
 		$("#notificationicon").on('click', loadnotifymsg)
+		$("#clearnotification").on('click',clearnotification)
     	
     	 setTimeout(function () {
          createroom()}, 2000);
@@ -147,6 +149,7 @@ font-size:1.2rem
 		if (messageContent && stompClient) {
 		const chatMessage = {
 			sender: username,
+			sendername:myname,
 			content: messageInput.value,
 			type: 'CHAT',
 			time: new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -187,6 +190,22 @@ font-size:1.2rem
                 "</div>";		
 		$('#chat-content').append(d)
 		scrollbtm()
+		}
+		else if(message.content != null && selectUser != message.sender){
+			var toast = 
+			"<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>"+
+	      	"<div class='toast-header'>"+
+	      	"<i class='far fa-comment-dots text-success mx-2'></i>"+
+	        "<strong class='me-auto'>"+message.sendername+"</strong>"+
+	        "<small class='text-muted'>"+message.time+"</small>"+
+	        "<button type='button' class='btn-close btn-close-toast' data-bs-dismiss='toast' aria-label='Close'></button>"+
+	     	"</div>"+
+	     " <div class='toast-body'>"+
+	       message.content+
+	     " </div>"+
+	   " </div>";
+		$("#toastarea").prepend(toast)
+		closetoast()
 		}
 
 }
@@ -289,6 +308,7 @@ font-size:1.2rem
            	 $('#row').append(chatbox) 
            	 selectUser = $(this).attr('id')   
            	 selectUserPic = $(this).find('img').attr('src')
+           	 selectUserName = $(this).find('.friend-name').attr('src')
            	 clearalert()
            	 //console.log("selectUserPic"+selectUserPic)
            	 //console.log("selectuser:"+selectUser)
@@ -430,6 +450,45 @@ font-size:1.2rem
     		},
     	});
     	
+    }
+    
+    function clearnotification(){
+ 		Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  $.ajax({
+                        type: "post",
+                        url: "clearnotification",
+                        success: function(response) {  
+                        	loadnotifymsg()
+                             Swal.fire(
+                              'Deleted!',
+                              'Your file has been deleted.',
+                              'success'
+                            ) } ,
+                            error: function (xhr) {
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Something went wrong!'
+                            }) },  //error close
+                     }); //ajax close          
+                } //if close 
+
+           }); //then close 
+}
+    
+    function closetoast(){
+    	$(".btn-close-toast").on('click',function(){
+    	$($(".toast")[0]).remove();
+    	})
     }
     
    

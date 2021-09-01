@@ -5,13 +5,15 @@ let username = $('#getAccount').prop('value');
 let selectUser;
 
 
-$(function() {
+
+$(function() {	
 	const socket = new SockJS('/OnlyFriends/chat-example')
 	stompClient = Stomp.over(socket)
 	stompClient.connect({}, onConnected, onError)
 	$("#inviteicon").on('click', loadinvitemsg)
 	$("#notificationicon").on('click', loadnotifymsg)
 	$("#clearnotification").on('click',clearnotification)
+
 })
 
 
@@ -30,7 +32,22 @@ const onError = (error) => {
 const onMessageReceived = (payload) => {
 	const message = JSON.parse(payload.body);
 	console.log(message)
-
+	if(message.content != null && selectUser != message.sender){
+		var toast = 
+		"<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>"+
+      	"<div class='toast-header'>"+
+        "<i class='far fa-comment-dots text-success mx-2'></i>"+
+        "<strong class='me-auto'>"+message.sendername+"</strong>"+
+        "<small class='text-muted'>"+message.time+"</small>"+
+        "<button type='button' class='btn-close btn-close-toast' data-bs-dismiss='toast' aria-label='Close'></button>"+
+     	"</div>"+
+     	" <div class='toast-body'>"+
+       message.content+
+     " </div>"+
+   " </div>";
+	$("#toastarea").prepend(toast)
+	closetoast()
+	}
 }
 
 
@@ -40,6 +57,7 @@ function loadinvitemsg() {
 		type: "post",
 		url: "invitehistory",
 		success: function(data) {
+			console.log(data)
 			$.each(data, function(i, item) { //i為順序 n為單筆物件   
 				var bell =
 					"<a href='#' class='dropdown-item dropdown-item-unread'>" +
@@ -65,14 +83,13 @@ function loadinvitemsg() {
 
 function loadnotifymsg() {
 	$('#notificationarea').html('')
-	console.log(username)
 	$.ajax({
 		type: "post",
 		url: "notificationhistory/"+username,
 		success: function(data) {
 			console.log(data)
 			$.each(data, function(i, item) { //i為順序 n為單筆物件   
-			console.log(item.chattype)
+			console.log(item.type)
 			if(item.type == 'NOTIFICATION'){
 				var bell =
 					"<a href='#' class='dropdown-item dropdown-item-unread'>" +
@@ -84,16 +101,15 @@ function loadnotifymsg() {
 					"<div class='time text-primary'>" + item.texttime + "</div>" +
 					"</div>" +
 					" </a>";
-				$('#notificationarea').prepend(bell)
-			}
-				
-			});
+				$('#notificationarea').prepend(bell);
+				} // end of if				
+			}); //end of each
 
 		},
 		error: function(data) {
 			console.log("載入歷史訊息發生錯誤");
 		},
-	});
+	}); //end of ajax
 }
 
 
@@ -158,5 +174,10 @@ function clearnotification(){
 	                } //if close 
 
 	           }); //then close 
+}
+function closetoast(){
+	$(".btn-close-toast").on('click',function(){
+	$($(".toast")[0]).remove();
+	})
 }
 

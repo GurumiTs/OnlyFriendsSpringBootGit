@@ -28,12 +28,12 @@ public class Users implements Serializable{
 	
 	@Column(name="usersRole")
 	private String usersRole;
-	
+		
 	@ManyToMany
 	@JoinTable(
 			name = "friendship",
-			joinColumns = @JoinColumn(name = "usersEmail" ),
-			inverseJoinColumns = @JoinColumn(name = "memberAccount")			
+			joinColumns = @JoinColumn(name = "usersEmail", referencedColumnName = "usersEmail"), 
+			inverseJoinColumns = @JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")					
 			)	
 	private List<Member> friends = new ArrayList<>();
 	
