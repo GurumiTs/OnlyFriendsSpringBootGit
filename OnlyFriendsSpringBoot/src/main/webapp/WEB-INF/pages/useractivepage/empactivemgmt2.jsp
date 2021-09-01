@@ -189,10 +189,21 @@ body {
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<div class='form-check form-switch'style='position: relative; right: -40px;'>"+
-						"<input class='form-check-input approve' type='checkbox' id="+data.number+">"+
+		            	
+		            if(data.approve == 'true'){
+		            	 return "<div class='form-check form-switch'style='position: relative; right: -40px;'>"+
+						"<input class='form-check-input approve' type='checkbox' id='"+data.number+"' checked>"+
 						"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
 						"</label></div>";
+		            }
+		            else{
+		            	 return "<div class='form-check form-switch'style='position: relative; right: -40px;'>"+
+							"<input class='form-check-input approve' type='checkbox' id='"+data.number+"' >"+
+							"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
+							"</label></div>";		            	
+		            }
+		            	
+		             
 		            },
 		            "targets": -1
 		        },
@@ -208,8 +219,23 @@ body {
 		});
 		
 		$("#example tbody").on("click", ".approve", function () {
-			console.log("change")
-			
+			let number=$(this).attr("id");
+			console.log(number);
+			let dtr = $(this).closest("th");
+			 $.ajax({
+				  type : "post",
+				  url: "approve",    
+			      data: {"number":number}, 
+			      success : function(data) 
+			        {
+			    	  	console.log("success")
+			    		table.ajax.reload();
+			    	  
+			        },error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
 			
 		})
 		
