@@ -79,18 +79,23 @@ public class UserActivityController {
 		return "yes";
 	}
 	// 管理員修改開放權限
-	@RequestMapping(path = "/approve", method = RequestMethod.POST)
-	public void approve(@RequestParam(name = "number") int number, Model model) {
-
+	@PostMapping(path = "/approve")
+	@ResponseBody
+	public String approve(@RequestParam(name = "number") int number, Model model) {
+		System.out.println("controller:number"+number);
 		userActivity = userActivityService.select(number);
 
 		String appove = userActivity.getApprove();
-		if (appove == "false") {
+		System.out.println(appove);
+		if (appove.equals("false")) {
 			userActivity.setApprove("true");
-		} else if (appove == "true") {
+			
+		} else if (appove.equals("true")) {
 			userActivity.setApprove("false");
 		}
 		userActivityService.updata(userActivity);
+		
+		return "y";
 	}
 
 	// 首頁資料抓取
