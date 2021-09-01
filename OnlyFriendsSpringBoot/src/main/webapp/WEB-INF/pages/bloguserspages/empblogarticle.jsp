@@ -34,7 +34,8 @@ margin: 0 auto;
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">${blogOfficial.title}</h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on ${fn:substring(blogOfficial.updateTime,0,10)}, by ${blogOfficial.userID}</div>
+                            <div class="text-muted fst-italic mb-2">發布時間:${fn:substring(blogOfficial.updateTime,0,10)} 發文者:${blogOfficial.userID}</div>
+                            <div class="text-muted fst-italic mb-2">瀏覽人數:${blogOfficial.watchNum}</div>
                             <!-- Post categories-->
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>

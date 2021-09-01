@@ -34,9 +34,8 @@ public class BlogUserService {
 	}
 
 	// 透過memberAccount查詢
-	public BlogUser findByMemberAccount(String memberAccount) {
-		Optional<BlogUser> memeberAccountOptional = bUserRepository.findByMemberAccount(memberAccount);
-		return memeberAccountOptional.get();
+	public List<BlogUser> findByMemberAccount(String memberAccount) {
+		return bUserRepository.findByMemberAccount(memberAccount);
 	}
 
 	// 透過ID查詢
