@@ -78,19 +78,20 @@ body {
 											<th>Cover</th>
 											<th>ID</th>
 											<th>Member</th>
-											<th>name</th>
-											<th>Approve</th>
+											<th>name</th>											
 											<th>Type</th>
 											<th>Time</th>
 											<th>Deadline</th>
 											<th>County</th>
 											<th>District</th>
-											<th>Place</th>
-											<th>Condition</th>
+											<th>　　　Place　　　　　　　　　</th>
+											<th>　　　　　　　　　　　　　　　　　　　　　detai　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</th>
+											<th>　　　Condition　　　　　　</th>
 											<th>Man</th>
 											<th>Woman</th>
 											<th>Total</th>
-											<th>see</th>											
+											<th>see</th>
+											<th>Approve</th>											
 											<th>Delete</th>
 
 										</tr>
@@ -105,25 +106,27 @@ body {
 														src="${userActivity.cover}" width=200px height=150px></td>
 													<td id="${userActivity.number}number">${userActivity.number}</td>
 													<td id="${userActivity.number}memberAccount">${userActivity.memberAccount}</td>
-													<td id="${userActivity.number}activityname">${userActivity.activityname}</td>
-													<td id="${userActivity.number}approve">
-														<div class="form-check form-switch"														style="position: relative; right: -40px;">
-															<input class="form-check-input" type="checkbox"
-																id="flexSwitchCheckChecked" checked> <label
-																class="form-check-label" for="flexSwitchCheckChecked"></label>
-														</div>
-													</td>
+													<td id="${userActivity.number}activityname">${userActivity.activityname}</td>													
 													<td id="${userActivity.number}type">${userActivity.type}</td>
 													<td id="${userActivity.number}time">${userActivity.time}</td>
 													<td id="${userActivity.number}time_up">${userActivity.time_up}</td>
 													<td id="${userActivity.number}county">${userActivity.county}</td>
 													<td id="${userActivity.number}district">${userActivity.district}</td>
 													<td id="${userActivity.number}place">${userActivity.place}</td>
+													<td id="${userActivity.number}detail">${userActivity.detail}</td>
 													<td id="${userActivity.number}condition">${userActivity.condition}</td>
 													<td id="${userActivity.number}man">${userActivity.man}</td>
 													<td id="${userActivity.number}woman">${userActivity.woman}</td>
 													<td id="${userActivity.number}total">${userActivity.total}</td>
-													<td id="${userActivity.number}see">${userActivity.see}</td>													
+													<td id="${userActivity.number}see">${userActivity.see}</td>	
+													<td id="${userActivity.number}approve">
+														<div class="form-check form-switch"
+															style="position: relative; right: -40px;">
+															<input class="form-check-input approve" type="checkbox"
+																id="${userActivity.number}"> <label
+																class="form-check-label" for="flexSwitchCheckChecked"></label>
+														</div>
+													</td>												
 													<td class="edit"><a
 														href="empdeleteactivity.controller?number=${userActivity.number}">
 															<i class="far fa-trash-alt"></i>
@@ -138,19 +141,20 @@ body {
 											<th>封面</th>
 											<th>編號</th>
 											<th>會員ID</th>
-											<th>名稱</th>
-											<th>權限</th>
+											<th>名稱</th>											
 											<th>類型</th>
 											<th>時間</th>
 											<th>截止時間</th>
 											<th>縣市</th>
 											<th>區域</th>
 											<th>地點</th>
+											<th>活動內容</th>
 											<th>參加條件</th>
 											<th>男生人數</th>
 											<th>女生人數</th>
 											<th>總人數</th>
-											<th>遊覽人數</th>										
+											<th>遊覽人數</th>	
+											<th>權限</th>									
 											<th>刪除</th>
 											
 										</tr>
@@ -189,6 +193,17 @@ body {
 		$(document).ready(function() {
 			$('#example').DataTable();
 		});
+		
+		//一鍵改值
+		$(function(){
+			 $("#example tbody").on("click", ".approve",changeauth);
+			 
+		})
+		function changeauth(){
+			let id = $(this).attr("id");
+			console.log(id)	
+				
+			}
 	</script>
 </body>
 </html>

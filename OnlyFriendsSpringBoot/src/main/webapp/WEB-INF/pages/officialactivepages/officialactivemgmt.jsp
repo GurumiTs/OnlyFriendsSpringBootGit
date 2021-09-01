@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
@@ -81,8 +82,8 @@
 		           <td id="${oaBean.finishDeadline}finishDeadline">${oaBean.finishDeadline}</td>
 		           <td id="${oaBean.active}active">${oaBean.active}</td>
 		           <td id="${oaBean.county}county">${oaBean.county}</td>
-		           <td id="${oaBean.district}district">${oaBean.district}</td>
-		           <td id="${oaBean.conditions}conditions">${oaBean.conditions}</td>
+		           <td id="${oaBean.district}district">${oaBean.district}</td> 
+		           <td id="${oaBean.conditions}conditions">${fn:substring(oaBean.conditions,0,20)}...</td>
 		           <td id="${oaBean.male}male">${oaBean.male}</td>
 		           <td id="${oaBean.female}female">${oaBean.female}</td>
 		        	
