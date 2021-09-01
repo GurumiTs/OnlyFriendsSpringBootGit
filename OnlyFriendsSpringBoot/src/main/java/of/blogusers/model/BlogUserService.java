@@ -64,9 +64,10 @@ public class BlogUserService {
 		return bUserRepository.findAll(pageable);
 	}
 	
-	//使用者端刪除多筆資料
-	public void deleteBatch(List<Integer> usersArticleID) {
-		bUserRepository.deleteAllByIdInBatch(usersArticleID);
+	// pageable
+	public Page<BlogUser> findAllByBlogAuthority(String blogAuthority, Pageable pageable) {
+		return bUserRepository.findAllByBlogAuthority(blogAuthority, pageable);
 	}
+	
 
 }

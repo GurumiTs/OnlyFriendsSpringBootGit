@@ -88,6 +88,7 @@ height:50px;
 											<th>暱稱</th>
 											<th>修改</th>
 											<th>刪除</th>
+											<th>審核狀態</th>
 										</tr>
 									</thead>
 
@@ -101,6 +102,7 @@ height:50px;
 											<th class="d-none">暱稱</th>
 											<th class="d-none">Edit</th>
 											<th class="d-none">Del</th>
+											<th class="d-none">審核狀態</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -220,6 +222,13 @@ height:50px;
 	            render:function(data, type, row)
 	            {
 	              return "<i class='far fa-trash-alt delete' id="+data.usersArticleID+"></i>";
+	            }
+	        },
+	        {
+	            "data": null,
+	            render:function(data, type, row)
+	            {
+	              return "<p>"+data.blogAuthority+"</p>";
 	            }
 	        }
 	    ],

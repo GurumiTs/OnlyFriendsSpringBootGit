@@ -310,7 +310,7 @@ height:50px;
 				        	{
 				        		console.log(data.blogAuthority)
 				        		if(data.blogAuthority == '審核通過'){
-					        		return "<div><p style=''>"+data.blogAuthority+"</p></div>"+
+					        		return "<p style=''>"+data.blogAuthority+"</p>"+
 					        		"<div class='form-check form-switch'style='position: relative; text-align:center;'>"+
 									"<input class='form-check-input authority' type='checkbox' id='"+data.usersArticleID+"' checked>"+
 									"<label	class='form-check-label' for='flexSwitchCheckChecked'>"

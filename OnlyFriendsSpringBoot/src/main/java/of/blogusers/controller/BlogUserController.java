@@ -81,7 +81,8 @@ public class BlogUserController {
 		int pageSize = 6;
 		System.out.println("controller");
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		Page<BlogUser> page = bUserService.findAllByPage(pageable);
+		String blogAuthority = "審核通過";
+		Page<BlogUser> page = bUserService.findAllByBlogAuthority(blogAuthority, pageable);
 		
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();// 全部有幾筆資料
