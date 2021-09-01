@@ -49,7 +49,15 @@ public class MemberController {
 		
 	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/member" ,method = RequestMethod.GET )
-	public String memberEntry() {
+	public String memberEntry(HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		int auth = m2.getMemberAuth();
+		if(auth == 0) {
+			request.getSession().invalidate();		
+			return "login";
+		}
 		return "memberpages/member" ;
 	}
 	

@@ -214,13 +214,13 @@
 		            novalidate
 		          >
                   <div class="form-group">
-                    <label class="form-label d-none" >Email</label>
+                    <label class="form-label d-none" >Account</label>
 	                <input
 	                  type="text"
 	                  class="form-control d-none"
-	                  name="email"
-	                  id="email"
-	                  value="${param.email}"
+	                  name="account"
+	                  id="account"
+	                  value="${param.account}"
 	                  required	                  
 	                />
                   </div>

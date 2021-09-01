@@ -215,16 +215,16 @@
               <form action="${pageContext.request.contextPath}/login"
 					method="post" id="loginform">  
                   <div class="form-group">
-                   <label for="email" class="form-label">Account</label> <input
+                   <label for="email" class="form-label">帳號</label> <input
 							type="text" class="form-control" name="username" id="username" />                  
                   </div>
 
                   <div class="form-group">
                     <div class="d-block">
-                    	<label for="password" class="control-label">Password</label>
+                    	<label for="password" class="control-label">密碼</label>
                       <div class="float-right">
                         <a href="sendingnewpassword" class="text-small">
-                          Forgot Password?
+                          忘記密碼?
                         </a>
                       </div>
                     </div>
@@ -235,7 +235,7 @@
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" name="remember-me" class="custom-control-input" tabindex="3" id="remember-me" value="true">
-                      <label class="custom-control-label" for="remember-me">Remember Me</label>
+                      <label class="custom-control-label" for="remember-me">記住我</label>
                     </div>
                   </div>
 
@@ -273,7 +273,7 @@
                   <div class="form-group">
                   	<button id="cbt"  type="submit" class="btn btn-primary btn-lg btn-block d-none" 
                       tabindex="4">
-                      Login
+                      登入
                     </button>
                   
                   <!--    <button type="submit" class="g-recaptcha btn btn-primary btn-lg btn-block" 
@@ -358,6 +358,17 @@
                   </div>
                    </div>	                
                   </div>
+                  
+                  <div class="form-group">
+                    <div class="row">
+                    <div class="col-8">
+                    <label for="email" class="form-label">Email</label> 
+                    <input type="text" class="form-control" name="email" id="email" required />
+	                </div>
+	                </div>	                
+                  </div>
+                  
+                  
 
                   <div class="form-group">
                     <div class="row">
@@ -551,6 +562,8 @@
 		              $('#memberAccount').prop('value',"")	
 		              $('#empPwd1').prop('value','')
 		              $('#empPwd2').prop('value','')
+		              $('#email').prop('value','')
+		              
 		   			  Swal.fire("Success!", "", "success");		              
 		            },
 		            error: function (e) {

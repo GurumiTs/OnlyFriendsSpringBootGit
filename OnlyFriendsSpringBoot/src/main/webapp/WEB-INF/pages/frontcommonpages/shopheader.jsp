@@ -8,7 +8,9 @@
 		<c:when test="${not empty member}">
 			<%@include file="../membercommonpages/memberloginedheader.jsp"%>
 			 <input id="getAccount" value="${personalinfo.memberAccount}"
-				class="d-none"></input>		 
+				class="d-none"></input>		
+			 <input id="getName" value="${personalinfo.memberName}"
+				class="d-none"></input>	
 		</c:when>
 		<c:otherwise>
 			<%@include file="../commonpages/header.jsp"%>
