@@ -1,106 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@page import="of.officialactive.model.OfficialActive" %>
-<%@page import="java.util.*,java.text.*,of.officialactive.controller.*"%>    
-    <!doctype html>
-    <html lang="en">
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- top here -->
+<%@include file="../commonpages/dashboardtop.jsp"%>
+<style>
+</style>
+ </head>
+<body id="page-top">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-        <title>活動修改</title>
-    </head>
-    <style>
-        .jumbotron {
-            background: url(img/野餐.jpg) no-repeat center center / cover;
-        }
-        
-        textarea {
-            resize: none;
-        }
-    </style>
+		<!-- Sidebar -->
+		<%@include file="../commonpages/dashboardsidebar.jsp"%>
 
 
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-    <body>
-        <div class="container-fluid">
+			<!-- Main Content -->
+			<div id="content">
 
-        </div>
+				<!-- Topbar -->
+				<%@include file="../commonpages/dashboardheader.jsp"%>
 
-        <!-- 版頭 -->
-        <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-
-
-        <!-- 版頭下面 -->
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4" style="color: #FF359A;">OnlyFriends</h1>
-                <p class="lead" style="color: #FF359A;">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            </div>
-        </div>
-
-
-
-
-        <div class="container">
+<!-- ************************** your content*************************** -->		
+		
+		   <div class="container">
             <form action="empofficialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
  		<div>                              
-                    <lebel>請輸入欲修改活動ID:<input type="text" name="anum" size="20" placeholder="請輸入活動ID..." disabled="disabled" value="${officialActive.anum}" ></lebel>
+ 		<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label"></label>
+  <input type="email" class="form-control"  placeholder="請輸入管理者編號" name="anum" value = "${officialActive.anum}" disabled="disabled">
+</div>
+                   
                     <input type="hidden" name="anum" size="20" placeholder="請輸入活動ID..." value="${officialActive.anum}">
                 </div>
-                <div>                              
-                    <lebel>請輸入管理者編號:<input type="text" name="empAcc" size="20" placeholder="請輸入管理者編號"  value="${officialActive.empAcc}" ></lebel>
-                </div>
+                
+                <div class="mb-3">員工編號
+  <label for="exampleFormControlInput1" class="form-label"></label>
+  <input type="text" class="form-control"  placeholder="請輸入管理者編號" name="empAcc" value="${officialActive.empAcc}">
+</div>
+                
+<div class="mb-3">管理者姓名
+  <label for="exampleFormControlInput1" class="form-label"></label>
+  <input type="text" class="form-control"  placeholder="請輸入管理者姓名" name="aname" value = "${officialActive.aname}">
+</div>
 
-                <div>
-                    請輸入管理者姓名:<input type="text" name="aname" size=5 value="${officialActive.aname}">
-                </div>
 
-
-                <div>
-                    <lebel>請輸入活動名稱:<input type="text" name="active" size="20" placeholder="請輸入活動名稱" value="${officialActive.active}">(15字以內)</lebel>
-
-                </div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label"></label>活動名稱
+  <input type="text" class="form-control"  placeholder="活動名稱" name="active" value="${officialActive.active}">
+</div>
+           
+                
+             
+             
+             
                 <div>
   					   <form class="form-inline">
                         <label class="my-1 mr-2" for="inlineFormCustomSelectPref">請選擇活動類型(1)</label>
@@ -135,12 +96,10 @@
 
                     <div>
 
-                        <input type="text" name="male" size=5 value="${officialActive.male}"> 輸入參加男性人數
+                        <input type="text" name="male" size=5 value="${officialActive.male}"> 男性人數 <input type="text" name="female" size=5 value="${officialActive.female}"> 女性人數
                     </div>
                     <br>
-                    <div>
-                        <input type="text" name="female" size=5 value="${officialActive.female}"> 輸入參加女性人數
-                    </div>
+                 
 
 
                 </div>
@@ -190,52 +149,68 @@
 
         </form>
         </div>
-        <!-- 頁尾 -->
-        <div class="bottom-0 end-0 container-fluid main-footer text-center">
-            &copy; copyright
-        </div>
+
+
+<!-- **************************end of your content*************************** -->
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<%@include file="../commonpages/dashboardfooter.jsp"%>
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>
+	
 
 
 
+	<!-- bottom here -->
+	<%@include file="../commonpages/dashboardbottom.jsp"%>
+	<script>
+	 <!-- Optional JavaScript; choose one of the two! -->
 
+     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
+     <!-- Option 2: Separate Popper and Bootstrap JS -->
+     <!--
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+ -->
+ 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+                 
+                 <script>
+                 $(function(){
+                 	 $("#twzipcode").twzipcode({
+                         zipcodeIntoDistrict: true,
+                     });
+                 })
+                 
+                   // 照片顯示
+					var lovdFile = function (event) {
+   					var output = document.getElementById('output');
+  					 	output.src = URL.createObjectURL(event.target.files[0]);
+   						output.onload = function () {
+     					URL.revokeObjectURL(output.src)
+  						 }
+					 }
+ 				// 照片欄位判定
+ 				document.getElementById("cover").addEventListener("blur", checkcover);
 
-        <!-- Optional JavaScript; choose one of the two! -->
-
-        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
-        <!--
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    -->
-    		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
-                    
-                    <script>
-                    $(function(){
-                    	 $("#twzipcode").twzipcode({
-                            zipcodeIntoDistrict: true,
-                        });
-                    })
-                    
-                      // 照片顯示
-   					var lovdFile = function (event) {
-      					var output = document.getElementById('output');
-     					 	output.src = URL.createObjectURL(event.target.files[0]);
-      						output.onload = function () {
-        					URL.revokeObjectURL(output.src)
-     						 }
-   					 }
-    				// 照片欄位判定
-    				document.getElementById("cover").addEventListener("blur", checkcover);
-
-   						function checkcover() {
-     						let cover = document.getElementById("cover");
-      						let coverVal = cover.value;
+						function checkcover() {
+  						let cover = document.getElementById("cover");
+   						let coverVal = cover.value;
 						    let sp_cover = document.getElementById("sp_cover");
 						    let coverCheck = /\.jpg$/;
 						    	if (coverVal == "") sp_cover.innerHTML = "請上傳照片";
@@ -243,29 +218,18 @@
 						        		sp_cover.innerHTML = "僅支援 .jpg 檔案"
 						      		else sp_cover.innerHTML = "成功"
 						    }
-   						
-   						
-   						$(function(){
-   				            $("#inlineFormCustomSelectPref").val(active.getAtype1)
-   				            
-   				        })
-   				        	$(function(){
-   				            $("#inlineFormCustomSelectPref").val(active.getAtype1)
-   				            
-   				        })
-   						
-   						
-   						
-   						
-                    
-                                                                          
-                    </script>
-                       
-                  
-                  
-                  
-
-
-    </body>
-
-    </html>
+						
+						
+						$(function(){
+				            $("#inlineFormCustomSelectPref").val(active.getAtype1)
+				            
+				        })
+				        	$(function(){
+				            $("#inlineFormCustomSelectPref").val(active.getAtype1)
+				            
+				        })
+						
+	</script>
+ </body>
+</html>	
+	

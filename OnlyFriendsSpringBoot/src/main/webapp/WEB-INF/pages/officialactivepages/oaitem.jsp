@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+
+</style>
 
 </head>
 <body>
@@ -21,15 +24,23 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." id="img" /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1" id = "anum"></div>
+                        <div class="small mb-1" ></div>
                         <h1 class="display-5 fw-bolder" id= "active"></h1>     
-                        <p class="lead" id="conditions"></p>
+                        		<div ><h4>
+                        			活動標籤 :<label id = "atype2"> </label><br>
+									活動日期 :<label id = "adate"></label> <br>
+									報名截止日期 :<label id = "finishDeadline"></label> <br>
+									活動地點 :<label id ="county"></label> <label id="district"></label><br>
+									男性人數 : <label id = "male"></label> <br>
+									女性人數 : <label id = "female"></label><br> 
+									</h4></div> 
                         <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   我要報名
 </button>
 
 <!-- Modal -->
+       <form action = "addmember" method="post"  enctype="multipart/form-data" >
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -42,9 +53,8 @@
        
        <div class="mb-3">
        
-       <form action = "addmember.controller" method="post"  enctype="multipart/form-data" >
        
-       <input type = "hidden" id= "anum" name= "anum">
+       <input type = "text" id= "anum"  >
 							<label for="memberEmail" class="form-label">Email</label> <input
 								type="email" class="form-control" name="memberEmail" id="memberEmail" value="${personalinfo.memberEmail}" 
 								required readonly />
@@ -94,7 +104,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
 		    
-        <button  type="button" class="btn btn-primary" id = "sand">送出</button>
+        <button  type="button" class="btn btn-primary" id = "send">送出</button>
         
       </div>
     </div>
@@ -105,10 +115,21 @@
             </div>
         </section>
         </form>
+        
+        <P>---------------------------------------------------------------------------------------
+      <section class="mb-5">
+								<div class="fs-5 mb-4">
+								
+								<div class="lead" id="conditions">
+								</div>
+									
+								</div>  
+								
+		<P>----------------------------------------------------------------------------------------
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Related products</h2>
+                <h2 class="fw-bolder mb-4">相關活動</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -185,6 +206,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
+                            
                                     <h5 class="fw-bolder">Popular Item</h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
@@ -275,19 +297,43 @@
 				
 				for(let i=0;i<oa.length;i++){
 					if (anum==oa[i].anum && active== oa[i].active){
-					console.log("im anum"+anum)	
+					
 					$('#anum').attr('value',anum)
 					$('#active').text(oa[i].active);
 					$('#img').attr("src",oa[i].img);
 					$('#conditions').text(oa[i].conditions);
-					
+					$('#atype2').text(oa[i].atype2);
+					$('#adate').text(oa[i].adate);
+					$('#finishDeadline').text(oa[i].finishDeadline);
+					$('#county').text(oa[i].county);
+					$('#district').text(oa[i].district);
+					$('#male').text(oa[i].male);
+					$('#female').text(oa[i].female);
 					
 					}
 				}
 				}
 			
 			})
-	
+			/* 送出資料*/
+			$("#send").on("click", function () {
+				let anum = $('#anum').val()
+				console.log(anum)
+				  $.ajax({
+					  type : "GET",
+					  url: "addmember",
+					  dataType:'JSON',
+					  contentType:'application/json',
+					  data:{"anum":anum},
+					  success:function(data)
+					  {
+						console.log("success")  
+						  $('#anum').attr('value',anum);				  
+						  console.log(123123)
+					  }
+				     
+				  });			  
+			});
 			  
 		});//function
 		

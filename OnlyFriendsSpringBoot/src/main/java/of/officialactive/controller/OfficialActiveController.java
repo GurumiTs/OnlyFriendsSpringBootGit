@@ -29,13 +29,11 @@ import org.springframework.web.multipart.MultipartFile;
 import of.member.model.Member;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
-import of.officialactive.model.AddMember;
-import of.officialactive.model.AddMemberService;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
-@SessionAttributes(names = { "allofficialActive" })
+@SessionAttributes(names = { "allofficialActive","totalPages","totalElements" })
 public class OfficialActiveController {
 
 	@Autowired
@@ -46,10 +44,7 @@ public class OfficialActiveController {
 	private OaMemberService oamService;
 	@Autowired 
 	private MemberService memberService;
-	@Autowired
-	private AddMember addmember;
-	@Autowired 
-	private AddMemberService addMemberService;
+
 
 	
 	@GetMapping(path= "/oatojson")
@@ -88,7 +83,7 @@ public class OfficialActiveController {
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
-
+			OfficialActive  officialActive =new OfficialActive();
 		String fileName = img.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
 		System.out.println(path);
@@ -193,14 +188,16 @@ public class OfficialActiveController {
 			
 		}
 		
+		//分頁顯示
 		@PostMapping("/queryalloabypage/{pageNo}")
 		@ResponseBody
 		public List<OfficialActive> processQueryByPageAction(@PathVariable("pageNo")int pageNo,Model m){
-			int pageSize = 3;
+			int pageSize = 6;
 					
 			Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 			Page<OfficialActive> page = officialActiveService.findAllByPage(pageable);
 			int totalPages = page.getTotalPages();
+			System.out.println(totalPages);
 			long totalElements = page.getTotalElements();
 			m.addAttribute("totalPages",totalPages);
 			m.addAttribute("totalElements", totalElements);
@@ -208,8 +205,9 @@ public class OfficialActiveController {
 			return page.getContent();
 		}
 		
-		//itempage
-
+		//itempage 詳細商品
+		
+		
 		@GetMapping("/oaitemEntry.controller")
 		public String oaItemEntry(@RequestParam long anum) {
 			System.out.println(anum);
@@ -236,29 +234,25 @@ public class OfficialActiveController {
 		
 		@RequestMapping (path = "/addmember")
 		@ResponseBody
-		public void addmember (@RequestParam(name = "anum" ,required = false) Integer anum,HttpServletRequest request) {
+		public String addmember (@RequestParam(name = "anum" ,required = false) Long anum,HttpServletRequest request) {
+			System.out.println("測試");
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
-			addMemberService.insert(addmember);
-			System.out.println("幹");
+			Member m2 = memberService.findByMemberAccount(memberAccount);
+			
+			OfficialActive oa = officialActiveService.select(anum);
+			
+			List<Member> memberactive = oa.getMemberactive();
+			memberactive.add(m2);
+			officialActiveService.update(oa);
+
+			return "officialactivepages/oahomepage";
+			
 		}
 		
 		
-		
-		
-//		@RequestMapping(path= "/memberinf",method = RequestMethod.POST)
-//		@ResponseBody
-//		public List<OaMember> memberinf(Model model, HttpServletRequest  request){
-//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-//			String memberAccount = m1.getMemberAccount();
-//			
-//			List<OaMember> oamemberList = oamService.findByMemberAccount(memberAccount);
-//			model.addAttribute("oamemberList", oamemberList);
-//			
-//			return oamemberList;
-//			
-//		}
-		
+
+
 		
 		
 		

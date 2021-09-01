@@ -34,7 +34,8 @@ margin: 0 auto;
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">${blogUser.usersTitle}</h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on ${fn:substring(blogUser.usersUpdateTime,0,10)}, by ${blogUser.usersName}</div>
+                            <div class="text-muted fst-italic mb-2">發布時間:${fn:substring(blogUser.usersUpdateTime,0,10)} 發文者:${blogUser.usersName}</div>
+                            <div class="text-muted fst-italic mb-2">瀏覽人數:${blogUser.watchNum}</div>
                             <!-- Post categories-->
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
@@ -52,33 +53,34 @@ margin: 0 auto;
 <!--                             <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> -->
                         </section>
                     </article>
+                    
                     <!-- Comments section留言板-->
                     <section class="mb-5">
                         <div class="card " style="background-color:#F0F0F0;">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!">此處輸入留言 給name抓值</textarea></form>
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                     <!-- Parent comment-->
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                        <div class="fw-bold">Name1</div>
+                                        留言1
                                         <!-- Child comment 1-->
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                                <div class="fw-bold">Commenter Name2</div>
+                                                子留言1
                                             </div>
                                         </div>
                                         <!-- Child comment 2-->
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
+                                                <div class="fw-bold">Commenter Name3</div>
+                                                子留言2
                                             </div>
                                         </div>
                                     </div>
@@ -87,13 +89,15 @@ margin: 0 auto;
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                        <div class="fw-bold">Commenter Name4</div>
+                                        留言2
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
+					<!-- 留言板結束 -->
+					
                 </div>
                 <!-- Side widgets-->
 <!--                 <div class="col-lg-4"> -->
