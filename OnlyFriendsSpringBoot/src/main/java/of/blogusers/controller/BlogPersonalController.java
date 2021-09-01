@@ -188,16 +188,4 @@ public class BlogPersonalController {
 		return "fail";
 	}
 	
-	// Delete(多選刪除)
-//	@PostMapping(path = "/usersblogdeletesome")
-//	public String deleteBatch(@PathVariable("usersArticleID") String usersArticleID) {
-//		String[] articleIDList = usersArticleID.split(",");
-//		List<Integer> ListString = new ArrayList<Integer>();
-//		for (String str : articleIDList) {
-//			ListString.add(Integer.parseInt(str));
-//		}
-//		bUserService.deleteBatch(ListString);
-//		return "yes";
-//	}
-	
 }

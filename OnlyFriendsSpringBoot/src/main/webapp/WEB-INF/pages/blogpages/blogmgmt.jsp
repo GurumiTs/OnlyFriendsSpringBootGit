@@ -159,7 +159,7 @@ height:50px;
 													<th>會員帳號</th>
 													<th>會員名稱</th>
 													<th>刪除</th>
-													<th>審核狀態</th>
+													<th>狀態</th>
 												</tr>
 											</thead>
 											<tfoot>
@@ -171,8 +171,8 @@ height:50px;
 													<th class="d-none">內容</th>
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
-													<th class="d-none">審核狀態</th>
 													<th class="d-none">Del</th>
+													<th class="d-none">審核狀態</th>
 												</tr>
 											</tfoot>
 										</table>
@@ -308,15 +308,28 @@ height:50px;
 				        	"data": null,
 				        	render:function(data, type, row)
 				        	{
-				        		return "<p style='color:red;'>"+data.blogAuthority+"</p>"
+				        		console.log(data.blogAuthority)
+				        		if(data.blogAuthority == '審核通過'){
+					        		return "<div><p style=''>"+data.blogAuthority+"</p></div>"+
+					        		"<div class='form-check form-switch'style='position: relative; text-align:center;'>"+
+									"<input class='form-check-input authority' type='checkbox' id='"+data.usersArticleID+"' checked>"+
+									"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
+									"</label></div>";
+				        		}else{
+				        			return "<p style='color:red;'>"+data.blogAuthority+"</p>"+
+					        		"<div class='form-check form-switch'style='position: relative; text-align:center;'>"+
+									"<input class='form-check-input authority' type='checkbox' id='"+data.usersArticleID+"'>"+
+									"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
+									"</label></div>";
+				        		}
 				        	}
-				        }
+				        },
 				    ],
 				    columnDefs:[
 				    	{
 				    		targets: [0],
 				    		createdCell: function (td, cellData, rowData, row, col){
-				    			$(td).css("width", "70px");
+				    			$(td).css("width", "60px");
 				    		},
 				    	},
 				    	{
@@ -337,7 +350,7 @@ height:50px;
 				    	{
 				    		targets: [4],
 				    		createdCell: function (td, cellData, rowData, row, col){
-				    			$(td).css("width", "500px");
+				    			$(td).css("width", "450px");
 				    		},
 				    	},
 				    	{
@@ -355,17 +368,43 @@ height:50px;
 				    	{
 				    		targets: [7],
 				    		createdCell: function (td, cellData, rowData, row, col){
-				    			$(td).css("width", "70px");
+				    			$(td).css("width", "60px");
 				    		},
 				    	},
 				    	{
 				    		targets: [8],
 				    		createdCell: function (td, cellData, rowData, row, col){
-				    			$(td).css("width", "100px");
+				    			$(td).css("width", "80px");
 				    		},
+				    		className: 'text-left'
+				    	},
+				    	{
+				    		targets: '_all',
+				    		className: 'text-center'
 				    	},
 				    ]
 				});
+		
+		// Set Authority
+		$("#example2 tbody").on("click", ".authority", function () {
+			let usersArticleID=$(this).attr("id");
+			console.log(usersArticleID);
+			let dtr = $(this).closest("th");
+			 $.ajax({
+				  type : "post",
+				  url: "authority",    
+			      data: {"usersArticleID":usersArticleID}, 
+			      success: function(data) 
+			        {
+			    	  	console.log("success")
+			    		table2.ajax.reload();
+			        },
+			      error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
+		});
 		
 		// Delete
 		$("#example tbody").on("click", ".delete", function () {

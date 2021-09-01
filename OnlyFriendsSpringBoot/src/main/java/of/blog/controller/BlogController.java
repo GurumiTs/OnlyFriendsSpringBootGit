@@ -179,5 +179,22 @@ public class BlogController {
 		}
 	}
 	
+	// 調整使用者文章權限
+	@PostMapping(path = "/authority")
+	@ResponseBody
+	public String setAuthority(@RequestParam(name = "usersArticleID") Integer usersArticleID, Model model) {
+		System.out.println("authority number:"+usersArticleID);
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		String authority = blogUser.getBlogAuthority();
+		System.out.println(authority);
+		if (authority.equals("待審核")) {
+			blogUser.setBlogAuthority("審核通過");
+		} else if (authority.equals("審核通過")) {
+			blogUser.setBlogAuthority("待審核");
+		}
+		bUserService.updateBlogUser(blogUser);		
+		
+		return "y";
+	}
 	
 }
