@@ -68,7 +68,22 @@ public class OfficialActive {
 			inverseJoinColumns= @JoinColumn(name = "memberAccount"))
 	private List<Member> memberactive = new ArrayList<Member>();
 	
+	public List<Member> getoaaddMember() {
+		return memberactive;
+	}
 
+	public void setoamember(List<Member> memberactive) {
+		this.memberactive = memberactive;
+	}
+	
+	
+	public void addoamember(Member member) {
+		this.memberactive.add(member);
+	}
+	
+	public void remove(Member member) {
+		this.memberactive.remove(member);
+	}
 
 
 	

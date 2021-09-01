@@ -29,8 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 import of.member.model.Member;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
-import of.officialactive.model.AddMember;
-import of.officialactive.model.AddMemberService;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
@@ -46,10 +44,7 @@ public class OfficialActiveController {
 	private OaMemberService oamService;
 	@Autowired 
 	private MemberService memberService;
-	@Autowired
-	private AddMember addmember;
-	@Autowired 
-	private AddMemberService addMemberService;
+
 
 	
 	@GetMapping(path= "/oatojson")
@@ -210,8 +205,9 @@ public class OfficialActiveController {
 			return page.getContent();
 		}
 		
-		//itempage
-
+		//itempage 詳細商品
+		
+		
 		@GetMapping("/oaitemEntry.controller")
 		public String oaItemEntry(@RequestParam long anum) {
 			System.out.println(anum);
@@ -238,29 +234,25 @@ public class OfficialActiveController {
 		
 		@RequestMapping (path = "/addmember")
 		@ResponseBody
-		public void addmember (@RequestParam(name = "anum" ,required = false) Integer anum,HttpServletRequest request) {
+		public String addmember (@RequestParam(name = "anum" ,required = false) Long anum,HttpServletRequest request) {
+			System.out.println("測試");
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
-			addMemberService.insert(addmember);
+			Member m2 = memberService.findByMemberAccount(memberAccount);
+			
+			OfficialActive oa = officialActiveService.select(anum);
+			
+			List<Member> memberactive = oa.getMemberactive();
+			memberactive.add(m2);
+			officialActiveService.update(oa);
+
+			return "officialactivepages/oahomepage";
 			
 		}
 		
 		
-		
-		
-//		@RequestMapping(path= "/memberinf",method = RequestMethod.POST)
-//		@ResponseBody
-//		public List<OaMember> memberinf(Model model, HttpServletRequest  request){
-//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-//			String memberAccount = m1.getMemberAccount();
-//			
-//			List<OaMember> oamemberList = oamService.findByMemberAccount(memberAccount);
-//			model.addAttribute("oamemberList", oamemberList);
-//			
-//			return oamemberList;
-//			
-//		}
-		
+
+
 		
 		
 		
