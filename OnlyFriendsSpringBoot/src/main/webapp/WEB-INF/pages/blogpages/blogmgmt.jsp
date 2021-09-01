@@ -151,15 +151,15 @@ height:50px;
 											style="width: 100%">
 											<thead>
 												<tr>
-													<th>ID</th>
-													<th>Images</th>
-													<th>Title</th>
-													<th>UpdateDate</th>
-													<th>MainText</th>
-													<th>MemberAccount</th>
-													<th>UsersName</th>
-													<th>Edit</th>
-													<th>Delete</th>
+													<th>編號</th>
+													<th>圖片</th>
+													<th>標題</th>
+													<th>最後更新時間</th>
+													<th>內文</th>
+													<th>會員帳號</th>
+													<th>會員名稱</th>
+													<th>刪除</th>
+													<th>審核狀態</th>
 												</tr>
 											</thead>
 											<tfoot>
@@ -171,7 +171,7 @@ height:50px;
 													<th class="d-none">內容</th>
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
-													<th class="d-none">Edit</th>
+													<th class="d-none">審核狀態</th>
 													<th class="d-none">Del</th>
 												</tr>
 											</tfoot>
@@ -301,46 +301,70 @@ height:50px;
 				            "data": null,
 				            render:function(data, type, row)
 				            {
-				              return "<a href='blogusersupdate?usersArticleID="+data.usersArticleID+"'><i class='fas fa-edit edit'></i>";
-				            }
-				        },
-				        {
-				            "data": null,
-				            render:function(data, type, row)
-				            {
 				              return "<i class='far fa-trash-alt deleteUser' id="+data.usersArticleID+"></i>";
 				            }
+				        },
+				        { 
+				        	"data": null,
+				        	render:function(data, type, row)
+				        	{
+				        		return "<p style='color:red;'>"+data.blogAuthority+"</p>"
+				        	}
 				        }
 				    ],
-// 				    columnDefs:[
-// 				    	{
-// 				    		targets: [0],
-// 				    		createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "50px");
-// 				    		},
-// 				    	},
-// 				    	{
-// 				    		targets: [2],
-// 				    		createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "250px");
-// 				    		},
-// 				    	},
-// 				    	{
-// 					    	targets: [3],
-// 					    	createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "100px");
-// 				    		},
-// 					    	render: function(data){
-// 					    		return moment(data).format('YYYY-MM-DD');
-// 					    	},
-// 				    	},
-// 				    	{
-// 				    		targets: [4],
-// 				    		createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "500px");
-// 				    		},
-// 				    	},
-// 				    ]
+				    columnDefs:[
+				    	{
+				    		targets: [0],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "70px");
+				    		},
+				    	},
+				    	{
+				    		targets: [2],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "250px");
+				    		},
+				    	},
+				    	{
+					    	targets: [3],
+					    	createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+					    	render: function(data){
+					    		return moment(data).format('YYYY-MM-DD');
+					    	},
+				    	},
+				    	{
+				    		targets: [4],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "500px");
+				    		},
+				    	},
+				    	{
+				    		targets: [5],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+				    	},
+				    	{
+				    		targets: [6],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+				    	},
+				    	{
+				    		targets: [7],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "70px");
+				    		},
+				    	},
+				    	{
+				    		targets: [8],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+				    	},
+				    ]
 				});
 		
 		// Delete

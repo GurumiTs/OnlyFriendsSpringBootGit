@@ -54,6 +54,9 @@ public class BlogUser implements Serializable {
 	@Column(name = "WatchNum")
 	private Integer watchNum;//觀看數
 	
+	@Column(name = "BlogAuthority")
+	private String blogAuthority;//權限(待審核、審核通過)
+	
 	public Integer getUsersArticleID() {
 		return usersArticleID;
 	}
@@ -132,6 +135,14 @@ public class BlogUser implements Serializable {
 
 	public void setWatchNum(Integer watchNum) {
 		this.watchNum = watchNum;
+	}
+
+	public String getBlogAuthority() {
+		return blogAuthority;
+	}
+
+	public void setBlogAuthority(String blogAuthority) {
+		this.blogAuthority = blogAuthority;
 	}
 
 	
