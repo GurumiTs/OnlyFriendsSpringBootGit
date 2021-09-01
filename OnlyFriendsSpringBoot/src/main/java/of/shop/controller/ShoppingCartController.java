@@ -95,8 +95,8 @@ public class ShoppingCartController {
 			boolean flag = true ;
 			for (CartItem c : sessionlist) {
 				Integer cartfindproid = c.getProduct().getProId();
-				System.out.println("存在的ID"+cartfindproid);
-				System.out.println("新ID"+proId);
+//				System.out.println("存在的ID"+cartfindproid);
+//				System.out.println("新ID"+proId);
 	
 				
 				if (cartfindproid.equals(proId)) {				
@@ -114,6 +114,8 @@ public class ShoppingCartController {
 				sessionlist.add(newcartItem);
 			}
 			model.addAttribute("cartlist", sessionlist);
+			sessionlist.size();
+//			System.out.println(sessionlist.size());
 		}
 		return sessionlist;
 	}
@@ -141,11 +143,21 @@ public class ShoppingCartController {
 			System.out.println(a);
 			if (cartfindproid.equals(cartItem.getProduct().getProId())) {
 //				cartlist.add(c.get(proId).getAmount()+cartItem.getAmount());
-				System.out.println("起床囉兄弟");
+//				System.out.println("起床囉兄弟");
 			}
 		}
 
 		return 1;
+	}
+	
+	@PostMapping(path = "shoppingcartnumber")
+//	@ResponseBody
+	public Integer shoppingcartnumber(Model model,HttpServletRequest request) {
+		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+		Integer shopcartnum=sessionlist.size();
+		System.out.println("哈囉");
+		System.out.println(shopcartnum);
+		return shopcartnum;
 	}
 
 //	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){

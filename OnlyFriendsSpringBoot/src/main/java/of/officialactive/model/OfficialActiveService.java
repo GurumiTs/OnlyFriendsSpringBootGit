@@ -55,4 +55,14 @@ public class OfficialActiveService {
 	
 		return officialActiveRepository.findAll(pageable);
 	}
+
+	public OfficialActive select(Long anum) {
+		Optional<OfficialActive> soa = officialActiveRepository.findByAnum(anum);
+		if (soa.isPresent()) {
+			return soa.get();	
+			}
+		return null;
+	}
+	
+
 }

@@ -2,6 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
+<style>
+.img1 {
+	weight: 320px;
+	height: 250px;
+}
+.text{
+text-align: center;
+}
+</style>
 </head>
 <body>
 <body class="layout-2">
@@ -23,11 +32,6 @@
                    	  <span class="badge badge-primary mb-2">clothes</span>
                       <span class="badge badge-secondary mb-2">lucky stuff</span>
                       <span class="badge badge-success mb-2">Success</span>
-                      <span class="badge badge-danger mb-2">Danger</span>
-                      <span class="badge badge-warning mb-2">Warning</span>
-                      <span class="badge badge-info mb-2">Info</span>
-                      <span class="badge badge-light mb-2">Light</span>
-                      <span class="badge badge-dark mb-2">Dark</span>
                   </div>
                   </div>
                 </div>
@@ -59,7 +63,7 @@
 							          class="
 							            row
 							            gx-4 gx-lg-5
-							            row-cols-2 row-cols-md-3 row-cols-xl-4
+							            row-cols-2 row-cols-md-3 row-cols-xl-3
 							            justify-content-center
 							          "
 							          id="itemarea"
@@ -67,17 +71,17 @@
 							        
 							      </div>
 							</div>
-							<div class="card-footer bg-whitesmoke">
-							<table id="showpage" class="d-flex justify-content-center">
-								<tr>			
-									<td colspan="3" align="right"> <c:forEach var="i"
-											begin="1" end="${totalPages}" step="1">
-											<button class="btn btn-outline-secondary" id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-										</c:forEach>
-									</td>
-								</tr>
-							</table>
-							
+								<div class="card-footer bg-whitesmoke">
+								<table id="showpage" class="d-flex justify-content-center">
+									<tr>
+										<td colspan="3" align="right"><c:forEach var="i"
+												begin="1" end="${totalPages}" step="1">
+												<button class="btn btn-outline-secondary" id="myPage"
+													value="${i}" onclick="change(${i})">${i}</button>
+											</c:forEach></td>
+									</tr>
+								</table>
+
 							</div>
 						</div>
 					</div>
@@ -115,12 +119,12 @@
     	    "<div class='col mb-5'>"+
              "<div class='card h-100'>"+          
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
-               +  "Sale"+
+               +  
               "</div>" +    
-               "<img class='card-img-top' src='"+n.img+"'/>"+     
-               "<div class='card-body p-4'>" +
+               "<img class='img1' src='"+n.img+"'/>"+     
+                   "<h5 class='text'>"+n.active+"</h5>"+
+               "<div  class='text'>"+n.atype2+
                  "<div class='text-center'>" +
-                   "<h5 class='fw-bolder'>"+n.active+"</h5>"+
                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
                      "<div class='bi-star-fill'></div>"+
                      "<div class='bi-star-fill'></div>"+
@@ -128,8 +132,6 @@
                      "<div class='bi-star-fill'></div>"+
                      "<div class='bi-star-fill'></div>"+
                   "</div>"+
-                   "<span class='text-muted text-decoration-line-through'>$20.00</span>" +
-                   "$18.00"+
                 " </div>"+
                "</div>"+
              

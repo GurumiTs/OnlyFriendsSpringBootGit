@@ -125,7 +125,7 @@ public class ShopController {
 		int pageSize = 4;
 		
 		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"幸運小物");
+		Page<Product> page=productService.findByItem(pageable,"幸運小物類");
 		
 		int totalPages =page.getTotalPages();
 		long totalElements =page.getTotalElements();
@@ -161,7 +161,7 @@ public class ShopController {
 		int pageSize = 4;
 		
 		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"其他");
+		Page<Product> page=productService.findByItem(pageable,"其他類");
 		System.out.println(otherItem);
 		int totalPages =page.getTotalPages();
 		long totalElements =page.getTotalElements();
@@ -170,5 +170,16 @@ public class ShopController {
 		model.addAttribute("totalElements",totalElements);
 		
 		return page.getContent();
+	}
+	
+	@GetMapping("/releteproductItem")
+	@ResponseBody
+	public List<Product> releteProductItem(@RequestParam String proName) {
+		List<Product> products = productService.findByitemLike("%小物類");
+		
+		
+		System.out.println(proName);
+		System.out.println(product);
+		return products;
 	}
 }

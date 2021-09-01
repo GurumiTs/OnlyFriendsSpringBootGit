@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
+import of.member.model.Member;
 
 @Controller
-@SessionAttributes(names = {"success", "error"})
+@SessionAttributes(names = {"success", "error", "insertSuccess", "insertError"})
 public class BlogPersonalController {
 
 	@Autowired
@@ -42,12 +45,78 @@ public class BlogPersonalController {
 	
 	@GetMapping(path = "/userblogalltojson")
 	@ResponseBody
-	public Map allBlogToJson(Model m) {
-		List<BlogUser> blogList = bUserService.findAll();
+	public Map allBlogToJson(HttpServletRequest request, Model m) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		System.out.println("memberAccount:" + memberAccount);
+		
+		List<BlogUser> blogList = bUserService.findByMemberAccount(memberAccount);
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", blogList);
 		return map;
 	}
+	
+	// 進新增controller
+		@GetMapping(path = "/blogusersinsert")
+		public String blogUserInsertEntry() {
+			return "bloguserspages/bloguserinsert";
+		}
+		
+		// Insert Controller
+		@PostMapping(path = "/blogusersinsertform")
+		public String blogUserAdd(@RequestParam(name = "usersImages") MultipartFile multipartFile,
+								  @RequestParam(name = "usersName") String usersName,
+								  @RequestParam(name = "usersTitle") String usersTitle, 
+								  @RequestParam(name = "usersMainText") String usersMainText,
+								  HttpServletRequest request, Model m) {
+			try {
+				Timestamp ts = new Timestamp(System.currentTimeMillis());
+				BlogUser blogUser = new BlogUser();
+				blogUser.setUsersCreateTime(ts);
+				blogUser.setUsersUpdateTime(ts);
+				
+				// 透過session抓memberAccount
+				Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+				String memberAccount = m1.getMemberAccount();
+				blogUser.setMemberAccount(memberAccount);
+				blogUser.setUsersName(usersName);
+				blogUser.setUsersMainText(usersMainText);
+				blogUser.setUsersTitle(usersTitle);
+				System.out.println("Insert " + memberAccount + "'s Blog when time:" + ts);
+
+				// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogUsersPic)
+				String fileName = multipartFile.getOriginalFilename();
+				System.out.println("fileName:" + fileName);
+				String saveFilePath;
+				saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
+				System.out.println("saveFilePath:" + saveFilePath);
+				String filePath = saveFilePath + "/" + fileName;
+				File saveFile = new File(filePath);
+				multipartFile.transferTo(saveFile);
+				System.out.println("filePath:" + filePath);
+				
+				String fileName1 = multipartFile.getOriginalFilename();
+				System.out.println("1");
+				String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
+				System.out.println("2");
+				String filePath1 = saveFilePath1 + "/" + fileName;
+				System.out.println("3");
+				File saveFile1 = new File(saveFilePath1);
+				System.out.println("4");
+//				multipartFile.transferTo(saveFile1);
+				System.out.println("存入資料夾成功");
+				blogUser.setUsersImages("images/blogUsersPic/" + fileName);
+				
+				bUserService.insertBlogUser(blogUser);
+				m.addAttribute("insertSuccess", "投稿文章成功，待審核後通知您!");
+				return "redirect:memberblog";
+			} catch (Exception e) {
+				e.printStackTrace();
+				m.addAttribute("insertError", "失敗，請再投稿一次");
+				return "redirect:blogusersinsert";
+			}
+		}
+	
 	
 	// 進Update Controller
 	@GetMapping(path = "/blogusersupdate")
@@ -62,17 +131,16 @@ public class BlogPersonalController {
 	@PostMapping(path = "/blogusersupdateform")
 	public String blogUsersUpdate(@RequestParam(name = "usersArticleID") Integer usersArticleID,
 								  @RequestParam(name = "usersImages") MultipartFile multipartFile,
-								  @RequestParam(name = "memberAccount") String memberAccount, 
 								  @RequestParam(name = "usersName") String usersName,
 								  @RequestParam(name = "usersTitle") String usersTitle, 
 								  @RequestParam(name = "usersMainText") String usersMainText,
 								  @RequestParam(name = "usersCreateTime") Timestamp usersCreateTime,
-								  Model m) {
+								  HttpServletRequest request, Model m) {
 		
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			System.out.println("UpdateTime:" + ts);
-			BlogUser blogUser = new BlogUser();
+			BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
 
 			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
 			String fileName = multipartFile.getOriginalFilename();
@@ -87,6 +155,9 @@ public class BlogPersonalController {
 			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
 			blogUser.setUsersCreateTime(usersCreateTime);
 			blogUser.setUsersArticleID(usersArticleID);
+			
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
 			blogUser.setMemberAccount(memberAccount);
 			blogUser.setUsersName(usersName);
 			blogUser.setUsersTitle(usersTitle);
@@ -116,17 +187,5 @@ public class BlogPersonalController {
 		}
 		return "fail";
 	}
-	
-	// Delete(多選刪除)
-//	@PostMapping(path = "/usersblogdeletesome")
-//	public String deleteBatch(@PathVariable("usersArticleID") String usersArticleID) {
-//		String[] articleIDList = usersArticleID.split(",");
-//		List<Integer> ListString = new ArrayList<Integer>();
-//		for (String str : articleIDList) {
-//			ListString.add(Integer.parseInt(str));
-//		}
-//		bUserService.deleteBatch(ListString);
-//		return "yes";
-//	}
 	
 }

@@ -29,16 +29,24 @@ font-size:1.2rem
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="images\partyPic\優質單身男女.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 400px;">
+							<img src="images\partyPic\blog.jpg" class="d-block w-100"
+								alt="..." style="width: 900px; height: 500px;">
 						</div>
 						<div class="carousel-item">
-							<img src="images\partyPic\五分鐘.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 400px;">
+							<img src="images\partyPic\activity.jpg" class="d-block w-100"
+								alt="..." style="width: 900px; height: 500px;">
 						</div>
 						<div class="carousel-item">
-							<img src="images\partyPic\打到骨折.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 400px;">
+							<img src="images\partyPic\coupon.jpg" class="d-block w-100"
+								alt="..." style="width: 900px; height: 500px;">
+						</div>
+						<div class="carousel-item">
+							<img src="images\partyPic\shop.jpg" class="d-block w-100"
+								alt="..." style="width: 900px; height: 500px;">
+						</div>
+						<div class="carousel-item">
+							<img src="images\partyPic\Love-story.jpg" class="d-block w-100"
+								alt="..." style="width: 900px; height: 500px;">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button"
@@ -94,7 +102,7 @@ font-size:1.2rem
 			    	     var item = 
 			    	    	 "<div class='col-lg-4' id='Grid'>"+
 			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+"<span style='background-color:opacity:0; color:white; position: absolute; right:20px; border-radius:5px;' >👁️‍🗨️"+n.see+"</span>"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+"<span style='background-color:#6C6C6C; color:white; position: absolute; right:20px; border-radius:20px;' >👁️‍🗨️"+n.see+"</span>"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
 			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+

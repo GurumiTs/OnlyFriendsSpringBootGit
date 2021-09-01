@@ -26,4 +26,6 @@ public class OaMemberService {
 	public List<OaMember> findByMemberAccount(String memberAccount) {
 		return oamRepository.findByMemberAccount(memberAccount);
 	}
+	
+	
 }

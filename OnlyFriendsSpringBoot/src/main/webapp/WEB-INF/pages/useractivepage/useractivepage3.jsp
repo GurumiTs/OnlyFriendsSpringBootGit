@@ -25,7 +25,7 @@ font-size:1.2rem
 							<!-- Post header-->
 							<header class="mb-4">
 								<!-- Post title-->
-								<h1 class="fw-bolder mb-1" name="name" value="${party.name}"></h1>
+								<h1 class="fw-bolder mb-1" name="name" value="${userActivity.activityname}"></h1>
 								<!-- Post meta content-->
 
 							</header>
@@ -38,7 +38,7 @@ font-size:1.2rem
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">
-									活動名稱: ${userActivity.activityname} <br /> 活動類型: ${userActivity.type} <br />
+									活動名稱: ${userActivity.activityname} <br /> 審核狀態: ${userActivity.approve} <br />活動類型: ${userActivity.type} <br />
 									活動日期:${userActivity.time} <br /> 報名截止日: ${userActivity.time_up} <br /> <br />
 									活動內容: ${userActivity.detail} <br /> <br /> 活動地點: ${userActivity.county}
 									${userActivity.district} ${userActivity.place} <br />
@@ -46,9 +46,9 @@ font-size:1.2rem
 									女生人數:${userActivity.woman}
 								</p>
 							</section>
-							<button type="button" disabled="disabled" class="btn btn-primary"
+							<a href="userActivity.up.controller?number=${userActivity.number}"><button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
-								已參加此活動</button>
+								修改活動</button></a>
 
 						
 							<!-- Modal -->

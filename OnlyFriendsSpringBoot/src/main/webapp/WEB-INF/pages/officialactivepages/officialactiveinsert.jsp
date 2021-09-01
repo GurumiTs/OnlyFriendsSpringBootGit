@@ -1,110 +1,59 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <!doctype html>
-    <html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- top here -->
+<%@include file="../commonpages/dashboardtop.jsp"%>
+<style>
+</style>
+ </head>
+<body id="page-top">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-        <title>建立活動</title>
-    </head>
-    <style>
-        .jumbotron {
-            background: url(img/野餐.jpg) no-repeat center center / cover;
-        }
-        
-        textarea {
-            resize: none;
-        }
-    </style>
+		<!-- Sidebar -->
+		<%@include file="../commonpages/dashboardsidebar.jsp"%>
 
 
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-    <body>
+			<!-- Main Content -->
+			<div id="content">
 
+				<!-- Topbar -->
+				<%@include file="../commonpages/dashboardheader.jsp"%>
 
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 
-        <div class="container-fluid">
-
-        </div>
-
-        <!-- 版頭 -->
-        <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-
-
-        <!-- 版頭下面 -->
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4" style="color: #FF359A;">OnlyFriends</h1>
-                <p class="lead" style="color: #FF359A;">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            </div>
-        </div>
-
-
-
-
+<!-- ************************** your content*************************** -->		
+		
         <div class="container">
             <form action="empofficialActiveInsert.controller" method="post"  enctype="multipart/form-data">
 
-
-                <div>
-                    <lebel>請輸入管理者編號:<input type="text" name="empAcc" size="20" placeholder="請輸入管理者編號"></lebel>
-
-
-                </div>
-
-                <div>
-                    請輸入管理者姓名:<input type="text" name="aname" size=5>
-                </div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label"></label>
+  <input type="text" class="form-control"  placeholder="請輸入管理者編號" name="empAcc">
+</div>
 
 
-                <div>
-                    <lebel>請輸入活動名稱:<input type="text" name="active" size="20" placeholder="請輸入活動名稱">(15字以內)</lebel>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label"></label>
+  <input type="text" class="form-control"  placeholder="請輸入管理者姓名" name="aname">
+</div>
 
-                </div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label"></label>
+  <input type="text" class="form-control"  placeholder="活動名稱" name="active">
+</div>
+           
                 <div>
                     
-                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">請選擇活動類型(1)</label>
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">請選擇活動類型(1)</label><br>
                         <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="atype">
                       
                       <option value="1">多人團體活動#戶外</option>
@@ -114,35 +63,34 @@
                     </select>
                 </div>
                 <div>
-                    <lebel> 請選擇活動類型2(多選):<br>
-                        <input type="checkbox" name="atype2" value="rom">浪漫
-                        <input type="checkbox" name="atype2" value="view">賞景
-                        <input type="checkbox" name="atype2" value="travl">郊遊
-                        <input type="checkbox" name="atype2" value="heart">談心
-                        <input type="checkbox" name="atype2" value="pair">配對
-                        <input type="checkbox" name="atype2" value="talk">閒聊
+                 <br>
+                 <br>
+                    <lebel> 請選擇活動類型2(多選):<br><br>
+                  
+                        <input type="checkbox" name="atype2" value="浪漫">浪漫
+                        <input type="checkbox" name="atype2" value="賞景">賞景
+                        <input type="checkbox" name="atype2" value="郊遊">郊遊
+                        <input type="checkbox" name="atype2" value="談心">談心
+                        <input type="checkbox" name="atype2" value="配對">配對
+                        <input type="checkbox" name="atype2" value="閒聊">閒聊
                     </lebel>
 
                     <div>
-                        <input type="checkbox" name="atype2" value="adventure">冒險
-                        <input type="checkbox" name="atype2" value="high">High起來
-                        <input type="checkbox" name="atype2" value="photo">攝影
-                        <input type="checkbox" name="atype2" value="sport">運動
-                        <input type="checkbox" name="atype2" value="game">遊戲
-                        <input type="checkbox" name="atype2" value="other">其它
+                        <input type="checkbox" name="atype2" value="冒險">冒險
+                        <input type="checkbox" name="atype2" value="High起來">High起來
+                        <input type="checkbox" name="atype2" value="攝影">攝影
+                        <input type="checkbox" name="atype2" value="運動">運動
+                        <input type="checkbox" name="atype2" value="遊戲">遊戲
+                        <input type="checkbox" name="atype2" value="其它">其它
 
                     </div>
                     <br>
 
                     <div>
 
-                        <input type="text" name="male" size=5> 輸入參加男性人數
+                        <input type="text" name="male" size=20 placeholder="輸入參加男性人數 "> <input type="text" name="female" size=20  placeholder="輸入參加女性人數 "> 
                     </div>
-                    <br>
-                    <div>
-                        <input type="text" name="female" size=5> 輸入參加女性人數
-                    </div>
-
+                  <br>
 
                 </div>
                 <div>
@@ -183,29 +131,36 @@
 
         </form>
         </div>
-        <!-- 頁尾 -->
-        <div class="bottom-0 end-0 container-fluid main-footer text-center">
-            &copy; copyright
-        </div>
+				
+				
+				
+
+
+<!-- **************************end of your content*************************** -->
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<%@include file="../commonpages/dashboardfooter.jsp"%>
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<%@include file="../commonpages/dashboardlogoutmodal.jsp"%>
+	
 
 
 
+	<!-- bottom here -->
+	<%@include file="../commonpages/dashboardbottom.jsp"%>
 
-
-
-        <!-- Optional JavaScript; choose one of the two! -->
-
-        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
-        <!--
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    -->
-    		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
                     
                     <script>
@@ -253,9 +208,8 @@
                        
                        
                        
-                  
 
 
-    </body>
-
-    </html>
+ </body>
+</html>	
+	
