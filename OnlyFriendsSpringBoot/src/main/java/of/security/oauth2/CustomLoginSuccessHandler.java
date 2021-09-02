@@ -72,17 +72,13 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 		String userType = usersService.findByEmail(currentUserName).getUsersRole();
 		if (userType.equals("employee")) {
 			Employee employee = empService.findByEmpEmail(currentUserName);
-			if(employee.getEmpEmailCheck() == 0) {
-				request.getSession().setAttribute("errorMsg","please verify email");
-				SecurityContextHolder.clearContext();
-			}
 			request.getSession().setAttribute("employee", "employee");
 			request.getSession().setAttribute("personalinfo",employee);
 
 		}
 		if (userType.equals("member")) {
+			Member member = memberService.findByMemberAccount(currentUserName);	
 			request.getSession().setAttribute("member", "member");
-			Member member = memberService.findByMemberAccount(currentUserName);
 			request.getSession().setAttribute("personalinfo",member);
 			
 		}

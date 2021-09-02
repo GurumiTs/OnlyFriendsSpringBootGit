@@ -5,14 +5,16 @@ public class ChatMessageModel {
 	private String content;
 	private String sender;
 	private String time;
+	private String sendername;
 	
 	public ChatMessageModel() {
 		
 	}
-	public ChatMessageModel(MessageType type, String content, String sender, String time) {
+	public ChatMessageModel(MessageType type, String content, String sender, String sendername,String time) {
 		this.type = type;
 		this.content = content;
 		this.sender = sender;
+		this.sendername = sendername;
 		this.time = time;
 	}
 	public MessageType getType() {
@@ -26,6 +28,12 @@ public class ChatMessageModel {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}	
+	public String getSendername() {
+		return sendername;
+	}
+	public void setSendername(String sendername) {
+		this.sendername = sendername;
 	}
 	public String getSender() {
 		return sender;

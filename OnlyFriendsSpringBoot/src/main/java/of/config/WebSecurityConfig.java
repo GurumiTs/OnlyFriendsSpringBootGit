@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import of.common.model.AuthUserDetailsService;
+import of.security.oauth2.CustomAuthenticationFailureHandler;
 import of.security.oauth2.CustomLoginFilter;
 import of.security.oauth2.CustomLoginSuccessHandler;
 import of.security.oauth2.CustomOAuth2UserService;
@@ -41,8 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 	@Autowired
 	private CustomLoginSuccessHandler customLoginSuccessHandler;
+
 	@Autowired
 	private DataSource dataSource;
+//	@Autowired
+//	private FilterSecurityInterceptor filterSecurityInterceptor;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -69,9 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.formLogin()
 			.loginPage("/login")
 			.successHandler(customLoginSuccessHandler) 
+			.failureHandler(customAuthenticationFailureHandler())
 			.and()
 			.rememberMe().tokenRepository(persistentTokenRepository())
-			.tokenValiditySeconds(8400)
+			.tokenValiditySeconds(8400)			
 			//.userDetailsService(userDetailsService) //將使用者資訊存入資料庫表格
 		.and()
 		.oauth2Login()
@@ -82,7 +87,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.successHandler(oAuth2LoginSuccessHandler)
 		.and()
 		.logout().permitAll();	
+		 //http.addFilterAt(filterSecurityInterceptor, FilterSecurityInterceptor.class);
 	}
+	
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
 	
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {

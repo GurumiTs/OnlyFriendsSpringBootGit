@@ -175,7 +175,7 @@ public class ShopController {
 	@GetMapping("/releteproductItem")
 	@ResponseBody
 	public List<Product> releteProductItem(@RequestParam String proName) {
-		List<Product> products = productService.findByitemLike("%小物類");
+		List<Product> products = productService.findByitemLike("%小物");
 		
 		
 		System.out.println(proName);

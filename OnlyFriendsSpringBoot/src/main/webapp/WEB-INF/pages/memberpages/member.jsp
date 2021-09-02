@@ -23,7 +23,7 @@ font-size:1.2rem
 			<div class="main-content">
 				<section class="section">
 					<div class="section-header">
-						<h1>Profile</h1>
+						<h1>個人資訊</h1>
 					</div>
 					<div class="section-body">
 						<div class="row mt-sm-4">
@@ -32,12 +32,12 @@ font-size:1.2rem
 								<div class="card">
 									<form id="memberBasicInfo">
 										<div class="card-header">
-											<h4>Edit Profile</h4>
+											<h4>編輯個人資訊</h4>
 										</div>
 										<div class="card-body">
 											<div class="row">
 												<div class="form-group col-md-6 col-12">
-													<label for="email" class="form-label">Email</label> <input
+													<label for="email" class="form-label">信箱</label> <input
 														type="email" class="form-control" name="email" id="email" />
 													<div class="text-danger fst-italic mt-1" id="emailtest"></div>
 												</div>
@@ -98,7 +98,7 @@ font-size:1.2rem
 										<div class="card-footer text-right">
 											<button id="updateBasicInfo" type="button"
 												class="btn btn-primary">
-												Save Changes</button>
+												儲存更新</button>
 										</div>
 									</form>
 								</div>
@@ -273,13 +273,13 @@ font-size:1.2rem
               $("#pictestbad").html("");
               $("#pictestsuccess").html("");
               $("#pictestsuccess").html(
-                "<i class='fas fa-check-circle'></i>  Awesome!"
+                "<i class='fas fa-check-circle'></i>臉部辨識成功!"
               );
             } else {
               $("#pictestbad").html("");
               $("#pictestsuccess").html("");
               $("#pictestbad").html(
-                "<i class='fas fa-times-circle'></i>  Clear face plz!"
+                "<i class='fas fa-times-circle'></i>臉部辨識失敗!"
               );
             }
           })
@@ -438,7 +438,7 @@ font-size:1.2rem
                       console.log("無法送出");
                     },
                   });
-              Swal.fire("Success!", "", "success");
+              Swal.fire("修改成功!", "", "success");
               
             },
             error: function (e) {
@@ -515,7 +515,7 @@ font-size:1.2rem
                 },
               });
 
-              Swal.fire("Success!", "", "success");
+              Swal.fire("修改成功!", "", "success");
             },
             error: function (e) {
               console.log("error");

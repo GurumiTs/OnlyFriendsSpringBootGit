@@ -4,8 +4,9 @@
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
 #shoppingCartTable {
-	font-size: 5px;
+	font-size: 15px;
 }
+
 </style>
 </head>
 
@@ -86,9 +87,11 @@
 
 	<script>
 	$(function () {
-  		shopcartnum();
-  	  findcart();
+	  shopcartnumact();  	  
+	 $('#addtocarticon').on('click',findcart)	
   	  $('#addchart').on('click',loadcart)
+
+
   	  var url = location.href;
   	  
   	  if(url.indexOf('?')!=-1){
@@ -120,29 +123,9 @@
 					}
 				})
 		});
-	//addcharticon
-// 	var cartcount = document.getElementById("cartcount"); //顯示商品總數量的標籤節點物件
-// 	var btns = document.querySelectorAll(".addCart"); //所有的購物車按鈕
-// 	//約定好用名稱為datas的cookie來存放購物車裡的資料資訊 datas裡所存放的就是一個json字串
-// 	var listStr = session.get("cartlist");
-// 	/*判斷一下本地是否有一個購物車（datas），沒有的話，建立一個空的購物車，有的話就直接拿來使用*/
-// 	if(!listStr) { //沒有購物車 datas json
-// 	session.set({
-// 	name: "cartlist",
-// 	value: "[]"
-// 	});
-// 	listStr = cartlist.get("cartlist");
-// 	}
-// 	var listObj = JSON.parse(listStr); //陣列
-// 	/*迴圈遍歷陣列，獲取每一個物件中的pCount值相加總和*/
-// 	var totalCount = 0; //預設為0
-// 	for(var i = 0, len = listObj.length; i < len; i  ) {
-// 	totalCount = listObj[i].amount   totalCount;
-// 	}
-// 	cartcount.innerHTML = totalCount;
 	
 		//addtocart
-	
+			
 			function loadcart () {
 				let proId=$('#proId').text();
 				let amount=$('#amount').val();
@@ -151,28 +134,10 @@
 				url:"cart",
 				dataType: "json",
 				data:{ "proId":proId,"amount":amount},
-				success:function(data){
-// 					 console.log(data);
-					 var json = JSON.stringify(data,null,4);
-		     	     var parsedObjinArray = JSON.parse(json);
-		     	     var cartlistitem = $('#cartlistitem');
-		     	     $('#cartlistitem').empty("");
-		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-		     	     var item = '<tr>'+
-		 				'<td>'+
-		 				'<div class="checkbox">'+
-		 				'<label>'+
-		 				'<input type="checkbox" id="checkbox'+n.proId+'" value="option1">'+
-		 				'</label>'+
-		 				'</div>'+
-		 				'</td>'+
-		 				'<td>'+n.product.proName+'</td>'+
-		 				'<td>'+n.product.proPrice+'</td>'+
-		 				'<td>'+n.amount+'</td>'+
-		 				'<td>'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-		 				'</tr>';
-		 				cartlistitem.append(item);
-		     	    });
+				success:function(data){		     	 
+		     	 	shopcartnumact () 
+		     	 	shopcartfinaltotal()  
+		     	 	findcart()   		     	 	
 				},
 				error:function(){
 					console.log("error");
@@ -182,8 +147,6 @@
 		
 //findcartlist
 			function findcart () {
-				let proId=$('#proId').text();
-				let amount=$('#amount').val();
 			$.ajax({
 				type:"post",
 				url:"getShoppingCars",
@@ -194,27 +157,103 @@
 		     	     var cartlistitem = $('#cartlistitem');
 		     	     $('#cartlistitem').empty("");
 		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-		     	     var item = '<tr>'+
-		 				'<td>'+
+		     	     var item = '<tr id='+n.product.proId+'>'+
+		     	     	'<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
+		 				'<td class="d-none">'+
 		 				'<div class="checkbox">'+
 		 				'<label>'+
-		 				'<input type="checkbox" id="checkbox'+n.proId+'" value="option1">'+
+		 				'<input type="checkbox" id="checkbox'+n.product.proId+'" value="option1" >'+
 		 				'</label>'+
 		 				'</div>'+
 		 				'</td>'+
 		 				'<td class="proname">'+n.product.proName+'</td>'+
 		 				'<td>'+n.product.proPrice+'</td>'+
-		 				'<td>'+n.amount+'</td>'+
+		 				'<td>'+'  <button class="btn btn-sm btn-icon btn-light mx-1 minus"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+
 		 				'<td>'+Math.round(n.product.proPrice*n.amount)+'</td>'+
 		 				'</tr>';
 		 				cartlistitem.append(item);
+		 			if(n.amount == 1){
+		 				$('.minus').prop('disabled',true)
+		 			}	
+		 				
 		     	    });
+		     	 	$(".minus").on("click",minus)	
+		     	 	shopcartfinaltotal()  	
+		     	 	$(".deleteitem").on("click",deleteitem)
+		     	 	$(".plus").on("click",plus)
 				},
 				error:function(){
 					console.log("error");
 				}
 			})
 		}	
+		
+		
+		function minus(){
+			let id = $(this).closest('tr').attr('id')
+			$.ajax({
+				type:"get",
+				url:"minusshopcart",
+				data:{"proId":id},
+				success:function(data){	
+					console.log(data)
+		     	 	shopcartnumact ()  
+		     	 	findcart()	
+	     	 	
+				},
+				error:function(){
+					console.log("error");
+				}
+			})		
+		}
+		
+		function plus(){
+			let id = $(this).closest('tr').attr('id')
+			$.ajax({
+				type:"get",
+				url:"plusshopcart",
+				data:{"proId":id},
+				success:function(data){	
+					console.log(data)
+		     	 	shopcartnumact ()  
+		     	 	findcart()	
+	     	 	
+				},
+				error:function(){
+					console.log("error");
+				}
+			})		
+		}
+		
+		function deleteitem(){
+			let id = $(this).closest('tr').attr('id')
+			console.log(id);
+			$.ajax({
+				type:"get",
+				url:"deleteshopcartitem",
+				data:{"proId":id},
+				success:function(data){	
+					console.log(data)
+		     	 	shopcartnumact ()  
+		     	 	findcart()	   	 	
+				},
+				error:function(){
+					console.log("error");
+				}
+			})		
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				$("#shoppingCartTable").on("click",".minus",function(){
+					let amount=$("#amount").attr("amount",-1);
+				})
 //related item
 	                   $(function () {
 		                	  var url = location.href;
@@ -224,8 +263,7 @@
 				                       var ary2 = ary1[1].split('&');
 				                	   var proId =decodeURI(ary2[0].substr(6));
 				                	   var proName =decodeURI(ary2[1].substr(8));
-				                	   console.log(proName);
-				                	   console.log(proId);
+				                	   
 				                		 
 				                	  }
 				              
@@ -237,7 +275,7 @@
 								     contentType:'application/json',
 								     success(res) {
 								             //    let coupons=res;
-								                console.log(res);
+								               
 								               var json = JSON.stringify(res, null, 3);
          	                                   var parsedObjinArray = JSON.parse(json);
 								              var relatedarea = $('#relatedarea');
@@ -284,41 +322,51 @@
 		                  })
 
 //shoppingcartnumber
-		                  function shopcartnum () {
-	                	    $('#addchart').on('click',shopcartnumact)	
-							$.ajax({
-								type:"post",
-								url:"shoppingcartnumber",
-								success:function(data){
-									console.log(data);
-									var cartcount = $('#cartcount');
-						            $('#cartcount').empty("");
-									var cartnum=data;
-									cartcount.append(cartnum);
-								}
-								,error: function(){
-									console.log(error);
-								}
-							})
-							}
+		                  
 							
 	                   function shopcartnumact () {
 							$.ajax({
 								type:"post",
 								url:"shoppingcartnumber",
 								success:function(data){
-									console.log(data);
+// 									console.log(data);
 									var cartcount = $('#cartcount');
 						            $('#cartcount').empty("");
 									var cartnum=data;
-									cartcount.append(cartnum);
+									cartcount.html(cartnum)
 								}
-								,error: function(){
+								,error: function(error){
 									console.log(error);
 								}
 							})
-							}
+						}
+// 		shoppingcartfinaltotal
+					  function shopcartfinaltotal () {						  
+							$.ajax({
+								type:"get",
+								url:"shopcarttotal",
+								dataType: "json",
+								success:function(data){
+									console.log(data);
+									var json = JSON.stringify(data,null,4);
+						     	    var parsedObjinArray = JSON.parse(json);
+									var finaltotal = $('#finaltotal');
+						            $('#finaltotal').empty("");
+									var finaltotals=data;
+									finaltotal.html(finaltotals)
+//				 					 
+								}
+								,error: function(error){
+									console.log(error);
+								}
+							})
+						}
+						
+		//			
+						
+						
 
+		
 	</script>
 </body>
 </html>

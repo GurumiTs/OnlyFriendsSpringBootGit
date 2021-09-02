@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import of.chat.model.Chat;
 import of.chat.model.ChatService;
 import of.member.model.Member;
 
@@ -32,11 +33,21 @@ public class ChatJsonController {
 		return list;
 	}
 	
-	@PostMapping(path = "/bellhistory/{username}")
+	@PostMapping(path = "/notificationhistory/{username}")
 	@ResponseBody
 	public List<Chat> bellHistoryQuery(HttpServletRequest request,@PathVariable(name = "username") String username) {		
-		List<Chat> list = chatService.findAllChat(username,"official");
+		List<Chat> list = chatService.findNotification(username,"4");
 		return list;
 	}
+	
+	@PostMapping(path = "/invitehistory")
+	@ResponseBody
+	public List<Chat> inviteHistoryQuery(HttpServletRequest request) {		
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String m1account = m1.getMemberAccount();
+		List<Chat> list = chatService.findInvite(m1account,"3");
+		return list;
+	}
+	
 
 }
