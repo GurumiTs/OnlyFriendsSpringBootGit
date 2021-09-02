@@ -76,7 +76,7 @@ font-size:1.2rem
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
    
-    <script >  
+    <script>  
   
     let stompClient;
     let username = $('#getAccount').prop('value');
@@ -92,41 +92,10 @@ font-size:1.2rem
     	$("#inviteicon").on('click', loadinvitemsg)
 		$("#notificationicon").on('click', loadnotifymsg)
 		$("#clearnotification").on('click',clearnotification)
-    	
-    	 setTimeout(function () {
-         createroom()}, 2000);
-    	
-    	
+
     	const socket = new SockJS('/OnlyFriends/chat-example')
 		stompClient = Stomp.over(socket)
 		stompClient.connect({}, onConnected, onError)
-		
-		$.ajax({
-            type: "post",
-            url: "bellhistory/"+username,
-            success: function (data) {      	
-            console.log("username:"+username)
-            $.each(data,function(i,item){ //i為順序 n為單筆物件   
-			var bell = 
-			"<a href='#' class='dropdown-item dropdown-item-unread'>"+
-            "<div class='dropdown-item-icon bg-primary text-white'>"+
-              "<i class='far fa-user'></i>"+
-            "</div>"+
-            "<div class='dropdown-item-desc'>"+
-              item.content+
-              "<div class='time text-primary'>"+item.texttime+"</div>"+
-            "</div>"+
-         	" </a>";
-			$('#bellarea').prepend(bell)            	   
-        	    });
-  
-             },
-             error: function (data) {           			 
-               console.log("載入歷史訊息發生錯誤");
-             },
-           });   
-		
-		
     })
     
     
@@ -191,7 +160,7 @@ font-size:1.2rem
 		$('#chat-content').append(d)
 		scrollbtm()
 		}
-		else if(message.content != null && selectUser != message.sender){
+		if(message.content != null && selectUser != message.sender){
 			var toast = 
 			"<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>"+
 	      	"<div class='toast-header'>"+
@@ -205,21 +174,17 @@ font-size:1.2rem
 	     " </div>"+
 	   " </div>";
 		$("#toastarea").prepend(toast)
-		closetoast()
-		}
+		closetoast()			
+	} //end of if	
+	if(message.content != null && selectUser != message.sender && message.sender != 'official'){
+		addchatnum(message.sender)
+	}
 
 }
 	function scrollbtm(){
    	 $('#chat-content')[0].scrollTop = $('#chat-content')[0].scrollHeight - $('#chat-content')[0].clientHeight;  
 	}
-	
-	function clearalert(){
-	 $("#"+selectUser+"").find('span').html("")
-	 $("#"+selectUser+"").find('span').prop('id',0)
-	}
-	
-    
-     
+
     function loadfriends(){
     	 $.ajax({
              type: "post",
@@ -228,21 +193,25 @@ font-size:1.2rem
               $('#friendsarea').html('')
               $.each(data,function(i,friend){ //i為順序 n為單筆物件
          	     var item =          	    	 
-         	    "<li class='media' id='"+friend.memberAccount+"'>"+
-                 "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.memberPic+"'>"+
+         	    "<li class='media' id='"+friend.friendAccount+"'>"+
+                 "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.friendPic+"'>"+
                  "<div class='media-body'>"+
-                   "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.memberName+"<span class='text-danger' id='0'></span></div>"+              
+                   "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.friendName+"<span class='text-danger'>"+friend.chatnum+"</span></div>"+              
                 " </div>"+
                "</li>";
-              $('#friendsarea').append(item);});
-            
+             
+              $('#friendsarea').append(item)
+               if(friend.chatnum == 0){
+            	  $('.friend-name').find('span').remove()
+              }  ;});
+              $("li").on('click',createroom)
+       
              },
              error: function (data) {           			 
                console.log("load friends無法送出");
              },
            });         	
     }
-    
     function searchfriend(){
     	var friendname = $('#searchfriend').prop('value') 
     	$.ajax({
@@ -253,42 +222,33 @@ font-size:1.2rem
                 	$('#friendsarea').html('')
             		console.log("no data")     
             		$('#friendsarea').append(
-            			$('<p />').html("no result")
-            			
+            			$('<p />').html("no result")          			
             		)
             	}else{
-            	console.log("have data")	
+            	console.log(data)	
             	 $('#friendsarea').html('')
                  $.each(data,function(i,friend){ //i為順序 n為單筆物件
             	     var item =          	    	 
             	    "<li class='media' id='"+friend.memberAccount+"'>"+
                     "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.memberPic+"'>"+
                     "<div class='media-body'>"+
-                    "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.memberName+"<span class='text-danger' id='0'></span></div>"+                          
+                    "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.memberName+"</div>"+                          
                    " </div>"+
                   "</li>";
-                 $('#friendsarea').append(item);}); }         
+                 $('#friendsarea').append(item);}); }     
+            	$("li").on('click',createroom)
             	
-            
             },
             error: function (data) {
-            	loadfriends()
+              loadfriends()
               console.log("搜尋朋友欄位無法送出");
             },
           });    
-    	
-   	 setTimeout(function () {
-         createroom()          	 
-  	}, 2000);
-   		
     }
-   
-
-    function createroom(){
-    	 $("li").on('click',function(){
-    	
-             $("#chatboxarea").remove()		  
-               var chatbox = 
+    function createroom(){  
+    	$(this).find('span').html('')
+         $("#chatboxarea").remove()		  
+              var chatbox = 
            	"<div class='col-6 col-sm-6 col-lg-6' id='chatboxarea'>"+
                 "<div class='card chat-box card-success' id='mychatbox2'>"+
                   "<div class='card-header'>"+
@@ -308,13 +268,11 @@ font-size:1.2rem
            	 $('#row').append(chatbox) 
            	 selectUser = $(this).attr('id')   
            	 selectUserPic = $(this).find('img').attr('src')
-           	 selectUserName = $(this).find('.friend-name').attr('src')
-           	 clearalert()
-           	 //console.log("selectUserPic"+selectUserPic)
-           	 //console.log("selectuser:"+selectUser)
-           	 let chatroomname = $(this).find('div.friend-name').html()
-           	 $('#chatroomname').html(chatroomname)  
-           	 $('#message-controls').on('submit',sendMessage)           
+           	 selectUserName = $(this).find('div .friend-name:first-child').text()
+           	 console.log(selectUserName)
+           	 clearchatnum()
+           	 $('#chatroomname').html(selectUserName)  
+           	 $('#message-controls').on('submit',sendMessage)     
            	 $.ajax({
                 type: "post",
                 url: "chathistory/"+selectUser,
@@ -347,16 +305,11 @@ font-size:1.2rem
             	    
             	    $('#chat-content').append(dbmessage);});
                 	scrollbtm()                	
-                	
-                	
-              
                  },
                  error: function (data) {           			 
                    console.log("載入歷史訊息發生錯誤");
                  },
                });   
-           });
-    	
     }
     
     function loadinvitemsg() {
@@ -397,7 +350,7 @@ font-size:1.2rem
     		success: function(data) {
     			console.log(data)
     			$.each(data, function(i, item) { //i為順序 n為單筆物件   
-    			console.log(item.chattype)
+    			console.log(item.type)
     			if(item.type == 'NOTIFICATION'){
     				var bell =
     					"<a href='#' class='dropdown-item dropdown-item-unread'>" +
@@ -490,6 +443,38 @@ font-size:1.2rem
     	$($(".toast")[0]).remove();
     	})
     }
+    
+    function addchatnum(sender){
+    	console.log("sender11:"+sender)
+    	$.ajax({
+    		type: "post",
+    		url: "addchatnum/"+ sender,
+    		success: function(data) {
+    		loadfriends()
+    		},
+    		error: function(xhr) {
+			console.log("addchatnum error")
+    		},
+    	});
+    }
+    
+    function clearchatnum(){
+    	console.log("clearchatnum")
+    	$.ajax({
+    		type: "post",
+    		url: "clearchatnum/"+ selectUser,
+    		success: function(data) {
+    		loadfriends()
+    		},
+    		error: function(xhr) {
+			console.log("clearchatnum error")
+    		},
+    	});
+    	
+    }
+    
+ 
+
     
    
    </script>

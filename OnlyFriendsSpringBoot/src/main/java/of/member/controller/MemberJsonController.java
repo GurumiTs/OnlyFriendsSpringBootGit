@@ -40,6 +40,7 @@ import of.chat.model.Chat;
 import of.chat.model.ChatMessageModel;
 import of.chat.model.ChatService;
 import of.chat.model.MessageType;
+import of.common.model.FriendshipService;
 import of.common.model.Users;
 import of.common.model.UsersService;
 import of.common.util.BCrypt;
@@ -47,6 +48,7 @@ import of.common.util.GetRandomPwd;
 import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 import of.member.model.Member;
+import of.member.model.MemberChatnum;
 import of.member.model.MemberService;
 
 @Controller
@@ -69,6 +71,8 @@ public class MemberJsonController {
 	private ChatService chatService;
 	@Autowired
 	private JavaMailSender sender;
+	@Autowired
+	private FriendshipService friendshipService;
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
@@ -306,12 +310,22 @@ public class MemberJsonController {
 
 	@PostMapping(path = "/memberfriendsquery")
 	@ResponseBody
-	public List<Member> memberFriendsQuery(HttpServletRequest request) {
+	public List<MemberChatnum>  memberFriendsQuery(HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		List<Member> friends = usersService.findByEmail(memberAccount).getFriends();
+		List<MemberChatnum> friendlist = new ArrayList<>();
+		for(Member m : friends) {
+			Integer chatnum = friendshipService.chatnum(memberAccount,m.getMemberAccount());
+			MemberChatnum mcn = new MemberChatnum();
+			mcn.setFriendAccount(m.getMemberAccount());
+			mcn.setFriendName(m.getMemberName());
+			mcn.setFriendPic(m.getMemberPic());
+			mcn.setChatnum(chatnum);
+			friendlist.add(mcn);
+		}
 
-		return friends;
+		return friendlist ;
 	}
 
 	@PostMapping(path = "/memberfriendssearch/{friendname}")

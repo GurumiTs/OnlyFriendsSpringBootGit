@@ -48,6 +48,9 @@ const onMessageReceived = (payload) => {
 	$("#toastarea").prepend(toast)
 	closetoast()
 	}
+	if(message.content != null && selectUser != message.sender && message.sender != 'official'){
+		addchatnum(message.sender)
+	}
 }
 
 
@@ -180,4 +183,18 @@ function closetoast(){
 	$($(".toast")[0]).remove();
 	})
 }
+
+  function addchatnum(sender){
+    	console.log("sender11:"+sender)
+    	$.ajax({
+    		type: "post",
+    		url: "addchatnum/"+ sender,
+    		success: function(data) {
+    		loadfriends()
+    		},
+    		error: function(xhr) {
+			console.log("addchatnum error")
+    		},
+    	});
+    }
 

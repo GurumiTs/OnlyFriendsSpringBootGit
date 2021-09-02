@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import of.chat.model.Chat;
 import of.chat.model.ChatService;
+import of.common.model.FriendshipService;
 import of.member.model.Member;
 
 @Controller
@@ -22,6 +23,8 @@ public class ChatJsonController {
 	private Chat chat;
 	@Autowired
 	private ChatService chatService;
+	@Autowired
+	private FriendshipService friendshipService;
 	
 	@PostMapping(path = "/chathistory/{to}")
 	@ResponseBody
@@ -49,5 +52,26 @@ public class ChatJsonController {
 		return list;
 	}
 	
+	@PostMapping(path = "/addchatnum/{selectUser}")
+	@ResponseBody
+	public String chatnum(HttpServletRequest request,@PathVariable(name = "selectUser") String selectUser) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String m1account = m1.getMemberAccount();
+		Integer chatnum = friendshipService.chatnum(m1account, selectUser);	
+		Integer addc = chatnum+1;
+		friendshipService.updatechatnum(addc,m1account, selectUser);
+		return "y";
+	}
+	
+	@PostMapping(path = "/clearchatnum/{selectUser}")
+	@ResponseBody
+	public String clearchatnum(HttpServletRequest request,@PathVariable(name = "selectUser") String selectUser) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String m1account = m1.getMemberAccount();
+		friendshipService.updatechatnum(0,m1account, selectUser);
+		
+		return "y" ;
+	}
+
 
 }
