@@ -55,14 +55,21 @@ public class OfficialActiveService {
 	
 		return officialActiveRepository.findAll(pageable);
 	}
-
+	//選擇單筆活動
 	public OfficialActive select(Long anum) {
 		Optional<OfficialActive> soa = officialActiveRepository.findByAnum(anum);
+		System.out.println("if前面");
 		if (soa.isPresent()) {
+			System.out.println("if裡面");
 			return soa.get();	
 			}
 		return null;
 	}
 	
+
+	public  void  updateMember(OfficialActive officialActive) {
+	
+		 officialActiveRepository.save(officialActive);
+	}
 
 }
