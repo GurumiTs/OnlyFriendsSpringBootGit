@@ -5,46 +5,18 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-}
-
-.img1 {
-	weight: 150px;
-	height: 150px;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
-}
-
-.edit a:hover {
-	font-size: 130%;
-}
-
-.delete a:hover {
-	font-size: 130%;
-}
-
-.delete {
-	cursor: pointer;
-}
-
-.insert a img:hover {
-	width: 50px;
-	height: 50px;
-	display: block;
-}
 
 body {
 	font-size: 1.2rem
 }
+
+.img1{
+ width:250px;
+ hight:200px;
+ }
+ delete:hove{
+transform: scale(1.2)
+ }
 </style>
 </head>
 <body id="page-top">
@@ -85,13 +57,13 @@ body {
 											<th>Member</th>
 											<th>name</th>
 											<th>Type</th>
-											<th>Time</th>
-											<th>Deadline</th>
+											<th>Time　　　</th>
+											<th>Deadline　　　</th>
 											<th>County</th>
 											<th>District</th>
-											<th>Place</th>
-											<th>detai</th>
-											<th>Condition</th>
+											<th>Place　　　</th>
+											<th>detail　　　　　　　　　　　　</th>
+											<th>Condition　　　</th>
 											<th>Man</th>
 											<th>Woman</th>
 											<th>Total</th>
@@ -168,7 +140,7 @@ body {
 		            render:function(data, type, row)
 		            {
 		              return "<img src="+data.cover+" class='img1'>";
-		            },		  
+		            }		  
 		        },
 				{"data":"number"},
 				{"data":"memberAccount"},
@@ -191,13 +163,13 @@ body {
 		            {
 		            	
 		            if(data.approve == 'true'){
-		            	 return "<div class='form-check form-switch'style='position: relative; right: -40px;'>"+
+		            	 return "<div class='form-check form-switch'style='position: relative;'>"+
 						"<input class='form-check-input approve' type='checkbox' id='"+data.number+"' checked>"+
 						"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
 						"</label></div>";
 		            }
 		            else{
-		            	 return "<div class='form-check form-switch'style='position: relative; right: -40px;'>"+
+		            	 return "<div class='form-check form-switch'style='position: relative;'>"+
 							"<input class='form-check-input approve' type='checkbox' id='"+data.number+"' >"+
 							"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
 							"</label></div>";		            	
@@ -205,16 +177,24 @@ body {
 		            	
 		             
 		            },
-		            "targets": -1
+		           
 		        },
 				{
 			            "data": null,
 			            render:function(data, type, row)
 			            {
 			              return "<i class='far fa-trash-alt delete' id="+data.number+"></i>";
-			            },
-			            "targets": -1
-			   }
+			            }
+			   },
+			],
+			"columnDefs":[
+				{
+		    		targets: [16],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "450px");
+		    		},
+		    		className: 'text-center'
+				},
 			]
 		});
 		

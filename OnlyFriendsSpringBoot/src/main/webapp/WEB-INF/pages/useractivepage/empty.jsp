@@ -26,7 +26,7 @@ font-size:1.2rem
 						<div class="st1">
 							<div class="">
 								<img id="output" src="images\partyPic\party1.jpg" alt=""
-									style="width:700px;height:500px; border-radius:10px; margin:10px"><br>
+									style="width:620px;height:500px; border-radius:10px; margin:10px"><br>
 
 							</div>
 							<div>

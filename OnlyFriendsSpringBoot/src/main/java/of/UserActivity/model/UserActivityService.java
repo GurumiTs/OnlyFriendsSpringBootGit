@@ -44,8 +44,8 @@ public class UserActivityService {
 	}
 
 	// user 查詢僅開放活動
-	public List<UserActivity> apporve() {
-		return userActivityRepositor.findByapprove();
+	public List<UserActivity> findapporve(String appprove) {
+		return userActivityRepositor.findByapprove(appprove);
 	}
 
 	// 查詢個人創辦活動

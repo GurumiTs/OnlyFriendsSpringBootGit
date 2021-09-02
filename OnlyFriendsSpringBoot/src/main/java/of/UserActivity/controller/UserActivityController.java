@@ -102,7 +102,11 @@ public class UserActivityController {
 	@RequestMapping(path = "/useractivityjson", method = RequestMethod.POST)
 	@ResponseBody
 	public List<UserActivity> userpartymgmtjson(Model m) {
-		List<UserActivity> useractivityList = userActivityService.selectAll();
+		List<UserActivity> useractivityList = userActivityService.findapporve("true");
+		for(UserActivity us:useractivityList) {
+			
+			System.out.println(us);
+		}
 		m.addAttribute("useractivityList", useractivityList);
 
 		return useractivityList;

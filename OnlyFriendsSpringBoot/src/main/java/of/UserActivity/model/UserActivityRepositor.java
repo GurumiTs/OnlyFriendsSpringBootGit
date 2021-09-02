@@ -10,8 +10,8 @@ public interface UserActivityRepositor extends JpaRepository<UserActivity, Integ
 	public Optional<UserActivity> findByNumber(Integer number);
 	
 	//會員查詢已開放活動
-	@Query(value = "SELECT * FROM UserActivity u WHERE u.approve = true", nativeQuery = true)
-	public List<UserActivity> findByapprove();
+	@Query(value = "SELECT * FROM UserActivity u WHERE u.approve = ?1", nativeQuery = true)
+	public List<UserActivity> findByapprove(String approve);
 
 	// 查詢個人創辦活動
 	@Query(value = "SELECT * FROM UserActivity u WHERE u.memberAccount = ?1", nativeQuery = true)
