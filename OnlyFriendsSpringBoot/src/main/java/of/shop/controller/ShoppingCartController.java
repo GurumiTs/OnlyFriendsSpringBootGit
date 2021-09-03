@@ -1,31 +1,16 @@
 package of.shop.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import javax.mail.Flags.Flag;
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.jsoup.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.security.core.authority.mapping.MapBasedAttributes2GrantedAuthoritiesMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,15 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
-import com.google.gson.JsonArray;
-import com.nimbusds.jose.shaded.json.JSONArray;
-
 import of.member.model.MemberService;
 import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
-import of.shop.model.CartResponse;
 
 @Controller
 @SessionAttributes(names = { "cartlist" })
@@ -66,11 +46,11 @@ public class ShoppingCartController {
 	public List<CartItem> InsertItemToCart(@RequestParam(name = "proId") Integer proId,
 			@RequestParam(name = "amount") Integer amount, Model model, HttpSession session,
 			HttpServletRequest request) {
-		System.out.println("step1");
+//		System.out.println("step1");
 		List<CartItem> sessionlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
-		System.out.println("1");
+//		System.out.println("1");
 		Product product = productService.findById(proId);
-		System.out.println("2");
+//		System.out.println("2");
 //		System.out.println(sessionlist.size());
 		Boolean sessionexistornot = CollectionUtils.isEmpty(sessionlist);
 		if (sessionexistornot) {
@@ -133,14 +113,14 @@ public class ShoppingCartController {
 			HttpServletRequest request) {
 		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
 
-		System.out.println(request.getAttributeNames());
+//		System.out.println(request.getAttributeNames());
 
 		for (CartItem c : cartlist) {
 			Integer cartfindproid = c.getProduct().getProId();
 
 			CartItem cartItem = new CartItem();
 			Integer a = c.getAmount() + cartItem.getAmount();
-			System.out.println(a);
+//			System.out.println(a);
 			if (cartfindproid.equals(cartItem.getProduct().getProId())) {
 //				cartlist.add(c.get(proId).getAmount()+cartItem.getAmount());
 //				System.out.println("起床囉兄弟");
@@ -150,19 +130,107 @@ public class ShoppingCartController {
 		return 1;
 	}
 	
-	@PostMapping(path = "shoppingcartnumber")
-//	@ResponseBody
-	public Integer shoppingcartnumber(Model model,HttpServletRequest request) {
+	@PostMapping(path = "/shoppingcartnumber")
+	@ResponseBody
+	public String shoppingcartnumber(Model model,HttpServletRequest request) {
 		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
 		Integer shopcartnum=sessionlist.size();
-		System.out.println("哈囉");
-		System.out.println(shopcartnum);
-		return shopcartnum;
+		String numberString = String.valueOf(shopcartnum);
+//		System.out.println("哈囉");
+//		System.out.println(shopcartnum);
+		return numberString;
+	}
+	
+	@GetMapping(path = "/shopcarttotal")
+	@ResponseBody
+	public Integer shoppingcarttotal(Model model,HttpServletRequest request) {
+		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+		Integer finaltotal=0;
+		for (CartItem c : sessionlist) {
+			finaltotal+=c.getProduct().getProPrice()*c.getAmount();
+		}
+		System.out.println(finaltotal);
+		return finaltotal;
 	}
 
-//	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
-//		productService.deleteById(proId);
-//		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartListMap");
-//		return cartlist ;
-//	}
+	@GetMapping(path = "/shoppingnumber")
+	@ResponseBody
+	public List<Integer> shoppingnumber(Model model,HttpServletRequest request) {
+		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+		List<Integer> amoumtList = new ArrayList<Integer>();
+		for(CartItem cartItem:sessionlist) {
+			amoumtList.add(cartItem.getAmount());
+		}
+		return amoumtList;
+	}
+	
+	@GetMapping(path = "/minusshopcart")
+	@ResponseBody
+	public List<CartItem> minusshopcart(Model model,HttpServletRequest request,@RequestParam("proId") Integer proId) {
+		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+		System.out.println(proId);
+		for(CartItem cartItem:sessionlist) {
+			System.out.println("in for loop");
+			System.out.println(cartItem.getProduct().getProId());
+//			System.out.println(cartItem.getProduct().getProId().equals(proId));
+			if(cartItem.getProduct().getProId()== proId) {
+				
+				if(cartItem.getAmount()<=1) {	
+					break;
+				}else {
+					Integer minusitemnum = cartItem.getAmount() - 1;
+					cartItem.setAmount(minusitemnum);				
+				}
+			}
+		}
+		model.addAttribute("sessionlist",sessionlist);
+		return sessionlist;
+	}
+	
+	@GetMapping(path = "/deleteshopcartitem")
+	@ResponseBody
+	public List<CartItem> Deleteshopcartitem(Model model,HttpServletRequest request,@RequestParam("proId") Integer proId) {
+		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+		System.out.println(proId);
+		for(CartItem cartItem:sessionlist) {
+			System.out.println("in for loop");
+			System.out.println(cartItem.getProduct().getProId());
+//			System.out.println(cartItem.getProduct().getProId().equals(proId));
+			if(cartItem.getProduct().getProId()== proId) {
+				sessionlist.remove(cartItem);
+				break;
+			}
+		}
+		model.addAttribute("sessionlist",sessionlist);
+		return sessionlist;
+	}
+	
+	
+	
+	
+	@GetMapping(path = "/plusshopcart")
+	@ResponseBody
+	public List<CartItem> plusshopcart(Model model,HttpServletRequest request,@RequestParam("proId") Integer proId) {
+		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+		System.out.println(proId);
+		for(CartItem cartItem:sessionlist) {
+			System.out.println("in for loop");
+			System.out.println(cartItem.getProduct().getProId());
+//			System.out.println(cartItem.getProduct().getProId().equals(proId));
+			if(cartItem.getProduct().getProId()== proId) {
+				
+					Integer minusitemnum = cartItem.getAmount() + 1;
+					cartItem.setAmount(minusitemnum);				
+			}
+		}
+		model.addAttribute("sessionlist",sessionlist);
+		return sessionlist;
+	}
+	
+	
+	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
+		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
+		cartlist.remove(productService.findById(proId));
+		return cartlist ;
+	}
 }
