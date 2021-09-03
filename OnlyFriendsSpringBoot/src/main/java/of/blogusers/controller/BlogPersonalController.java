@@ -43,6 +43,7 @@ public class BlogPersonalController {
 		return "bloguserspages/memberblog" ;
 	}
 	
+	// 個人頁面透過memberAccount查詢發布文章
 	@GetMapping(path = "/userblogalltojson")
 	@ResponseBody
 	public Map allBlogToJson(HttpServletRequest request, Model m) {
@@ -57,65 +58,64 @@ public class BlogPersonalController {
 	}
 	
 	// 進新增controller
-		@GetMapping(path = "/blogusersinsert")
-		public String blogUserInsertEntry() {
-			return "bloguserspages/bloguserinsert";
-		}
-		
-		// Insert Controller
-		@PostMapping(path = "/blogusersinsertform")
-		public String blogUserAdd(@RequestParam(name = "usersImages") MultipartFile multipartFile,
-								  @RequestParam(name = "usersName") String usersName,
-								  @RequestParam(name = "usersTitle") String usersTitle, 
-								  @RequestParam(name = "usersMainText") String usersMainText,
-								  HttpServletRequest request, Model m) {
-			try {
-				Timestamp ts = new Timestamp(System.currentTimeMillis());
-				BlogUser blogUser = new BlogUser();
-				blogUser.setUsersCreateTime(ts);
-				blogUser.setUsersUpdateTime(ts);
-				
-				// 透過session抓memberAccount
-				Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-				String memberAccount = m1.getMemberAccount();
-				blogUser.setMemberAccount(memberAccount);
-				blogUser.setUsersName(usersName);
-				blogUser.setUsersMainText(usersMainText);
-				blogUser.setUsersTitle(usersTitle);
-				System.out.println("Insert " + memberAccount + "'s Blog when time:" + ts);
+	@GetMapping(path = "/blogusersinsert")
+	public String blogUserInsertEntry() {
+		return "bloguserspages/bloguserinsert";
+	}
 
-				// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogUsersPic)
-				String fileName = multipartFile.getOriginalFilename();
-				System.out.println("fileName:" + fileName);
-				String saveFilePath;
-				saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
-				System.out.println("saveFilePath:" + saveFilePath);
-				String filePath = saveFilePath + "/" + fileName;
-				File saveFile = new File(filePath);
-				multipartFile.transferTo(saveFile);
-				System.out.println("filePath:" + filePath);
+	// Insert Controller
+	@PostMapping(path = "/blogusersinsertform")
+	public String blogUserAdd(@RequestParam(name = "usersImages") MultipartFile multipartFile,
+							  @RequestParam(name = "usersName") String usersName,
+							  @RequestParam(name = "usersTitle") String usersTitle, 
+							  @RequestParam(name = "usersMainText") String usersMainText,
+							  HttpServletRequest request, Model m) {
+		try {
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			BlogUser blogUser = new BlogUser();
+			blogUser.setUsersCreateTime(ts);
+			blogUser.setUsersUpdateTime(ts);
+			
+			// 透過session抓memberAccount
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
+			blogUser.setMemberAccount(memberAccount);
+			blogUser.setUsersName(usersName);
+			blogUser.setUsersMainText(usersMainText);
+			blogUser.setUsersTitle(usersTitle);
+			System.out.println("Insert " + memberAccount + "'s Blog when time:" + ts);
+
+			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogUsersPic)
+			String fileName = multipartFile.getOriginalFilename();
+			System.out.println("fileName:" + fileName);
+			String saveFilePath;
+			saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
+			System.out.println("saveFilePath:" + saveFilePath);
+			String filePath = saveFilePath + "/" + fileName;
+			File saveFile = new File(filePath);
+			multipartFile.transferTo(saveFile);
+			System.out.println("filePath:" + filePath);
 				
-				String fileName1 = multipartFile.getOriginalFilename();
-				System.out.println("1");
-				String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
-				System.out.println("2");
-				String filePath1 = saveFilePath1 + "/" + fileName;
-				System.out.println("3");
-				File saveFile1 = new File(saveFilePath1);
-				System.out.println("4");
-//				multipartFile.transferTo(saveFile1);
-				System.out.println("存入資料夾成功");
-				blogUser.setUsersImages("images/blogUsersPic/" + fileName);
+			String fileName1 = multipartFile.getOriginalFilename();
+			System.out.println("1");
+			String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
+			System.out.println("2");
+			String filePath1 = saveFilePath1 + "/" + fileName;
+			System.out.println("3");
+			File saveFile1 = new File(saveFilePath1);
+			System.out.println("4");
+			System.out.println("存入資料夾成功");
+			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
 				
-				bUserService.insertBlogUser(blogUser);
-				m.addAttribute("insertSuccess", "投稿文章成功，待審核後通知您!");
-				return "redirect:memberblog";
-			} catch (Exception e) {
-				e.printStackTrace();
-				m.addAttribute("insertError", "失敗，請再投稿一次");
-				return "redirect:blogusersinsert";
-			}
+			bUserService.insertBlogUser(blogUser);
+			m.addAttribute("insertSuccess", "投稿文章成功，待審核後通知您!");
+			return "redirect:memberblog";
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.addAttribute("insertError", "失敗，請再投稿一次");
+			return "redirect:blogusersinsert";
 		}
+	}
 	
 	
 	// 進Update Controller
