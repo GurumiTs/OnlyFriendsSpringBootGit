@@ -72,6 +72,7 @@ font-size:1.2rem
                     <p class="section-lead">All items here cannot be deleted.</p>
                     <div class="table-responsive">
                       <table class="table table-striped table-hover table-md">
+                        
                         <tr>
                           <th data-width="40">#</th>
                           <th>Item</th>
@@ -79,27 +80,21 @@ font-size:1.2rem
                           <th class="text-center">Quantity</th>
                           <th class="text-right">Totals</th>
                         </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>Mouse Wireless</td>
-                          <td class="text-center">$10.99</td>
-                          <td class="text-center">1</td>
-                          <td class="text-right">$10.99</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Keyboard Wireless</td>
-                          <td class="text-center">$20.00</td>
-                          <td class="text-center">3</td>
-                          <td class="text-right">$60.00</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Headphone Blitz TDR-3000</td>
-                          <td class="text-center">$600.00</td>
-                          <td class="text-center">1</td>
-                          <td class="text-right">$600.00</td>
-                        </tr>
+                       	<tbody  id="orderlist"></tbody>
+<!--                         <tr> -->
+<!--                           <td>2</td> -->
+<!--                           <td>Keyboard Wireless</td> -->
+<!--                           <td class="text-center">$20.00</td> -->
+<!--                           <td class="text-center">3</td> -->
+<!--                           <td class="text-right">$60.00</td> -->
+<!--                         </tr> -->
+<!--                         <tr> -->
+<!--                           <td>3</td> -->
+<!--                           <td>Headphone Blitz TDR-3000</td> -->
+<!--                           <td class="text-center">$600.00</td> -->
+<!--                           <td class="text-center">1</td> -->
+<!--                           <td class="text-right">$600.00</td> -->
+<!--                         </tr> -->
                       </table>
                     </div>
                     <div class="row mt-4">
@@ -113,7 +108,7 @@ font-size:1.2rem
                           <div class="bg-paypal" data-width="61" data-height="38"></div>
                         </div>
                       </div>
-                      <div class="col-lg-4 text-right">
+                      <div class="col-lg-4 text-right" >
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">Subtotal</div>
                           <div class="invoice-detail-value">$670.99</div>
@@ -162,7 +157,107 @@ font-size:1.2rem
     
     
     <script >  
-   
+    $(function(){
+    	findcart()
+    	$(".minus").on("click",minus)	
+	    shopcartfinaltotal()  	
+	    $(".deleteitem").on("click",deleteitem)
+	    $(".plus").on("click",plus)
+    })
+    
+    //showshopcartlist
+    function findcart () {
+		$.ajax({
+			type:"post",
+			url:"getShoppingCars",
+			success:function(data){
+				 console.log(data);
+				 var json = JSON.stringify(data,null,4);
+	     	     var parsedObjinArray = JSON.parse(json);
+	     	     var orderlist = $('#orderlist');
+	     	     $('#orderlist').empty("");
+	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+	     	     var item =  '<tr id='+n.product.proId+'>'+
+	     	    '<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
+                 '<td>'+n.product.proName+'</td>'+
+                 '<td class="text-center">'+n.product.proPrice+'</td>'+
+                 '<td class="text-center">'+'<button class="btn btn-sm btn-icon btn-light mx-1 minus"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+
+                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+               	 '</tr>';
+	 				orderlist.append(item);
+	 			if(n.amount == 1){
+	 				$('.minus').prop('disabled',true)
+	 			}	
+	 				
+	     	    });
+	     	 	$(".minus").on("click",minus)	
+	     	 	shopcartfinaltotal()  	
+	     	 	$(".deleteitem").on("click",deleteitem)
+	     	 	$(".plus").on("click",plus)
+			},
+			error:function(error){
+				console.log("error");
+			}
+		})
+	}	
+    
+    //minus
+    function minus(){
+		let id = $(this).closest('tr').attr('id')
+		$.ajax({
+			type:"get",
+			url:"minusshopcart",
+			data:{"proId":id},
+			success:function(data){	
+				console.log(data)
+	     	 	shopcartnumact ()  
+	     	 	findcart()	
+     	 	
+			},
+			error:function(){
+				console.log("error");
+			}
+		})		
+	}
+	
+    //plus
+	function plus(){
+		let id = $(this).closest('tr').attr('id')
+		$.ajax({
+			type:"get",
+			url:"plusshopcart",
+			data:{"proId":id},
+			success:function(data){	
+				console.log(data)
+	     	 	shopcartnumact ()  
+	     	 	findcart()	
+     	 	
+			},
+			error:function(){
+				console.log("error");
+			}
+		})		
+	}
+	
+    //delete shopcartitem
+	function deleteitem(){
+		let id = $(this).closest('tr').attr('id')
+		console.log(id);
+		$.ajax({
+			type:"get",
+			url:"deleteshopcartitem",
+			data:{"proId":id},
+			success:function(data){	
+				console.log(data)
+	     	 	shopcartnumact ()  
+	     	 	findcart()	   	 	
+			},
+			error:function(){
+				console.log("error");
+			}
+		})		
+	}
+    
    
     </script>
   </body>
