@@ -29,6 +29,12 @@ public class FirstMessageService {
 		fMesRepository.deleteById(messageID);
 	}
 	
+	// 透過文章id查詢
+	public List<FirstMessage> findByUsersArticleID(Integer usersArticleID){
+		List<FirstMessage> fMesList = fMesRepository.findByUsersArticleID(usersArticleID);
+		return fMesList;
+	}
+	
 	// 查詢留言id
 	public FirstMessage findByMessagesID(Integer messageID){
 		Optional<FirstMessage> fOptional = fMesRepository.findById(messageID);

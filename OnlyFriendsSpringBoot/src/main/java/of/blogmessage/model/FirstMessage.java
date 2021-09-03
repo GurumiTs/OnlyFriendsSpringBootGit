@@ -31,6 +31,9 @@ public class FirstMessage implements Serializable {
 	@Column(name = "MemberName")
 	private String memberName;
 	
+	@Column(name="MemberPic")
+	private String memberPic;
+	
 	@Column(name = "MessageTime")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp messageTime;// 更新日期
@@ -63,6 +66,14 @@ public class FirstMessage implements Serializable {
 
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
+	}
+
+	public String getMemberPic() {
+		return memberPic;
+	}
+
+	public void setMemberPic(String memberPic) {
+		this.memberPic = memberPic;
 	}
 
 	public Timestamp getMessageTime() {

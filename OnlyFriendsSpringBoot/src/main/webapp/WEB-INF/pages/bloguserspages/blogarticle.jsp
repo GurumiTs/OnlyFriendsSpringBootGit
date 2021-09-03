@@ -13,6 +13,10 @@ weight: 900px;
 height: 400px;
 margin: 0 auto;
 }
+
+.divSpace{
+weight: 15px;
+}
 </style>
 </head>
 <body>
@@ -60,9 +64,11 @@ margin: 0 auto;
                             <div class="card-body">
                                 <!-- Comment form-->
 
-									<form class="d-flex mb-4" onSubmit="return false">
+									<form action="addMessage" class="d-flex mb-4" onSubmit="return false">
 											<img class="rounded-circle" src='${personalinfo.memberPic}'
 												style="weight: 50px; height: 50px; float: left;" />
+											&nbsp;
+											&nbsp;
 											<input id="messageText" name="messageText" type="text"
 												class="form-control" placeholder="請留言"> 
 											<input type="hidden" id="messagebutton" value="送出">
@@ -124,8 +130,8 @@ margin: 0 auto;
 	$(function(){
 		$("#messageText").keypress(function(e) {
 	        if (event.keyCode == 13){
-// 	            $('#messagebutton').click();
-	            console.log("textarea");
+	            $('#messagebutton').click();
+	            console.log("送出留言成功");
 	        }
 	        
 		});
