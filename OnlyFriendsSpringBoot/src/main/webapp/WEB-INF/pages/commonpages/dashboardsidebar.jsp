@@ -23,7 +23,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="employee">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
+            <span>後台管理</span></a
           >
         </li>
 
@@ -44,7 +44,7 @@
             aria-controls="collapseEmployee"
           >
              <i class="fas fa-users-cog"></i>
-            <span>Employee</span>
+            <span>使用者管理</span>
           </a>
           <div
             id="collapseEmployee"
@@ -53,10 +53,10 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="employeemgmt.controller">Employee Mgmt</a>
-              <a class="collapse-item" href="empsignup">Signup Employee</a>
-              <a class="collapse-item" href="chatroom.controller">Chat Room</a>
-              <a class="collapse-item" href="empmgmtmem">Member Mgmt</a>
+              <a class="collapse-item" href="employeemgmt.controller">員工管理</a>
+              <a class="collapse-item" href="empsignup">新增員工</a>
+              <a class="collapse-item" href="empmgmtmem">會員管理</a>
+              <a class="collapse-item" href="customerservice.controller" target="_blank">線上客服</a>
             </div>
           </div>
         </li>
@@ -72,7 +72,7 @@
             aria-controls="collapseOA"
           >
             <i class="fas fa-gamepad"></i>
-            <span>Official Active</span>
+            <span>官方活動</span>
           </a>
           <div
             id="collapseOA"
@@ -81,7 +81,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="empofficialactivemgmt.controller">Official Active</a>
+              <a class="collapse-item" href="empofficialactivemgmt.controller">活動管理</a>
             </div>
           </div>
         </li>
@@ -97,7 +97,7 @@
             aria-controls="collapseMA"
           >
             <i class="fas fa-gamepad"></i>
-            <span>Member Active</span>
+            <span>會員活動</span>
           </a>
           <div
             id="collapseMA"
@@ -106,7 +106,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="emppActivity.Entry">Member Active</a>
+              <a class="collapse-item" href="emppActivity.Entry">活動管理</a>
             </div>
           </div>
         </li>
@@ -122,7 +122,7 @@
             aria-controls="collapseBlog"
           >
              <i class="fab fa-blogger"></i>
-            <span>Blog</span>
+            <span>討論版</span>
           </a>
           <div
             id="collapseBlog"
@@ -131,7 +131,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="empblogmgmt.controller">Blogmgmt</a>
+              <a class="collapse-item" href="empblogmgmt.controller">文章管理</a>
             </div>
           </div>
         </li>
@@ -147,7 +147,7 @@
             aria-controls="collapseProduct"
           >
             <i class="fas fa-store"></i>
-            <span>Product</span>
+            <span>商城</span>
           </a>
           <div
             id="collapseProduct"
@@ -156,7 +156,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="empproductPage.controller">Product</a>
+              <a class="collapse-item" href="empproductPage.controller">商品管理</a>
             </div>
           </div>
         </li>
@@ -172,7 +172,7 @@
             aria-controls="collapseCoupon"
           >
             <i class="far fa-thumbs-up"></i>
-            <span>Coupon</span>
+            <span>優惠券</span>
           </a>
           <div
             id="collapseCoupon"
@@ -181,7 +181,7 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="empCoupons.controller">CouponMgmt</a>
+              <a class="collapse-item" href="empCoupons.controller">優惠券管理</a>
             </div>
           </div>
         </li>

@@ -59,6 +59,7 @@
         <c:choose>
 		<c:when test="${not empty employee}">
 			<%@include file="./commonpages/loginedheader.jsp"%>
+			
 		</c:when>
 		<c:when test="${not empty member}">
 			<%@include file="./membercommonpages/memberloginedheader.jsp"%>	
@@ -67,6 +68,10 @@
 		</c:when>
 		<c:otherwise>
 			<%@include file="./commonpages/header.jsp"%>
+			  <div class="login-brand position-fixed bottom-0 end-0" id="customerbtn">
+              <img src="${pageContext.request.contextPath}/images/smallicon/support.svg" alt="logo" width="75" class="shadow-light rounded-circle">              
+            </div>	
+
 		</c:otherwise>
 		</c:choose>
         
@@ -189,7 +194,7 @@
       </div>
     </div>
     
-    
+
 
    <!-- bootstrap   -->
     <script
@@ -234,7 +239,19 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	
- 	 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>
+	
+	
+	 <c:choose>
+		<c:when test="${not empty employee}">
+		</c:when>
+		<c:when test="${not empty member}">
+		 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>		 
+		</c:when>
+		<c:otherwise>
+			<script src="${pageContext.request.contextPath}/js/customerservice.js"></script>
+		</c:otherwise>
+		</c:choose>
+	
   </body>
 </html>
 

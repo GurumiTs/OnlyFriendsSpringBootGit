@@ -192,18 +192,26 @@ font-size:1.2rem
              success: function (data) { 
               $('#friendsarea').html('')
               $.each(data,function(i,friend){ //i為順序 n為單筆物件
-         	     var item =          	    	 
+               if(friend.chatnum != 0){
+            	  var item =          	    	 
          	    "<li class='media' id='"+friend.friendAccount+"'>"+
                  "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.friendPic+"'>"+
                  "<div class='media-body'>"+
-                   "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.friendName+"<span class='text-danger'>"+friend.chatnum+"</span></div>"+              
-                " </div>"+
-               "</li>";
-             
-              $('#friendsarea').append(item)
-               if(friend.chatnum == 0){
-            	  $('.friend-name').find('span').remove()
-              }  ;});
+                  "<div class='mt-0 mb-1 font-weight-bold friend-name position-relative'>"+friend.friendName+                    
+                  "<span class='position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger'>+"+friend.chatnum+"</span>"+
+                  " </div>"+
+               "</li>";   
+               }  
+               else{
+            	   var item =          	    	 
+                	    "<li class='media' id='"+friend.friendAccount+"'>"+
+                        "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.friendPic+"'>"+
+                        "<div class='media-body'>"+
+                          "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.friendName+"</div>"+              
+                       " </div>"+
+                      "</li>";     
+               }
+              $('#friendsarea').append(item)});              
               $("li").on('click',createroom)
        
              },
@@ -445,7 +453,6 @@ font-size:1.2rem
     }
     
     function addchatnum(sender){
-    	console.log("sender11:"+sender)
     	$.ajax({
     		type: "post",
     		url: "addchatnum/"+ sender,

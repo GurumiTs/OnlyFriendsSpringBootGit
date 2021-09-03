@@ -14,11 +14,11 @@ pageEncoding="UTF-8"%>
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Fun</a
+                  >活動專區</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item fs-6" href="useractivity.entry">Member Act.</a></li>
-                  <li><a class="dropdown-item fs-6" href="#!">Official Act.</a></li>
+                  <li><a class="dropdown-item fs-6" href="useractivity.entry">會員活動</a></li>
+                  <li><a class="dropdown-item fs-6" href="#!">官方活動</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%>
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Shop</a
+                  >招桃商城</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Blog</a
+                  >愛情討論版</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="blogofficial">幸福故事</a></li>
@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
 		
 		<li class="dropdown"><a href="login"
 			class="nav-link nav-link-lg nav-link-user">
-				<div class="d-sm-none d-lg-inline-block">Login</div>
+				<div class="d-sm-none d-lg-inline-block">登入</div>
 		</a></li>
 	</ul>
 </nav>

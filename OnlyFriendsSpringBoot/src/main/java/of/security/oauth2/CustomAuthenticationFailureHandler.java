@@ -81,7 +81,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 			request.getSession().setAttribute("errorMsg", "帳號或密碼錯誤");
 		} else if (exception.getClass().isAssignableFrom(DisabledException.class)) {
 			System.out.println("該帳號已被封鎖");
-			request.getSession().setAttribute("errorMsg", "該帳號已被封鎖");
+			request.getSession().setAttribute("errorMsg", "該帳號已被封鎖，若有疑慮請洽線上客服");
 		} else if (exception.getClass().isAssignableFrom(CredentialsExpiredException.class)) {
 			System.out.println("尚未通過信箱驗證");
 			request.getSession().setAttribute("errorMsg", "尚未通過信箱驗證");
