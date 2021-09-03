@@ -59,32 +59,44 @@ margin: 0 auto;
                         <div class="card " style="background-color:#F0F0F0;">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!">此處輸入留言 給name抓值</textarea></form>
-                                <!-- Comment with nested comments-->
+
+									<form class="d-flex mb-4" onSubmit="return false">
+											<img class="rounded-circle" src='${personalinfo.memberPic}'
+												style="weight: 50px; height: 50px; float: left;" />
+											<input id="messageText" name="messageText" type="text"
+												class="form-control" placeholder="請留言"> 
+											<input type="hidden" id="messagebutton" value="送出">
+									</form>
+
+									<!-- Comment with nested comments-->
+                                
                                 <div class="d-flex mb-4">
                                     <!-- Parent comment-->
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">Name1</div>
                                         留言1
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name2</div>
-                                                子留言1
-                                            </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name3</div>
-                                                子留言2
-                                            </div>
-                                        </div>
+                                        
+<!--                                         Child comment 1 -->
+<!--                                         <div class="d-flex mt-4"> -->
+<!--                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div> -->
+<!--                                             <div class="ms-3"> -->
+<!--                                                 <div class="fw-bold">Commenter Name2</div> -->
+<!--                                                 子留言1 -->
+<!--                                             </div> -->
+<!--                                         </div> -->
+<!--                                         Child comment 2 -->
+<!--                                         <div class="d-flex mt-4"> -->
+<!--                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div> -->
+<!--                                             <div class="ms-3"> -->
+<!--                                                 <div class="fw-bold">Commenter Name3</div> -->
+<!--                                                 子留言2 -->
+<!--                                             </div> -->
+<!--                                         </div> -->
+                                        
                                     </div>
                                 </div>
+                                
                                 <!-- Single comment-->
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
@@ -93,64 +105,32 @@ margin: 0 auto;
                                         留言2
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </section>
 					<!-- 留言板結束 -->
 					
                 </div>
-                <!-- Side widgets-->
-<!--                 <div class="col-lg-4"> -->
-
-                    <!-- Search widget-->
-<!--                     <div class="card mb-4"> -->
-<!--                         <div class="card-header">Search</div> -->
-<!--                         <div class="card-body"> -->
-<!--                             <div class="input-group"> -->
-<!--                                 <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" /> -->
-<!--                                 <button class="btn btn-primary" id="button-search" type="button">Go!</button> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-                    
-                    <!-- Categories widget-->
-<!--                     <div class="card mb-4"> -->
-<!--                         <div class="card-header">Categories</div> -->
-<!--                         <div class="card-body"> -->
-<!--                             <div class="row"> -->
-<!--                                 <div class="col-sm-6"> -->
-<!--                                     <ul class="list-unstyled mb-0"> -->
-<!--                                         <li><a href="#!">Web Design</a></li> -->
-<!--                                         <li><a href="#!">HTML</a></li> -->
-<!--                                         <li><a href="#!">Freebies</a></li> -->
-<!--                                     </ul> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-sm-6"> -->
-<!--                                     <ul class="list-unstyled mb-0"> -->
-<!--                                         <li><a href="#!">JavaScript</a></li> -->
-<!--                                         <li><a href="#!">CSS</a></li> -->
-<!--                                         <li><a href="#!">Tutorials</a></li> -->
-<!--                                     </ul> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-                    <!-- Side widget-->
-<!--                     <div class="card mb-4"> -->
-<!--                         <div class="card-header">Side Widget</div> -->
-<!--                         <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div> -->
-<!--                     </div> -->
-<!--                 </div> -->
             </div>
         </div>
-			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
 	</div>
+			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
-
+	$(function(){
+		$("#messageText").keypress(function(e) {
+	        if (event.keyCode == 13){
+// 	            $('#messagebutton').click();
+	            console.log("textarea");
+	        }
+	        
+		});
+	});
+	
 	</script>
 </body>
 </html>
