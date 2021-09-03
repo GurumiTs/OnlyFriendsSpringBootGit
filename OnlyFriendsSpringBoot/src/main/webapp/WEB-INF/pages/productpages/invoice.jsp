@@ -74,11 +74,11 @@ font-size:1.2rem
                       <table class="table table-striped table-hover table-md">
                         
                         <tr>
-                          <th data-width="40">#</th>
-                          <th>Item</th>
-                          <th class="text-center">Price</th>
-                          <th class="text-center">Quantity</th>
-                          <th class="text-right">Totals</th>
+                          <th data-width="40">刪除</th>
+                          <th>名稱</th>
+                          <th class="text-center">單價</th>
+                          <th class="text-center">數量</th>
+                          <th class="text-right">小計</th>
                         </tr>
                        	<tbody  id="orderlist"></tbody>
 <!--                         <tr> -->
@@ -109,18 +109,18 @@ font-size:1.2rem
                         </div>
                       </div>
                       <div class="col-lg-4 text-right" >
-                        <div class="invoice-detail-item">
-                          <div class="invoice-detail-name">Subtotal</div>
-                          <div class="invoice-detail-value">$670.99</div>
-                        </div>
-                        <div class="invoice-detail-item">
-                          <div class="invoice-detail-name">Shipping</div>
-                          <div class="invoice-detail-value">$15</div>
-                        </div>
+<!--                         <div class="invoice-detail-item"> -->
+<!--                           <div class="invoice-detail-name">總計</div> -->
+<!--                           <div class="invoice-detail-value" id="finaltotal"></div> -->
+<!--                         </div> -->
+<!--                         <div class="invoice-detail-item"> -->
+<!--                           <div class="invoice-detail-name">Shipping</div> -->
+<!--                           <div class="invoice-detail-value">$15</div> -->
+<!--                         </div> -->
                         <hr class="mt-2 mb-2">
                         <div class="invoice-detail-item">
-                          <div class="invoice-detail-name">Total</div>
-                          <div class="invoice-detail-value invoice-detail-value-lg">$685.99</div>
+                          <div class="invoice-detail-name">總計</div>
+                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="finaltotal"></span></div>
                         </div>
                       </div>
                     </div>
@@ -159,8 +159,8 @@ font-size:1.2rem
     <script >  
     $(function(){
     	findcart()
+    	shopcartfinaltotal()
     	$(".minus").on("click",minus)	
-	    shopcartfinaltotal()  	
 	    $(".deleteitem").on("click",deleteitem)
 	    $(".plus").on("click",plus)
     })
@@ -171,7 +171,7 @@ font-size:1.2rem
 			type:"post",
 			url:"getShoppingCars",
 			success:function(data){
-				 console.log(data);
+// 				 console.log(data);
 				 var json = JSON.stringify(data,null,4);
 	     	     var parsedObjinArray = JSON.parse(json);
 	     	     var orderlist = $('#orderlist');
@@ -190,8 +190,8 @@ font-size:1.2rem
 	 			}	
 	 				
 	     	    });
-	     	 	$(".minus").on("click",minus)	
-	     	 	shopcartfinaltotal()  	
+	     	 	$(".minus").on("click",minus)
+	     	 	shopcartfinaltotal() 
 	     	 	$(".deleteitem").on("click",deleteitem)
 	     	 	$(".plus").on("click",plus)
 			},
@@ -209,8 +209,7 @@ font-size:1.2rem
 			url:"minusshopcart",
 			data:{"proId":id},
 			success:function(data){	
-				console.log(data)
-	     	 	shopcartnumact ()  
+// 				console.log(data)
 	     	 	findcart()	
      	 	
 			},
@@ -228,8 +227,7 @@ font-size:1.2rem
 			url:"plusshopcart",
 			data:{"proId":id},
 			success:function(data){	
-				console.log(data)
-	     	 	shopcartnumact ()  
+// 				console.log(data)
 	     	 	findcart()	
      	 	
 			},
@@ -248,8 +246,7 @@ font-size:1.2rem
 			url:"deleteshopcartitem",
 			data:{"proId":id},
 			success:function(data){	
-				console.log(data)
-	     	 	shopcartnumact ()  
+// 				console.log(data)
 	     	 	findcart()	   	 	
 			},
 			error:function(){
@@ -258,6 +255,28 @@ font-size:1.2rem
 		})		
 	}
     
+//		shoppingcartfinaltotal
+	  function shopcartfinaltotal() {						  
+			$.ajax({
+				type:"get",
+				url:"shopcarttotal",
+				dataType: "json",
+				success:function(data){
+					console.log(data);
+					var json = JSON.stringify(data,null,4);
+		     	    var parsedObjinArray = JSON.parse(json);
+					var finaltotal = $('#finaltotal');
+		            $('#finaltotal').empty("");
+					var finaltotals=data;
+					console.log(finaltotals)
+					finaltotal.html(finaltotals)
+					console.log(finaltotals)
+				}
+				,error: function(error){
+					console.log(error);
+				}
+			})
+		}
    
     </script>
   </body>

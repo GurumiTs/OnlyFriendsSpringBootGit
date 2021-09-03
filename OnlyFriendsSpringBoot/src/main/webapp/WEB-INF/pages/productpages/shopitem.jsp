@@ -251,9 +251,6 @@
 		
 		
 		
-				$("#shoppingCartTable").on("click",".minus",function(){
-					let amount=$("#amount").attr("amount",-1);
-				})
 //related item
 	                   $(function () {
 		                	  var url = location.href;
