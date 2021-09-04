@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+
+
+
 public class OfficialActiveFindOa {
 	@Column (name = "EmpAcc")
 	private String empAcc; // 員工編號

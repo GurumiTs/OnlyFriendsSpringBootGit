@@ -116,17 +116,7 @@
         </section>
         </form>
         
-        <iframe 
-    width="100%" 
-    height="300" 
-    frameborder="0"
-    src="https://www.google.com/maps?
-    q=台北101
-    &hl=en
-    &z=18
-    &t=m
-    &output=embed ">
-</iframe>
+    
         
         
         <P>---------------------------------------------------------------------------------------
@@ -139,7 +129,24 @@
 								</div>  
 								
 		<P>----------------------------------------------------------------------------------------
+       
+               <iframe 
+    width="100%" 
+    height="300" 
+    frameborder="0"
+    src="https://www.google.com/maps?台北101
+    q=台北101
+    &hl=en
+    &z=18
+    &t=m
+    &output=embed ">
+</iframe>
+        
+       
+       
         <!-- Related items section-->
+        
+        
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">相關活動</h2>
