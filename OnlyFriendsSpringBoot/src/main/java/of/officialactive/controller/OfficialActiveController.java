@@ -232,21 +232,19 @@ public class OfficialActiveController {
 		}
 		
 		
-		@RequestMapping (path = "/addmember")
+		@PostMapping (path = "/addmember/{anum}")
 		@ResponseBody
-		public String addmember (@RequestParam(name = "anum" ,required = false) Long anum,HttpServletRequest request) {
-			System.out.println("測試");
+		public String addmember (@PathVariable("anum") String a,HttpServletRequest request) {
+			long anum = Long.parseLong(a);
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
-			Member m2 = memberService.findByMemberAccount(memberAccount);
-			
+			Member m2 = memberService.findByMemberAccount(memberAccount);			
 			OfficialActive oa = officialActiveService.select(anum);
-			
 			List<Member> memberactive = oa.getMemberactive();
 			memberactive.add(m2);
-			officialActiveService.update(oa);
-
-			return "officialactivepages/oahomepage";
+			officialActiveService.updateMember(oa);
+			
+			return "y";
 			
 		}
 		
@@ -257,25 +255,26 @@ public class OfficialActiveController {
 		
 		
 		// 參加活動
-		
-		@RequestMapping(path = "/addoamember", method = RequestMethod.GET)
-		@ResponseBody
-		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
-			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-			String memberAccount = m1.getMemberAccount();
-			
-			Member m2 = memberService.findByMemberAccount(memberAccount);
-			
-			//抓活動
-			
-			OfficialActive oam = officialActiveService.select(anum);
-			
-			List <Member> oamemberList = oam.getMemberactive();
-			oamemberList.add(m2);
-			officialActiveService.update(oam);
-			
-			return "/oaforuserpages.controller";
-		}
+//		
+//		@RequestMapping(path = "/addoamember.controller", method = RequestMethod.POST)
+//		@ResponseBody
+//		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
+//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//			String memberAccount = m1.getMemberAccount();
+//			
+//			Member m2 = memberService.findByMemberAccount(memberAccount);
+//			
+//			
+//			//抓活動
+//			
+//			OfficialActive oam = officialActiveService.select(anum);
+//			
+//			List <Member> oamemberList = oam.getMemberactive();
+//			oamemberList.add(m2);
+//			officialActiveService.update(oam);
+//			
+//			return "成功123";
+//		}
 		
 		
 		
