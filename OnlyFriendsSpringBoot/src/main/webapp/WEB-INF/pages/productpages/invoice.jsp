@@ -120,7 +120,7 @@ font-size:1.2rem
                         <hr class="mt-2 mb-2">
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
-                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="finaltotal"></span></div>
+                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="step"></span></div>
                         </div>
                       </div>
                     </div>
@@ -159,7 +159,6 @@ font-size:1.2rem
     <script >  
     $(function(){
     	findcart()
-    	shopcartfinaltotal()
     	$(".minus").on("click",minus)	
 	    $(".deleteitem").on("click",deleteitem)
 	    $(".plus").on("click",plus)
@@ -181,19 +180,20 @@ font-size:1.2rem
 	     	    '<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
                  '<td>'+n.product.proName+'</td>'+
                  '<td class="text-center">'+n.product.proPrice+'</td>'+
-                 '<td class="text-center">'+'<button class="btn btn-sm btn-icon btn-light mx-1 minus"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+
+                 '<td class="text-center">'+'<button class="btn btn-sm btn-icon btn-light mx-1 minus" id="'+n.product.proId+'minus'+'"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+
                  '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
                	 '</tr>';
 	 				orderlist.append(item);
 	 			if(n.amount == 1){
-	 				$('.minus').prop('disabled',true)
+	 				$(''+n.product.proId+'.minus').prop('disabled',true)
 	 			}	
 	 				
 	     	    });
 	     	 	$(".minus").on("click",minus)
-	     	 	shopcartfinaltotal() 
 	     	 	$(".deleteitem").on("click",deleteitem)
 	     	 	$(".plus").on("click",plus)
+	     	 	shopcartfinaltotal() 
+	     	 	
 			},
 			error:function(error){
 				console.log("error");
@@ -260,17 +260,9 @@ font-size:1.2rem
 			$.ajax({
 				type:"get",
 				url:"shopcarttotal",
-				dataType: "json",
 				success:function(data){
-					console.log(data);
-					var json = JSON.stringify(data,null,4);
-		     	    var parsedObjinArray = JSON.parse(json);
-					var finaltotal = $('#finaltotal');
-		            $('#finaltotal').empty("");
-					var finaltotals=data;
-					console.log(finaltotals)
-					finaltotal.html(finaltotals)
-					console.log(finaltotals)
+					$('#step').empty()
+		            $('#step').text(data)
 				}
 				,error: function(error){
 					console.log(error);
