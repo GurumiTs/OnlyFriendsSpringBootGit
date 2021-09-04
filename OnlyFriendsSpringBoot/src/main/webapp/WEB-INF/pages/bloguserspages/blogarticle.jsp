@@ -153,12 +153,11 @@ weight: 15px;
 	var url_String = location.href;
 	var url = new URL(url_String);
 	var articleId = url.searchParams.get("ArticleId");
-	console.log(articleId)
+	console.log(articleId);
 	$(function(){
 		$("#messageText").keypress(function(e) {
 	        if (event.keyCode == 13){
 	            $('#messagebutton').click();
-	            });
 	        }
 		});
 		
