@@ -157,33 +157,72 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Stored</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <div class="row mt-4">
-                        <div class="col-12">
-                          <div class="wizard-steps">
-                            <div class="wizard-step wizard-step-active">
-                              <div class="wizard-step-icon">
-                                <i class="fas fa-credit-card"></i>
-                              </div>
-                              <div class="wizard-step-label">
-                                Payment Completed
-                              </div>
-                            </div>
-                          
-                            <div class="wizard-step wizard-step-active">
-                              <div class="wizard-step-icon">
-                                <i class="fas fa-credit-card"></i>
-                              </div>
-                              <div class="wizard-step-label">
-                                Payment Completed
-                              </div>
-                            </div>
+         <div class="row">
+                <div class="col-6">
+                  <div class="pricing border border-warning border-4 rounded">
+                    <div class="pricing-title">Basic Package</div>
+                    <div class="pricing-padding">
+                      <div class="pricing-price">
+                        <div>$99</div>
+                        <div></div>
+                      </div>
+                      <div class="pricing-details">
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
                           </div>
+                          <div class="pricing-item-label">coins x3</div>
                         </div>
-                      </div>           
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">exp +100</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pricing-cta">
+                      <a href="pay?num=3" 
+                        >checkout<i class="fas fa-arrow-right"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="pricing border border-warning border-4 rounded">
+                    <div class="pricing-title">Cupid Coins</div>
+                    <div class="pricing-padding">
+                      <div class="pricing-price">
+                        <div>$199</div>
+                        <div></div>
+                      </div>
+                      <div class="pricing-details">
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">coins x10</div>
+                        </div>
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">exp +3000</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pricing-cta">
+                      <a href="pay?num=10" target="_blank"
+                        >checkout<i class="fas fa-arrow-right"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>  
       </div>
       <div class="modal-footer">
        
@@ -191,6 +230,10 @@
     </div>
   </div>
 </div>
+<script src="https://www.paypal.com/sdk/js?client-id=AftigsFKCM2v_kM3eOi1nnNVwL9SmIFmnWqg4ewxi1MrG9jeXPoEw2xWTSsfyn72gaFq0UKDh6QFIiFR"></script>
+ <script>
+  </script>
+
 
     <script>
       let todaytype;

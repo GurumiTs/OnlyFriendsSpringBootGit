@@ -7,12 +7,11 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -50,9 +49,18 @@ public class PaypalController {
 	public static final String CANCEL_URL = "/pay/cancel";
 
 	@GetMapping(path = "/pay")
-	public String payment() {
+	public String payment(HttpServletRequest request) {
+		Order order = null;
 		try {
-			Order order = new Order(99,"TWD","paypal","sale","邱比金幣三枚");
+	
+			String num = request.getParameter("num");
+			if("3".equals(num)) {
+				order = new Order(99,"TWD","paypal","sale","邱比金幣三枚");
+			}
+			else if("10".equals(num)) {
+				order = new Order(199,"TWD","paypal","sale","邱比金幣十枚");
+			}
+			
 			Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
 					order.getIntent(), order.getDescription(), "http://localhost:8080/OnlyFriends" + CANCEL_URL,
 					"http://localhost:8080/OnlyFriends" + SUCCESS_URL);
@@ -79,23 +87,37 @@ public class PaypalController {
 
 		try {
 			Payment payment = service.executePayment(paymentId, payerId);
+			Payer p = payment.getPayer();
+			String payername = p.getPayerInfo().getFirstName();
+			String total = payment.getTransactions().get(0).getAmount().getTotal();
+			String newswipetime = null;
+			System.out.println("total:"+total);
 			System.out.println(payment.toJSON());
-			if (payment.getState().equals("approved")) {
+			if(payment.getState().equals("approved")) {
 				
 				Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 				String memberAccount = m1.getMemberAccount();
 				Member m2 = memberService.findByMemberAccount(memberAccount);
-				String newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
-				m2.setSwipeTime(newswipetime);
+				
+				if("199.00".equals(total)) {
+					newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+10) ; 
+					m2.setSwipeTime(newswipetime);
+				}
+				else if("99.00".equals(total)) {
+					newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
+					m2.setSwipeTime(newswipetime);
+				}
+				String successMsg = "<h5>感謝 "+payername+"</h5><br>"+
+									"<h5>邱比已將金幣分派給你了<h5>"
+													;
 				memberService.update(m2);
-
-				model.addAttribute("successMsg","邱比寶寶分派三枚硬幣給你");
+				model.addAttribute("successMsg",successMsg);
 				return "redirect:/memberswipeloading";
 			}
 		} catch (PayPalRESTException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			model.addAttribute("successMsg","發生問題，請稍後再試");
+			model.addAttribute("errorMsg","發生問題，請稍後再試");
 		}
 		return "redirect:/memberswipeloading";
 
