@@ -17,6 +17,8 @@ margin: 0 auto;
 .divSpace{
 weight: 15px;
 }
+
+
 </style>
 </head>
 <body>
@@ -62,26 +64,57 @@ weight: 15px;
                     <section class="mb-5">
                         <div class="card " style="background-color:#F0F0F0;">
                             <div class="card-body">
-                                <!-- Comment form-->
-
-									<form action="addMessage" class="d-flex mb-4" onSubmit="return false">
-											<img class="rounded-circle" src='${personalinfo.memberPic}'
-												style="weight: 50px; height: 50px; float: left;" />
+                            
+                                <!-- Comment form 判斷是否登入，使用者或管理者登入-->
+									<c:choose>
+										<c:when test="${not empty member}">
+											<form action="addMessage" class="d-flex mb-4"
+												onSubmit="return false">
+	
+												<img class="rounded-circle" src='${personalinfo.memberPic}'
+													style="weight: 50px; height: 50px; float: left;" /> 
+												&nbsp;
+												&nbsp; 
+												<input id="messageText" name="messageText" type="text"
+													class="form-control" placeholder="請留言"> 
+												<input type="hidden" id="messagebutton" value="送出">
+											</form>
+										</c:when>
+										
+										<c:when test="${not empty employee}">
+											<form action="addMessage" class="d-flex mb-4"
+												onSubmit="return false">
+	
+												<img class="rounded-circle" src='${personalinfo.empPic}'
+													style="weight: 50px; height: 50px; float: left;" /> 
+												&nbsp;
+												&nbsp; 
+												<input id="messageText" name="messageText" type="text"
+													class="form-control" placeholder="請留言"> 
+												<input type="hidden" id="messagebutton" value="送出">
+											</form>
+										</c:when>
+										
+										<c:when test="${empty employee && empty member}">
+											<div>
+												<a href="http://localhost:8080/OnlyFriends/login">請登入後再留言。</a>
+											</div>
 											&nbsp;
 											&nbsp;
-											<input id="messageText" name="messageText" type="text"
-												class="form-control" placeholder="請留言"> 
-											<input type="hidden" id="messagebutton" value="送出">
-									</form>
-
-									<!-- Comment with nested comments-->
+										</c:when>
+									</c:choose>
+								<!-- 判斷結束 -->
+								
+                                <!-- Single comment 第一層留言放這邊-->
+                                <div id="messageArea"></div>
                                 
-                                <div class="d-flex mb-4">
+									<!-- 設定巢狀留言的寫法(還沒做到)Comment with nested comments-->
+<!--                                 <div class="d-flex mb-4"> -->
                                     <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Name1</div>
-                                        留言1
+<!--                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div> -->
+<!--                                     <div class="ms-3"> -->
+<!--                                         <div class="fw-bold">Name1</div> -->
+<!--                                         留言1 -->
                                         
 <!--                                         Child comment 1 -->
 <!--                                         <div class="d-flex mt-4"> -->
@@ -100,18 +133,8 @@ weight: 15px;
 <!--                                             </div> -->
 <!--                                         </div> -->
                                         
-                                    </div>
-                                </div>
-                                
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name4</div>
-                                        留言2
-                                    </div>
-                                </div>
-                                
+<!--                                     </div> -->
+<!--                                 </div> -->
                             </div>
                         </div>
                     </section>
@@ -127,15 +150,56 @@ weight: 15px;
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
+	var url_String = location.href;
+	var url = new URL(url_String);
+	var articleId = url.searchParams.get("ArticleId");
+	console.log(articleId)
 	$(function(){
 		$("#messageText").keypress(function(e) {
 	        if (event.keyCode == 13){
 	            $('#messagebutton').click();
-	            console.log("送出留言成功");
+	            });
 	        }
-	        
 		});
+		
+		$.ajax({
+            type: "POST",
+            url: "firstmessagetojson/"+articleId,
+            success: function(response) {           	
+            	var messageArea = $('#messageArea');
+            	$('#messageArea').empty("");
+            	console.log(response.length);
+            	if(response.length == 0){
+            		var message = 
+	                    "<div class='d-flex'>"+
+	                		"<div class='ms-3'>"+
+	                    		"暫無資料"+
+	                		"</div>"+
+	           			"</div>";
+	            	messageArea.append(message);
+            	}
+            	else{
+            		$.each(response, function(i,n){
+	            	var message = 
+	                    "<div class='d-flex'>"+
+	                		"<div class='flex-shrink-0'><img class='rounded-circle' src='"+n.memberPic+"' style='weight: 50px; height: 50px'; alt='"+n.memberName+"' /></div>"+
+	                		"<div class='ms-3'>"+
+	                    		"<div class='fw-bold'>"+n.memberName+"</div>"+
+	                    		n.messageText+
+	                		"</div>"+
+	           			"</div>&nbsp;";
+	            	messageArea.append(message);
+            		});
+            	}
+            	
+            },
+            error: function(xhr){
+            	console.log("error!")
+            }
+        });
 	});
+
+		
 	
 	</script>
 </body>

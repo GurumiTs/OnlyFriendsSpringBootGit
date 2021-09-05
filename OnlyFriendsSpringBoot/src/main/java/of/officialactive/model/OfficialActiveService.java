@@ -20,9 +20,6 @@ public class OfficialActiveService {
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
 	
-	
-	
-	
 	public OfficialActive insert(OfficialActive officialActive) {
 		return officialActiveRepository.save(officialActive);
 	}
@@ -33,6 +30,10 @@ public class OfficialActiveService {
 	}
 	
 
+	
+	public List<OfficialActiveFindOa> getOaDataByAnum() {
+		return officialActiveRepository.getOaDataByAnum();
+	}
 	
 	public OfficialActive findByAnum(Long anum) {
 		  Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum);
@@ -55,14 +56,21 @@ public class OfficialActiveService {
 	
 		return officialActiveRepository.findAll(pageable);
 	}
-
+	//選擇單筆活動
 	public OfficialActive select(Long anum) {
 		Optional<OfficialActive> soa = officialActiveRepository.findByAnum(anum);
+		System.out.println("if前面");
 		if (soa.isPresent()) {
+			System.out.println("if裡面");
 			return soa.get();	
 			}
 		return null;
 	}
 	
+
+	public  void  updateMember(OfficialActive officialActive) {
+	
+		 officialActiveRepository.save(officialActive);
+	}
 
 }
