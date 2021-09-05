@@ -30,12 +30,14 @@ import of.member.model.Member;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
+import of.officialactive.model.OfficialActiveFindOa;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
 @SessionAttributes(names = { "allofficialActive","totalPages","totalElements" })
 public class OfficialActiveController {
 
+	
 	@Autowired
 	private OfficialActiveService officialActiveService;
 	@Autowired
@@ -50,7 +52,7 @@ public class OfficialActiveController {
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
 	public Map allOaToJson(Model m) {
-		List<OfficialActive> oaList = officialActiveService.findAll();
+		List<OfficialActiveFindOa> oaList = officialActiveService.findByAll();
 		Map<String, Object> map = new HashMap<>();
 		map.put("data",oaList);
 		return map;
@@ -170,7 +172,7 @@ public class OfficialActiveController {
 	
 		
 		//刪除
-		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.GET)
+		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.POST)
 		public String deleteOfficialActive(@RequestParam(name = "anum") Long anum, Model model) {
 			System.out.println(anum);
 			officialActive = officialActiveService.findByAnum(anum);
@@ -205,7 +207,7 @@ public class OfficialActiveController {
 			return page.getContent();
 		}
 		
-		//itempage 詳細商品
+		//itempage 詳細活動
 		
 		
 		@GetMapping("/oaitemEntry.controller")

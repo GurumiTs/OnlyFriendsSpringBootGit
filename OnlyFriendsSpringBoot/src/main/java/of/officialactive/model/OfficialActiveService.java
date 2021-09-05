@@ -34,6 +34,10 @@ public class OfficialActiveService {
 	
 
 	
+	public List<OfficialActiveFindOa> findByAll() {
+		return officialActiveRepository.findByAll();
+	}
+	
 	public OfficialActive findByAnum(Long anum) {
 		  Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum);
 		  if(officialActive.isPresent()) {

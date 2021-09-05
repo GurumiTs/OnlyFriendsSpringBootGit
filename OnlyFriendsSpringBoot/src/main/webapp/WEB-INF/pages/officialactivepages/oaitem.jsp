@@ -116,6 +116,19 @@
         </section>
         </form>
         
+        <iframe 
+    width="100%" 
+    height="300" 
+    frameborder="0"
+    src="https://www.google.com/maps?
+    q=台北101
+    &hl=en
+    &z=18
+    &t=m
+    &output=embed ">
+</iframe>
+        
+        
         <P>---------------------------------------------------------------------------------------
       <section class="mb-5">
 								<div class="fs-5 mb-4">
@@ -167,6 +180,12 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                    
                                 </div>
