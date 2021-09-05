@@ -1,8 +1,5 @@
 package of.paypal.model;
 
-import javax.persistence.Entity;
-
-
 public class Order {
 	
 	private double price;
