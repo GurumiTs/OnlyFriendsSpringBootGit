@@ -224,7 +224,10 @@ public class ShoppingCartController {
 		return "productpages/invoice";
 	}
 	
-	
+	@RequestMapping(path = "/ordercomplete", method = RequestMethod.GET)
+	 public String userordercomplete(Model model) {
+	  return "productpages/ordercomplete";
+	 }
 	
 //	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
 //		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
