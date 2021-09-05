@@ -37,23 +37,32 @@ public class FirstMessageController {
 	}
 	
 	// Insert Message
-	@PostMapping(path = "/addMessage")
+	@PostMapping(path = "/addMessage/{articleId}")
 	@ResponseBody
-	public String addMessage(@RequestParam(name = "ArticleId") Integer articleId, 
+	public String addMessage(@PathVariable(name = "articleId") Integer articleId, 
 							 @RequestParam(name = "messageText") String messageText,
 							 HttpServletRequest request, Model m) {
-		
+		System.out.println("addcontroller articleID:" + articleId);
+		System.out.println("1");
+		System.out.println("addcontroller messageText:" + messageText);
+		System.out.println("2");
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		System.out.println("3");
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		System.out.println("4");
 		String memberName = m1.getMemberName();
+		System.out.println("5");
 		String memberPic = m1.getMemberPic();
-		
+		System.out.println("6");
+		System.out.println("addcontroller memberName:" + memberName);
+		System.out.println("addcontroller memberPic:" + memberPic);
 		FirstMessage fMessage = new FirstMessage();
 		fMessage.setUsersArticleID(articleId);
-		fMessage.setMemberName(messageText);
+		fMessage.setMessageText(messageText);
 		fMessage.setMemberName(memberName);
 		fMessage.setMemberPic(memberPic);
+		fMessage.setMessageTime(ts);
 		fMesService.insertMessage(fMessage);
-		return "y";
+		return "success";
 	}
 }
