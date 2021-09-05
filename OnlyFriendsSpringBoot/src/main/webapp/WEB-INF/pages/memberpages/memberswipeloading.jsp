@@ -10,8 +10,10 @@
       <div class="header">
         <div class="title" id="coinarea">
         </div>
-        <a href="memberswipe">返回</a>
-        <a href="memberfriends"><i class="fas fa-inbox fa-2x"></i></a>
+     	<a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="${pageContext.request.contextPath}/images/smallicon/money-bag.svg" alt="logo" width="40"></a>
+		<a href="memberfriends" ><img src="${pageContext.request.contextPath}/images/smallicon/inbox.svg" alt="logo" width="40"></a>
+		<a href="memberswipe" ><img src="${pageContext.request.contextPath}/images/smallicon/turn.svg" alt="logo" width="40"></a>
+		     
       </div>
     </div>
     <div class="backgrounds">
@@ -151,6 +153,44 @@
     </div>
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="row mt-4">
+                        <div class="col-12">
+                          <div class="wizard-steps">
+                            <div class="wizard-step wizard-step-active">
+                              <div class="wizard-step-icon">
+                                <i class="fas fa-credit-card"></i>
+                              </div>
+                              <div class="wizard-step-label">
+                                Payment Completed
+                              </div>
+                            </div>
+                          
+                            <div class="wizard-step wizard-step-active">
+                              <div class="wizard-step-icon">
+                                <i class="fas fa-credit-card"></i>
+                              </div>
+                              <div class="wizard-step-label">
+                                Payment Completed
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>           
+      </div>
+      <div class="modal-footer">
+       
+      </div>
+    </div>
+  </div>
+</div>
 
     <script>
       let todaytype;
@@ -163,6 +203,7 @@
         $("#pickthree").on("click", pick);
         $("#again").on("click", onemore);
         $("#heartbuttonarea").on("click",getheartid)
+        //$("#stored").on('click',stored)
       });
 
       function pick() {
@@ -171,7 +212,19 @@
           type: "post",
           url: "membercoinsdelete",
           success: function (data) {
-            $("#coinarea").find(":first-child").remove();
+          let oldcoinsnum = $("#coinarea").find("span").text()
+          let newcoinnum = oldcoinsnum - 1
+          if(newcoinnum > 1){
+        	 $("#coinarea").find("span").text(newcoinnum) 
+          }
+          else if(newcoinnum == 1){      
+        	 $("#coinarea").find("span").remove()
+          }
+          else if(newcoinnum < 1){      
+         	 $("#coinarea").find("img").remove()
+           }
+         
+           
           },
           error: function (data) {
             console.log("無法送出");
@@ -285,16 +338,32 @@
                 	$("#pickthree").html('本日硬幣已用完')
                 }
                 console.log("coins num :" + coins);
-                for (i = 1; i <= coins; i++) {
-                  $("#coinarea").append(
-                    $("<img />")
-                      .addClass("img-fluid mx-2")
-                      .attr(
-                        "src",
-                        "${pageContext.request.contextPath}/images/smallicon/pentaclesm.png"
-                      )
-                  );
+                if(coins == 1){
+                	$("#coinarea").append(
+                            $("<img  class='mx-2' width='60'/>")
+                              .attr(
+                                "src",
+                                "${pageContext.request.contextPath}/images/smallicon/pentacle.svg"
+                              )
+                          );
+                	$("#coinarea").append(
+                    		$("<span class='fs-4 fw-bolder mx-1 d-none'/>").html(coins)              		
+                    	)
                 }
+                if(coins > 1){
+                	$("#coinarea").append(
+                			$("<img  class='mx-2' width='60'/>")
+                              .attr(
+                                "src",
+                                "${pageContext.request.contextPath}/images/smallicon/pentacle.svg"
+                              )
+                          );
+                	$("#coinarea").append(
+                		$("<span class='fs-4 fw-bolder mx-1'/>").html(coins)              		
+                	)
+                	
+                }
+               
               },
               error: function (data) {
                 console.log("無法送出");
@@ -341,6 +410,45 @@
     	  	  }
     	   });
       }
+      
+      
+      function stored(){
+    	  $.ajax({
+              type: "post",
+              url: "pay",
+              success: function (data) {
+            	  Swal.fire({
+            		  icon: 'success',
+            		  title: 'invite successful',
+            		  showConfirmButton: false,
+            		  timer: 1500
+            		})
+            	  console.log(data)
+              }
+    	  ,error:function(data){
+    		  Swal.fire({
+        		  icon: 'error',
+        		  title: 'save already',
+        		  showConfirmButton: false,
+        		  timer: 1500
+        		})	 
+    	  	  }
+    	   });
+    	  
+      }  
     </script>
+    
+    <c:if test="${not empty successMsg}">
+		<script>
+			Swal.fire({
+				position : 'center',
+				icon : 'success',
+				title : '${successMsg}',
+				showConfirmButton : false,
+				timer : 1500
+			})
+		</script>
+		<c:remove var="successMsg" scope="session" />
+	</c:if>
 </body>
 </html>
