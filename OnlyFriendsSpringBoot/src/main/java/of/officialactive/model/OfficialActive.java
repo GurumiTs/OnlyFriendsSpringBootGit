@@ -1,6 +1,5 @@
 package of.officialactive.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ import of.member.model.Member;
 @Table(name= "OfficialActive")
 @Component ("OffiaialActive")
 
-public class OfficialActive implements Serializable {
+public class OfficialActive {
 	@Column (name = "EmpAcc")
 	private String empAcc; // 員工編號
 	
@@ -68,16 +67,6 @@ public class OfficialActive implements Serializable {
 			joinColumns = @JoinColumn(name = "anum"),
 			inverseJoinColumns= @JoinColumn(name = "memberAccount"))
 	private List<Member> memberactive = new ArrayList<Member>();
-	
-	
-	
-	public OfficialActive() {
-	}
-
-	public OfficialActive(Long anum,String aname) {
-		this.anum = anum;
-		this.aname = aname;
-	}
 	
 	public List<Member> getoaaddMember() {
 		return memberactive;

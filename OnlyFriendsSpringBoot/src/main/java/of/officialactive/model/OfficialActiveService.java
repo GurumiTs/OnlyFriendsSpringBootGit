@@ -20,6 +20,9 @@ public class OfficialActiveService {
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
 	
+	
+	
+	
 	public OfficialActive insert(OfficialActive officialActive) {
 		return officialActiveRepository.save(officialActive);
 	}
@@ -31,8 +34,8 @@ public class OfficialActiveService {
 	
 
 	
-	public List<OfficialActiveFindOa> getOaDataByAnum() {
-		return officialActiveRepository.getOaDataByAnum();
+	public List<OfficialActiveFindOa> findByAll() {
+		return officialActiveRepository.findByAll();
 	}
 	
 	public OfficialActive findByAnum(Long anum) {
