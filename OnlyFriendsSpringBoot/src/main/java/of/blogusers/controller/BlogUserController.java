@@ -116,5 +116,10 @@ public class BlogUserController {
 		return page.getContent();
 	}
 	
+	// 管理者文章分類版本前端頁面
+	@GetMapping(path = "/blogofficialmain")
+	public String blogEmpMainEntry() {
+		return "bloguserspages/empbloglabelpage";
+	}
 	
 }
