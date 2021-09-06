@@ -31,9 +31,9 @@ public class OfficialActiveService {
 	
 
 	
-	public List<OfficialActiveFindOa> getOaDataByAnum() {
-		return officialActiveRepository.getOaDataByAnum();
-	}
+//	public List<OfficialActiveFindOa> getOaDataByAnum() {
+//		return officialActiveRepository.getOaDataByAnum();
+//	}
 	
 	public OfficialActive findByAnum(Long anum) {
 		  Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum);

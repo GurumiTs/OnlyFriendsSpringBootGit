@@ -163,8 +163,8 @@
       <div class="modal-body">
          <div class="row">
                 <div class="col-6">
-                  <div class="pricing border border-warning border-4 rounded">
-                    <div class="pricing-title">Basic Package</div>
+                  <div class="pricing border border-secondary shadow border-4 rounded">
+                    <div class="pricing-title">Cupid Coins</div>
                     <div class="pricing-padding">
                       <div class="pricing-price">
                         <div>$99</div>
@@ -185,11 +185,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="pricing-cta">
-                      <a href="pay?num=3" 
-                        >checkout<i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+                    
                   </div>
                 </div>
                 <div class="col-6">
@@ -215,11 +211,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="pricing-cta">
-                      <a href="pay?num=10" target="_blank"
-                        >checkout<i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+                    
                   </div>
                 </div>
               </div>  
@@ -230,9 +222,55 @@
     </div>
   </div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=AftigsFKCM2v_kM3eOi1nnNVwL9SmIFmnWqg4ewxi1MrG9jeXPoEw2xWTSsfyn72gaFq0UKDh6QFIiFR"></script>
- <script>
-  </script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+
+<script>
+    paypal.Button.render({
+    style: {
+    		 color:'gold',
+    		 shape:'pill',
+    		 label:'checkout',
+    		 size: 'responsive',
+    		 fundingicons:'true',
+    		},
+    env: 'sandbox', // Or 'production'
+    // Set up the payment:
+    // 1. Add a payment callback
+    payment: function(data, actions) {
+      // 2. Make a request to your server
+      return actions.request.post('http://localhost:8080/OnlyFriends/pay')
+        .then(function(res) {
+          // 3. Return res.id from the response
+          console.log(res)
+          return res.id;
+        });
+    },
+    // Execute the payment:
+    // 1. Add an onAuthorize callback
+    onAuthorize: function(data, actions) {
+    	console.log(data)
+      // 2. Make a request to your server
+      console.log("onauth")
+      return actions.request.post('http://localhost:8080/OnlyFriends/pay/success', {
+        paymentID: data.paymentID,
+        payerID:   data.payerID
+      })
+        .then(function(res) {
+          console.log(res)
+          $('#exampleModal').modal('hide')
+          Swal.fire(
+	               '感謝'+res.payer.payerInfo.firstName+'已儲值成功!',
+	               '',
+	               'success'
+	                         )	
+          loadnewmember();                            
+        });
+    }
+  }, '.modal-footer');
+</script>
+
+
 
 
     <script>
@@ -255,6 +293,7 @@
           type: "post",
           url: "membercoinsdelete",
           success: function (data) {
+          //location.href="/"		  
           let oldcoinsnum = $("#coinarea").find("span").text()
           let newcoinnum = oldcoinsnum - 1
           if(newcoinnum > 1){

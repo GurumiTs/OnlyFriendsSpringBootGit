@@ -47,15 +47,15 @@ public class OfficialActiveController {
 
 
 	
-	@GetMapping(path= "/oatojson")
-	@ResponseBody
-	public List<OfficialActiveFindOa> allOaToJson(Model m) {
-		List<OfficialActiveFindOa> oaList = officialActiveService.getOaDataByAnum();
-		//Map<String, Object> map = new HashMap<>();
-		//map.put("data",oaList);
-		return oaList;
-				
-	}
+//	@GetMapping(path= "/oatojson")
+//	@ResponseBody
+//	public List<OfficialActiveFindOa> allOaToJson(Model m) {
+//		List<OfficialActiveFindOa> oaList = officialActiveService.getOaDataByAnum();
+//		//Map<String, Object> map = new HashMap<>();
+//		//map.put("data",oaList);
+//		return oaList;
+//				
+//	}
 	
 
 	@RequestMapping(path = "/empofficialactivemgmt.controller", method = RequestMethod.GET)

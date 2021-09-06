@@ -20,6 +20,6 @@ public interface OfficialActiveRepository extends JpaRepository<OfficialActive, 
 	
 	
 
-	@Query(value = "select new of.officialactive.model.OfficialActiveFindOa(u.anum,u.aname) from OfficialActive u ,  where u.anum =:anum")
-	List<OfficialActiveFindOa> getOaDataByAnum();
+//	@Query(value = "select new of.officialactive.model.OfficialActiveFindOa(u.anum,u.aname) from OfficialActive u ,  where u.anum =:anum")
+//	List<OfficialActiveFindOa> getOaDataByAnum();
 }
