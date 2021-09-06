@@ -42,8 +42,8 @@ font-size:1.2rem
 									活動日期:${userActivity.time} <br /> 報名截止日: ${userActivity.time_up} <br /> <br />
 									活動內容: ${userActivity.detail} <br /> <br /> 活動地點: ${userActivity.county}
 									${userActivity.district} ${userActivity.place} <br />
-									參加條件:${userActivity.condition} <br /> 男生人數: ${userActivity.man}
-									女生人數:${userActivity.woman}
+									活動須知:${userActivity.condition} <br /> 男生人數: ${userActivity.man}
+									女生人數:${userActivity.woman}<br /><br />剩餘名額: ${userActivity.total}
 								</p>
 							</section>
 							<!-- Button trigger modal -->
@@ -61,7 +61,7 @@ font-size:1.2rem
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="modal-body">參加條件:${userActivity.condition}</div>
+										<div class="modal-body">活動須知:${userActivity.condition}</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">返回</button>

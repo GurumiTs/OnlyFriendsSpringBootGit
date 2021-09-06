@@ -65,6 +65,14 @@ font-size:1.2rem
 								fate. It is just that we should be friends.</div>
 							<div class="card-body">
 								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本因該是朋友。</div>
+							
+						</div>
+						<div class="card mb-4">
+							<div class="card-header"><h3>參加活動者:</h3></div>
+							<div class="card-body" id="area">
+							 
+								</div>
+							
 						</div>
 					</div>
 				</div>
@@ -76,6 +84,31 @@ font-size:1.2rem
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
+		$(function(){
+			load()
+		})
+			function load(){
+			$.ajax({
+				type: 'post',
+				url: 'lo',
+				dataType:'JSON',
+				contentType : 'application/json',
+				success:function(data){
+					 var json = JSON.stringify(data, null, 2);
+					 var parsedObjinArray = JSON.parse(json);
+					 console.log(parsedObjinArray)
+					  var itemarea = $('#area');
+			    	     $('#area').empty("");
+			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+			    	     var item = "<span>"+n.memberName+"</span>" 
+			    	     itemarea.append(item);
+			    	 	 });
+				},
+				error : function() {
+					console.log("error");
+				}			
+			});
+		}
 		
 	</script>
 </body>

@@ -50,14 +50,15 @@ public class UserActivityController {
 
 		return "useractivepage/empactivemgmt2";
 	}
-	//管理員資料 json 
+
+	// 管理員資料 json
 	@GetMapping(path = "/Alluseractivity")
 	@ResponseBody
 	public Map AllActivity(Model model) {
-		List<UserActivity> activityList= userActivityService.selectAll();
-		Map<String, Object> map=new HashMap<>();
+		List<UserActivity> activityList = userActivityService.selectAll();
+		Map<String, Object> map = new HashMap<>();
 		map.put("data", activityList);
-		
+
 		return map;
 	}
 
@@ -69,32 +70,34 @@ public class UserActivityController {
 		userActivityService.deleteById(number);
 		return "redirect:/emppActivity.Entry";
 	}
+
 	// 管理員修改-刪除 json
 	@PostMapping(path = "/delete/{number}")
 	@ResponseBody
-	public String deleteEmployee(@PathVariable("number") String number){
-		System.out.println("number"+number);
+	public String deleteEmployee(@PathVariable("number") String number) {
+		System.out.println("number" + number);
 		userActivityService.deleteById(Integer.parseInt(number));
 
 		return "yes";
 	}
+
 	// 管理員修改開放權限
 	@PostMapping(path = "/approve")
 	@ResponseBody
 	public String approve(@RequestParam(name = "number") int number, Model model) {
-		System.out.println("controller:number"+number);
+		System.out.println("controller:number" + number);
 		userActivity = userActivityService.select(number);
 
 		String appove = userActivity.getApprove();
 		System.out.println(appove);
 		if (appove.equals("false")) {
 			userActivity.setApprove("true");
-			
+
 		} else if (appove.equals("true")) {
 			userActivity.setApprove("false");
 		}
 		userActivityService.updata(userActivity);
-		
+		System.out.println("afert" + appove);
 		return "y";
 	}
 
@@ -103,10 +106,7 @@ public class UserActivityController {
 	@ResponseBody
 	public List<UserActivity> userpartymgmtjson(Model m) {
 		List<UserActivity> useractivityList = userActivityService.findapporve("true");
-		for(UserActivity us:useractivityList) {
-			
-			System.out.println(us);
-		}
+
 		m.addAttribute("useractivityList", useractivityList);
 
 		return useractivityList;
@@ -235,12 +235,10 @@ public class UserActivityController {
 
 	@RequestMapping(path = "/userActivityup.controller", method = RequestMethod.POST)
 	public String partup(@RequestParam(name = "cover") MultipartFile cover,
-			@RequestParam(name = "activityname") String activityname,
-//			@RequestParam(name = "memberAccount") String memberAccount,
-			@RequestParam(name = "type") String type, @RequestParam(name = "time") String time,
-			@RequestParam(name = "time_up") String time_up, @RequestParam(name = "county") String county,
-			@RequestParam(name = "district") String district, @RequestParam(name = "zipcode") String zipcode,
-			@RequestParam(name = "place") String place,
+			@RequestParam(name = "activityname") String activityname, @RequestParam(name = "type") String type,
+			@RequestParam(name = "time") String time, @RequestParam(name = "time_up") String time_up,
+			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
+			@RequestParam(name = "zipcode") String zipcode, @RequestParam(name = "place") String place,
 
 			@RequestParam(name = "detail") String detail, @RequestParam(name = "condition") String condition,
 			@RequestParam(name = "man") String man, @RequestParam(name = "woman") String woman,
@@ -286,7 +284,7 @@ public class UserActivityController {
 	// 會員刪除
 	@RequestMapping(path = "/deleteactivity.controller", method = RequestMethod.GET)
 	public String Deleteactivity(@RequestParam(name = "number") int number, Model model) {
-//		Integer number = Integer.parseInt(request.getParameter("number"));
+
 		userActivity = userActivityService.select(number);
 		model.addAttribute("userActivity", userActivity);
 		userActivityService.deleteById(number);
@@ -309,14 +307,30 @@ public class UserActivityController {
 
 		List<UserActivity> useractivityList = userActivityService.findByAccount(memberAccount);
 
+
+
 		model.addAttribute("useractivityList", useractivityList);
 
 		return useractivityList;
 	}
 
+	// 搜尋以參加的會員資料 
+	@RequestMapping(path = "/lo", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Member> Member(@RequestParam(name = "number") Integer number) {
+
+		List<String> number1 = userActivityService.findthemembers(11);
+		List<Member> listmList = new ArrayList<Member>();
+		for (String string : number1) {
+			Member member = memberService.findByMemberAccount(string);
+			System.out.println(member.getMemberName());
+			listmList.add(member);
+		}
+		return listmList;
+	}
+
 	// 會員參加活動
 	@RequestMapping(path = "/addactivity", method = RequestMethod.GET)
-//	@ResponseBody
 	public String addactivity(HttpServletRequest request, @RequestParam(name = "number") Integer number) {
 
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -326,17 +340,18 @@ public class UserActivityController {
 
 		// 尋找活動
 		UserActivity ua = userActivityService.select(number);
+		// 活動總人數-1
+		int total = ua.getTotal();
+		ua.setTotal(total - 1);
 
 		List<Member> par = ua.getParticipate();
 		par.add(m2);
 		userActivityService.updata(ua);
 
-		// 判斷是否增加成功
 		return "useractivepage/usermgmtjson";
 	}
 
 	// 會員查詢自己參加活動
-//	抓參加者值
 	@RequestMapping(path = "/AlreadyParticipated", method = RequestMethod.POST)
 	@ResponseBody
 	public List<UserActivity> userparty(Model model, HttpServletRequest request) {
@@ -355,7 +370,6 @@ public class UserActivityController {
 			UserActivity ac = userActivityService.select(num);
 			activity.add(ac);
 		}
-//		userActivityService.f
 
 		return activity;
 	}

@@ -55,7 +55,7 @@ transform: scale(1.2)
 											<th>Cover</th>
 											<th>ID</th>
 											<th>Member</th>
-											<th>name</th>
+											<th>name　　　　</th>
 											<th>Type</th>
 											<th>Time　　　</th>
 											<th>Deadline　　　</th>

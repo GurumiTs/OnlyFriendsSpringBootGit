@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import of.member.model.Member;
+
 public interface UserActivityRepositor extends JpaRepository<UserActivity, Integer> {
 	//查詢單筆活動
 	public Optional<UserActivity> findByNumber(Integer number);
@@ -28,4 +30,9 @@ public interface UserActivityRepositor extends JpaRepository<UserActivity, Integ
 	//類別查詢 
 	@Query(value = "SELECT * FROM UserActivity u WHERE u.type = ?1", nativeQuery = true)
 	public List<UserActivity> findBytype(String type);
+	
+	// 在 participate 找到這個活動那些人參加
+	@Query(value = "SELECT p.memberAccount FROM participate p WHERE p.number = ?1", nativeQuery = true)
+	public List<String> findmembers(Integer number);
+	
 }

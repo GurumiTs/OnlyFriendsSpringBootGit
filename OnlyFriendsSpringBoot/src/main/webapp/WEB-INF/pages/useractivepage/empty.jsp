@@ -78,7 +78,7 @@ font-size:1.2rem
 							</div>
 
 							<div>
-								<label>參加條件</label> <input type="text" name="condition" id="condition">
+								<label>活動須知:</label> <input type="text" name="condition" id="condition">
 								<br> 
 								<label for="">男生人數:</label> 
 								<input type="number" name="man" id="man" min="0" max="20" step="1"	onchange="numberChange()">
