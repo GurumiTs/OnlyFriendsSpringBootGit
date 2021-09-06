@@ -17,23 +17,40 @@ font-size:1.2rem
         
         <%@include file="../frontcommonpages/shopsider.jsp"%>
         
-          <div class="main-content">
+          <div class="main-content" style="background-image: url('${pageContext.request.contextPath}/images/smallicon/giphy (5).gif');">
         <section class="section">
-          <div class="section-header">
-            <h1>購物車</h1>
-            <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="shopentrypage">招桃商城</a></div>
-              <div class="breadcrumb-item">購物車</div>
-            </div>
-          </div>
-
-          <div class="section-body">
-            <div class="invoice">
+<!--           <div class="section-header"> -->
+<!--             <h1>購物車</h1> -->
+<!--             <div class="section-header-breadcrumb"> -->
+<!--               <div class="breadcrumb-item active"><a href="shopentrypage">招桃商城</a></div> -->
+<!--               <div class="breadcrumb-item">購物車</div> -->
+<!--             </div> -->
+<!--           </div> -->
+		<div class="row mt-4">
+		<div class="col-2 col-lg-2 offset-lg-5">
+<!-- 		<div class="wizard-steps"> -->
+<!-- 			<div class="wizard-step wizard-step-success"> -->
+<!--                             <div class="wizard-step-icon"> -->
+<!--                               <i class="fas fa-check"></i> -->
+<!--                             </div> -->
+<!--                             <div class="wizard-step-label"> -->
+<!--                               Order Completed -->
+<!--                             </div> -->
+<!--                           </div> -->
+<!--                           </div> -->
+			<img src="${pageContext.request.contextPath}/images/smallicon/order.png" style="weight:100px;height:100px;"/>
+                 
+                 </div>
+              </div>
+		<br>
+          <div class="section-body col-md-8 offset-lg-2">
+          
+            <div class="invoice" >
               <div class="invoice-print">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="invoice-title">
-                      <h2>訂單摘要</h2>
+                      <h2>訂單完成</h2>
 <!--                       <div class="invoice-number">Order #12345</div> -->
                     </div>
                     <hr>
@@ -71,31 +88,19 @@ font-size:1.2rem
 <!--                     <div class="section-title">Order Summary</div> -->
 <!--                     <p class="section-lead">All items here cannot be deleted.</p> -->
                     <div class="table-responsive">
-                      <table class="table table-striped table-hover table-md">
-                        
+                      <table class="table table-sm">
+                      <thead>
                         <tr>
-                          <th data-width="40">刪除</th>
-                          <th>名稱</th>
-                          <th class="text-center">單價</th>
-                          <th class="text-center">數量</th>
-                          <th class="text-right">小計</th>
+                          <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                          <th scope="col">名稱</th>
+                          <th scope="col">單價</th>
+                          <th scope="col">數量</th>
+                          <th scope="col">小計</th>
                         </tr>
-                       	<tbody  id="orderlist"></tbody>
-<!--                         <tr> -->
-<!--                           <td>2</td> -->
-<!--                           <td>Keyboard Wireless</td> -->
-<!--                           <td class="text-center">$20.00</td> -->
-<!--                           <td class="text-center">3</td> -->
-<!--                           <td class="text-right">$60.00</td> -->
-<!--                         </tr> -->
-<!--                         <tr> -->
-<!--                           <td>3</td> -->
-<!--                           <td>Headphone Blitz TDR-3000</td> -->
-<!--                           <td class="text-center">$600.00</td> -->
-<!--                           <td class="text-center">1</td> -->
-<!--                           <td class="text-right">$600.00</td> -->
-<!--                         </tr> -->
-                      </table>
+                      </thead>
+                      <tbody id="checkoutlist">
+                      </tbody>
+                    </table>
                     </div>
                     <div class="row mt-4">
                       <div class="col-lg-8">
@@ -120,7 +125,7 @@ font-size:1.2rem
                         <hr class="mt-2 mb-2">
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
-                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="ordertotal"></span></div>
+                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="checkouttotal"></span></div>
                         </div>
                       </div>
                     </div>
@@ -154,14 +159,9 @@ font-size:1.2rem
         
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
-    
-    
-    <script >  
+    <script>
     $(function(){
     	findcart()
-    	$(".minus").on("click",minus)	
-	    $(".deleteitem").on("click",deleteitem)
-	    $(".plus").on("click",plus)
     })
     
     //showshopcartlist
@@ -173,25 +173,19 @@ font-size:1.2rem
 // 				 console.log(data);
 				 var json = JSON.stringify(data,null,4);
 	     	     var parsedObjinArray = JSON.parse(json);
-	     	     var orderlist = $('#orderlist');
-	     	     $('#orderlist').empty("");
+	     	     var checkoutlist = $('#checkoutlist');
+	     	     $('#checkoutlist').empty("");
 	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 	     	     var item =  '<tr id='+n.product.proId+'>'+
 	     	    '<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
                  '<td>'+n.product.proName+'</td>'+
                  '<td class="text-center">'+n.product.proPrice+'</td>'+
-                 '<td class="text-center">'+'<button class="btn btn-sm btn-icon btn-light mx-1 minus" id="'+n.product.proId+'minus'+'"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+
+                 '<td class="text-center">'+'<i id="amount>">'+n.amount+'</i>'+'</td>'+
                  '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
                	 '</tr>';
-	 				orderlist.append(item);
-	 			if(n.amount == 1){
-	 				$(''+n.product.proId+'.minus').prop('disabled',true)
-	 			}	
+               	  checkoutlist.append(item);
 	 				
 	     	    });
-	     	 	$(".minus").on("click",minus)
-	     	 	$(".deleteitem").on("click",deleteitem)
-	     	 	$(".plus").on("click",plus)
 	     	 	shopcartfinaltotal() 
 	     	 	
 			},
@@ -199,77 +193,23 @@ font-size:1.2rem
 				console.log("error");
 			}
 		})
-	}	
-    
-    //minus
-    function minus(){
-		let id = $(this).closest('tr').attr('id')
-		$.ajax({
-			type:"get",
-			url:"minusshopcart",
-			data:{"proId":id},
-			success:function(data){	
-// 				console.log(data)
-	     	 	findcart()	
-     	 	
-			},
-			error:function(){
-				console.log("error");
-			}
-		})		
-	}
-	
-    //plus
-	function plus(){
-		let id = $(this).closest('tr').attr('id')
-		$.ajax({
-			type:"get",
-			url:"plusshopcart",
-			data:{"proId":id},
-			success:function(data){	
-// 				console.log(data)
-	     	 	findcart()	
-     	 	
-			},
-			error:function(){
-				console.log("error");
-			}
-		})		
-	}
-	
-    //delete shopcartitem
-	function deleteitem(){
-		let id = $(this).closest('tr').attr('id')
-		console.log(id);
-		$.ajax({
-			type:"get",
-			url:"deleteshopcartitem",
-			data:{"proId":id},
-			success:function(data){	
-// 				console.log(data)
-	     	 	findcart()	   	 	
-			},
-			error:function(){
-				console.log("error");
-			}
-		})		
 	}
     
-//		shoppingcartfinaltotal
+//	shoppingcartfinaltotal
 	  function shopcartfinaltotal() {						  
 			$.ajax({
 				type:"get",
 				url:"shopcarttotal",
 				success:function(data){
-					$('#ordertotal').empty()
-		            $('#ordertotal').text(data)
+					$('#checkouttotal').empty()
+		            $('#checkouttotal').text(data)
 				}
 				,error: function(error){
 					console.log(error);
 				}
 			})
 		}
-   
+ 
     </script>
-  </body>
-</html>       
+   </body>
+</html>  

@@ -204,7 +204,8 @@ public class MemberJsonController {
 
 		System.out.println("i'm date:" + day);
 		if (m2.getSwipeDate().equals(day) == false) {
-			m2.setSwipeTime("3");
+			String newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
+			m2.setSwipeTime(newswipetime);
 			memberService.update(m2);
 		}
 		m2.setSwipeDate(day);

@@ -10,8 +10,10 @@
       <div class="header">
         <div class="title" id="coinarea">
         </div>
-        <a href="memberswipe">返回</a>
-        <a href="memberfriends"><i class="fas fa-inbox fa-2x"></i></a>
+     	<a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="${pageContext.request.contextPath}/images/smallicon/money-bag.svg" alt="logo" width="40"></a>
+		<a href="memberfriends" ><img src="${pageContext.request.contextPath}/images/smallicon/inbox.svg" alt="logo" width="40"></a>
+		<a href="memberswipe" ><img src="${pageContext.request.contextPath}/images/smallicon/turn.svg" alt="logo" width="40"></a>
+		     
       </div>
     </div>
     <div class="backgrounds">
@@ -151,6 +153,87 @@
     </div>
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Stored</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <div class="row">
+                <div class="col-6">
+                  <div class="pricing border border-warning border-4 rounded">
+                    <div class="pricing-title">Basic Package</div>
+                    <div class="pricing-padding">
+                      <div class="pricing-price">
+                        <div>$99</div>
+                        <div></div>
+                      </div>
+                      <div class="pricing-details">
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">coins x3</div>
+                        </div>
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">exp +100</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pricing-cta">
+                      <a href="pay?num=3" 
+                        >checkout<i class="fas fa-arrow-right"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="pricing border border-warning border-4 rounded">
+                    <div class="pricing-title">Cupid Coins</div>
+                    <div class="pricing-padding">
+                      <div class="pricing-price">
+                        <div>$199</div>
+                        <div></div>
+                      </div>
+                      <div class="pricing-details">
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">coins x10</div>
+                        </div>
+                        <div class="pricing-item">
+                          <div class="pricing-item-icon">
+                            <i class="fas fa-check"></i>
+                          </div>
+                          <div class="pricing-item-label">exp +3000</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pricing-cta">
+                      <a href="pay?num=10" target="_blank"
+                        >checkout<i class="fas fa-arrow-right"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+      </div>
+      <div class="modal-footer">
+       
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AftigsFKCM2v_kM3eOi1nnNVwL9SmIFmnWqg4ewxi1MrG9jeXPoEw2xWTSsfyn72gaFq0UKDh6QFIiFR"></script>
+ <script>
+  </script>
+
 
     <script>
       let todaytype;
@@ -163,6 +246,7 @@
         $("#pickthree").on("click", pick);
         $("#again").on("click", onemore);
         $("#heartbuttonarea").on("click",getheartid)
+        //$("#stored").on('click',stored)
       });
 
       function pick() {
@@ -171,7 +255,19 @@
           type: "post",
           url: "membercoinsdelete",
           success: function (data) {
-            $("#coinarea").find(":first-child").remove();
+          let oldcoinsnum = $("#coinarea").find("span").text()
+          let newcoinnum = oldcoinsnum - 1
+          if(newcoinnum > 1){
+        	 $("#coinarea").find("span").text(newcoinnum) 
+          }
+          else if(newcoinnum == 1){      
+        	 $("#coinarea").find("span").remove()
+          }
+          else if(newcoinnum < 1){      
+         	 $("#coinarea").find("img").remove()
+           }
+         
+           
           },
           error: function (data) {
             console.log("無法送出");
@@ -285,16 +381,32 @@
                 	$("#pickthree").html('本日硬幣已用完')
                 }
                 console.log("coins num :" + coins);
-                for (i = 1; i <= coins; i++) {
-                  $("#coinarea").append(
-                    $("<img />")
-                      .addClass("img-fluid mx-2")
-                      .attr(
-                        "src",
-                        "${pageContext.request.contextPath}/images/smallicon/pentaclesm.png"
-                      )
-                  );
+                if(coins == 1){
+                	$("#coinarea").append(
+                            $("<img  class='mx-2' width='60'/>")
+                              .attr(
+                                "src",
+                                "${pageContext.request.contextPath}/images/smallicon/pentacle.svg"
+                              )
+                          );
+                	$("#coinarea").append(
+                    		$("<span class='fs-4 fw-bolder mx-1 d-none'/>").html(coins)              		
+                    	)
                 }
+                if(coins > 1){
+                	$("#coinarea").append(
+                			$("<img  class='mx-2' width='60'/>")
+                              .attr(
+                                "src",
+                                "${pageContext.request.contextPath}/images/smallicon/pentacle.svg"
+                              )
+                          );
+                	$("#coinarea").append(
+                		$("<span class='fs-4 fw-bolder mx-1'/>").html(coins)              		
+                	)
+                	
+                }
+               
               },
               error: function (data) {
                 console.log("無法送出");
@@ -341,6 +453,45 @@
     	  	  }
     	   });
       }
+      
+      
+      function stored(){
+    	  $.ajax({
+              type: "post",
+              url: "pay",
+              success: function (data) {
+            	  Swal.fire({
+            		  icon: 'success',
+            		  title: 'invite successful',
+            		  showConfirmButton: false,
+            		  timer: 1500
+            		})
+            	  console.log(data)
+              }
+    	  ,error:function(data){
+    		  Swal.fire({
+        		  icon: 'error',
+        		  title: 'save already',
+        		  showConfirmButton: false,
+        		  timer: 1500
+        		})	 
+    	  	  }
+    	   });
+    	  
+      }  
     </script>
+    
+    <c:if test="${not empty successMsg}">
+		<script>
+			Swal.fire({
+				position : 'center',
+				icon : 'success',
+				title : '${successMsg}',
+				showConfirmButton : false,
+				timer : 1500
+			})
+		</script>
+		<c:remove var="successMsg" scope="session" />
+	</c:if>
 </body>
 </html>
