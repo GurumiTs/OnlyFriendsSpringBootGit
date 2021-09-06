@@ -30,18 +30,18 @@ import of.member.model.Member;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
+import of.officialactive.model.OfficialActiveFindOa;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
 @SessionAttributes(names = { "allofficialActive","totalPages","totalElements" })
 public class OfficialActiveController {
 
+	
 	@Autowired
 	private OfficialActiveService officialActiveService;
 	@Autowired
 	private OfficialActive officialActive;
-	@Autowired 
-	private OaMemberService oamService;
 	@Autowired 
 	private MemberService memberService;
 
@@ -49,14 +49,12 @@ public class OfficialActiveController {
 	
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
-	public Map allOaToJson(Model m) {
-		List<OfficialActive> oaList = officialActiveService.findAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data",oaList);
-		return map;
-		
-		
-		
+	public List<OfficialActiveFindOa> allOaToJson(Model m) {
+		List<OfficialActiveFindOa> oaList = officialActiveService.getOaDataByAnum();
+		//Map<String, Object> map = new HashMap<>();
+		//map.put("data",oaList);
+		return oaList;
+				
 	}
 	
 
@@ -72,41 +70,41 @@ public class OfficialActiveController {
 		return "officialactivepages/officialactiveinsert";
 	}
 
-	@RequestMapping(path = "/empofficialActiveInsert.controller", method = RequestMethod.POST)
-	public String officialActiveAdd(@RequestParam(name = "activeFile") MultipartFile img,
-			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
-		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
-			@RequestParam(name = "atype2") String atype2, @RequestParam(name = "adate") String adate,
-			@RequestParam(name = "startDeadline") String startDeadline,
-			@RequestParam(name = "finishDeadline") String finishDeadline, @RequestParam(name = "active") String active,
-			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
-			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
-			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
-			throws SQLException, IllegalStateException, IOException {
-			OfficialActive  officialActive =new OfficialActive();
-		String fileName = img.getOriginalFilename();
-		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
-		System.out.println(path);
-		String filePath =  path+ "/" + fileName; 
-		File saveFile = new File(filePath);
-	    img.transferTo(saveFile);
-	    officialActive.setImg("images/empPic/" + fileName);
-		officialActive.setEmpAcc(empAcc);
-		officialActive.setAname(aname);
-		officialActive.setAtype(atype);
-		officialActive.setAtype2(atype2);
-		officialActive.setAdate(adate);
-		officialActive.setStartDeadline(startDeadline);
-		officialActive.setFinishDeadline(finishDeadline);
-		officialActive.setActive(active);
-		officialActive.setCounty(county);
-		officialActive.setDistrict(district);
-		officialActive.setConditions(conditions);
-		officialActive.setMale(male);
-		officialActive.setFemale(female);
-		officialActiveService.insert(officialActive);
-		return "redirect:/empofficialactivemgmt.controller";
-	}
+//	@RequestMapping(path = "/empofficialActiveInsert.controller", method = RequestMethod.POST)
+//	public String officialActiveAdd(@RequestParam(name = "activeFile") MultipartFile img,
+//			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
+//		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
+//			@RequestParam(name = "atype2") String atype2, @RequestParam(name = "adate") String adate,
+//			@RequestParam(name = "startDeadline") String startDeadline,
+//			@RequestParam(name = "finishDeadline") String finishDeadline, @RequestParam(name = "active") String active,
+//			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
+//			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
+//			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
+//			throws SQLException, IllegalStateException, IOException {
+//			OfficialActive  officialActive =new OfficialActive();
+//		String fileName = img.getOriginalFilename();
+//		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+//		System.out.println(path);
+//		String filePath =  path+ "/" + fileName; 
+//		File saveFile = new File(filePath);
+//	    img.transferTo(saveFile);
+//	    officialActive.setImg("images/empPic/" + fileName);
+//		officialActive.setEmpAcc(empAcc);
+//		officialActive.setAname(aname);
+//		officialActive.setAtype(atype);
+//		officialActive.setAtype2(atype2);
+//		officialActive.setAdate(adate);
+//		officialActive.setStartDeadline(startDeadline);
+//		officialActive.setFinishDeadline(finishDeadline);
+//		officialActive.setActive(active);
+//		officialActive.setCounty(county);
+//		officialActive.setDistrict(district);
+//		officialActive.setConditions(conditions);
+//		officialActive.setMale(male);
+//		officialActive.setFemale(female);
+//		officialActiveService.insert(officialActive);
+//		return "redirect:/empofficialactivemgmt.controller";
+//	}
 		
 	
 	//修改
@@ -170,7 +168,7 @@ public class OfficialActiveController {
 	
 		
 		//刪除
-		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.GET)
+		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.POST)
 		public String deleteOfficialActive(@RequestParam(name = "anum") Long anum, Model model) {
 			System.out.println(anum);
 			officialActive = officialActiveService.findByAnum(anum);
@@ -205,7 +203,7 @@ public class OfficialActiveController {
 			return page.getContent();
 		}
 		
-		//itempage 詳細商品
+		//itempage 詳細活動
 		
 		
 		@GetMapping("/oaitemEntry.controller")
@@ -232,21 +230,19 @@ public class OfficialActiveController {
 		}
 		
 		
-		@RequestMapping (path = "/addmember")
+		@PostMapping (path = "/addmember/{anum}")
 		@ResponseBody
-		public String addmember (@RequestParam(name = "anum" ,required = false) Long anum,HttpServletRequest request) {
-			System.out.println("測試");
+		public String addmember (@PathVariable("anum") String a,HttpServletRequest request) {
+			long anum = Long.parseLong(a);
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
-			Member m2 = memberService.findByMemberAccount(memberAccount);
-			
+			Member m2 = memberService.findByMemberAccount(memberAccount);			
 			OfficialActive oa = officialActiveService.select(anum);
-			
 			List<Member> memberactive = oa.getMemberactive();
 			memberactive.add(m2);
-			officialActiveService.update(oa);
-
-			return "officialactivepages/oahomepage";
+			officialActiveService.updateMember(oa);
+			
+			return "y";
 			
 		}
 		
@@ -257,25 +253,26 @@ public class OfficialActiveController {
 		
 		
 		// 參加活動
-		
-		@RequestMapping(path = "/addoamember", method = RequestMethod.GET)
-		@ResponseBody
-		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
-			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-			String memberAccount = m1.getMemberAccount();
-			
-			Member m2 = memberService.findByMemberAccount(memberAccount);
-			
-			//抓活動
-			
-			OfficialActive oam = officialActiveService.select(anum);
-			
-			List <Member> oamemberList = oam.getMemberactive();
-			oamemberList.add(m2);
-			officialActiveService.update(oam);
-			
-			return "/oaforuserpages.controller";
-		}
+//		
+//		@RequestMapping(path = "/addoamember.controller", method = RequestMethod.POST)
+//		@ResponseBody
+//		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
+//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//			String memberAccount = m1.getMemberAccount();
+//			
+//			Member m2 = memberService.findByMemberAccount(memberAccount);
+//			
+//			
+//			//抓活動
+//			
+//			OfficialActive oam = officialActiveService.select(anum);
+//			
+//			List <Member> oamemberList = oam.getMemberactive();
+//			oamemberList.add(m2);
+//			officialActiveService.update(oam);
+//			
+//			return "成功123";
+//		}
 		
 		
 		

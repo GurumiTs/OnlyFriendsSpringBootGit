@@ -58,6 +58,7 @@ public class BlogUserController {
 		if (user.equals("user")) {
 			BlogUser blogUser = bUserService.findByArticleID(articleId);
 			
+			//單一文章內容
 			blogUser.setWatchNum(blogUser.getWatchNum()+1);
 			bUserService.updateBlogUser(blogUser);
 			m.addAttribute("blogUser", blogUser);

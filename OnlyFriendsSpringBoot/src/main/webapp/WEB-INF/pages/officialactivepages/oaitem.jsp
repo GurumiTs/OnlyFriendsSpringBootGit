@@ -103,8 +103,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-		    
-        <button  type="button" class="btn btn-primary" id = "send">送出</button>
+		   <a href = "oauserpage.controller">
+        <button  type="button" class="btn btn-primary" id = "send" data-bs-dismiss="medal">送出</button></a>
         
       </div>
     </div>
@@ -115,6 +115,19 @@
             </div>
         </section>
         </form>
+        
+        <iframe 
+    width="100%" 
+    height="300" 
+    frameborder="0"
+    src="https://www.google.com/maps?
+    q=台北101
+    &hl=en
+    &z=18
+    &t=m
+    &output=embed ">
+</iframe>
+        
         
         <P>---------------------------------------------------------------------------------------
       <section class="mb-5">
@@ -167,6 +180,12 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                    
                                 </div>
@@ -320,16 +339,16 @@
 				let anum = $('#anum').val()
 				console.log(anum)
 				  $.ajax({
-					  type : "GET",
-					  url: "addmember",
-					  dataType:'JSON',
-					  contentType:'application/json',
-					  data:{"anum":anum},
+					  type : "POST",
+					  url: "addmember/"+anum,
 					  success:function(data)
 					  {
 						console.log("success")  
-						  $('#anum').attr('value',anum);				  
+						 // $('#anum').attr('value',anum);				  
 						  console.log(123123)
+					  },error:function(xhr)
+					  {
+						  console.log('無法送出')
 					  }
 				     
 				  });			  

@@ -105,25 +105,32 @@ public class ShoppingCartController {
 	public List<CartItem> getShoppingCars(Model model, HttpServletRequest request) {
 
 		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
+//		System.out.println("y");
 		return cartlist;
 	}
+	
+	@RequestMapping(path = "/getorder", method = RequestMethod.POST)
+	@ResponseBody
+	public List<CartItem> getorder(Model model, HttpServletRequest request) {
+
+		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
+		System.out.println("y");
+		return cartlist;
+	}
+	
 
 	@RequestMapping(path = "/getcartitemcounts", method = RequestMethod.POST)
 	public Integer getCartItemCounts(@RequestParam(name = "proId") Integer proId, Model model,
 			HttpServletRequest request) {
 		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
 
-//		System.out.println(request.getAttributeNames());
 
 		for (CartItem c : cartlist) {
 			Integer cartfindproid = c.getProduct().getProId();
 
 			CartItem cartItem = new CartItem();
 			Integer a = c.getAmount() + cartItem.getAmount();
-//			System.out.println(a);
 			if (cartfindproid.equals(cartItem.getProduct().getProId())) {
-//				cartlist.add(c.get(proId).getAmount()+cartItem.getAmount());
-//				System.out.println("起床囉兄弟");
 			}
 		}
 
@@ -136,8 +143,6 @@ public class ShoppingCartController {
 		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
 		Integer shopcartnum=sessionlist.size();
 		String numberString = String.valueOf(shopcartnum);
-//		System.out.println("哈囉");
-//		System.out.println(shopcartnum);
 		return numberString;
 	}
 	
@@ -149,7 +154,6 @@ public class ShoppingCartController {
 		for (CartItem c : sessionlist) {
 			finaltotal+=c.getProduct().getProPrice()*c.getAmount();
 		}
-		System.out.println(finaltotal);
 		return finaltotal;
 	}
 
@@ -168,11 +172,7 @@ public class ShoppingCartController {
 	@ResponseBody
 	public List<CartItem> minusshopcart(Model model,HttpServletRequest request,@RequestParam("proId") Integer proId) {
 		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
-		System.out.println(proId);
 		for(CartItem cartItem:sessionlist) {
-			System.out.println("in for loop");
-			System.out.println(cartItem.getProduct().getProId());
-//			System.out.println(cartItem.getProduct().getProId().equals(proId));
 			if(cartItem.getProduct().getProId()== proId) {
 				
 				if(cartItem.getAmount()<=1) {	
@@ -191,11 +191,7 @@ public class ShoppingCartController {
 	@ResponseBody
 	public List<CartItem> Deleteshopcartitem(Model model,HttpServletRequest request,@RequestParam("proId") Integer proId) {
 		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
-		System.out.println(proId);
 		for(CartItem cartItem:sessionlist) {
-			System.out.println("in for loop");
-			System.out.println(cartItem.getProduct().getProId());
-//			System.out.println(cartItem.getProduct().getProId().equals(proId));
 			if(cartItem.getProduct().getProId()== proId) {
 				sessionlist.remove(cartItem);
 				break;
@@ -212,11 +208,7 @@ public class ShoppingCartController {
 	@ResponseBody
 	public List<CartItem> plusshopcart(Model model,HttpServletRequest request,@RequestParam("proId") Integer proId) {
 		List<CartItem> sessionlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
-		System.out.println(proId);
 		for(CartItem cartItem:sessionlist) {
-			System.out.println("in for loop");
-			System.out.println(cartItem.getProduct().getProId());
-//			System.out.println(cartItem.getProduct().getProId().equals(proId));
 			if(cartItem.getProduct().getProId()== proId) {
 				
 					Integer minusitemnum = cartItem.getAmount() + 1;
@@ -227,10 +219,21 @@ public class ShoppingCartController {
 		return sessionlist;
 	}
 	
-	
-	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
-		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
-		cartlist.remove(productService.findById(proId));
-		return cartlist ;
+	@RequestMapping(path = "/orderpage", method = RequestMethod.GET)
+	public String userorderpage(Model model) {
+		return "productpages/invoice";
 	}
+	
+	@RequestMapping(path = "/ordercomplete", method = RequestMethod.GET)
+	 public String userordercomplete(Model model) {
+	  return "productpages/ordercomplete";
+	 }
+	
+//	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
+//		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
+//		cartlist.remove(productService.findById(proId));
+//		return cartlist ;
+//	}
+	
+	
 }

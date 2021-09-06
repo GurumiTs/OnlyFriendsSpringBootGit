@@ -109,12 +109,7 @@ public class MainEntryController {
 		System.out.println("step2");
 		
 		return "login";
-	}
-		
-	@RequestMapping(path = "/chatroom.controller", method = RequestMethod.GET)
-	public String chatRoomEntry() {
-		return "chatroom";
-	}
+	}	
 	
 	@RequestMapping(path = "/shopitem.controller", method = RequestMethod.GET)
 	public String shopItemEntry() {

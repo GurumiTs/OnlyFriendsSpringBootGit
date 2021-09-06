@@ -10,7 +10,7 @@
       <div class="header">
         <div class="title" id="coinarea">
         </div>
-        <a href="${pageContext.request.contextPath}/">返回</a>       
+  		<a href="${pageContext.request.contextPath}/" ><img src="${pageContext.request.contextPath}/images/smallicon/turn.svg" alt="logo" width="40"></a>            
       </div>
     </div>
     <div class="backgrounds">
@@ -41,9 +41,6 @@
               </div>
        </div> <!-- end of card row -->
     </div>   
-     
-      
-
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
     <script>
