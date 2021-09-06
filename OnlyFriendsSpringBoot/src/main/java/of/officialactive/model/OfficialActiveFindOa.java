@@ -2,12 +2,33 @@ package of.officialactive.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class OfficialActiveFindOa implements Serializable{
 	
-		
-	private long anum; // 活動編號 PK(1,1)  
-	private String aname;//管理者名稱
 	
+	private long anum;
+	private String aname;
+	
+	public long getAnum() {
+		return anum;
+	}
+
+	public void setAnum(long anum) {
+		this.anum = anum;
+	}
+
+	public String getAname() {
+		return aname;
+	}
+
+	public void setAname(String aname) {
+		this.aname = aname;
+	}
+
 	public OfficialActiveFindOa() {
 		
 	}
@@ -16,20 +37,4 @@ public class OfficialActiveFindOa implements Serializable{
 		this.anum = anum;
 		this.aname = aname;
 	}
-
-
-	public long getAnum() {
-		return anum;
-	}
-	public void setAnum(long anum) {
-		this.anum = anum;
-	}
-	public String getAname() {
-		return aname;
-	}
-	public void setAname(String aname) {
-		this.aname = aname;
-	}
-	
-	
 }
