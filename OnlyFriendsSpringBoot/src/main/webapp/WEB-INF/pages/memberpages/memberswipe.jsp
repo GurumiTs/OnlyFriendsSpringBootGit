@@ -10,7 +10,7 @@
       <div class="header">
         <div class="title" id="coinarea">
         </div>
-        <a href="${pageContext.request.contextPath}/">Back</a>       
+  		<a href="${pageContext.request.contextPath}/" ><img src="${pageContext.request.contextPath}/images/smallicon/turn.svg" alt="logo" width="40"></a>            
       </div>
     </div>
     <div class="backgrounds">
@@ -34,16 +34,13 @@
                       <p class="lead text-white">
                       
                       </p>
-                      <a href="memberswipeloading" class="btn btn-primary mt-4">Let's Go</a>
+                      <a href="memberswipeloading" class="btn btn-primary mt-4">開始遊戲</a>
                     </div>
                   </div>
                 </div>               
               </div>
        </div> <!-- end of card row -->
     </div>   
-     
-      
-
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
     <script>

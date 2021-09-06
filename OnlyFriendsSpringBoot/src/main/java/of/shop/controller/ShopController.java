@@ -35,50 +35,6 @@ public class ShopController {
 	private ProductService productService;
 	@Autowired
 	private Product product;
-//	@Autowired
-//	private ServletContext context;
-//	
-//	@Autowired
-//	private static List<Product> list=new ArrayList<Product>();
-
-//	@RequestMapping(path = "/addtoshopchart", method = RequestMethod.GET)
-//	public String shopCar(@RequestParam(name = "Id") Integer Id, HttpServletResponse response,HttpSession session, Model model) {
-//		
-//		
-//		//獲取商品物件
-//		List <Product> products=(List<Product>) context.getAttribute("shopcart");
-//		//儲存至購物車
-//		Map<Product, Integer> shopcart = (Map<Product, Integer>) session.getAttribute("shopcart");
-//		// 如果session沒有購物車
-//		if (shopcart == null) {
-//			shopcart = new HashMap<Product, Integer>();
-//		}
-//		if (shopcart!=null) {// 判斷商品是否存在購物車中
-//			int number = shopcart.get(Id);
-//			// 存在=>數量加一
-//			shopcart.put(product, number + 1);
-//		} else {
-//			System.out.println("failed");
-//		}
-//		session.setAttribute("shopcart", shopcart);
-//		
-//		//為了讓購物車存的時間久一點 現在需要手動設定cookie
-//		Cookie cookie =new Cookie("JSESSIONID", session.getId());
-//		cookie.setMaxAge(60*60*24*7);
-//		response.addCookie(cookie);
-//		
-//		//跳轉頁面
-//		return "redirect:productpages/transfer";
-//	}
-	
-	
-	
-	
-//	@RequestMapping(path = "/toCart",method = RequestMethod.GET)
-//	public String toCart() {
-//		return "productpages/shopcart";
-//	}
-//	
 	
 
 
@@ -125,7 +81,7 @@ public class ShopController {
 		int pageSize = 4;
 		
 		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"幸運小物");
+		Page<Product> page=productService.findByItem(pageable,"幸運小物類");
 		
 		int totalPages =page.getTotalPages();
 		long totalElements =page.getTotalElements();
@@ -161,7 +117,7 @@ public class ShopController {
 		int pageSize = 4;
 		
 		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"其他");
+		Page<Product> page=productService.findByItem(pageable,"其他類");
 		System.out.println(otherItem);
 		int totalPages =page.getTotalPages();
 		long totalElements =page.getTotalElements();
@@ -170,5 +126,16 @@ public class ShopController {
 		model.addAttribute("totalElements",totalElements);
 		
 		return page.getContent();
+	}
+	
+	@GetMapping("/releteproductItem")
+	@ResponseBody
+	public List<Product> releteProductItem(@RequestParam String proName) {
+		List<Product> products = productService.findByitemLike("%小物");
+		
+		
+		System.out.println(proName);
+		System.out.println(product);
+		return products;
 	}
 }

@@ -968,7 +968,7 @@ tr:first-child > td > .fc-day-grid-event {
 #toast-container > div {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
   padding: 20px 20px 20px 50px;
-  opacity: 1; }
+  opacity: 1;}
 
 #toast-container > .toast {
   background-image: none !important; }
@@ -993,7 +993,9 @@ tr:first-child > td > .fc-day-grid-event {
 
 #toast-container > .toast-success:before {
   content: "\f121"; }
-
+.toast {
+    opacity: 1 !important;
+}
 .toast.toast-error {
   background-color: #fc544b; }
 

@@ -19,14 +19,14 @@ font-size:1.2rem
 
         <!-- Main Content  -->
         <div class="main-content" >
-        <h3>活 動 創 辦 中~旁邊有點空!所以注意力請放這邊</h3>
+        <h3>活 動 創 辦 中~</h3>
 				<div class="col-12 col-md-12 col-lg-5" style="background-color:White;border-radius:10px;">
 					<form action="userInsertActivity.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="st1">
 							<div class="">
 								<img id="output" src="images\partyPic\party1.jpg" alt=""
-									style="width:700px;height:500px; border-radius:10px; margin:10px"><br>
+									style="width:620px;height:500px; border-radius:10px; margin:10px"><br>
 
 							</div>
 							<div>
@@ -36,30 +36,29 @@ font-size:1.2rem
 
 							</div>
 							<div>
-								<input type="hidden" name="anum" size="20"
-									placeholder="請輸入活動ID..." value="${party.number}" /> <label
-									for="">活動名稱: </label> <input type="text" name="Activityname">
+							  <label for="">活動名稱: </label>
+							  <input type="text" name="Activityname" id="Activityname">
 							</div>
 
 
 							<div>
-								<select name="type" class="form-select form-select-sm"
+								<select name="type" id="type" class="form-select form-select-sm"
 									aria-label=".form-select-sm example">
-									<option selected>活動類型</option>
+									<option selected id="type">活動類型</option>
 									<option value="約會">約會</option>
 									<option value="旅遊">旅遊</option>
 									<option value="體能">體能</option>
 									<option value="收藏">收藏</option>
 									<option value="娛樂">娛樂</option>
 									<option value="創作">創作</option>
-									<option value="社會">社會服務</option>
-									<option value="飼養">栽培飼養</option>
+									<option value="社會服務">社會服務</option>
+									<option value="栽培飼養">栽培飼養</option>
 								</select>
 							</div>
 							<div>
 								<!-- yyyy-mm-dd  -->
-								<label class="" for="">活動日期:</label> <input type="date"
-									name="time" id="time">
+								<label class="" for="">活動日期:</label>
+								 <input type="date"	name="time" id="time">
 							</div>
 							<div>
 								<!-- yyyy-mm-dd  -->
@@ -69,26 +68,28 @@ font-size:1.2rem
 
 							<div>
 								<label for="comment1" class="">活動內容:</label>
-								<textarea name="Detail" id="plan" cols="40" rows="5" value="" style=" resize: none;"></textarea>
+								<textarea name="Detail" id="Detail" cols="40" rows="5" value="" style=" resize: none;"></textarea>
 							</div>
 
 							<div>
 								<!-- 縣市 區域 跟 完整地址 -->
 								<label for="">活動地點:</label> <span id="twzipcode"></span><input
-									type="text" name="place">
+									type="text" name="place" id="place">
 							</div>
 
 							<div>
-								<label>參加條件</label> <input type="text" name="condition">
-								<br> <label for="">男生人數:</label> <input type="number"
-									name="man" id="numberInput" min="0" max="20" step="1"
-									onchange="numberChange()"> <label for=""> 女生人數:</label>
-								<input type="number" name="woman" id="numberInput" min="0"
-									max="20" step="1" onchange="numberChange()">
+								<label>活動須知:</label> <input type="text" name="condition" id="condition">
+								<br> 
+								<label for="">男生人數:</label> 
+								<input type="number" name="man" id="man" min="0" max="20" step="1"	onchange="numberChange()">
+								<label for="">女生人數:</label>
+								<input type="number" name="woman" id="woman" min="0" max="20" step="1" onchange="numberChange()">
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary btn-md">創建活動</button>
 								<button type="reset" class="btn btn-secondary btn-md" style="margin-right:100px">清除資料</button>
+								<button type="button" id="activity" class="btn btn-success" style="margin-right:100px">一拳超人</button>
+								
 							</div>
 						</div>
 					</form>
@@ -144,6 +145,31 @@ font-size:1.2rem
 		district : "${userActivity.district}",
 	});
    
+	//一建輸入
+
+	$(function(){		
+		
+	$("#activity").click(function(){
+		$("#Activityname").val("打球");
+		$("#type").val("體能");
+		$("#time").val("2021-08-28");
+		$("#time_up").val("2021-08-27");
+		$("#Detail").val("跟第四組成員廝殺羽毛球");
+		
+		$("#twzipcode").twzipcode("set", {
+			county : "桃園市",
+			district : "中壢區",
+		});
+		
+		$("#place").val("中央大學依仁堂");
+		$("#condition").val("需要學員證+口罩+自備球拍");
+		$("#man").val("2");
+		$("#woman").val("2");
+		
+	});
+	
+	});
+	
     </script>
   </body>
 </html>       

@@ -1,4 +1,4 @@
-package of.chat.controller;
+package of.chat.model;
 
 import java.io.Serializable;
 
@@ -18,7 +18,8 @@ public class Chat implements Serializable{
 	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+	@Column(name = "chattype")
+	private MessageType type;
 	@Column(name = "sender")
 	private String sender;
 	@Column(name = "receiver")
@@ -33,6 +34,13 @@ public class Chat implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}	
+	
+	public MessageType getType() {
+		return type;
+	}
+	public void setType(MessageType type) {
+		this.type = type;
 	}
 	public String getSender() {
 		return sender;

@@ -34,9 +34,8 @@ public class BlogUserService {
 	}
 
 	// 透過memberAccount查詢
-	public BlogUser findByMemberAccount(String memberAccount) {
-		Optional<BlogUser> memeberAccountOptional = bUserRepository.findByMemberAccount(memberAccount);
-		return memeberAccountOptional.get();
+	public List<BlogUser> findByMemberAccount(String memberAccount) {
+		return bUserRepository.findByMemberAccount(memberAccount);
 	}
 
 	// 透過ID查詢
@@ -65,9 +64,10 @@ public class BlogUserService {
 		return bUserRepository.findAll(pageable);
 	}
 	
-	//使用者端刪除多筆資料
-	public void deleteBatch(List<Integer> usersArticleID) {
-		bUserRepository.deleteAllByIdInBatch(usersArticleID);
+	// pageable
+	public Page<BlogUser> findAllByBlogAuthority(String blogAuthority, Pageable pageable) {
+		return bUserRepository.findAllByBlogAuthority(blogAuthority, pageable);
 	}
+	
 
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ import of.blog.model.BlogBean;
 import of.blog.model.BlogService;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
+import of.member.model.Member;
 
 @Controller
 @SessionAttributes(names = {"blogUserTotalPages", "blogUserTotalElements", "blogEmpTotalPages", "blogEmpTotalElements"})
@@ -49,76 +52,26 @@ public class BlogUserController {
 	public String blogArticleEntry(@RequestParam(name = "ArticleId") Integer articleId,
 								   @RequestParam(name = "name") String user,
 								   Model m) {
+		
 		System.out.println("Find ArticleId:" + articleId);
 		System.out.println("Find kind blog:" + user);
 		if (user.equals("user")) {
-			blogUser = bUserService.findByArticleID(articleId);			
+			BlogUser blogUser = bUserService.findByArticleID(articleId);
+			
+			//單一文章內容
+			blogUser.setWatchNum(blogUser.getWatchNum()+1);
+			bUserService.updateBlogUser(blogUser);
 			m.addAttribute("blogUser", blogUser);
 			return "bloguserspages/blogarticle";
 		} else if(user.equals("official")) {
-			blog = bService.findByArticleID(articleId);
+			BlogBean blog = bService.findByArticleID(articleId);
+			blog.setWatchNum(blog.getWatchNum()+1);
+			bService.updateBlog(blog);
 			m.addAttribute("blogOfficial", blog);
 			return "bloguserspages/empblogarticle";
 		}
 		m.addAttribute("errors", "此文章已查詢不到");
 		return "redirect:blogusers";
-	}
-
-	// 進新增controller
-	@GetMapping(path = "/blogusersinsert")
-	public String blogUserInsertEntry() {
-		return "bloguserspages/bloguserinsert";
-	}
-	
-	// Insert Controller
-	@PostMapping(path = "/blogusersinsertform")
-	public String blogUserAdd(@RequestParam(name = "usersImages") MultipartFile multipartFile,
-							  @RequestParam(name = "memberAccount") String memberAccount, 
-							  @RequestParam(name = "usersName") String usersName,
-							  @RequestParam(name = "usersTitle") String usersTitle, 
-							  @RequestParam(name = "usersMainText") String usersMainText,
-							  Model m) {
-		try {
-			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			BlogUser blogUser = new BlogUser();
-			blogUser.setUsersCreateTime(ts);
-			blogUser.setUsersUpdateTime(ts);
-			blogUser.setMemberAccount(memberAccount);
-			blogUser.setUsersName(usersName);
-			blogUser.setUsersMainText(usersMainText);
-			blogUser.setUsersTitle(usersTitle);
-			System.out.println("Insert " + memberAccount + "'s Blog when time:" + ts);
-
-			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogUsersPic)
-			String fileName = multipartFile.getOriginalFilename();
-			System.out.println("fileName:" + fileName);
-			String saveFilePath;
-			saveFilePath = ResourceUtils.getURL("classpath:static/images/blogUsersPic").getPath();
-			System.out.println("saveFilePath:" + saveFilePath);
-			String filePath = saveFilePath + "/" + fileName;
-			File saveFile = new File(filePath);
-			multipartFile.transferTo(saveFile);
-			System.out.println("filePath:" + filePath);
-			
-			String fileName1 = multipartFile.getOriginalFilename();
-			System.out.println("1");
-			String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
-			System.out.println("2");
-			String filePath1 = saveFilePath1 + "/" + fileName;
-			System.out.println("3");
-			File saveFile1 = new File(saveFilePath1);
-			System.out.println("4");
-//			multipartFile.transferTo(saveFile1);
-			System.out.println("存入資料夾成功");
-			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
-			
-			bUserService.insertBlogUser(blogUser);
-			m.addAttribute("success", "新增資料成功!");
-			return "redirect:blogusers";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "redirect:blogusersinsert";
-		}
 	}
 	
 
@@ -129,7 +82,8 @@ public class BlogUserController {
 		int pageSize = 6;
 		System.out.println("controller");
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		Page<BlogUser> page = bUserService.findAllByPage(pageable);
+		String blogAuthority = "審核通過";
+		Page<BlogUser> page = bUserService.findAllByBlogAuthority(blogAuthority, pageable);
 		
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();// 全部有幾筆資料
@@ -139,7 +93,7 @@ public class BlogUserController {
 		return page.getContent();
 	}
 	
-	// 進BlogUsers主頁controller(未設前端)
+	// 進empBlog主頁controller
 		@GetMapping(path = "/blogofficial")
 		public String blogEmpEntry() {
 			return "bloguserspages/empblogmainpage";
@@ -162,5 +116,10 @@ public class BlogUserController {
 		return page.getContent();
 	}
 	
+	// 管理者文章分類版本前端頁面
+	@GetMapping(path = "/blogofficialmain")
+	public String blogEmpMainEntry() {
+		return "bloguserspages/empbloglabelpage";
+	}
 	
 }

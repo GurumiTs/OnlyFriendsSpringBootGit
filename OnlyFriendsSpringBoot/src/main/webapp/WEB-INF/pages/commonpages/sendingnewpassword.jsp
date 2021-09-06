@@ -214,13 +214,13 @@
 		            novalidate
 		          >
                   <div class="form-group">
-                    <label for="email">Email</label>
+                 
                    <input
-		                type="email"
+		                type="text"
 		                class="form-control"
-		                name="email"
-		                id="email"
-		                placeholder="Email"
+		                name="account"
+		                id="account"
+		                placeholder="Account"
 		                required
 		              />
                   </div>

@@ -88,6 +88,7 @@ height:50px;
 											<th>暱稱</th>
 											<th>修改</th>
 											<th>刪除</th>
+											<th>審核狀態</th>
 										</tr>
 									</thead>
 
@@ -101,6 +102,7 @@ height:50px;
 											<th class="d-none">暱稱</th>
 											<th class="d-none">Edit</th>
 											<th class="d-none">Del</th>
+											<th class="d-none">審核狀態</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -126,6 +128,33 @@ height:50px;
     </div>
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
+				<!-- 新增彈窗 -->
+     			<c:if test="${not empty insertSuccess}">
+						<script>
+							Swal.fire({
+								  position: 'center',
+								  icon: 'insertSuccess',
+								  title: '投稿成功! 待審核通過後通知您!',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+					
+						</script>						
+					<c:remove var="insertSuccess" scope="session" />
+				</c:if>
+     			<c:if test="${not empty insertError}">
+						<script>
+							Swal.fire({
+								  icon: 'insertError',
+								  title: 'Oops...',
+								  text: '投稿失敗，請確認資料後再次更新!',
+								})
+					
+						</script>						
+					<c:remove var="insertError" scope="session" />
+				</c:if>
+				
+				<!-- 修改彈窗 -->
      			<c:if test="${not empty success}">
 						<script>
 							Swal.fire({
@@ -150,7 +179,6 @@ height:50px;
 						</script>						
 					<c:remove var="error" scope="session" />
 				</c:if>
-    
     
     <script >  
 	/* load data table */
@@ -194,6 +222,13 @@ height:50px;
 	            render:function(data, type, row)
 	            {
 	              return "<i class='far fa-trash-alt delete' id="+data.usersArticleID+"></i>";
+	            }
+	        },
+	        {
+	            "data": null,
+	            render:function(data, type, row)
+	            {
+	              return "<p>"+data.blogAuthority+"</p>";
 	            }
 	        }
 	    ],

@@ -1,10 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
+.edit {
+	cursor: pointer;
+	color: green;
+}
+
+.delete {
+	cursor: pointer;
+	color: red;
+}
+
+.edit:hover {
+	color: green;
+}
+
+.delete:hover {
+	color: red;
+}
+
+.data:hover {
+	color: white;
+	background-color: rgba(92, 92, 92, 0.637);
+}
 </style>
  </head>
 <body id="page-top">
@@ -36,10 +59,11 @@
 						
 						<div class="card-body">
 							<div class="table-responsive">
+							<table id="example" class = "table  text-center fs-5 bg-linear2"
+									style="width: 100%">
+						 	<a href="empofficialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
 							
-								<a href="empofficialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
-							
-							<table id="example" class="table table-striped" style="width:100%">
+							<table id="example" class="table table-striped" style="width:100%"> 
             <thead>
                 <tr>
                 	<th>照片</th>
@@ -59,13 +83,13 @@
 			          <th>女性人數</th>
 			    
 			          <th>編輯</th>
-			          <th>刪除</th>
+			          
 			          
 			          
                 </tr>
             </thead>
             <tbody>
-     	<c:if test='${not empty allofficialActive}'>
+     	<!-- <c:if test='${not empty allofficialActive}'>
 			<c:forEach var="oaBean" items="${allofficialActive}">
          
           <tr id="${oaBean.anum}">
@@ -81,23 +105,23 @@
 		           <td id="${oaBean.finishDeadline}finishDeadline">${oaBean.finishDeadline}</td>
 		           <td id="${oaBean.active}active">${oaBean.active}</td>
 		           <td id="${oaBean.county}county">${oaBean.county}</td>
-		           <td id="${oaBean.district}district">${oaBean.district}</td>
-		           <td id="${oaBean.conditions}conditions">${oaBean.conditions}</td>
+		           <td id="${oaBean.district}district">${oaBean.district}</td> 
+		           <td id="${oaBean.conditions}conditions">${fn:substring(oaBean.conditions,0,20)}...</td>
 		           <td id="${oaBean.male}male">${oaBean.male}</td>
 		           <td id="${oaBean.female}female">${oaBean.female}</td>
 		        	
 		     
 		           <td class="edit"><a href="empofficialactivesaveorupdate.controller?anum=${oaBean.anum}"><i
-						class="fas fa-edit"></i></a></td>
-					<td class="delete"><a href="empdeleteofficailactive.controller?anum=${oaBean.anum}">
+						class="fas fa-edit"></i></a></td>-->
+				<!--  	<td class="delete"><a href="empdeleteofficailactive.controller?anum=${oaBean.anum}">
 						<i class="far fa-trash-alt"></i></a></td>
 							</c:forEach>
-									</c:if>
+									</c:if>-->
 		           
            
           <!--   <td><a href="updateProductForm.jsp?editId=${row.Id }">Edit</a></td>
            <td><a href="?delId=${row.Id }" onclick="return delConfirm('${row.Name}');">Del</a></td>-->
-          </tr>
+          
        
    
              </tbody>
@@ -118,8 +142,9 @@
 			          <th>活動內容</th>
 			          <th>男性人數</th>
 			          <th>女性人數</th>
+			          
 			          <th>編輯</th>
-			          <th>刪除</th>
+			          
                 </tr>
             </tfoot>
         </table>
@@ -153,6 +178,83 @@
 		$(document).ready(function() {
 			$('#example').DataTable();
 		});
+		
+		
+		/* load data table */
+		var table = $('#example').DataTable({
+		    "ajax": {
+		    	"url": "oatojson",
+		    },
+		    "columns": [
+		        { "data":"img" },
+		        { "data":"empAcc"},
+		        { "data":"anum" }, 
+		        { "data":"aname"},
+		        { "data":"atype"},
+		        { "data":"atype2"},
+		        { "data":"adate"},
+		        { "data":"startDeadline"},
+		        { "data":"finishDeadline"},
+		        { "data":"active"},
+		        { "data":"county"},
+		        { "data":"district"},
+		        { "data":"conditions"},
+		        { "data":"male"},
+		        { "data":"female"},
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<i id="+data.anum+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.anum+"></i>";
+		            },
+		            "targets": -1
+		        }
+		    ]
+		});		
+		
+		
+		
+		
+		
+		//delete
+		$("example tbody").on("click",".delete",function(){
+			
+			let anum = $(this).attr("id");
+			console.log($(this).closest("tr"));
+			let dtr = $(this).cloiset("tr");
+				Swal.fire({
+					title:'你確定?',
+					text:"按下去就真的刪了喔!",
+					icon:'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+		            cancelButtonColor: '#d33',
+		            confirmButtonText: '刪掉了喔'
+				}).then((result)=>{
+					if(result.isConfirmed){
+						$.ajax({
+							type:"POST"
+							url:"empdeleteofficailactive/"+anum,
+							success:function(response){
+								dtr.remove();
+								Swal.fire(
+										'Deleted!',
+										'Your file has been deleted.',
+										'success'
+										) },
+										error:function(xhr){
+											Swal.fire({
+												icon:'error'
+												title:'Oops...'
+												text:'Something went wrong!'
+											})
+										}//error close
+						})//ajax close
+					} //if close
+				}) //then close
+		})
+		
+		
 	</script>
  </body>
 </html>	

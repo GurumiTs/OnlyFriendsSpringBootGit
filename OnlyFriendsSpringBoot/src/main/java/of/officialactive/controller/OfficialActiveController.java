@@ -27,30 +27,35 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import of.member.model.Member;
-import of.oamember.model.OaMember;
-import of.oamember.model.OaMemberRepository;
+import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
+import of.officialactive.model.OfficialActiveFindOa;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
-@SessionAttributes(names = { "allofficialActive" })
+@SessionAttributes(names = { "allofficialActive","totalPages","totalElements" })
 public class OfficialActiveController {
 
+	
 	@Autowired
 	private OfficialActiveService officialActiveService;
 	@Autowired
 	private OfficialActive officialActive;
 	@Autowired 
 	private OaMemberService oamService;
+	@Autowired 
+	private MemberService memberService;
+
+
 	
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
-	public Map allOaToJson(Model m) {
+	public List<OfficialActive> allOaToJson(Model m) {
 		List<OfficialActive> oaList = officialActiveService.findAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data",oaList);
-		return map;
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("data",oaList);
+		return oaList;
 		
 		
 		
@@ -80,7 +85,7 @@ public class OfficialActiveController {
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
-
+			OfficialActive  officialActive =new OfficialActive();
 		String fileName = img.getOriginalFilename();
 		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
 		System.out.println(path);
@@ -167,7 +172,7 @@ public class OfficialActiveController {
 	
 		
 		//刪除
-		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.GET)
+		@RequestMapping(path="/empdeleteofficailactive/{anum}" , method = RequestMethod.POST)
 		public String deleteOfficialActive(@RequestParam(name = "anum") Long anum, Model model) {
 			System.out.println(anum);
 			officialActive = officialActiveService.findByAnum(anum);
@@ -185,14 +190,16 @@ public class OfficialActiveController {
 			
 		}
 		
+		//分頁顯示
 		@PostMapping("/queryalloabypage/{pageNo}")
 		@ResponseBody
 		public List<OfficialActive> processQueryByPageAction(@PathVariable("pageNo")int pageNo,Model m){
-			int pageSize = 3;
+			int pageSize = 6;
 					
 			Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 			Page<OfficialActive> page = officialActiveService.findAllByPage(pageable);
 			int totalPages = page.getTotalPages();
+			System.out.println(totalPages);
 			long totalElements = page.getTotalElements();
 			m.addAttribute("totalPages",totalPages);
 			m.addAttribute("totalElements", totalElements);
@@ -200,8 +207,9 @@ public class OfficialActiveController {
 			return page.getContent();
 		}
 		
-		//itempage
-
+		//itempage 詳細活動
+		
+		
 		@GetMapping("/oaitemEntry.controller")
 		public String oaItemEntry(@RequestParam long anum) {
 			System.out.println(anum);
@@ -225,20 +233,78 @@ public class OfficialActiveController {
 			return "officialactivepages/oaforuser";
 		}
 		
-		@RequestMapping(path= "/memberinf",method = RequestMethod.POST)
+		
+		@PostMapping (path = "/addmember/{anum}")
 		@ResponseBody
-		public List<OaMember> memberinf(Model model, HttpServletRequest  request){
+		public String addmember (@PathVariable("anum") String a,HttpServletRequest request) {
+			long anum = Long.parseLong(a);
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
+			Member m2 = memberService.findByMemberAccount(memberAccount);			
+			OfficialActive oa = officialActiveService.select(anum);
+			List<Member> memberactive = oa.getMemberactive();
+			memberactive.add(m2);
+			officialActiveService.updateMember(oa);
 			
-			List<OaMember> oamemberList = oamService.findByMemberAccount(memberAccount);
-			model.addAttribute("oamemberList", oamemberList);
-			return oamemberList;
+			return "y";
+			
 		}
+		
+		
+
+
+		
+		
+		
+		// 參加活動
+//		
+//		@RequestMapping(path = "/addoamember.controller", method = RequestMethod.POST)
+//		@ResponseBody
+//		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
+//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//			String memberAccount = m1.getMemberAccount();
+//			
+//			Member m2 = memberService.findByMemberAccount(memberAccount);
+//			
+//			
+//			//抓活動
+//			
+//			OfficialActive oam = officialActiveService.select(anum);
+//			
+//			List <Member> oamemberList = oam.getMemberactive();
+//			oamemberList.add(m2);
+//			officialActiveService.update(oam);
+//			
+//			return "成功123";
+//		}
+		
 		
 		
 		
 }
+		
+		 
+			
+			
+		
+			
+			
+		
+
+		
+//		public String addoaMember(@RequestParam(name = "memberAccount") String memberAccount
+//				,@RequestParam(name = "anum" ,required = false) Integer anum) {
+//			
+//		officialActive.setMemberAccount(memberAccount);
+//		officialActive.setAnum(anum);
+//		
+			
+//		}
+		
+		
+	
+		
+//}
 	
 
 

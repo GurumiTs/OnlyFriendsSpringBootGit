@@ -92,17 +92,23 @@ public class BlogController {
 						  @RequestParam(name = "userID") String userID,
 						  @RequestParam(name = "title") String title, 
 						  @RequestParam(name = "mainText") String mainText,
+						  @RequestParam(name = "BlogType") String blogType,
 						  Model m) {
 
 		try {
+			Integer watchNum = 0;
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			BlogBean blog = new BlogBean();
 			blog.setEmpAcc(empAcc);
 			blog.setUserID(userID);
 			blog.setTitle(title);
 			blog.setMainText(mainText);
+			blog.setWatchNum(watchNum);
 			blog.setCreateTime(ts);
 			blog.setUpdateTime(ts);
+			System.out.println("1215156156165");
+			System.out.println("blogtype:" + blogType);
+			blog.setBlogType(blogType);
 			System.out.println("Insert time:" + ts);
 
 			// 照片改名並做IO載入->已相對路徑存入指定資料夾(blogPic)
@@ -136,13 +142,14 @@ public class BlogController {
 	}
 
 	@RequestMapping(path = "/empblogUpdate.controller", method = RequestMethod.POST)
-	public String updateBlog(@RequestParam(name = "articleId") int articleID,
+	public String updateBlog(@RequestParam(name = "articleId") Integer articleID,
 							 @RequestParam(name = "images") MultipartFile multipartFile, 
 							 @RequestParam(name = "empAcc") String empAcc,
 							 @RequestParam(name = "userID") String userID, 
 							 @RequestParam(name = "title") String title,
 							 @RequestParam(name = "mainText") String mainText,
 							 @RequestParam(name = "createTime") Timestamp createTime,
+							 @RequestParam(name = "BlogType") String blogType,
 							 Model m) {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		System.out.println("UpdateTime:" + ts);
@@ -159,7 +166,7 @@ public class BlogController {
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
-			BlogBean blog = new BlogBean();
+			BlogBean blog = bService.findByArticleID(articleID);
 			blog.setImages("images/blogPic/" + fileName);
 			blog.setCreateTime(createTime);
 			blog.setArticleID(articleID);
@@ -168,6 +175,7 @@ public class BlogController {
 			blog.setTitle(title);
 			blog.setMainText(mainText);
 			blog.setUpdateTime(ts);
+			blog.setBlogType(blogType);
 
 			bService.updateBlog(blog);
 
@@ -179,5 +187,22 @@ public class BlogController {
 		}
 	}
 	
+	// 調整使用者文章權限
+	@PostMapping(path = "/authority")
+	@ResponseBody
+	public String setAuthority(@RequestParam(name = "usersArticleID") Integer usersArticleID, Model model) {
+		System.out.println("authority number:"+usersArticleID);
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		String authority = blogUser.getBlogAuthority();
+		System.out.println(authority);
+		if (authority.equals("待審核")) {
+			blogUser.setBlogAuthority("審核通過");
+		} else if (authority.equals("審核通過")) {
+			blogUser.setBlogAuthority("待審核");
+		}
+		bUserService.updateBlogUser(blogUser);		
+		
+		return "y";
+	}
 	
 }

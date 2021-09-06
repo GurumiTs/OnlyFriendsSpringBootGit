@@ -109,9 +109,9 @@
             <button class="btn btn-outline-secondary" type="button">商品類型</button>
             <select class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon" name="Item">
               <option selected>請選擇商品類型...</option>
-              <option value="幸運小物" id="Item">幸運小物</option>
+              <option value="幸運小物" id="Item">幸運小物類</option>
               <option value="香氛類" id="Item">香氛類</option>
-              <option value="其他" id="Item">其他</option>
+              <option value="其他" id="Item">其他類</option>
             </select>
           </div>
         </div>

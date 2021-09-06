@@ -70,9 +70,9 @@
 									style="width: 100%">
 									<thead>
 										<tr>
-											<th>Email</th>
-											<th>Account</th>
 											<th>Name</th>
+											<th>Account</th>
+											<th>Email</th>
 											<th>Age</th>
 											<th>edit</th>
 										
@@ -81,9 +81,9 @@
 
 									<tfoot>
 										<tr>
-											<th>Email</th>
-											<th>Account</th>
 											<th>Name</th>
+											<th>Account</th>
+											<th>Email</th>
 											<th>Age</th>
 											<th>edit</th>
 											
@@ -140,7 +140,14 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<i class='fas fa-user-slash edit' id="+data.memberAccount+"></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+		              if(data.memberAuth == 0){
+		            	 console.log(data.memberName+data.memberAuth) 
+			             return "<i class='fas fa-user-slash edit text-danger' id="+data.memberAccount+"></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+		              }
+		              else{
+				         return "<i class='fas fa-user edit' id="+data.memberAccount+"></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+
+		              }
 		            },
 		            "targets": -1
 		        }
@@ -148,14 +155,24 @@
 		});		
 		/* load data table */
 		$("#example tbody").on("click", ".edit", function () {
-			console.log("change")
+			let memberAccount = $(this).attr("id");
+			$.ajax({
+				type:"post",
+				url:"banuser",
+				data:{"memberAccount":memberAccount},
+				success:function(response){
+					table.ajax.reload();
+				},
+				error:function(xhr){
+					
+				}
+			})
 			
 			
 		})
 				
 		$("#example tbody").on("click", ".delete", function () {
-			let email = $(this).attr("id");
-			console.log($(this).closest("tr"));
+			let memberAccount = $(this).attr("id");
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
 	                title: 'Are you sure?',
@@ -168,8 +185,8 @@
 	              }).then((result) => {
 	                if (result.isConfirmed) {
 	                  $.ajax({
-	                        type: "POST",
-	                        url: "empdelete/"+email,
+	                        type: "post",
+	                        url: "memberdelete/"+memberAccount,
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(

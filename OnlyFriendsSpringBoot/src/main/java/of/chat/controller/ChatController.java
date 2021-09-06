@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import of.chat.model.Chat;
 import of.chat.model.ChatMessageModel;
 import of.chat.model.ChatRepository;
 import of.chat.model.ChatService;
@@ -64,7 +65,7 @@ public class ChatController {
 	@MessageMapping("/chat.newUser/{to}")
 	public void newUser(@DestinationVariable String to,@Payload final ChatMessageModel chatMessageModel,StompHeaderAccessor headerAccessor ) {
 		headerAccessor.getSessionAttributes().put("username",chatMessageModel.getSender());
-		System.out.println("new user:"+chatMessageModel.getSender());
+		System.out.println("new user:"+chatMessageModel.getContent());
 		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);
 	}
 	
@@ -75,10 +76,6 @@ public class ChatController {
 		
 	    //SimpleDateFormat ft =  new SimpleDateFormat ("hh:mm");
 	    //System.out.println(ft.format(dNow));
-		
-		
-		
-		
 		ChatMessageModel cm = new ChatMessageModel();		
 		cm.setType(MessageType.CHAT);
 		cm.setSender("official");
@@ -87,6 +84,12 @@ public class ChatController {
 		simpMessagingTemplete.convertAndSend("/topic/public/1011",cm);		
 	}
 	
-
+	@MessageMapping("/cs.send/{to}")
+	public void csMessage(@DestinationVariable String to,@Payload final ChatMessageModel chatMessageModel) {
+		System.out.println("cs.send");
+		simpMessagingTemplete.convertAndSend("/topic/public/"+to,chatMessageModel);		
+	}
+	
+	
 	
 }

@@ -143,6 +143,11 @@ public class EmployeeController {
 		}
 
 	}
+	
+	@RequestMapping(path = "/customerservice.controller", method = RequestMethod.GET)
+	public String chatRoomEntry() {
+		return "employeepages/empservice";
+	}
 
 
 	

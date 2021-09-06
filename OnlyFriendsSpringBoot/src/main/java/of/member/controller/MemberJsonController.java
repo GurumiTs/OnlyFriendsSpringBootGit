@@ -14,11 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,16 +36,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import of.chat.controller.Chat;
+import of.chat.model.Chat;
 import of.chat.model.ChatMessageModel;
 import of.chat.model.ChatService;
 import of.chat.model.MessageType;
+import of.common.model.FriendshipService;
 import of.common.model.Users;
 import of.common.model.UsersService;
 import of.common.util.BCrypt;
+import of.common.util.GetRandomPwd;
 import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
 import of.member.model.Member;
+import of.member.model.MemberChatnum;
 import of.member.model.MemberService;
 
 @Controller
@@ -63,6 +69,10 @@ public class MemberJsonController {
 	private Chat chat;
 	@Autowired
 	private ChatService chatService;
+	@Autowired
+	private JavaMailSender sender;
+	@Autowired
+	private FriendshipService friendshipService;
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
@@ -71,28 +81,6 @@ public class MemberJsonController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", memberList);
 		return map;
-	}
-
-	@PostMapping(path = "/memberRegister")
-	@ResponseBody
-	public String updateEmployeeBasicInfo(@RequestParam(name = "memberAccount") String memberAccount,
-			@RequestParam(name = "empPwd1") String empPwd1, Model model) {
-		try {
-			String password = BCrypt.hashpw(empPwd1, BCrypt.gensalt());
-			users.setUsersEmail(memberAccount);
-			users.setUsersPassword(password);
-			users.setUsersRole("member");
-			usersService.insert(users);
-
-			member.setMemberAccount(memberAccount);
-			member.setSwipeTime("3");
-			member.setMemberName("Users");
-			member.setMemberPic("images/smallicon/nonephoto2.svg");
-			memberService.insert(member);
-			return "y";
-		} catch (Exception e) {
-			return "n";
-		}
 	}
 
 	@RequestMapping(path = "/memberUpdateBasicInfo", method = RequestMethod.POST)
@@ -216,23 +204,87 @@ public class MemberJsonController {
 
 		System.out.println("i'm date:" + day);
 		if (m2.getSwipeDate().equals(day) == false) {
-			m2.setSwipeTime("3");
+			String newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
+			m2.setSwipeTime(newswipetime);
 			memberService.update(m2);
 		}
 		m2.setSwipeDate(day);
 		memberService.update(m2);
 		return m2;
 	}
-
-	@PostMapping(path = "/memberaddfriend/{addfriendid}")
+	
+	@PostMapping(path = "/memberaddfriend/{inviteid}")
 	@ResponseBody
-	public Object memberAddFriend(@PathVariable(name = "addfriendid") String addfriendid, HttpServletRequest request) {
+	public Object memberAddFriend(@PathVariable(name = "inviteid") String inviteid, HttpServletRequest request) {
+		Integer id = Integer.parseInt(inviteid);
+		Chat chat = chatService.findById(id);
+		String userEmail = chat.getReceiver(); //我(接收到好友邀請)
+		String memberAccount = chat.getSender(); //發出好友邀請者
+		
+		Member m1 = memberService.findByMemberAccount(userEmail);
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		
+		Users users1 = usersService.findByEmail(userEmail);
+		Users users2 = usersService.findByEmail(memberAccount);
+		
+		users1.addFriend(m2);
+		users2.addFriend(m1);
+		chatService.deleteById(id);
+		
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+		
+		Chat notify = new Chat();
+		chat.setType(MessageType.NOTIFICATION);
+		chat.setSender("official");
+		chat.setReceiver(memberAccount);
+		chat.setContent(m1.getMemberName()+"已接受你的交友邀請");
+		chat.setTexttime(formattedDate);
+		chatService.insert(chat);
+		
+		return chat;
+	}
+	
+	@PostMapping(path = "/deleteinvite/{inviteid}")
+	@ResponseBody
+	public Object deleteInvite(@PathVariable(name = "inviteid") String inviteid, HttpServletRequest request) {
+		Integer id = Integer.parseInt(inviteid);
+		Chat chat = chatService.findById(id);
+		String userEmail = chat.getReceiver(); //我(接收到好友邀請)
+		String memberAccount = chat.getSender(); //發出好友邀請者
+		
+		Member m1 = memberService.findByMemberAccount(userEmail);
+		Member m2 = memberService.findByMemberAccount(memberAccount);
 
-		Member mtry = memberService.findByMemberAccount("1011");
-		Users userstry = usersService.findByEmail("1029");
-		userstry.addFriend(mtry);
+		chatService.deleteById(id);
+		
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+		
+		Chat notify = new Chat();
+		chat.setType(MessageType.NOTIFICATION);
+		chat.setSender("official");
+		chat.setReceiver(memberAccount);
+		chat.setContent(m1.getMemberName()+"拒絕你的交友邀請");
+		chat.setTexttime(formattedDate);
+		chatService.insert(chat);
+		
+		return chat;
+	}
 
-		usersService.update(userstry);
+//Member mtry = memberService.findByMemberAccount("1011");
+//Users userstry = usersService.findByEmail("1029");
+//userstry.addFriend(mtry);
+
+	
+
+	@PostMapping(path = "/memberInvitefriend/{addfriendid}")
+	@ResponseBody
+	public Object memberInviteFriend(@PathVariable(name = "addfriendid") String addfriendid,
+			HttpServletRequest request) {
+
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		Users users = usersService.findByEmail(memberAccount);
@@ -241,37 +293,40 @@ public class MemberJsonController {
 
 		if (friends.contains(friend) == true) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-
 		}
-		users.addFriend(friend);
-		usersService.update(users);
-		
-		LocalDateTime myDateObj = LocalDateTime.now();
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-		String formattedDate = myDateObj.format(myFormatObj);
 
-		ChatMessageModel cm = new ChatMessageModel(MessageType.CHAT, "Followed by " + m1.getMemberName(), "official",
-				formattedDate);
-		
+//		建立訊息時間		
+	
+
 		Chat chat = new Chat();
-		chat.setSender(cm.getSender());
+		chat.setType(MessageType.INVITE);
+		chat.setSender(memberAccount);
 		chat.setReceiver(addfriendid);
-		chat.setContent(cm.getContent());
-		chat.setTexttime(cm.getTime());
+		chat.setContent("來自" + m1.getMemberName()+"的交友邀請");
+		chat.setTexttime(m1.getMemberPic());
 		chatService.insert(chat);
-		simpMessagingTemplete.convertAndSend("/topic/public/" + addfriendid, cm);
 
 		return users;
 	}
 
 	@PostMapping(path = "/memberfriendsquery")
 	@ResponseBody
-	public List<Member> memberFriendsQuery(HttpServletRequest request) {
+	public List<MemberChatnum>  memberFriendsQuery(HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		List<Member> friends = usersService.findByEmail(memberAccount).getFriends();
+		List<MemberChatnum> friendlist = new ArrayList<>();
+		for(Member m : friends) {
+			Integer chatnum = friendshipService.chatnum(memberAccount,m.getMemberAccount());
+			MemberChatnum mcn = new MemberChatnum();
+			mcn.setFriendAccount(m.getMemberAccount());
+			mcn.setFriendName(m.getMemberName());
+			mcn.setFriendPic(m.getMemberPic());
+			mcn.setChatnum(chatnum);
+			friendlist.add(mcn);
+		}
 
-		return friends;
+		return friendlist ;
 	}
 
 	@PostMapping(path = "/memberfriendssearch/{friendname}")
@@ -297,6 +352,39 @@ public class MemberJsonController {
 	public Member processRestQueryEmployee(@RequestParam(name = "account") String account) {
 		Member member = memberService.findByMemberAccount(account);
 		return member;
+	}
+
+	@PostMapping(path = "/banuser")
+	@ResponseBody
+	public String banMember(@RequestParam(name = "memberAccount") String memberAccount) {
+		Member member = memberService.findByMemberAccount(memberAccount);
+		if (member.getMemberAuth() == 1) {
+			member.setMemberAuth(0);
+			memberService.update(member);
+		} else {
+			member.setMemberAuth(1);
+			memberService.update(member);
+		}
+
+		return "y";
+	}
+
+	@PostMapping(path = "/memberdelete/{memberAccount}")
+	@ResponseBody
+	public String deleteMember(@PathVariable("memberAccount") String memberAccount) {
+		Member member = memberService.findByMemberAccount(memberAccount);
+		memberService.deleteById(memberAccount);
+		usersService.deleteById(memberAccount);
+		return "yes";
+	}
+	
+	@PostMapping(path = "/clearnotification")
+	@ResponseBody
+	public String deleteMember(HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		chatService.clearnotification(memberAccount);
+		return "yes";
 	}
 
 }

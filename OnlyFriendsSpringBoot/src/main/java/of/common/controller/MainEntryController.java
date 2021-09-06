@@ -1,13 +1,17 @@
 package of.common.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.LocaleResolver;
+
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
@@ -29,7 +35,7 @@ import of.member.model.Member;
 import of.member.model.MemberService;
 
 @Controller
-@SessionAttributes(names = { "personalinfo", "member", "employee","totalPages","totalElements"})
+@SessionAttributes(names = { "errorMsg","personalinfo", "member", "employee","totalPages","totalElements"})
 public class MainEntryController {
 	@Autowired
 	private EmployeeService empService;
@@ -41,6 +47,7 @@ public class MainEntryController {
 	private Employee employee;
 	@Autowired
 	private Member member;
+
 	
 	 @Autowired
 	    private CaptchaService captchaService;
@@ -81,10 +88,28 @@ public class MainEntryController {
 		return "login";
 	}
 	
-	@RequestMapping(path = "/chatroom.controller", method = RequestMethod.GET)
-	public String chatRoomEntry() {
-		return "chatroom";
+	@GetMapping(path = "/login/error")
+	public String loginErrorEntry(HttpServletRequest request,@RequestParam(name = "username") String username,Model model) {
+		System.out.println("step2");
+		
+		
+		Member member = memberService.findByMemberAccount(username);	
+		if ( member.getMemberAuth() == 0) {
+			  model.addAttribute("errorMsg","該帳號已被封鎖");
+			}
+		else {
+			 model.addAttribute("errorMsg","帳號或密碼輸入錯誤");
+		}
+		
+		return "login";
 	}
+	
+	@GetMapping(path = "/login?error")
+	public String loginErrorrEntry(HttpServletRequest request) {
+		System.out.println("step2");
+		
+		return "login";
+	}	
 	
 	@RequestMapping(path = "/shopitem.controller", method = RequestMethod.GET)
 	public String shopItemEntry() {

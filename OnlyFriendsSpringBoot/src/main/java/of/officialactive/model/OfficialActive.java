@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import of.member.model.Member;
 
 
@@ -59,15 +62,33 @@ public class OfficialActive {
 	private String img;//圖片
 	
 	
+	
 	@ManyToMany
 	@JoinTable(
 			name = "memberactive",
-			joinColumns = @JoinColumn(name = "memberAccount"),
-			inverseJoinColumns= @JoinColumn(name = "anum"))
+			joinColumns = @JoinColumn(name = "anum"),
+			inverseJoinColumns= @JoinColumn(name = "memberAccount"))
 	private List<Member> memberactive = new ArrayList<Member>();
+	@JsonIgnore
+	public List<Member> getoaaddMember() {
+		return memberactive;
+	}
+
+	public void setoamember(List<Member> memberactive) {
+		this.memberactive = memberactive;
+	}
 	
+	
+	public void addoamember(Member member) {
+		this.memberactive.add(member);
+	}
+	
+	public void remove(Member member) {
+		this.memberactive.remove(member);
+	}
 
 
+	
 
 	public List<Member> getMemberactive() {
 		return memberactive;
@@ -77,6 +98,7 @@ public class OfficialActive {
 		this.memberactive = memberactive;
 	}
 
+	
 			
 	public String getEmpAcc() {
 		return empAcc;

@@ -56,4 +56,9 @@ public class ProductService {
 		
 		return productRepository.findById(Id).get().getProPrice();
 	}
+	
+	
+	public List<Product> findByitemLike(String proItem) {
+		return productRepository.findByproItemLike(proItem);
+	}
 }

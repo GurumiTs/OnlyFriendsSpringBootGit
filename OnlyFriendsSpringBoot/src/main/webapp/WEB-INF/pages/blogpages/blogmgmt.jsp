@@ -116,13 +116,14 @@ height:50px;
 											style="width: 100%">
 											<thead>
 												<tr>
-													<th>ID</th>
-													<th>Images</th>
-													<th>Title</th>
-													<th>UpdateDate</th>
-													<th>MainText</th>
-													<th>EmpAcc</th>
-													<th>UserID</th>
+													<th>編號</th>
+													<th>圖片</th>
+													<th>標題</th>
+													<th>最後更新時間</th>
+													<th>內容</th>
+													<th>管理者帳號</th>
+													<th>管理者名稱</th>
+													<th>文章類型</th>
 													<th>Edit</th>
 													<th>Delete</th>
 												</tr>
@@ -137,6 +138,7 @@ height:50px;
 													<th class="d-none">內容</th>
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
+													<th class="d-none">類型</th>
 													<th class="d-none">Edit</th>
 													<th class="d-none">Del</th>
 												</tr>
@@ -151,15 +153,15 @@ height:50px;
 											style="width: 100%">
 											<thead>
 												<tr>
-													<th>ID</th>
-													<th>Images</th>
-													<th>Title</th>
-													<th>UpdateDate</th>
-													<th>MainText</th>
-													<th>MemberAccount</th>
-													<th>UsersName</th>
-													<th>Edit</th>
-													<th>Delete</th>
+													<th>編號</th>
+													<th>圖片</th>
+													<th>標題</th>
+													<th>最後更新時間</th>
+													<th>內文</th>
+													<th>會員帳號</th>
+													<th>會員名稱</th>
+													<th>刪除</th>
+													<th>狀態</th>
 												</tr>
 											</thead>
 											<tfoot>
@@ -171,8 +173,8 @@ height:50px;
 													<th class="d-none">內容</th>
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
-													<th class="d-none">Edit</th>
 													<th class="d-none">Del</th>
+													<th class="d-none">審核狀態</th>
 												</tr>
 											</tfoot>
 										</table>
@@ -245,6 +247,7 @@ height:50px;
 		        },
 		        { "data": "empAcc"},		  
 		        { "data": "userID"},		  
+		        { "data": "blogType"},		  
 		        {
 		            "data": null,
 		            render:function(data, type, row)
@@ -259,6 +262,45 @@ height:50px;
 		              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
 		            }
 		        }
+		    ],
+		    columnDefs:[
+		    	{
+		    		targets: [0],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "60px");
+		    		},
+		    	},
+		    	{
+		    		targets: [1],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "150px");
+		    		},
+		    	},
+		    	{
+		    		targets: [2],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "250px");
+		    		},
+		    	},
+		    	{
+			    	targets: [3],
+			    	createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "150px");
+		    		},
+			    	render: function(data){
+			    		return moment(data).format('YYYY-MM-DD');
+			    	},
+		    	},
+		    	{
+		    		targets: [4],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "550px");
+		    		},
+		    	},
+		    	{
+		    		targets: '_all',
+		    		className: 'text-center'
+		    	},
 		    ]
 		});
 		
@@ -301,47 +343,110 @@ height:50px;
 				            "data": null,
 				            render:function(data, type, row)
 				            {
-				              return "<a href='blogusersupdate?usersArticleID="+data.usersArticleID+"'><i class='fas fa-edit edit'></i>";
-				            }
-				        },
-				        {
-				            "data": null,
-				            render:function(data, type, row)
-				            {
 				              return "<i class='far fa-trash-alt deleteUser' id="+data.usersArticleID+"></i>";
 				            }
-				        }
+				        },
+				        { 
+				        	"data": null,
+				        	render:function(data, type, row)
+				        	{
+				        		console.log(data.blogAuthority)
+				        		if(data.blogAuthority == '審核通過'){
+					        		return "<p style=''>"+data.blogAuthority+"</p>"+
+					        		"<div class='form-check form-switch'style='position: relative; text-align:center;'>"+
+									"<input class='form-check-input authority' type='checkbox' id='"+data.usersArticleID+"' checked>"+
+									"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
+									"</label></div>";
+				        		}else{
+				        			return "<p style='color:red;'>"+data.blogAuthority+"</p>"+
+					        		"<div class='form-check form-switch'style='position: relative; text-align:center;'>"+
+									"<input class='form-check-input authority' type='checkbox' id='"+data.usersArticleID+"'>"+
+									"<label	class='form-check-label' for='flexSwitchCheckChecked'>"
+									"</label></div>";
+				        		}
+				        	}
+				        },
 				    ],
-// 				    columnDefs:[
-// 				    	{
-// 				    		targets: [0],
-// 				    		createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "50px");
-// 				    		},
-// 				    	},
-// 				    	{
-// 				    		targets: [2],
-// 				    		createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "250px");
-// 				    		},
-// 				    	},
-// 				    	{
-// 					    	targets: [3],
-// 					    	createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "100px");
-// 				    		},
-// 					    	render: function(data){
-// 					    		return moment(data).format('YYYY-MM-DD');
-// 					    	},
-// 				    	},
-// 				    	{
-// 				    		targets: [4],
-// 				    		createdCell: function (td, cellData, rowData, row, col){
-// 				    			$(td).css("width", "500px");
-// 				    		},
-// 				    	},
-// 				    ]
+				    columnDefs:[
+				    	{
+				    		targets: [0],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "60px");
+				    		},
+				    	},
+				    	{
+				    		targets: [2],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "250px");
+				    		},
+				    	},
+				    	{
+					    	targets: [3],
+					    	createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+					    	render: function(data){
+					    		return moment(data).format('YYYY-MM-DD');
+					    	},
+				    	},
+				    	{
+				    		targets: [4],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "450px");
+				    		},
+				    	},
+				    	{
+				    		targets: [5],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+				    	},
+				    	{
+				    		targets: [6],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "100px");
+				    		},
+				    	},
+				    	{
+				    		targets: [7],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "60px");
+				    		},
+				    	},
+				    	{
+				    		targets: [8],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "80px");
+				    		},
+				    		className: 'text-left'
+				    	},
+				    	{
+				    		targets: '_all',
+				    		className: 'text-center'
+				    	},
+				    ]
 				});
+		
+		// Set Authority
+		$("#example2 tbody").on("click", ".authority", function () {
+			let usersArticleID=$(this).attr("id");
+			console.log(usersArticleID);
+			let dtr = $(this).closest("th");
+			 $.ajax({
+				  type : "post",
+				  url: "authority",    
+			      data: {"usersArticleID":usersArticleID}, 
+			      success: function(data) 
+			        {
+			    	  	console.log("success")
+			    		table2.ajax.reload();
+			        },
+			      error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
+		});
 		
 		// Delete
 		$("#example tbody").on("click", ".delete", function () {

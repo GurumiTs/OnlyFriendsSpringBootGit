@@ -131,6 +131,7 @@ height: 350px;
 							"<a href='blogarticleentry?ArticleId="+n.articleID+"&name=official'><img id='blogimg' class='card-img-top'"+
 								"src='"+n.images+"'/></a>"+
 							"<div class='card-body'>"+
+							"<div class='small text-muted'><i class='fas fa-eye'>人氣:"+n.watchNum+"</i></div>"+
 								"<div class='small text-muted'>"+n.updateTime.substr(0,10)+"</div>"+
 								"<h2 class='card-title h4'>"+n.title+"</h2>"+
 								"<p class='card-text'>"+n.mainText.substr(0,90)+"  ...</p>"+
