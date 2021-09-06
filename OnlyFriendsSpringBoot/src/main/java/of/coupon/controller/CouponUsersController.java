@@ -461,6 +461,110 @@ public class CouponUsersController {
 			}
 
 	}
+	
+	
+	//活動券
+	@GetMapping("/couponActivity.controller")
+	@ResponseBody
+	public List<Coupon> couponActivity(HttpServletRequest request) {
+		Member m = (Member) request.getSession().getAttribute("personalinfo");
+		String mAccount = m.getMemberAccount();
+		System.out.println("mAccount:" + mAccount);
+
+		if (mAccount != null) {
+			CouponUsers memberAccount = couponUsersService.findBymemberAccount(mAccount);
+			System.out.println(memberAccount);
+			if (memberAccount == null) {
+				System.out.println("建立帳號");
+				System.out.println("是否為空=" + mAccount);
+				CouponUsers couponUsers = new CouponUsers();
+				couponUsers.setMemberAccount(mAccount);
+				System.out.println("get=" + couponUsers.getMemberAccount());
+
+				couponUsersService.insert(couponUsers);
+
+				List<Coupon> coupons = couponService.findBycategoryName("活動券");
+
+				return coupons;
+			} else {
+				System.out.println("取紀錄");
+				String memberAccount1 = memberAccount.getMemberAccount();
+				String membeCouponRecord = memberAccount.getCouponRecord();
+
+				if (membeCouponRecord != null) {
+					String[] arrayCouponRecord = membeCouponRecord.split(",");
+
+					for (int i = 0; i < arrayCouponRecord.length; i++) {
+						arrayCouponRecord[i] = arrayCouponRecord[i].trim();
+					}
+
+					List<Coupon> coupons = couponService.findBycategoryName("活動券");
+					ArrayList<String> li = new ArrayList<String>();
+					String[] findall = new String[coupons.size()];
+					System.out.println("coupons.get(0)" + coupons.get(0).getCouponId());
+					for (int i = 0; i < coupons.size(); i++) {
+						findall[i] = coupons.get(i).getCouponId().toString();
+						System.out.println(findall[i]);
+						for(int j=0; j < arrayCouponRecord.length; j++) {
+							if(arrayCouponRecord[j].equals(findall[i])) {
+								li.add(arrayCouponRecord[j]);
+							}
+							else {
+								System.out.println(arrayCouponRecord[j]);
+							}
+						}
+					}
+
+					System.out.println(findall.length);
+					System.out.println("arrayCouponRecord=" + arrayCouponRecord.length);
+					System.out.println("-----------");
+					int count = 0;
+					String[] c = new String[findall.length -  li.size()];
+					System.out.println("c len=" + c.length);
+
+					for (int j = 0; j < findall.length; j++) {
+						for (int k = 0; k < arrayCouponRecord.length; k++) {
+							if (findall[j].equals(arrayCouponRecord[k])) {
+								findall[j] = "";
+							}
+						}
+						if (!findall[j].equals("")) {
+							c[count] = findall[j];
+							System.out.println(c[count]);
+							count++;
+						}
+					}
+
+					List<String> list = Arrays.asList(c);
+					List<Integer> newList = list.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+					System.out.println("newList:" + newList);
+					List<Coupon> coupon = couponService.findBycouponIdIn(newList);
+
+					return coupon;
+				} else {
+					System.out.println("ok2");
+					List<Coupon> coupons = couponService.findBycategoryName("活動券");
+
+					return coupons;
+				}
+			}
+		} else {
+			System.out.println("返回空值");
+			List<Coupon> coupons = couponService.findBycategoryName("活動券");
+
+			return coupons;
+		}
+	
+	
+	
+	
+	
+	}
+	
+	
+	
+	
+	
 
 	@GetMapping("/myCouponEntry.controller")
 	public String myCouponEntry() {
