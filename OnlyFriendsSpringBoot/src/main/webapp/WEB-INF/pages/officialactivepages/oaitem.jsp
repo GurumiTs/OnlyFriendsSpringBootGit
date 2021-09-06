@@ -119,7 +119,6 @@
     
         
         
-        <P>---------------------------------------------------------------------------------------
       <section class="mb-5">
 								<div class="fs-5 mb-4">
 								
@@ -128,13 +127,11 @@
 									
 								</div>  
 								
-		<P>----------------------------------------------------------------------------------------
-       
-               <iframe 
+     <iframe 
     width="100%" 
     height="300" 
     frameborder="0"
-    src="https://www.google.com/maps?台北101
+    src="https://www.google.com/maps/?key=AIzaSyAJyiyTa_JF7Ecu2VEDRdrYSYnUQRI1eO4
     q=台北101
     &hl=en
     &z=18

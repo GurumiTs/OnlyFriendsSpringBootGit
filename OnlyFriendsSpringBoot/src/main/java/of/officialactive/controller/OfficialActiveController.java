@@ -180,7 +180,6 @@ public class OfficialActiveController {
 		public String deleteOfficialActive(@PathVariable("anum") Long anum) {
 			
 			//officialActive = officialActiveService.findByAnum(anum);
-			//System.out.println("幹你娘");
 //			officialActiveService.deleteById1(anum);
 			//model.addAttribute("officialActive",officialActive);
 			officialActiveService.deleteById(anum);
