@@ -61,9 +61,9 @@
 							<div class="table-responsive">
 							<table id="example" class = "table  text-center fs-5 bg-linear2"
 									style="width: 100%">
-						<!-- 	<a href="empofficialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
+						 	<a href="empofficialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
 							
-							<table id="example" class="table table-striped" style="width:100%"> -->	
+							<table id="example" class="table table-striped" style="width:100%"> 
             <thead>
                 <tr>
                 	<th>照片</th>
@@ -186,9 +186,9 @@
 		    	"url": "oatojson",
 		    },
 		    "columns": [
-		        { "data": "img" },
+		        { "data":"img" },
 		        { "data":"empAcc"},
-		        { "data": "anum" }, 
+		        { "data":"anum" }, 
 		        { "data":"aname"},
 		        { "data":"atype"},
 		        { "data":"atype2"},
@@ -205,7 +205,7 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "123123";
+		              return "<i id="+data.anum+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.anum+"></i>";
 		            },
 		            "targets": -1
 		        }
@@ -234,7 +234,7 @@
 					if(result.isConfirmed){
 						$.ajax({
 							type:"POST"
-							url:"empdeleteofficailactive.controller/"+anum,
+							url:"empdeleteofficailactive/"+anum,
 							success:function(response){
 								dtr.remove();
 								Swal.fire(

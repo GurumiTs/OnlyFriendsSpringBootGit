@@ -51,11 +51,11 @@ public class OfficialActiveController {
 	
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
-	public Map allOaToJson(Model m) {
-		List<OfficialActiveFindOa> oaList = officialActiveService.findByAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data",oaList);
-		return map;
+	public List<OfficialActive> allOaToJson(Model m) {
+		List<OfficialActive> oaList = officialActiveService.findAll();
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("data",oaList);
+		return oaList;
 		
 		
 		
@@ -172,7 +172,7 @@ public class OfficialActiveController {
 	
 		
 		//刪除
-		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.POST)
+		@RequestMapping(path="/empdeleteofficailactive/{anum}" , method = RequestMethod.POST)
 		public String deleteOfficialActive(@RequestParam(name = "anum") Long anum, Model model) {
 			System.out.println(anum);
 			officialActive = officialActiveService.findByAnum(anum);
