@@ -23,6 +23,7 @@
 	border-radius: 40px;
 	z-index: 1;
 	top: 70px;
+	
 	width: 40px;
 }
 
@@ -34,6 +35,7 @@
 	border-radius: 40px;
 	z-index: 1;
 	top: 70px;
+	
 	width: 40px;
 }
 
@@ -86,38 +88,10 @@
 	margin-buttom: 5%;
 }
 
-body {
-	font-size: 1.2rem
+body{
+font-size:1.2rem
 }
-
-#sidebar-wrapper {
-	margin-top: -50%;
-}
-
-#relative {
-	position: relative;
-	width: 560px;
-	height: 315px;
-	margin: auto;
-}
-
-#absolute {
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 30px;
-	height: 30px;
-}
-
-#close {
-	width: 80%;
-	margin-left: auto;
-	opacity: 0.8;
-}
-
-.modal-dialog {
-	margin-top: 100px;
-}
+#sidebar-wrapper{margin-top:-50%;}
 </style>
 <body>
 <body class="layout-2">
@@ -125,7 +99,7 @@ body {
 		<div class="main-wrapper">
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
-
+			
 
 			<div class="main-sidebar">
 
@@ -138,7 +112,7 @@ body {
 
 
 			<!-- Main Content -->
-			<div class="main-content">
+			<div class="main-content" >
 				<section class="section">
 
 					<div class="section-body">
@@ -166,7 +140,7 @@ body {
 										</div>
 									</div>
 								</nav>-->
-								<!--<ul id="ul">
+									<!--<ul id="ul">
 							  	<li>
 										<a class="nav-link" href="couponMember.controller"><span style="color:#6E6E6E;font-weight:bold;">領取優惠券</span></a>
 									</li>
@@ -178,8 +152,8 @@ body {
 								<!--  	<button type="button" class="btn btn-link"><h3>領取優惠券</h3></button>
 								<button type="button" class="btn btn-link"><h3>我的優惠券</h3></button>
 								<hr>-->
-
-								<ul class="nav nav-tabs">
+								
+								<ul class="nav nav-tabs" >
 									<li class="nav-item"><a class="nav-link "
 										aria-current="page" href="#" id="money">現金券</a></li>
 									<li class="nav-item"><a class="nav-link" href="#"
@@ -188,30 +162,27 @@ body {
 										id="freight">運費券</a></li>
 									<li class="nav-item"><a class="nav-link" href="#"
 										id="cooperate">異業券</a></li>
-									<li class="nav-item"><a class="nav-link" href="#"
-										id="activity">活動券</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="myCouponEntry.controller" id="mycoupon">我的優惠券</a></li>
-
+									<li class="nav-item"><a class="nav-link" href="myCouponEntry.controller"
+										id="mycoupon">我的優惠券</a></li>
+										
 								</ul>
 							</div>
 
-							<div class="card-body ">
+							<div class="card-body "  >
 								<!--  <div>
 							<button type="button" class="btn btn-light disabled" id="money">現金券</button>
 							<button type="button" class="btn btn-light disabled" id="discount">折扣券</button>
 							<button type="button" class="btn btn-light disabled" id="freight">運費券</button>
 							</div>-->
-								<!-- <form action="updatecouponUsers.controller" method="post"
-									enctype="multipart/form-data">-->
-								<div id="button">
-									<input placeholder="請輸入優惠券序號" type="text" name="couponRecord2"
-										id="couponRecord2">
-									<button id="couponGet" class="btn btn-primary"
-										data-bs-toggle="modal" data-bs-target="#search">領取</button>
-									<span>${Error}</span>
-								</div>
-								<!-- </form>-->
+								<form action="updatecouponUsers.controller" method="post"
+									enctype="multipart/form-data">
+									<div id="button">
+										<input placeholder="請輸入優惠券序號" type="text" name="couponRecord"
+											id="couponRecord">
+										<button id="couponGet" class="btn btn-primary">領取</button>
+										<span>${Error}</span>
+									</div>
+								</form>
 								<div
 									class="
 							            row
@@ -219,7 +190,7 @@ body {
 							            row-cols-2 row-cols-md-3 row-cols-xl-4
 							            justify-content-center
 							          "
-									id="itemarea"></div>
+									id="itemarea" ></div>
 							</div>
 						</div>
 					</div>
@@ -231,128 +202,31 @@ body {
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
-	<div class="modal fade" id="search" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content modal-dialog-scrollable">
 
 
-				<div id="ad">
-					<div id="relative">
-
-						<iframe width="560" height="315"
-							src="https://www.youtube.com/embed/gP2aYfSbY5I"
-							title="YouTube video player" frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen id="iframe"></iframe>
-						<form action="updatecouponUsers.controller" method="post"
-							enctype="multipart/form-data">
-							<input type="text" name="couponRecord" value="" id="couponRecord">
-							<div id="absolute">
-								<button type="submit" id="submit">
-									<img src="images/couponPic/close.png" id="close">
-								</button>
-							</div>
-						</form>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<script>
 	
-	var couponRecord;
-	var cid=[];
-	var cprice=[];
-	//console.log(cid);
-	
-	//console.log(cprice);
 	 $(function () {
-		
-         $('#close').css("display", "none");
-         $('#iframe').css("display", "none");
-         $('#couponRecord').css("display", "none");
-         $('#submit').css("display", "none");
-
-         $('#couponGet').click(function () {
-        	        	
-        	 couponRecord=$('#couponRecord2').val();
-        	
-        	 $('#couponRecord').val(couponRecord);
-             var ifrm;
-            // console.log(arr[0])
-            console.log("cid[0]"+cid[0]);
-            for(let i=0; i < cid.length;i++){
-            	if(cid[i]==couponRecord){
-            		console.log(cid[i]);
-             $('#iframe').css("display", "block");
-             ifrm = $('#iframe').attr("src");
-             $('#iframe').attr('src', ifrm + "?autoplay=1&mute=1");
-             var closeView = setInterval(closeView, 10000);
-            	}else{
-            		
-            	}
-            }
-           //if(cid===couponRecord){
-        	   
-
-           
-             
-          // }else{
-        	   
-          // }
-             function closeView() {
-                 $('#close').css("display", "block");
-                 $('#submit').css("display", "block");
-             }
-             
-        	   
-
-         })
-
-         $('#close').click(function () { 
-        	 
-        	 
-        	 
-             $('#ad').hide().show();
-             Swal.fire({
-            	  position: 'top-end',
-            	  icon: 'success',
-            	  title: '已領取',
-            	  showConfirmButton: false,
-            	  timer: 1500
-            	})
-            
-         })
-
-     });
-	
-	 $(function () {
-	
+   
 				$.ajax({
 				 type:'GET',
 			     url:'couponMemberCheck.controller',
 			     dataType:'JSON',     
 			     contentType:'application/json',
 			     success(res) {
-			    	 
 			              var json = JSON.stringify(res, null, 3);
                           var parsedObjinArray = JSON.parse(json);
 			              var itemarea = $('#itemarea');
-			               $('#itemarea').empty("");			           
+			               $('#itemarea').empty("");
 			               $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件			    
-			            	  
+
 				               	var d=new Date();
 				                let theYear = d.getFullYear();
 				               	let theMonth = d.getMonth()+1 ;
 				               	let theDate = d.getDate();  				               	
 				                let d1=n.couponEndDate.split("-");
-								//cid = n.couponId;
-								cid.push(n.couponId)
-								cprice.push(n.couponPrice)
-			            	  //console.log(cid)
+
+			            	   
 				            if(d1[0]>theYear || d1[0]>=theYear && d1[1]>theMonth || d1[0]>=theYear && d1[1]==theMonth && d1[2]>=theDate)     {				            					       
    	                       var item =    
    	     	                "<div class='card1'>"+
@@ -378,13 +252,12 @@ body {
    	            	    console.log("error");
    	            	}		    
 				})
-				
      })
-  
+     
      
       $(function () {
             $('#mycoupon').click(function(){
-            
+            	       	
             		$.ajax({
        				 type:'GET',
        			     url:'couponMemberCheck.controller',
@@ -434,7 +307,7 @@ body {
       }) 
       $(function () {
             $('#money').click(function(){
-	
+            	       	
             		$.ajax({
        				 type:'GET',
        			     url:'couponMemberCheck.controller',
@@ -634,52 +507,6 @@ body {
             })	
      })  
       }) 
-      
-      $(function () {
-            $('#activity').click(function(){
-            	       	
-            		$.ajax({
-       				 type:'GET',
-       			     url:'couponActivity.controller',
-       			     dataType:'JSON',     
-       			     contentType:'application/json',
-       			     success(res) {
-       			              var json = JSON.stringify(res, null, 3);
-                                 var parsedObjinArray = JSON.parse(json);
-       			              var itemarea = $('#itemarea');
-       			               $('#itemarea').empty("");
-       			               $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件			    
-
-       				        
-       				            			            					       
-          	                       var item =    
-          	     	                "<div class='card1'>"+
-          	                        "<div class='main1'>"+
-          	                        "<div class='co-img'>"+ 	                       
-          	                        "<img class='card-img-top'src='"+n.couponImg+"' style='width: 135px'/>"+ 
-          	                        "</div>"+
-          	                        "<div class='vertical'></div>"+    
-          	                        "<div class='content'>" +
-          	                        "<h6>序號:"+n.couponId+"</h6>"+
-          	                        "<h2>"+n.couponName+"</h2>"+
-          	                        "<h1>$"+n.couponPrice+"<span>Coupon</span></h1> "+
-          	                        "<p>倒數時間:"+n.couponEndDate+"</p>"+
-          	                        " </div>"+          	                   
-          	                     "</div>"+
-          	                   "</div>" ;
-       				          
-          	                   itemarea.append(item);
-          	            	       });
-       			               
-       			                 	         
-          	            	},
-          	            	error: function() {
-          	            	    console.log("error");
-          	            	}		
-            })	
-     })  
-      }) 
- 
  
     // $(function () {
         //    $('#couponGet').click(function(){
