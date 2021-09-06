@@ -48,7 +48,10 @@ public class BlogBean implements Serializable {
 	private String userID;// PO文者ID
 	
 	@Column(name = "WatchNum")
-	private Integer watchNum;//觀看數
+	private Integer watchNum;// 觀看數
+	
+	@Column(name = "Blogtype")
+	private String blogType;// 文章分類
 	
 	public Integer getArticleID() {
 		return articleID;
@@ -123,8 +126,16 @@ public class BlogBean implements Serializable {
 		this.watchNum = watchNum;
 	}
 
+	public String getBlogType() {
+		return blogType;
+	}
+
+	public void setBlogType(String blogType) {
+		this.blogType = blogType;
+	}
+
 	public BlogBean(Integer articleID, String title, Timestamp createTime, Timestamp updateTime, String mainText,
-			String images, String empAcc, String userID) {
+			String images, String empAcc, String userID, Integer watchNum, String blogType) {
 		super();
 		this.articleID = articleID;
 		this.title = title;
@@ -134,10 +145,12 @@ public class BlogBean implements Serializable {
 		this.images = images;
 		this.empAcc = empAcc;
 		this.userID = userID;
+		this.watchNum = watchNum;
+		this.blogType = blogType;
 	}
 
 	public BlogBean() {
-
 	}
+
 
 }
