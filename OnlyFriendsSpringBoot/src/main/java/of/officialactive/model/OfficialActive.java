@@ -1,6 +1,5 @@
 package of.officialactive.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import of.member.model.Member;
 
 
@@ -24,7 +26,7 @@ import of.member.model.Member;
 @Table(name= "OfficialActive")
 @Component ("OffiaialActive")
 
-public class OfficialActive implements Serializable {
+public class OfficialActive {
 	@Column (name = "EmpAcc")
 	private String empAcc; // 員工編號
 	
@@ -58,27 +60,16 @@ public class OfficialActive implements Serializable {
 	private String female;//女性
 	@Column(name="Img")
 	private String img;//圖片
-	@JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount")
-	private String memberAccount;
 	
-
+	
+	
 	@ManyToMany
 	@JoinTable(
 			name = "memberactive",
 			joinColumns = @JoinColumn(name = "anum"),
 			inverseJoinColumns= @JoinColumn(name = "memberAccount"))
 	private List<Member> memberactive = new ArrayList<Member>();
-	
-	
-	
-	public OfficialActive() {
-	}
-
-	public OfficialActive(Long anum,String aname) {
-		this.anum = anum;
-		this.aname = aname;
-	}
-	
+	@JsonIgnore
 	public List<Member> getoaaddMember() {
 		return memberactive;
 	}
@@ -98,13 +89,7 @@ public class OfficialActive implements Serializable {
 
 
 	
-	public String getMemberAccount() {
-		return memberAccount;
-	}
-	
-	public void setMemberAccount(String memberAccount) {
-		this.memberAccount = memberAccount;
-	}
+
 	public List<Member> getMemberactive() {
 		return memberactive;
 	}
@@ -113,6 +98,7 @@ public class OfficialActive implements Serializable {
 		this.memberactive = memberactive;
 	}
 
+	
 			
 	public String getEmpAcc() {
 		return empAcc;
