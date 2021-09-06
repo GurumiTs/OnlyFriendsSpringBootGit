@@ -20,7 +20,8 @@ public class OfficialActiveService {
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
 	
-	
+	@Autowired
+	private MemberActiveRepository memberActiveRepository;
 	
 	
 	public OfficialActive insert(OfficialActive officialActive) {
@@ -34,9 +35,9 @@ public class OfficialActiveService {
 	
 
 	
-	public List<OfficialActiveFindOa> findByAll() {
-		return officialActiveRepository.findByAll();
-	}
+//	public List<OfficialActiveFindOa> findByAnum() {
+//		return officialActiveRepository.findByAnum();
+//	}
 	
 	public OfficialActive findByAnum(Long anum) {
 		  Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum);
@@ -54,6 +55,11 @@ public class OfficialActiveService {
 	public void deleteById(Long anum) {
 		officialActiveRepository.deleteById(anum);;
 	}
+	
+	public void deleteById1(Long anum) {
+		memberActiveRepository.deleteById(anum);;
+	}
+	
 
 	public Page<OfficialActive> findAllByPage(Pageable pageable) {
 	

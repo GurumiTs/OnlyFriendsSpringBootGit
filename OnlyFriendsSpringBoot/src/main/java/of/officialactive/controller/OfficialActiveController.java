@@ -30,7 +30,8 @@ import of.member.model.Member;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
-import of.officialactive.model.OfficialActiveFindOa;
+import of.officialactive.model.MemberActive;
+import of.officialactive.model.MemberActiveRepository;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
@@ -48,14 +49,16 @@ public class OfficialActiveController {
 	private MemberService memberService;
 
 
+
 	
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
-	public Map allOaToJson(Model m) {
-		List<OfficialActiveFindOa> oaList = officialActiveService.findByAll();
-		Map<String, Object> map = new HashMap<>();
-		map.put("data",oaList);
-		return map;
+	public List<OfficialActive> allOaToJson(Model m) {
+		List<OfficialActive> oaList = officialActiveService.findAll();
+		
+		//Map<String, Object> map = new HashMap<>();
+		//map.put("data",oaList);
+		return oaList;
 		
 		
 		
@@ -121,7 +124,7 @@ public class OfficialActiveController {
 		return "officialactivepages/officialactiveupdate";
 	}
 	
-	@RequestMapping(path = "/empofficialActiveUpdate.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "/empofficialActiveUpdate.controller", method = RequestMethod.GET)
 	public String officialActiveUpdate(@RequestParam(name = "activeFile") MultipartFile img,
 			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
 		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
@@ -132,7 +135,7 @@ public class OfficialActiveController {
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
-		
+			
 		try {
 			
 		
@@ -172,14 +175,16 @@ public class OfficialActiveController {
 	
 		
 		//刪除
-		@RequestMapping(path="/empdeleteofficailactive.controller" , method = RequestMethod.POST)
-		public String deleteOfficialActive(@RequestParam(name = "anum") Long anum, Model model) {
-			System.out.println(anum);
-			officialActive = officialActiveService.findByAnum(anum);
-			System.out.println(officialActive);
-			model.addAttribute("officialActive",officialActive);
+		@PostMapping(path="/empdeleteofficailactive/{anum}")
+		@ResponseBody
+		public String deleteOfficialActive(@PathVariable("anum") Long anum) {
+			
+			//officialActive = officialActiveService.findByAnum(anum);
+			//System.out.println("幹你娘");
+//			officialActiveService.deleteById1(anum);
+			//model.addAttribute("officialActive",officialActive);
 			officialActiveService.deleteById(anum);
-			return"redirect:/empofficialactivemgmt.controller";
+			return"yes";
 	
 	}
 		

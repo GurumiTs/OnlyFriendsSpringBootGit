@@ -28,6 +28,10 @@
 	color: white;
 	background-color: rgba(92, 92, 92, 0.637);
 }
+.img1 {
+	weight: 100px;
+	height: 100px;
+}
 </style>
  </head>
 <body id="page-top">
@@ -59,11 +63,14 @@
 						
 						<div class="card-body">
 							<div class="table-responsive">
-							<table id="example" class = "table  text-center fs-5 bg-linear2"
-									style="width: 100%">
-						<!-- 	<a href="empofficialactiveform.controller" ><img src="images/smallicon/add.svg" alt=""></a>
+							<table id="example233" class = "table  text-center fs-5 bg-linear2"
+									style="width: 100%"> </table>
+						 	<a href="empofficialactiveform.controller"><img src="images/smallicon/add.svg" alt=""></a>
 							
-							<table id="example" class="table table-striped" style="width:100%"> -->	
+							<table id="example" class="table table-striped" style="width:100%"> 
+							
+							
+							
             <thead>
                 <tr>
                 	<th>照片</th>
@@ -81,49 +88,15 @@
 			          <th>活動內容</th>
 			          <th>男性人數</th>
 			          <th>女性人數</th>
-			    
 			          <th>編輯</th>
+			     
 			          
 			          
 			          
                 </tr>
             </thead>
             <tbody>
-     	<!-- <c:if test='${not empty allofficialActive}'>
-			<c:forEach var="oaBean" items="${allofficialActive}">
-         
-          <tr id="${oaBean.anum}">
-          		   
-		           <td id="${oaBean.anum}imges"><img src="${oaBean.img}" width=100px height=100px></td>
-		           <td id="${oaBean.empAcc}EmpAcc">${oaBean.empAcc}</td>
-		           <td id="${oaBean.anum}anum">${oaBean.anum}</td>
-		           <td id="${oaBean.aname}aname">${oaBean.aname}</td>
-		           <td id="${oaBean.atype}atype">${oaBean.atype}</td>
-		           <td id="${oaBean.atype2}atype2">${oaBean.atype2}</td>
-		           <td id="${oaBean.adate}adate">${oaBean.adate}</td>
-		           <td id="${oaBean.startDeadline}startDeadline">${oaBean.startDeadline}</td>
-		           <td id="${oaBean.finishDeadline}finishDeadline">${oaBean.finishDeadline}</td>
-		           <td id="${oaBean.active}active">${oaBean.active}</td>
-		           <td id="${oaBean.county}county">${oaBean.county}</td>
-		           <td id="${oaBean.district}district">${oaBean.district}</td> 
-		           <td id="${oaBean.conditions}conditions">${fn:substring(oaBean.conditions,0,20)}...</td>
-		           <td id="${oaBean.male}male">${oaBean.male}</td>
-		           <td id="${oaBean.female}female">${oaBean.female}</td>
-		        	
-		     
-		           <td class="edit"><a href="empofficialactivesaveorupdate.controller?anum=${oaBean.anum}"><i
-						class="fas fa-edit"></i></a></td>-->
-				<!--  	<td class="delete"><a href="empdeleteofficailactive.controller?anum=${oaBean.anum}">
-						<i class="far fa-trash-alt"></i></a></td>
-							</c:forEach>
-									</c:if>-->
-		           
-           
-          <!--   <td><a href="updateProductForm.jsp?editId=${row.Id }">Edit</a></td>
-           <td><a href="?delId=${row.Id }" onclick="return delConfirm('${row.Name}');">Del</a></td>-->
-          
-       
-   
+     	
              </tbody>
             <tfoot>
                 <tr>
@@ -141,10 +114,8 @@
 			          <th>活動行政區</th>
 			          <th>活動內容</th>
 			          <th>男性人數</th>
-			          <th>女性人數</th>
-			          
-			          <th>編輯</th>
-			          
+			          <th>女性人數</th>   
+			          <th>編輯</th>          
                 </tr>
             </tfoot>
         </table>
@@ -176,19 +147,24 @@
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 	<script>
 		$(document).ready(function() {
-			$('#example').DataTable();
-		});
-		
 		
 		/* load data table */
 		var table = $('#example').DataTable({
 		    "ajax": {
 		    	"url": "oatojson",
+		    	"dataSrc": ""
+		    	
 		    },
 		    "columns": [
-		        { "data": "img" },
+		    	 { 
+			        	"data": null,
+			            render:function(data, type, row)
+			            {
+			              return "<img src="+data.img+" class='img1'>";
+			            }
+			        },
 		        { "data":"empAcc"},
-		        { "data": "anum" }, 
+		        { "data":"anum"}, 
 		        { "data":"aname"},
 		        { "data":"atype"},
 		        { "data":"atype2"},
@@ -198,30 +174,41 @@
 		        { "data":"active"},
 		        { "data":"county"},
 		        { "data":"district"},
-		        { "data":"conditions"},
+		      	{"data": "conditions",
+	        	render:function(data, type, row)
+	        	{
+	        		if (data) {
+	        			return (data.length > 30)?data.substring(0, 30)+"...":data;
+	        		} else {
+	        			return '';
+	        		}
+	        	}
+	        },
 		        { "data":"male"},
 		        { "data":"female"},
 		        {
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "123123";
+		              return "<a id="+data.anum+" class='fas fa-user-edit edit' href = 'empofficialActiveUpdate.controller?anum="+data.anum+"'></a> <span></span> <i class='far fa-trash-alt delete' id="+data.anum+"></i>";
 		            },
 		            "targets": -1
 		        }
 		    ]
 		});		
 		
+		});
+		
+		/* load data table */
 		
 		
 		
-		
-		//delete
-		$("example tbody").on("click",".delete",function(){
+		/*delete*/
+		$("#example tbody").on("click",".delete",function(){
 			
 			let anum = $(this).attr("id");
-			console.log($(this).closest("tr"));
-			let dtr = $(this).cloiset("tr");
+// 			console.log($(this).closest("tr"));
+			let dtr = $(this).closest("tr");
 				Swal.fire({
 					title:'你確定?',
 					text:"按下去就真的刪了喔!",
@@ -233,8 +220,8 @@
 				}).then((result)=>{
 					if(result.isConfirmed){
 						$.ajax({
-							type:"POST"
-							url:"empdeleteofficailactive.controller/"+anum,
+							type:"POST",
+							url:"empdeleteofficailactive/"+anum,	
 							success:function(response){
 								dtr.remove();
 								Swal.fire(
@@ -244,16 +231,16 @@
 										) },
 										error:function(xhr){
 											Swal.fire({
-												icon:'error'
-												title:'Oops...'
+												icon:'error',
+												title:'Oops...',
 												text:'Something went wrong!'
-											})
-										}//error close
-						})//ajax close
+											}) },	//error close
+						});//ajax close
 					} //if close
-				}) //then close
-		})
+				}); //then close
+			});
 		
+	
 		
 	</script>
  </body>
