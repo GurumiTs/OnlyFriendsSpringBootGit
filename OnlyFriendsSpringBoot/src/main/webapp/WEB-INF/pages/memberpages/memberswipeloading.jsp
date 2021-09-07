@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/swipe.css" /> 
+<style>
+.pricing:hover{
+ cursor: pointer;
+}
+
+</style>
 </head>
 <body>
 	
@@ -157,7 +163,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Stored</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><img src="${pageContext.request.contextPath}/images/smallicon/point-of-sale.svg" alt="logo" width="40"><span class="fs-5 fw-bolder mx-2">Stored</span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -183,13 +189,19 @@
                           </div>
                           <div class="pricing-item-label">exp +100</div>
                         </div>
+                       						
+						<div class="form-check d-flex justify-content-center">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="3" checked>						  
+						</div>
+						
                       </div>
                     </div>
+                    
                     
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="pricing border border-warning border-4 rounded">
+                  <div class="pricing border border-secondary shadow border-4 rounded">
                     <div class="pricing-title">Cupid Coins</div>
                     <div class="pricing-padding">
                       <div class="pricing-price">
@@ -208,9 +220,13 @@
                             <i class="fas fa-check"></i>
                           </div>
                           <div class="pricing-item-label">exp +3000</div>
-                        </div>
+                        </div>                       
+                       <div class="form-check d-flex justify-content-center">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="10" >						  
+						</div>                        
                       </div>
                     </div>
+                    
                     
                   </div>
                 </div>
@@ -225,7 +241,14 @@
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
 
-<script>
+<script>	
+	let storednum = "3"
+	$(function(){
+		$('input[name=exampleRadios]').on('change',function(){
+			storednum = $('input[name=exampleRadios]:checked').val()
+		})
+	})
+	
     paypal.Button.render({
     style: {
     		 color:'gold',
@@ -239,7 +262,9 @@
     // 1. Add a payment callback
     payment: function(data, actions) {
       // 2. Make a request to your server
-      return actions.request.post('http://localhost:8080/OnlyFriends/pay')
+      return actions.request.post('http://localhost:8080/OnlyFriends/pay',{
+    	  num:storednum   	  
+      })
         .then(function(res) {
           // 3. Return res.id from the response
           console.log(res)

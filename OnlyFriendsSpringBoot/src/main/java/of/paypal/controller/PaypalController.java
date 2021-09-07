@@ -1,5 +1,9 @@
 package of.paypal.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ import com.paypal.orders.OrdersCreateRequest;
 
 import of.member.model.Member;
 import of.member.model.MemberService;
+import of.member.model.Stored;
+import of.member.model.StoredService;
 import of.paypal.model.Order;
 import of.paypal.model.PaypalService;
 
@@ -30,6 +36,8 @@ public class PaypalController {
 	PaypalService service;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private StoredService storedService;
 
 	public static final String SUCCESS_URL = "/pay/success";
 	public static final String CANCEL_URL = "/pay/cancel";
@@ -41,8 +49,9 @@ public class PaypalController {
 		Order order = null;
 		Payment payment =  null;
 		try {
-	
-			String num = "3" ;   //request.getParameter("num");
+			System.out.println("step1");
+			String num = request.getParameter("num");
+			System.out.println("num"+num);
 			if("3".equals(num)) {
 				order = new Order(99,"TWD","paypal","sale","邱比金幣三枚");
 			}
@@ -67,8 +76,6 @@ public class PaypalController {
 			e.printStackTrace();
 		}
 
-	
-
 		return payment;
 	}
 
@@ -86,10 +93,15 @@ public class PaypalController {
 			payment = service.executePayment(paymentId, payerId);
 			System.out.println(payment.toJSON());
 			String total = payment.getTransactions().get(0).getAmount().getTotal();
+			Float ftotal = Float.parseFloat(total);
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
 			Member m2 = memberService.findByMemberAccount(memberAccount);
 			String newswipetime = null;
+			
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());			
+			Stored stored = new Stored(payment.getId(),memberAccount,timestamp,ftotal);
+			storedService.insert(stored);
 			
 			if("199.00".equals(total)) {
 				newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+10) ; 

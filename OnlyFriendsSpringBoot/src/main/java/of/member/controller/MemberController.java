@@ -1,6 +1,7 @@
 package of.member.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -15,6 +16,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +32,7 @@ import of.common.util.GetRandomPwd;
 import of.emp.model.Employee;
 import of.member.model.Member;
 import of.member.model.MemberService;
+import of.member.model.StoredService;
 
 @Controller
 @SessionAttributes(names = { "successMsg", "errorMsg" })
@@ -44,6 +48,8 @@ public class MemberController {
 	private Users users;
 	@Autowired
 	private JavaMailSender sender;
+	@Autowired
+	private StoredService storedService;
 	
 	
 		
@@ -127,6 +133,22 @@ public class MemberController {
 	@RequestMapping(path = "/invoice.controller", method = RequestMethod.GET)
 	public String invoiceEntry() {
 		return "memberpages/invoice";
+	}
+	
+	@PostMapping(path = "/total")
+	@ResponseBody
+	public List<Float> totalEntry() {
+		List<Float> total = new ArrayList<Float>();
+		
+		for(int i = 1;i<=12;i++) {
+			Float f = storedService.searchtotal(i);
+			if(f == null) {
+				f = (float) 0;
+			}
+			total.add(f);
+		}
+		return total;	
+		
 	}
 	
 	
