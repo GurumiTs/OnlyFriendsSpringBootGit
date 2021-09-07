@@ -129,7 +129,7 @@
 		                	  if(url.indexOf('?')!=-1){
 		                		  var ary1 = url.split('?');
 		                		  var ary2 = ary1[1].split('&');
-		                		  var couponId =decodeURI(ary2[0].substr(10));		                		  
+		                		  var couponId =decodeURI(ary2[0].substr(9));		                		  
 		                		  var couponName =decodeURI(ary2[1].substr(11));
 		                		
 		                	  }

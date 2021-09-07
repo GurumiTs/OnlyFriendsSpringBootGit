@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import of.member.model.Member;
+
 @Service
 @Transactional
 public class UserActivityService {
@@ -44,8 +46,8 @@ public class UserActivityService {
 	}
 
 	// user 查詢僅開放活動
-	public List<UserActivity> apporve() {
-		return userActivityRepositor.findByapprove();
+	public List<UserActivity> findapporve(String appprove) {
+		return userActivityRepositor.findByapprove(appprove);
 	}
 
 	// 查詢個人創辦活動
@@ -61,6 +63,11 @@ public class UserActivityService {
 	// 在 participate 找到參加者有參加哪些活動
 	public List<Integer> findByparticipate(Integer activitynumber) {
 		return userActivityRepositor.findByparticipate(activitynumber);
+	}
+	
+	// 在 participate 找到參加者有參加哪些活動
+	public List<String> findthemembers(Integer number){
+		return userActivityRepositor.findmembers(number);
 	}
 
 }

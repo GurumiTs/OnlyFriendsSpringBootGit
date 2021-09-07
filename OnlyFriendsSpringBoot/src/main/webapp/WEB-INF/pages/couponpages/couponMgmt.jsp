@@ -180,7 +180,7 @@ span {
 								<div class="card border-primary mb-3"
 									style="max-width: 20rem; max-height: 50rem;">
 									<div class="card-header">序號:${find.couponId} 
-									<a href="couponDetailEntry.controller?couponImg=${find.couponId}&couponName=${find.couponName}"><i class="fas fa-search" style="font-size: 1.5em;" id="couponDetail"></i></a>
+									<a href="couponDetailEntry.controller?couponId=${find.couponId}&couponName=${find.couponName}"><i class="fas fa-search" style="font-size: 1.5em;" id="couponDetail"></i></a>
 									</div>
 									<div class="card-body">
 										<img src="${find.couponImg}" id="mainImg" />
@@ -287,6 +287,7 @@ span {
 													<option value="折扣券">折扣券</option>
 													<option value="運費券">運費券</option>
 													<option value="異業券">異業券</option>
+													<option value="活動券">活動券</option>
 												</select><span id="spCaNameInsert"></span>
 											</div>
 											<br> <label for="couponName" class="formName">優惠券名稱</label>
@@ -537,6 +538,7 @@ span {
 													<option value="折扣券">折扣券</option>
 													<option value="運費券">運費券</option>
 													<option value="異業券">異業券</option>
+													<option value="活動券">活動券</option>
 												</select><span id="spCaNameUpdate"></span>
 											</div>
 											<br> <label for="couponPrice">優惠券價格</label>
