@@ -1,5 +1,6 @@
 package of.officialactive.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,9 @@ import of.member.model.Member;
 @Entity
 @Table(name= "OfficialActive")
 @Component ("OffiaialActive")
-
-public class OfficialActive {
+public class OfficialActive implements Serializable{
 	@Column (name = "EmpAcc")
 	private String empAcc; // 員工編號
-	
 	@Id
 	@Column(name="Anum")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,8 +65,8 @@ public class OfficialActive {
 	@ManyToMany
 	@JoinTable(
 			name = "memberactive",
-			joinColumns = @JoinColumn(name = "anum"),
-			inverseJoinColumns= @JoinColumn(name = "memberAccount"))
+			joinColumns = @JoinColumn(name = "anum",referencedColumnName = "anum"),
+			inverseJoinColumns= @JoinColumn(name = "memberAccount",referencedColumnName = "memberAccount"))
 	private List<Member> memberactive = new ArrayList<Member>();
 	@JsonIgnore
 	public List<Member> getoaaddMember() {

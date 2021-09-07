@@ -3,6 +3,7 @@ package of.officialactive.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.UserActivity.model.UserActivity;
 import of.member.model.Member;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
@@ -116,15 +118,17 @@ public class OfficialActiveController {
 	
 	//修改
 	
-	@RequestMapping(path = "/empofficialactivesaveorupdate.controller", method = RequestMethod.GET)
+	@GetMapping(path = "/empofficialactivesaveorupdate.controller")
+	
 	public String processIntoUpdate(HttpServletRequest request,Model model) {
 		Long anum = Long.parseLong(request.getParameter("anum"));
 		officialActive = officialActiveService.findByAnum(anum);
 		model.addAttribute("officialActive",officialActive);
-		return "officialactivepages/officialactiveupdate";
+		return "/officialactivepages/officialactiveupdate";
 	}
 	
-	@RequestMapping(path = "/empofficialActiveUpdate.controller", method = RequestMethod.GET)
+	@GetMapping(path = "/empofficialActiveUpdate.controller")
+	@ResponseBody
 	public String officialActiveUpdate(@RequestParam(name = "activeFile") MultipartFile img,
 			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
 		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
@@ -165,10 +169,10 @@ public class OfficialActiveController {
 		List<OfficialActive> officialActiveList = officialActiveService.findAll();
 		
 				model.addAttribute("officialActiveList",officialActiveList);
-				return "redirect:/empofficialactivemgmt.controller";
+				return "y";
 		}catch (Exception e) {
 			model.addAttribute("error!");
-			return "redirect:/empofficialactivemgmt.controller";
+			return "n";
 		}
 		
 		}
@@ -230,14 +234,37 @@ public class OfficialActiveController {
 		}
 		
 		
-		//oaforuserpages home
 		
-		@GetMapping ("/oaforuserpages.controller")
+		
+		@RequestMapping ("/oaforuserpages")
 		public String oaforuserEntry() {
+			
 			return "officialactivepages/oaforuser";
+
 		}
 		
+		@GetMapping("/oaforuserpages.controller")
+		@ResponseBody
+		public List<OfficialActive> oaforuser(HttpServletRequest request) {
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
+			List<Long> oanaum = officialActiveService.findByMemAcc(memberAccount);
+
+			System.out.println("oanaum:" + oanaum);
+			
+			System.out.println("幹你娘");
+			
+			List<OfficialActive> oaList = new ArrayList<OfficialActive>();
+			
+			for(Long anum : oanaum) {
+				OfficialActive ac = officialActiveService.select(anum);
+				oaList.add(ac);
+			}
+			
+			return oaList;
+		}
 		
+		//取得會員編號加入活動
 		@PostMapping (path = "/addmember/{anum}")
 		@ResponseBody
 		public String addmember (@PathVariable("anum") String a,HttpServletRequest request) {
@@ -258,59 +285,8 @@ public class OfficialActiveController {
 
 
 		
-		
-		
-		// 參加活動
-//		
-//		@RequestMapping(path = "/addoamember.controller", method = RequestMethod.POST)
-//		@ResponseBody
-//		public String addoamember(HttpServletRequest request,@RequestParam(name = "anum")long anum ){
-//			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-//			String memberAccount = m1.getMemberAccount();
-//			
-//			Member m2 = memberService.findByMemberAccount(memberAccount);
-//			
-//			
-//			//抓活動
-//			
-//			OfficialActive oam = officialActiveService.select(anum);
-//			
-//			List <Member> oamemberList = oam.getMemberactive();
-//			oamemberList.add(m2);
-//			officialActiveService.update(oam);
-//			
-//			return "成功123";
-//		}
-		
-		
-		
-		
 }
 		
-		 
-			
-			
-		
-			
-			
-		
-
-		
-//		public String addoaMember(@RequestParam(name = "memberAccount") String memberAccount
-//				,@RequestParam(name = "anum" ,required = false) Integer anum) {
-//			
-//		officialActive.setMemberAccount(memberAccount);
-//		officialActive.setAnum(anum);
-//		
-			
-//		}
-		
-		
-	
-		
-//}
-	
-
 
 			
 		

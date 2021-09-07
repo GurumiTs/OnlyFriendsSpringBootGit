@@ -54,7 +54,7 @@
        <div class="mb-3">
        
        
-       <input type = "text" id= "anum"  >
+       <input type = "hidden" id= "anum"  >
 							<label for="memberEmail" class="form-label">Email</label> <input
 								type="email" class="form-control" name="memberEmail" id="memberEmail" value="${personalinfo.memberEmail}" 
 								required readonly />
@@ -103,8 +103,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-		   <a href = "oauserpage.controller">
-        <button  type="button" class="btn btn-primary" id = "send" data-bs-dismiss="medal">送出</button></a>
+		 <!--   <a href = "oauserpage.controller">--> 
+        <button  type="button" class="btn btn-primary" id = "send" data-bs-dismiss="medal">送出</button>
         
       </div>
     </div>
@@ -342,23 +342,31 @@
 			$("#send").on("click", function () {
 				let anum = $('#anum').val()
 				console.log(anum)
+				
 				  $.ajax({
 					  type : "POST",
 					  url: "addmember/"+anum,
 					  success:function(data)
-					  {
-						console.log("success")  
-						 // $('#anum').attr('value',anum);				  
-						  console.log(123123)
-					  },error:function(xhr)
-					  {
-						  console.log('無法送出')
-					  }
+					  { 
+						  Swal.fire(	
+								  '報名成功!',
+								  '',
+								  'success'
+					  )
+					  table.ajax.reload();
+						  },
+					  error:function(e){
+						  Swal.fire(
+							'重複報名',
+							'',
+							'warning'
+						  )
+						  }, //error close
 				     
-				  });			  
+				  });		//ajax close  
+			
 			});
-			  
-		});//function
+	});//function
 		
 		
 		

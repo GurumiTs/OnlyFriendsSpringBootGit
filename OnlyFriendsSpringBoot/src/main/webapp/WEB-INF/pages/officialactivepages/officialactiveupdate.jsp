@@ -32,7 +32,7 @@
 <!-- ************************** your content*************************** -->		
 		
 		   <div class="container">
-            <form action="empofficialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
+            <form action="empofficialActiveUpdate.controller" method="GET"  enctype="multipart/form-data"  > 
  		<div>                              
  		<div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>

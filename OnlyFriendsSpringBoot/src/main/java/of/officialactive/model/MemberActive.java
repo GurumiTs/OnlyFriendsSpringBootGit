@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -16,11 +17,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="MemberActive")
 @Component("MemberActive")
+@IdClass(MemberActive.class)
 public class MemberActive implements Serializable{
 	@Id
 	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long anum;
+	@Id
 	@Column
 	private String memberAccount;
 	

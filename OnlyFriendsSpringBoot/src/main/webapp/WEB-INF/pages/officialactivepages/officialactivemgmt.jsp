@@ -190,7 +190,7 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<a id="+data.anum+" class='fas fa-user-edit edit' href = 'empofficialActiveUpdate.controller?anum="+data.anum+"'></a> <span></span> <i class='far fa-trash-alt delete' id="+data.anum+"></i>";
+		              return "<a id="+data.anum+" class='fas fa-user-edit edit' href = 'empofficialactivesaveorupdate.controller?anum="+data.anum+"'></a> <span></span> <i class='far fa-trash-alt delete' id="+data.anum+"></i>";
 		            },
 		            "targets": -1
 		        }
