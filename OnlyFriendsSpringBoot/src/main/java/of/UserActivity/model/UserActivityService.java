@@ -69,5 +69,10 @@ public class UserActivityService {
 	public List<String> findthemembers(Integer number){
 		return userActivityRepositor.findmembers(number);
 	}
+	
+	//取消活動
+//	public String findpart(Integer number,String memberacount) {
+//		return userActivityRepositor.findpart(number, memberacount);
+//	}
 
 }

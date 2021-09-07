@@ -215,7 +215,7 @@ public class UserActivityController {
 		userActivity.setCondition(condition);
 		userActivity.setMan(Integer.parseInt(man));
 		userActivity.setWoman(Integer.parseInt(woman));
-		userActivity.setTotal(Integer.parseInt(man) + Integer.parseInt(woman));
+		userActivity.setTotal((Integer.parseInt(man) + Integer.parseInt(woman))-1);
 		userActivity.setSee(0);
 
 		userActivityService.insert(userActivity);
@@ -274,14 +274,15 @@ public class UserActivityController {
 		userActivity.setCondition(condition);
 		userActivity.setMan(Integer.parseInt(man));
 		userActivity.setWoman(Integer.parseInt(woman));
-		userActivity.setTotal(Integer.parseInt(man) + Integer.parseInt(woman));
+		userActivity.setTotal(userActivity.getTotal());
+		userActivity.setSee(userActivity.getSee());
 
 		userActivityService.updata(userActivity);
 
 		return "redirect:/useractivity.post";
 	}
 
-	// 會員刪除
+	// 會員刪除自己創辦活動
 	@RequestMapping(path = "/deleteactivity.controller", method = RequestMethod.GET)
 	public String Deleteactivity(@RequestParam(name = "number") int number, Model model) {
 
@@ -307,28 +308,12 @@ public class UserActivityController {
 
 		List<UserActivity> useractivityList = userActivityService.findByAccount(memberAccount);
 
-
-
 		model.addAttribute("useractivityList", useractivityList);
 
 		return useractivityList;
 	}
 
-	// 搜尋以參加的會員資料 
-	@RequestMapping(path = "/lo", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Member> Member(@RequestParam(name = "number") Integer number) {
-
-		List<String> number1 = userActivityService.findthemembers(11);
-		List<Member> listmList = new ArrayList<Member>();
-		for (String string : number1) {
-			Member member = memberService.findByMemberAccount(string);
-			System.out.println(member.getMemberName());
-			listmList.add(member);
-		}
-		return listmList;
-	}
-
+	
 	// 會員參加活動
 	@RequestMapping(path = "/addactivity", method = RequestMethod.GET)
 	public String addactivity(HttpServletRequest request, @RequestParam(name = "number") Integer number) {
@@ -346,10 +331,29 @@ public class UserActivityController {
 
 		List<Member> par = ua.getParticipate();
 		par.add(m2);
+		
 		userActivityService.updata(ua);
 
 		return "useractivepage/usermgmtjson";
 	}
+	//會員取消參加活動 後 人數要加回去
+	@RequestMapping(path = "/cancelactivity", method = RequestMethod.GET)
+	public String Cancel(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		
+		UserActivity ua = userActivityService.select(number);
+		
+		List<Member> par = ua.getParticipate();
+		System.out.println("要被取消的活動"+number);
+		System.out.println("要取消的參加者"+memberAccount);
+		
+		par.remove(m2);
+		System.out.println("刪除結束");
+		return "Good";
+	}
+	
 
 	// 會員查詢自己參加活動
 	@RequestMapping(path = "/AlreadyParticipated", method = RequestMethod.POST)
@@ -373,5 +377,33 @@ public class UserActivityController {
 
 		return activity;
 	}
+	
+	// 創辦者搜尋以參加的會員資料 
+		@RequestMapping(path = "/lo", method = RequestMethod.POST)
+		@ResponseBody
+		public List<Member> Member(@RequestParam(name = "number") Integer number) {
+			List<String> number1 = userActivityService.findthemembers(number);
+			List<Member> listmList = new ArrayList<Member>();
+			for (String string : number1) {
+				Member member = memberService.findByMemberAccount(string);
+				System.out.println(member.getMemberName());
+				listmList.add(member);
+			}
+			return listmList;
+		}
+		
+	//活動創辦人資訊
+		@RequestMapping(path = "/ao", method = RequestMethod.POST)
+		@ResponseBody
+		public Member maker(@RequestParam(name = "number") Integer number) {
+
+			UserActivity active = userActivityService.select(number);
+			String mm= active.getMemberAccount().toString();
+		
+			Member member = memberService.findByMemberAccount(mm);
+	
+			
+			return member;
+		}
 
 }
