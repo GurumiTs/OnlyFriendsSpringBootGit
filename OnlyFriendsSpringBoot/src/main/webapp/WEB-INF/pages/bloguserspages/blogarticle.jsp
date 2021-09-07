@@ -160,13 +160,6 @@ right: 30px;
 		$(function(){
 			message();
 			$('#mesbutton').on('click',addmessage);
-			
-			$("#messageText").on('keypress',function(e) {
-		        if (event.keyCode == 13){
-		        	$('#mesbutton').on('click',addmessage);
-		        }
-			});
-			
 		});
 		
 		// 送出留言
