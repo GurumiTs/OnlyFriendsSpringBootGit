@@ -14,7 +14,7 @@
                 >
               </li>
               <li>
-                <a class="nav-link" href="blank.html"
+                <a class="nav-link" href="useractivity.post"
                   ><i class="fas fa-snowboarding"></i> <span>個人活動</span></a
                 >
               </li>

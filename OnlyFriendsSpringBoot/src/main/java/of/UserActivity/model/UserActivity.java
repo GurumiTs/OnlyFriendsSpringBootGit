@@ -90,7 +90,7 @@ public class UserActivity implements Serializable {
 	public void addFriend(Member member) {
 		this.participate.add(member);
 	}
-	
+	//如果只帶入會員 會不知道刪除的是哪一筆資料 但不能帶兩個參數
 	public void remove(Member member) {
 		this.participate.remove(member);
 	}

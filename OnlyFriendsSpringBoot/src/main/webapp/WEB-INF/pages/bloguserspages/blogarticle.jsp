@@ -18,6 +18,11 @@ margin: 0 auto;
 weight: 15px;
 }
 
+.mesbutton{
+position: absolute;
+top:23px;
+right: 30px;
+}
 
 </style>
 </head>
@@ -68,30 +73,26 @@ weight: 15px;
                                 <!-- Comment form 判斷是否登入，使用者或管理者登入-->
 									<c:choose>
 										<c:when test="${not empty member}">
-											<form action="addMessage" class="d-flex mb-4"
-												onSubmit="return false">
-	
+											<form id="mesform" class="d-flex mb-4">
 												<img class="rounded-circle" src='${personalinfo.memberPic}'
 													style="weight: 50px; height: 50px; float: left;" /> 
 												&nbsp;
 												&nbsp; 
 												<input id="messageText" name="messageText" type="text"
 													class="form-control" placeholder="請留言"> 
-												<input type="hidden" id="messagebutton" value="送出">
+												<button type="button" class="btn btn-primary mesbutton" id="mesbutton">送出</button>
 											</form>
 										</c:when>
 										
 										<c:when test="${not empty employee}">
-											<form action="addMessage" class="d-flex mb-4"
-												onSubmit="return false">
-	
+											<form id="mesform" class="d-flex mb-4">
 												<img class="rounded-circle" src='${personalinfo.empPic}'
 													style="weight: 50px; height: 50px; float: left;" /> 
 												&nbsp;
 												&nbsp; 
 												<input id="messageText" name="messageText" type="text"
 													class="form-control" placeholder="請留言"> 
-												<input type="hidden" id="messagebutton" value="送出">
+												<button type="button" class="btn btn-primary mesbutton" id="mesbutton">送出</button>
 											</form>
 										</c:when>
 										
@@ -150,56 +151,81 @@ weight: 15px;
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
-	var url_String = location.href;
-	var url = new URL(url_String);
-	var articleId = url.searchParams.get("ArticleId");
-	console.log(articleId)
-	$(function(){
-		$("#messageText").keypress(function(e) {
-	        if (event.keyCode == 13){
-	            $('#messagebutton').click();
-	            });
-	        }
+		var url_String = location.href;
+		var url = new URL(url_String);
+		var articleId = url.searchParams.get("ArticleId");
+		console.log(articleId);
+	
+	
+		$(function(){
+			message();
+			$('#mesbutton').on('click',addmessage);
+			
+			$("#messageText").on('keypress',function(e) {
+		        if (event.keyCode == 13){
+		        	$('#mesbutton').on('click',addmessage);
+		        }
+			});
+			
 		});
 		
-		$.ajax({
-            type: "POST",
-            url: "firstmessagetojson/"+articleId,
-            success: function(response) {           	
-            	var messageArea = $('#messageArea');
-            	$('#messageArea').empty("");
-            	console.log(response.length);
-            	if(response.length == 0){
-            		var message = 
-	                    "<div class='d-flex'>"+
-	                		"<div class='ms-3'>"+
-	                    		"暫無資料"+
-	                		"</div>"+
-	           			"</div>";
-	            	messageArea.append(message);
-            	}
-            	else{
-            		$.each(response, function(i,n){
-	            	var message = 
-	                    "<div class='d-flex'>"+
-	                		"<div class='flex-shrink-0'><img class='rounded-circle' src='"+n.memberPic+"' style='weight: 50px; height: 50px'; alt='"+n.memberName+"' /></div>"+
-	                		"<div class='ms-3'>"+
-	                    		"<div class='fw-bold'>"+n.memberName+"</div>"+
-	                    		n.messageText+
-	                		"</div>"+
-	           			"</div>&nbsp;";
-	            	messageArea.append(message);
-            		});
-            	}
-            	
-            },
-            error: function(xhr){
-            	console.log("error!")
-            }
-        });
-	});
-
+		// 送出留言
+		function addmessage(){
+			let messageText  = $("#messageText").val();
+			if(messageText != ''){
+				$.ajax({
+					type:"POST",
+					url: "addMessage/"+articleId,
+					data:{"messageText": messageText},
+					success: function(data) {
+							console.log("留言成功");
+							$("#messageText").val('');
+							message();
+					},
+					error: function(xhr){
+		            	console.log("error!");
+		            }
+				});
+			}
+		};
 		
+		// 查詢留言
+		function message(){
+			$.ajax({
+	            type: "POST",
+	            url: "firstmessagetojson/"+articleId,
+	            success: function(response) {           	
+	            	var messageArea = $('#messageArea');
+	            	$('#messageArea').empty("");
+	            	console.log(response.length);
+	            	if(response.length == 0){
+	            		var message = 
+		                    "<div class='d-flex'>"+
+		                		"<div class='ms-3'>"+
+		                    		"暫無資料"+
+		                		"</div>"+
+		           			"</div>";
+		            	messageArea.append(message);
+	            	}
+	            	else{
+	            		$.each(response, function(i,n){
+		            	var message = 
+		                    "<div class='d-flex'>"+
+		                		"<div class='flex-shrink-0'><img class='rounded-circle' src='"+n.memberPic+"' style='weight: 50px; height: 50px'; alt='"+n.memberName+"' /></div>"+
+		                		"<div class='ms-3'>"+
+		                    		"<div class='fw-bold'>"+n.memberName+"</div>"+
+		                    		n.messageText+
+		                		"</div>"+
+		           			"</div>&nbsp;";
+		            	messageArea.append(message);
+	            		});
+	            	}
+	            },
+	            error: function(xhr){
+	            	console.log("error!")
+	            }
+	        });// ajax end
+		};// function end
 	
 	</script>
 </body>

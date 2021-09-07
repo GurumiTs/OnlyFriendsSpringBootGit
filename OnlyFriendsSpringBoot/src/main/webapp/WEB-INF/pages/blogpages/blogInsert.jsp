@@ -84,23 +84,39 @@
 								<span class="input-group-text" id="inputGroup-sizing-default">管理者ID:</span>
 								<input type="text" class="form-control"
 									placeholder="EmployeeAcc" aria-label="Sizing example input"
-									aria-describedby="basic-addon1" name="empAcc"><span
-									id="errorAcc"></span> <span class="input-group-text"
-									id="inputGroup-sizing-default">暱稱</span> <input type="text"
-									class="form-control" placeholder="UserID"
-									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-default" name="userID"><span
-									id="erroruUserId"></span>
+									aria-describedby="basic-addon1" name="empAcc" value="${personalinfo.empAccount}">
+									<span class="input-group-text"
+									id="inputGroup-sizing-default">暱稱</span> 
+									<input type="text" class="form-control" placeholder="UserID"
+									aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
+									name="userID"  value="${personalinfo.empName}">
+									<span id="erroruUserId"></span>
 							</div>
 						</div>
-
+						
+						<div class="col-md-12">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="inputGroup-sizing-default">文章分類</span>
+								<select class="form-select" id="inputGroupSelect03"
+									aria-label="Example select with button addon" name="BlogType">
+									<option selected disabled>請選擇文章分類</option>
+									<option value="愛情" id="BlogType">愛情</option>
+									<option value="星座" id="BlogType">星座</option>
+									<option value="新聞" id="BlogType">新聞</option>
+									<option value="Beauty" id="BlogType">Beauty</option>
+									<option value="測驗" id="BlogType">測驗</option>
+									<option value="其他" id="BlogType">其他</option>
+								</select>
+							</div>
+						</div>
+						
 						<div class="col-md-12">
 							<div class="input-group mb-3">
 								<span class="input-group-text" id="inputGroup-sizing-default">文章標題:</span>
 								<input type="text" class="form-control"
 									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-default" name="title"><span
-									id="errorTitle"></span>
+									aria-describedby="inputGroup-sizing-default" name="title" id="title" required><span
+									id="errorTitle"></span><br>
 							</div>
 						</div>
 
@@ -108,7 +124,6 @@
 							<label for="input-group-text" class="input-group-text">文章內容:</label>
 							<textarea class="form-control" style="resize: none;" id="editor"
 								rows="100" name="mainText"></textarea>
-							<div id="errorMainText"></div>
 						</div>
 						
 						<script>
@@ -170,6 +185,19 @@
 				URL.revokeObjectURL(output.src) // free memory
 			}
 		};
+		
+		document.getElementById("title").onblur=checkTitle;
+        function checkTitle(){
+            let sp=document.getElementById("errorTitle");
+            let theNameVal=document.getElementById("title").value;
+            console.log(theNameVal);
+            if(theNameVal != ""){
+                sp.innerHTML='<img id="check" src="images/smallicon/check.png" > ';
+            }else{
+                sp.innerHTML='<img id="error" src="images/smallicon/error.png"> 不可空白'; 
+            }
+            
+        }
 	</script>
 
  </body>

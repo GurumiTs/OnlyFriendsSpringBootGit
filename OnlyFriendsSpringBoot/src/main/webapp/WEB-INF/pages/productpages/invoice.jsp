@@ -20,10 +20,10 @@ font-size:1.2rem
           <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Invoice</h1>
+            <h1>購物車</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item">Invoice</div>
+              <div class="breadcrumb-item active"><a href="shopentrypage">招桃商城</a></div>
+              <div class="breadcrumb-item">購物車</div>
             </div>
           </div>
 
@@ -33,8 +33,8 @@ font-size:1.2rem
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="invoice-title">
-                      <h2>Invoice</h2>
-                      <div class="invoice-number">Order #12345</div>
+                      <h2>訂單摘要</h2>
+<!--                       <div class="invoice-number">Order #12345</div> -->
                     </div>
                     <hr>
                     <div class="row">
@@ -68,8 +68,8 @@ font-size:1.2rem
 
                 <div class="row mt-4">
                   <div class="col-md-12">
-                    <div class="section-title">Order Summary</div>
-                    <p class="section-lead">All items here cannot be deleted.</p>
+<!--                     <div class="section-title">Order Summary</div> -->
+<!--                     <p class="section-lead">All items here cannot be deleted.</p> -->
                     <div class="table-responsive">
                       <table class="table table-striped table-hover table-md">
                         
@@ -99,8 +99,8 @@ font-size:1.2rem
                     </div>
                     <div class="row mt-4">
                       <div class="col-lg-8">
-                        <div class="section-title">Payment Method</div>
-                        <p class="section-lead">The payment method that we provide is to make it easier for you to pay invoices.</p>
+<!--                         <div class="section-title">Payment Method</div> -->
+<!--                         <p class="section-lead">The payment method that we provide is to make it easier for you to pay invoices.</p> -->
                         <div class="d-flex">
                           <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
                           <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
@@ -120,7 +120,7 @@ font-size:1.2rem
                         <hr class="mt-2 mb-2">
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
-                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="step"></span></div>
+                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="ordertotal"></span></div>
                         </div>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ font-size:1.2rem
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+          Copyright &copy; 2021 <div class="bullet"></div> Design By <a href="https://nauval.in/">OnlyFriends Team</a>
         </div>
         <div class="footer-right">
           2.3.0
@@ -261,8 +261,8 @@ font-size:1.2rem
 				type:"get",
 				url:"shopcarttotal",
 				success:function(data){
-					$('#step').empty()
-		            $('#step').text(data)
+					$('#ordertotal').empty()
+		            $('#ordertotal').text(data)
 				}
 				,error: function(error){
 					console.log(error);

@@ -116,13 +116,14 @@ height:50px;
 											style="width: 100%">
 											<thead>
 												<tr>
-													<th>ID</th>
-													<th>Images</th>
-													<th>Title</th>
-													<th>UpdateDate</th>
-													<th>MainText</th>
-													<th>EmpAcc</th>
-													<th>UserID</th>
+													<th>編號</th>
+													<th>圖片</th>
+													<th>標題</th>
+													<th>最後更新時間</th>
+													<th>內容</th>
+													<th>管理者帳號</th>
+													<th>管理者名稱</th>
+													<th>文章類型</th>
 													<th>Edit</th>
 													<th>Delete</th>
 												</tr>
@@ -137,6 +138,7 @@ height:50px;
 													<th class="d-none">內容</th>
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
+													<th class="d-none">類型</th>
 													<th class="d-none">Edit</th>
 													<th class="d-none">Del</th>
 												</tr>
@@ -245,6 +247,7 @@ height:50px;
 		        },
 		        { "data": "empAcc"},		  
 		        { "data": "userID"},		  
+		        { "data": "blogType"},		  
 		        {
 		            "data": null,
 		            render:function(data, type, row)
@@ -259,6 +262,45 @@ height:50px;
 		              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
 		            }
 		        }
+		    ],
+		    columnDefs:[
+		    	{
+		    		targets: [0],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "60px");
+		    		},
+		    	},
+		    	{
+		    		targets: [1],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "150px");
+		    		},
+		    	},
+		    	{
+		    		targets: [2],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "250px");
+		    		},
+		    	},
+		    	{
+			    	targets: [3],
+			    	createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "150px");
+		    		},
+			    	render: function(data){
+			    		return moment(data).format('YYYY-MM-DD');
+			    	},
+		    	},
+		    	{
+		    		targets: [4],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "550px");
+		    		},
+		    	},
+		    	{
+		    		targets: '_all',
+		    		className: 'text-center'
+		    	},
 		    ]
 		});
 		
