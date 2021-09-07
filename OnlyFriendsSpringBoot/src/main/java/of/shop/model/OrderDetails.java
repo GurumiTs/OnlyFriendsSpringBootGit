@@ -1,51 +1,104 @@
 package of.shop.model;
 
+
 public class OrderDetails {
-	private String productName;
+	private String proName;
 	private float subtotal;
-	private float shipping;
-	private float tax;
 	private float total;
+	private String currency;
+	private String method;
+	private String intent;
+	private String description;
 	
-	public OrderDetails(String productName, String subtotal,
-            String shipping, String tax, String total) {
-        this.productName = productName;
+	public OrderDetails() {
+		
+	}
+	
+
+	public OrderDetails(String proName, String subtotal,
+            String shipping, String tax, String total, String currency, String method, String intent, String description) {
+        this.proName = proName;
         this.subtotal = Float.parseFloat(subtotal);
-        this.shipping = Float.parseFloat(shipping);
-        this.tax = Float.parseFloat(tax);
         this.total = Float.parseFloat(total);
+        this.currency = currency;
+		this.method = method;
+		this.intent = intent;
+		this.description = description;
     }
 	
-	public String getProductName() {
-		return productName;
+	public String getCurrency() {
+		return currency;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
-	public float getSubtotal() {
-		return subtotal;
+
+
+	public String getMethod() {
+		return method;
 	}
+
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+
+	public String getIntent() {
+		return intent;
+	}
+
+
+	public void setIntent(String intent) {
+		this.intent = intent;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public String getProName() {
+		return proName;
+	}
+
+
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
 	}
-	public float getShipping() {
-		return shipping;
-	}
-	public void setShipping(float shipping) {
-		this.shipping = shipping;
-	}
-	public float getTax() {
-		return tax;
-	}
-	public void setTax(float tax) {
-		this.tax = tax;
-	}
-	public float getTotal() {
-		return total;
-	}
+
+
 	public void setTotal(float total) {
 		this.total = total;
 	}
+
+
+	
+	public String getProductName() {
+        return proName;
+    }
+ 
+    public String getSubtotal() {
+        return String.format("%.2f", subtotal);
+    }
+ 
+     
+    public String getTotal() {
+        return String.format("%.2f", total);
+    }
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
 	
 	
 }
