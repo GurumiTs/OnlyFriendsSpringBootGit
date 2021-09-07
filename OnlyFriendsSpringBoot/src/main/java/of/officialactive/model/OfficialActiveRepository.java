@@ -13,3 +13,4 @@ public interface OfficialActiveRepository extends JpaRepository<OfficialActive,L
 	
 	
 
+}

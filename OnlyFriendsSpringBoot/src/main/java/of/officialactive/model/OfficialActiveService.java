@@ -19,8 +19,7 @@ public class OfficialActiveService {
 
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
-	
-	
+
 	
 	
 	public OfficialActive insert(OfficialActive officialActive) {
