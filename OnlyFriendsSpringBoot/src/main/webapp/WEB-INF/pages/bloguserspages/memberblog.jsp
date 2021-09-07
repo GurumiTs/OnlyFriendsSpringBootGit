@@ -25,17 +25,24 @@ font-size:1.2rem
 	weight: 150px;
 	height: 150px;
 }
+tr th{
+	font-size: 20px;
+}
+.edit{
+	font-size: 25px;
+}
 
 .edit:hover{
-	font-size: 130%;
+	font-size: 40px;
 }
 
 .delete:hover {
-	font-size: 130%;
+	font-size: 40px;
 }
 
 .delete {
 	cursor: pointer;
+	font-size: 25px;
 }
 
 .icon1{
@@ -62,7 +69,7 @@ height:50px;
         <div class="main-content">
           <section class="section">
             <div class="section-header">
-              <h1>Your Blog</h1>
+              <h1>管理我的文章</h1>
             </div>
 
             <div class="section-body">
@@ -76,14 +83,13 @@ height:50px;
              		 <div class="card shadow mb-4">
 						<div class="card-body">
 							<div class="table-responsive">
-								<table id="example" class="table table-striped"
-									style="width: 100%">
+								<table id="example" class="table table-striped">
 									<thead>
 										<tr>
 											<th>文章編號</th>
 											<th>圖片</th>
 											<th>標題</th>
-											<th style="weight:70px;">最後修改時間</th>
+											<th>最後修改時間</th>
 											<th>內文</th>
 											<th>暱稱</th>
 											<th>修改</th>
@@ -110,7 +116,6 @@ height:50px;
 						</div>
 					</div>
 			<!-- table end -->
-                <div class="card-footer bg-whitesmoke">This is card footer</div>
                
               </div>
             </div>
@@ -203,7 +208,7 @@ height:50px;
 	        	render:function(data, type, row)
 	        	{
 	        		if (data) {
-	        			return (data.length > 100)?data.substring(0, 100)+"...":data;
+	        			return (data.length > 90)?data.substring(0, 90)+"...":data;
 	        		} else {
 	        			return '';
 	        		}
@@ -236,19 +241,27 @@ height:50px;
 	    	{
 	    		targets: [0],
 	    		createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "50px");
+	    			$(td).css("width", "60px");
+	    		},
+	    	},
+	    	{
+	    		targets: [1],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "150px");
 	    		},
 	    	},
 	    	{
 	    		targets: [2],
 	    		createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "250px");
+	    			$(td).css("width", "400px");
+	    			$(td).css("font-weight", "bold");
+	    			$(td).css("font-size", "18px");
 	    		},
 	    	},
 	    	{
 		    	targets: [3],
 		    	createdCell: function (td, cellData, rowData, row, col){
-	    			$(td).css("width", "100px");
+	    			$(td).css("width", "130px");
 	    		},
 		    	render: function(data){
 		    		return moment(data).format('YYYY-MM-DD');
@@ -258,6 +271,34 @@ height:50px;
 	    		targets: [4],
 	    		createdCell: function (td, cellData, rowData, row, col){
 	    			$(td).css("width", "500px");
+	    		},
+	    	},
+	    	{
+	    		targets: [5],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    			$(td).css("font-size", "14px");
+	    		},
+	    	},
+	    	{
+	    		targets: [6],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "80px");
+	    			$(td).css("font-size", "14px");
+	    		},
+	    	},
+	    	{
+	    		targets: [7],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "80px");
+	    			$(td).css("font-size", "14px");
+	    		},
+	    	},
+	    	{
+	    		targets: [8],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    			$(td).css("font-size", "14px");
 	    		},
 	    	},
 	    	{

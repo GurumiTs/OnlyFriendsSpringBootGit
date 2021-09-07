@@ -71,11 +71,16 @@ public class BlogPersonalController {
 							  @RequestParam(name = "usersMainText") String usersMainText,
 							  HttpServletRequest request, Model m) {
 		try {
+			String blogAuthority = "待審核";
+			Integer likeNum = 0;
+			Integer watchNum = 0;
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			BlogUser blogUser = new BlogUser();
 			blogUser.setUsersCreateTime(ts);
 			blogUser.setUsersUpdateTime(ts);
-			
+			blogUser.setBlogAuthority(blogAuthority);
+			blogUser.setLikeNum(likeNum);
+			blogUser.setWatchNum(watchNum);
 			// 透過session抓memberAccount
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 			String memberAccount = m1.getMemberAccount();
@@ -96,17 +101,8 @@ public class BlogPersonalController {
 			multipartFile.transferTo(saveFile);
 			System.out.println("filePath:" + filePath);
 				
-			String fileName1 = multipartFile.getOriginalFilename();
-			System.out.println("1");
-			String saveFilePath1 = "C:/FinalProject/OnlyFriendsSpringBootGit/OnlyFriendsSpringBoot/src/main/resources/static/images/blogUsersPic";
-			System.out.println("2");
-			String filePath1 = saveFilePath1 + "/" + fileName;
-			System.out.println("3");
-			File saveFile1 = new File(saveFilePath1);
-			System.out.println("4");
-			System.out.println("存入資料夾成功");
 			blogUser.setUsersImages("images/blogUsersPic/" + fileName);
-				
+			
 			bUserService.insertBlogUser(blogUser);
 			m.addAttribute("insertSuccess", "投稿文章成功，待審核後通知您!");
 			return "redirect:memberblog";
