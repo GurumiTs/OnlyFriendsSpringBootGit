@@ -117,7 +117,6 @@ font-size:1.2rem
 <!--                           <div class="invoice-detail-name">Shipping</div> -->
 <!--                           <div class="invoice-detail-value">$15</div> -->
 <!--                         </div> -->
-                        <hr class="mt-2 mb-2">
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
                           <div class="invoice-detail-value invoice-detail-value-lg">$<span id="ordertotal"></span></div>
@@ -127,10 +126,10 @@ font-size:1.2rem
                   </div>
                 </div>
               </div>
-              <hr>
-              <div class="text-md-center">
+<!--                         <hr class="mt-2 mb-2"> -->
+              <div class="text-md-right">
                 <div class="mb-lg-3 mb-7">
-                  <i class="fas px-3 paypalbutton"></i>
+                  <i class="fas paypalbutton"></i>
 <!--                   <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button> -->
                 </div>
               </div>
@@ -158,11 +157,11 @@ font-size:1.2rem
     <script >
     paypal.Button.render({
         style: {
-        		 color:'gold',
-        		 shape:'pill',
+        		 color:'blue',
+        		 shape:'rect',
         		 label:'checkout',
-//         		 size: 'responsive',
-        		 fundingicons:'true',
+        		 size: 'small',
+//         		 fundingicons:'true',
         		},
         env: 'sandbox', // Or 'production'
         // Set up the payment:

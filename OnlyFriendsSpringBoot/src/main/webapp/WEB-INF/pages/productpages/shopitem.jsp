@@ -93,12 +93,13 @@
 
 
   	  var url = location.href;
-  	  
+  	  console.log(url)
   	  if(url.indexOf('?')!=-1){
   		  var ary1 = url.split('?');
   		  var ary2 = ary1[1].split('&');
   		  var proId =decodeURI(ary2[0].substr(6));
   		  var proName =decodeURI(ary2[1].substr(8));
+  		  
   	  }
 				$.ajax({
 					   type:'GET',
