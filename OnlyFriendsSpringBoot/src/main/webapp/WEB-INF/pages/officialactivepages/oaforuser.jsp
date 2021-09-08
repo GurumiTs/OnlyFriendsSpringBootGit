@@ -68,7 +68,7 @@ height:50px;
             <div class="section-body">
               <div class="card">
               <div class="card-header icon1">
-             	<div style=""><a href="blogusersinsert"></a></div>
+             
 <!--              	<input type="submit" class="btn btn-danger" id="deletesome" value="刪除選中">   -->
 <!-- 				<span><img src="images/smallicon/BlogusersDelete.png" width="45px" height="45px" id="deleteSome"></span> -->
               </div>
@@ -106,7 +106,7 @@ height:50px;
 						</div>
 					</div>
 			<!-- table end -->
-                <div class="card-footer bg-whitesmoke">This is card footer</div>
+              
                
               </div>
             </div>
@@ -124,3 +124,44 @@ height:50px;
     </div>
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
+    
+    
+    <script>
+ 
+	$(document).ready(function() {
+	
+	/* load data table */
+	var table = $('#example').DataTable({
+	    "ajax": {
+	    	"url": "oaforuserpages.controller",
+	    	"dataSrc": ""
+	    	
+	    },
+	    "columns": [
+	        { "data":"anum"}, 
+	    	 { 
+		        	"data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<img src="+data.img+" class='img1'>";
+		            }
+		     },
+	
+	        { "data":"active"},
+	        { "data":"county"},
+	        { "data":"district"},
+	        { "data":"adate"},
+	    ]
+	});		
+	
+	
+	
+	});
+	
+	/* load data table */
+	
+			
+    
+    
+    
+    </script>

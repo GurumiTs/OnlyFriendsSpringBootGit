@@ -6,6 +6,10 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 </style>
  </head>
 <body id="page-top">
@@ -32,7 +36,7 @@
 <!-- ************************** your content*************************** -->		
 		
 		   <div class="container">
-            <form action="empofficialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
+            <form action="empofficialActiveUpdate.controller" method="GET"  enctype="multipart/form-data"  > 
  		<div>                              
  		<div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>
@@ -118,6 +122,12 @@
                     活動地點:                
                     <div id="twzipcode"></div>            
                 </div>
+                
+                
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label"></label>
+				  <input type="text" class="form-control"  placeholder="請輸入地址..." name="address">
+				</div>
                 <br> 活動圖片上傳
                 
                 
