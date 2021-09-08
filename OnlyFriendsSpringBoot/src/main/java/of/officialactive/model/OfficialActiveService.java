@@ -19,6 +19,10 @@ public class OfficialActiveService {
 
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
+	
+	@Autowired
+	
+	private MemberActiveRepository memberActiveRepository;
 
 	
 	
