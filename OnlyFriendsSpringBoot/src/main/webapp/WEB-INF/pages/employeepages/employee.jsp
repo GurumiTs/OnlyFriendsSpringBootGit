@@ -44,7 +44,7 @@
                     "
                   >
                     <h6 class="m-0 font-weight-bold text-primary">
-                      Revenue Sources
+                      邱比金幣銷售額
                     </h6>
                     <div class="dropdown no-arrow">
                    
@@ -109,7 +109,7 @@ function storedchart(){
         	     data: {
         	         labels: ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12'],
         	         datasets: [{
-        	             label: '# of Votes',
+        	             label: '',
         	             data: data ,
         	             backgroundColor: [
         	                 'rgba(255, 99, 132, 0.2)',

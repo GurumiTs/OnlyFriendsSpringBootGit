@@ -1,25 +1,29 @@
 package of.paypal.controller;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Details;
+import com.paypal.api.payments.Item;
+import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Transaction;
+import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.orders.OrdersCreateRequest;
 
 import of.member.model.Member;
 import of.member.model.MemberService;
@@ -38,32 +42,64 @@ public class PaypalController {
 	private MemberService memberService;
 	@Autowired
 	private StoredService storedService;
+	@Autowired
+	private APIContext apiContext;
+
 
 	public static final String SUCCESS_URL = "/pay/success";
 	public static final String CANCEL_URL = "/pay/cancel";
+	
+//	@PostMapping(path = "/pay2")
+//	@ResponseBody
+//	public Payment payment2() throws PayPalRESTException {
+//		Payment payment =  null;
+//		payment = service.createPayment("2700","TWD","paypal",
+//				"sale", "test", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+//				"http://localhost:8080/OnlyFriends" + SUCCESS_URL);
+//		System.out.println(payment.toJSON());
+//		return payment;
+//	}
+//	
 	
 
 	@PostMapping(path = "/pay")
 	@ResponseBody
 	public Payment payment(HttpServletRequest request) {
-		Order order = null;
 		Payment payment =  null;
+		
 		try {
-			System.out.println("step1");
 			String num = request.getParameter("num");
-			System.out.println("num"+num);
 			if("3".equals(num)) {
-				order = new Order(99,"TWD","paypal","sale","邱比金幣三枚");
+				Item i1 = new Item("邱比金幣三枚","1","99","TWD");
+				//Item i2 = new Item("徽章","2","100","TWD");
+				List<Item> listitem = new ArrayList<Item>();
+				listitem.add(i1);
+				//listitem.add(i2);
+				ItemList itemlist = new ItemList();
+				itemlist.setItems(listitem);
+				
+				Details details = new Details();
+				details.setShipping("0");
+				details.setTax("0");
+				details.setSubtotal("99"); //商品總計
+				payment = service.createPayment("99","TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+						"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);
 			}
 			else if("10".equals(num)) {
-				order = new Order(199,"TWD","paypal","sale","邱比金幣十枚");
+				Item i1 = new Item("邱比金幣十枚","1","199","TWD");
+				List<Item> listitem = new ArrayList<Item>();
+				listitem.add(i1);
+				ItemList itemlist = new ItemList();
+				itemlist.setItems(listitem);
+				
+				Details details = new Details();
+				details.setShipping("0");
+				details.setTax("0");
+				details.setSubtotal("199");
+				payment = service.createPayment("199","TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL
+						,"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);			
 			}
-			 payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-					order.getIntent(), order.getDescription(), "http://localhost:8080/OnlyFriends" + CANCEL_URL,
-					"http://localhost:8080/OnlyFriends" + SUCCESS_URL);
-			
-			//data = payment.toJSON();
-			
+	
 			for (Links link : payment.getLinks()) {
 				if (link.getRel().equals("approval_url")) {
 					//System.out.println("link href:"+link.getHref().toString());					
@@ -72,7 +108,6 @@ public class PaypalController {
 				}
 			}
 		} catch (PayPalRESTException e) {
-
 			e.printStackTrace();
 		}
 

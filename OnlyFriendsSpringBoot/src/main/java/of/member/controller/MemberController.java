@@ -53,7 +53,7 @@ public class MemberController {
 	
 	
 		
-	@Secured({"ROLE_USER","ROLE_member"})
+	//@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/member" ,method = RequestMethod.GET )
 	public String memberEntry(HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -67,25 +67,25 @@ public class MemberController {
 		return "memberpages/member" ;
 	}
 	
-	@Secured({"ROLE_USER","ROLE_member"})
+	//@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberprofile" ,method = RequestMethod.GET )
 	public String memberProfile() {
 		return "memberpages/memberprofile" ;
 	}
 
-	@Secured({"ROLE_USER","ROLE_member"})
+	//@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipeloading" ,method = RequestMethod.GET )
 	public String memberSwipeLoadingEntry() {
 		return "memberpages/memberswipeloading" ;
 	}
 	
-	@Secured({"ROLE_USER","ROLE_member"})
+	//@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipe" ,method = RequestMethod.GET )
 	public String memberSwipeEntry() {
 		return "memberpages/memberswipe" ;
 	}
 	
-	@Secured({"ROLE_USER","ROLE_member"})
+	//@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberfriends" ,method = RequestMethod.GET )
 	public String memberFriendsEntry() {
 		return "memberpages/memberfriends" ;

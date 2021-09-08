@@ -263,7 +263,7 @@
     payment: function(data, actions) {
       // 2. Make a request to your server
       return actions.request.post('http://localhost:8080/OnlyFriends/pay',{
-    	  num:storednum   	  
+    	  num:storednum
       })
         .then(function(res) {
           // 3. Return res.id from the response
@@ -276,7 +276,6 @@
     onAuthorize: function(data, actions) {
     	console.log(data)
       // 2. Make a request to your server
-      console.log("onauth")
       return actions.request.post('http://localhost:8080/OnlyFriends/pay/success', {
         paymentID: data.paymentID,
         payerID:   data.payerID
