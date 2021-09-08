@@ -53,6 +53,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			users.setUsersRole("member");		
 			usersService.insert(users);			
 			
+			member.setMemberAuth(1);
+			member.setMemberEmailCheck(1);
 			member.setMemberAccount(id);
 			member.setMemberEmail(email);
 			member.setMemberName(name);

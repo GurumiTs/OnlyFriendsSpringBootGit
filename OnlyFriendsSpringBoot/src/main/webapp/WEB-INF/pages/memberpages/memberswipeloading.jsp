@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/swipe.css" /> 
+<style>
+.pricing:hover{
+ cursor: pointer;
+}
+
+</style>
 </head>
 <body>
 	
@@ -157,14 +163,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Stored</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><img src="${pageContext.request.contextPath}/images/smallicon/point-of-sale.svg" alt="logo" width="40"><span class="fs-5 fw-bolder mx-2">Stored</span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
          <div class="row">
                 <div class="col-6">
-                  <div class="pricing border border-warning border-4 rounded">
-                    <div class="pricing-title">Basic Package</div>
+                  <div class="pricing border border-secondary shadow border-4 rounded">
+                    <div class="pricing-title">Cupid Coins</div>
                     <div class="pricing-padding">
                       <div class="pricing-price">
                         <div>$99</div>
@@ -183,17 +189,19 @@
                           </div>
                           <div class="pricing-item-label">exp +100</div>
                         </div>
+                       						
+						<div class="form-check d-flex justify-content-center">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="3" checked>						  
+						</div>
+						
                       </div>
                     </div>
-                    <div class="pricing-cta">
-                      <a href="pay?num=3" 
-                        >checkout<i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+                    
+                    
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="pricing border border-warning border-4 rounded">
+                  <div class="pricing border border-secondary shadow border-4 rounded">
                     <div class="pricing-title">Cupid Coins</div>
                     <div class="pricing-padding">
                       <div class="pricing-price">
@@ -212,14 +220,14 @@
                             <i class="fas fa-check"></i>
                           </div>
                           <div class="pricing-item-label">exp +3000</div>
-                        </div>
+                        </div>                       
+                       <div class="form-check d-flex justify-content-center">
+						  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="10" >						  
+						</div>                        
                       </div>
                     </div>
-                    <div class="pricing-cta">
-                      <a href="pay?num=10" target="_blank"
-                        >checkout<i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+                    
+                    
                   </div>
                 </div>
               </div>  
@@ -230,9 +238,63 @@
     </div>
   </div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=AftigsFKCM2v_kM3eOi1nnNVwL9SmIFmnWqg4ewxi1MrG9jeXPoEw2xWTSsfyn72gaFq0UKDh6QFIiFR"></script>
- <script>
-  </script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+
+<script>	
+	let storednum = "3"
+	$(function(){
+		$('input[name=exampleRadios]').on('change',function(){
+			storednum = $('input[name=exampleRadios]:checked').val()
+		})
+	})
+	
+    paypal.Button.render({
+    style: {
+    		 color:'gold',
+    		 shape:'pill',
+    		 label:'checkout',
+    		 size: 'responsive',
+    		 fundingicons:'true',
+    		},
+    env: 'sandbox', // Or 'production'
+    // Set up the payment:
+    // 1. Add a payment callback
+    payment: function(data, actions) {
+      // 2. Make a request to your server
+      return actions.request.post('http://localhost:8080/OnlyFriends/pay',{
+    	  num:storednum
+      })
+        .then(function(res) {
+          // 3. Return res.id from the response
+          console.log(res)
+          return res.id;
+        });
+    },
+    // Execute the payment:
+    // 1. Add an onAuthorize callback
+    onAuthorize: function(data, actions) {
+    	console.log(data)
+      // 2. Make a request to your server
+      return actions.request.post('http://localhost:8080/OnlyFriends/pay/success', {
+        paymentID: data.paymentID,
+        payerID:   data.payerID
+      })
+        .then(function(res) {
+          console.log(res)
+          $('#exampleModal').modal('hide')
+          Swal.fire(
+	               '感謝'+res.payer.payerInfo.firstName+'已儲值成功!',
+	               '',
+	               'success'
+	                         )	
+          loadnewmember();                            
+        });
+    }
+  }, '.modal-footer');
+</script>
+
+
 
 
     <script>
@@ -255,6 +317,7 @@
           type: "post",
           url: "membercoinsdelete",
           success: function (data) {
+          //location.href="/"		  
           let oldcoinsnum = $("#coinarea").find("span").text()
           let newcoinnum = oldcoinsnum - 1
           if(newcoinnum > 1){

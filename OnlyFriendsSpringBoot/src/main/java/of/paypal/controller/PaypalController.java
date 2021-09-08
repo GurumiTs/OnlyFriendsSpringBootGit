@@ -1,26 +1,34 @@
 package of.paypal.controller;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Details;
+import com.paypal.api.payments.Item;
+import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Transaction;
+import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-import of.chat.model.Chat;
-import of.chat.model.ChatService;
-import of.common.model.Users;
-import of.common.model.UsersService;
 import of.member.model.Member;
 import of.member.model.MemberService;
+import of.member.model.Stored;
+import of.member.model.StoredService;
 import of.paypal.model.Order;
 import of.paypal.model.PaypalService;
 
@@ -33,93 +41,120 @@ public class PaypalController {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private Member member;
+	private StoredService storedService;
 	@Autowired
-	private UsersService usersService;
-	@Autowired
-	private Users users;
-	@Autowired
-	private SimpMessagingTemplate simpMessagingTemplete;
-	@Autowired
-	private Chat chat;
-	@Autowired
-	private ChatService chatService;
+	private APIContext apiContext;
+
 
 	public static final String SUCCESS_URL = "/pay/success";
 	public static final String CANCEL_URL = "/pay/cancel";
-
-	@GetMapping(path = "/pay")
-	public String payment(HttpServletRequest request) {
-		Order order = null;
-		try {
 	
+//	@PostMapping(path = "/pay2")
+//	@ResponseBody
+//	public Payment payment2() throws PayPalRESTException {
+//		Payment payment =  null;
+//		payment = service.createPayment("2700","TWD","paypal",
+//				"sale", "test", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+//				"http://localhost:8080/OnlyFriends" + SUCCESS_URL);
+//		System.out.println(payment.toJSON());
+//		return payment;
+//	}
+//	
+	
+
+	@PostMapping(path = "/pay")
+	@ResponseBody
+	public Payment payment(HttpServletRequest request) {
+		Payment payment =  null;
+		
+		try {
 			String num = request.getParameter("num");
 			if("3".equals(num)) {
-				order = new Order(99,"TWD","paypal","sale","邱比金幣三枚");
+				Item i1 = new Item("邱比金幣三枚","1","99","TWD");
+				//Item i2 = new Item("徽章","2","100","TWD");
+				List<Item> listitem = new ArrayList<Item>();
+				listitem.add(i1);
+				//listitem.add(i2);
+				ItemList itemlist = new ItemList();
+				itemlist.setItems(listitem);
+				
+				Details details = new Details();
+				details.setShipping("0");
+				details.setTax("0");
+				details.setSubtotal("99"); //商品總計
+				payment = service.createPayment("99","TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+						"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);
 			}
 			else if("10".equals(num)) {
-				order = new Order(199,"TWD","paypal","sale","邱比金幣十枚");
+				Item i1 = new Item("邱比金幣十枚","1","199","TWD");
+				List<Item> listitem = new ArrayList<Item>();
+				listitem.add(i1);
+				ItemList itemlist = new ItemList();
+				itemlist.setItems(listitem);
+				
+				Details details = new Details();
+				details.setShipping("0");
+				details.setTax("0");
+				details.setSubtotal("199");
+				payment = service.createPayment("199","TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL
+						,"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);			
 			}
-			
-			Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-					order.getIntent(), order.getDescription(), "http://localhost:8080/OnlyFriends" + CANCEL_URL,
-					"http://localhost:8080/OnlyFriends" + SUCCESS_URL);
+	
 			for (Links link : payment.getLinks()) {
 				if (link.getRel().equals("approval_url")) {
-					return "redirect:" + link.getHref();
+					//System.out.println("link href:"+link.getHref().toString());					
+					return payment;
+
 				}
 			}
 		} catch (PayPalRESTException e) {
-
 			e.printStackTrace();
 		}
 
-		return "redirect:/";
+		return payment;
 	}
 
-	@GetMapping(value = CANCEL_URL)
+	@PostMapping(value = CANCEL_URL)
 	public String cnacelPay() {
 		return "cancle";
 	}
 
-	@GetMapping(value = SUCCESS_URL)
-	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,Model model,HttpServletRequest request) {
-
+	@PostMapping(value = SUCCESS_URL)
+	@ResponseBody
+	public Payment successPay(@RequestParam("paymentID") String paymentId, @RequestParam("payerID") String payerId,Model model,HttpServletRequest request) {
+		Payment payment = null;
 		try {
-			Payment payment = service.executePayment(paymentId, payerId);
-			Payer p = payment.getPayer();
-			String payername = p.getPayerInfo().getFirstName();
-			String total = payment.getTransactions().get(0).getAmount().getTotal();
-			String newswipetime = null;
-			System.out.println("total:"+total);
+			System.out.println(paymentId);
+			payment = service.executePayment(paymentId, payerId);
 			System.out.println(payment.toJSON());
-			if(payment.getState().equals("approved")) {
-				
-				Member m1 = (Member) request.getSession().getAttribute("personalinfo");
-				String memberAccount = m1.getMemberAccount();
-				Member m2 = memberService.findByMemberAccount(memberAccount);
-				
-				if("199.00".equals(total)) {
-					newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+10) ; 
-					m2.setSwipeTime(newswipetime);
-				}
-				else if("99.00".equals(total)) {
-					newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
-					m2.setSwipeTime(newswipetime);
-				}
-				String successMsg = "<h5>感謝 "+payername+"</h5><br>"+
-									"<h5>邱比已將金幣分派給你了<h5>"
-													;
+			String total = payment.getTransactions().get(0).getAmount().getTotal();
+			Float ftotal = Float.parseFloat(total);
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
+			Member m2 = memberService.findByMemberAccount(memberAccount);
+			String newswipetime = null;
+			
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());			
+			Stored stored = new Stored(payment.getId(),memberAccount,timestamp,ftotal);
+			storedService.insert(stored);
+			
+			if("199.00".equals(total)) {
+				newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+10) ; 
+				m2.setSwipeTime(newswipetime);
 				memberService.update(m2);
-				model.addAttribute("successMsg",successMsg);
-				return "redirect:/memberswipeloading";
 			}
+			else if("99.00".equals(total)) {
+				newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
+				m2.setSwipeTime(newswipetime);
+				memberService.update(m2);
+			}
+			
 		} catch (PayPalRESTException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			model.addAttribute("errorMsg","發生問題，請稍後再試");
+			
 		}
-		return "redirect:/memberswipeloading";
+		return payment;
 
 	}
 }

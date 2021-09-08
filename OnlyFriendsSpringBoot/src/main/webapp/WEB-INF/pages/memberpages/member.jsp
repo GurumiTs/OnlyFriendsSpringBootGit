@@ -104,6 +104,7 @@ font-size:1.2rem
 								</div>
 							</div>
 							<!-- edit -->
+							
 
 							<!-- show profile-->
 							<div class="col-12 col-md-12 col-lg-5">
