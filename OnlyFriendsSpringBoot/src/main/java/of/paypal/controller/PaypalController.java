@@ -31,6 +31,7 @@ import of.member.model.Stored;
 import of.member.model.StoredService;
 import of.paypal.model.Order;
 import of.paypal.model.PaypalService;
+import of.shop.model.CartItem;
 
 @Controller
 @SessionAttributes(names = {"successMsg"})
@@ -114,6 +115,55 @@ public class PaypalController {
 		return payment;
 	}
 
+	@PostMapping(path = "/payproduct")
+	@ResponseBody
+	public Payment paymentproduct(HttpServletRequest request) {
+		Order order = null;
+		Payment payment =  null;
+		try {
+			System.out.println("step1");
+			List<CartItem> cartlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
+			Integer finaltotal=0;
+			List<Item> listitem = new ArrayList<Item>();
+			for (CartItem c : cartlist) {
+				String orderName = new String(c.getProduct().getProName());
+				String orderAmount = Integer.toString(c.getAmount());
+				String orderPrice = Integer.toString(c.getProduct().getProPrice());
+				
+				finaltotal+=c.getProduct().getProPrice()*c.getAmount();
+				Item orderItem = new Item(orderName,orderAmount,orderPrice,"TWD");
+				
+				listitem.add(orderItem);
+			}
+			//listitem.add(i2);
+			ItemList itemlist = new ItemList();
+			itemlist.setItems(listitem);
+			
+			String finaltotalString = Integer.toString(finaltotal);
+			
+			Details details = new Details();
+			details.setShipping("0");
+			details.setTax("0");
+			details.setSubtotal(finaltotalString); //商品總計
+			payment = service.createPayment(finaltotalString,"TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+					"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);
+			//data = payment.toJSON();
+			
+			for (Links link : payment.getLinks()) {
+				if (link.getRel().equals("approval_url")) {
+					//System.out.println("link href:"+link.getHref().toString());					
+					return payment;
+
+				}
+			}
+		} catch (PayPalRESTException e) {
+
+			e.printStackTrace();
+		}
+
+		return payment;
+	}
+	
 	@PostMapping(value = CANCEL_URL)
 	public String cnacelPay() {
 		return "cancle";

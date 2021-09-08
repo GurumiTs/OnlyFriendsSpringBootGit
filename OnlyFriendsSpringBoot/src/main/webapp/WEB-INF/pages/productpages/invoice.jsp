@@ -128,12 +128,11 @@ font-size:1.2rem
                 </div>
               </div>
               <hr>
-              <div class="text-md-right">
-                <div class="float-lg-left mb-lg-0 mb-3">
-                  <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
-                  <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
+              <div class="text-md-center">
+                <div class="mb-lg-3 mb-7">
+                  <i class="fas px-3 paypalbutton"></i>
+<!--                   <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button> -->
                 </div>
-                <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
               </div>
             </div>
           </div>
@@ -155,8 +154,53 @@ font-size:1.2rem
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
     
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script >
+    paypal.Button.render({
+        style: {
+        		 color:'gold',
+        		 shape:'pill',
+        		 label:'checkout',
+//         		 size: 'responsive',
+        		 fundingicons:'true',
+        		},
+        env: 'sandbox', // Or 'production'
+        // Set up the payment:
+        // 1. Add a payment callback
+        payment: function(data, actions) {
+          // 2. Make a request to your server
+          return actions.request.post('http://localhost:8080/OnlyFriends/payproduct')
+            .then(function(res) {
+              // 3. Return res.id from the response
+              console.log(res)
+              return res.id;
+            });
+        },
+        // Execute the payment:
+        // 1. Add an onAuthorize callback
+        onAuthorize: function(data, actions) {
+        	console.log(data)
+          // 2. Make a request to your server
+          return actions.request.post('http://localhost:8080/OnlyFriends/pay/success', {
+            paymentID: data.paymentID,
+            payerID:   data.payerID
+          })
+            .then(function(res) {
+              console.log(res)
+              $('#exampleModal').modal('hide')
+              Swal.fire(
+    	               '感謝'+res.payer.payerInfo.firstName+'已儲值成功!',
+    	               '',
+    	               'success'
+    	                         )	
+              loadnewmember();                            
+            });
+        }
+      }, '.paypalbutton');
     
-    <script >  
+
+    
+    
     $(function(){
     	findcart()
     	$(".minus").on("click",minus)	
