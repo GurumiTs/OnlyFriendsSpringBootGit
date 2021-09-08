@@ -48,8 +48,13 @@ public class BlogService {
 	}
 	
 	// pageable
-		public Page<BlogBean> findAllByPage(Pageable pageable) {
-			return blogRepository.findAll(pageable);
-		}
+	public Page<BlogBean> findAllByPage(Pageable pageable) {
+		return blogRepository.findAll(pageable);
+	}
 	
+	public List<BlogBean> findByBlogType(String blogType){
+		List<BlogBean> blogTypeList = blogRepository.findByBlogType(blogType);
+		return blogTypeList;
+	}
+		
 }

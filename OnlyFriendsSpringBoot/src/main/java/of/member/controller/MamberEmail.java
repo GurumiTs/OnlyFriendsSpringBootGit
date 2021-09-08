@@ -462,7 +462,7 @@ public class MamberEmail {
 					+ "</html>\r\n"
 					+ "";
 			helper.setText(htmlMsg, true); // Use this or above line.
-			helper.setTo(email);
+			helper.setTo(email); //寄給誰
 			helper.setSubject("Welcome OnlyFriends");
 			helper.setFrom("onlyfriendseeit29@gmail.com");
 			sender.send(mimeMessage);		
