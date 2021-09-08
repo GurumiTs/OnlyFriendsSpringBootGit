@@ -217,7 +217,7 @@ public class PaypalController {
 				orderDetails.setMemberAccount(memberAccount);
 				orderDetails.setTotal(ftotal);
 				orderDetails.setOrderTime(timestamp);
-				orderDetails.setOrderProducts(productlist);
+				orderDetails.setOrderItem(productlist);
 				
 				orderService.insert(orderDetails);
 				System.out.println(amountlist.toString());

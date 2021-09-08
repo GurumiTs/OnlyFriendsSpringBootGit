@@ -41,11 +41,11 @@ public class OrderDetails {
 	
 	@ManyToMany
 	@JoinTable(
-			name = "orderproduct",
+			name = "orderitem",
 			joinColumns = @JoinColumn(name="paymentId",referencedColumnName = "paymentId"),
 			inverseJoinColumns = @JoinColumn(name="proId",referencedColumnName = "proId")
 			)
-	private List<Product> orderProducts =new ArrayList<>();
+	private List<Product> orderitem =new ArrayList<>();
 	
 	
 	
@@ -54,13 +54,13 @@ public class OrderDetails {
 	}
 
 	public OrderDetails(String paymentId, String orderAddress, String memberAccount, Float total, Timestamp orderTime,
-			List<Product> orderProducts) {
+			List<Product> orderitem) {
 		this.paymentId = paymentId;
 		this.orderAddress = orderAddress;
 		this.memberAccount = memberAccount;
 		this.total = total;
 		this.orderTime = orderTime;
-		this.orderProducts = orderProducts;
+		this.orderitem = orderitem;
 	}
 
 	public String getMemberAccount() {
@@ -103,12 +103,12 @@ public class OrderDetails {
 		this.orderAddress = orderAddress;
 	}
 
-	public List<Product> getOrderProducts() {
-		return orderProducts;
+	public List<Product> getOrderItem() {
+		return orderitem;
 	}
 
-	public void setOrderProducts(List<Product> orderProducts) {
-		this.orderProducts = orderProducts;
+	public void setOrderItem(List<Product> orderitem) {
+		this.orderitem = orderitem;
 	}
 
 
