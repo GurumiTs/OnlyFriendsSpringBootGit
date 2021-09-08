@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.proimg{
+weight:100px;
+height:100px;
+}
 </style>
 </head>
 <body>
@@ -91,11 +95,11 @@ font-size:1.2rem
                       <table class="table table-sm">
                       <thead>
                         <tr>
-                          <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                          <th scope="col">名稱</th>
-                          <th scope="col">單價</th>
-                          <th scope="col">數量</th>
-                          <th scope="col">小計</th>
+                          <th class="text-left">商品</th>
+                          <th class="text-left">名稱</th>
+                          <th class="text-center">單價</th>
+                          <th class="text-center">數量</th>
+                          <th class="text-center">小計</th>
                         </tr>
                       </thead>
                       <tbody id="checkoutlist">
@@ -135,7 +139,7 @@ font-size:1.2rem
               <hr>
               <div class="text-md-right">
                 <div class="float-lg-left mb-lg-0 mb-3">
-                  <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
+<!--                   <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button> -->
                   <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
                 </div>
                 <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
@@ -177,7 +181,7 @@ font-size:1.2rem
 	     	     $('#checkoutlist').empty("");
 	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 	     	     var item =  '<tr id='+n.product.proId+'>'+
-	     	    '<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
+	     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
                  '<td>'+n.product.proName+'</td>'+
                  '<td class="text-center">'+n.product.proPrice+'</td>'+
                  '<td class="text-center">'+'<i id="amount>">'+n.amount+'</i>'+'</td>'+

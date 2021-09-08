@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.proimg{
+weight:100px;
+height:100px;
+}
 </style>
 </head>
 <body>
@@ -37,32 +41,32 @@ font-size:1.2rem
 <!--                       <div class="invoice-number">Order #12345</div> -->
                     </div>
                     <hr>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <address>
-                          <strong>Billed To:</strong><br>
-                            Ujang Maman<br>
-                            1234 Main<br>
-                            Apt. 4B<br>
-                            Bogor Barat, Indonesia
-                        </address>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <address>
-                          <strong>Payment Method:</strong><br>
-                          Visa ending **** 4242<br>
-                          ujang@maman.com
-                        </address>
-                      </div>
-                      <div class="col-md-6 text-md-right">
-                        <address>
-                          <strong>Order Date:</strong><br>
-                          September 19, 2018<br><br>
-                        </address>
-                      </div>
-                    </div>
+<!--                     <div class="row"> -->
+<!--                       <div class="col-md-6"> -->
+<!--                         <address> -->
+<!--                           <strong>Billed To:</strong><br> -->
+<!--                             Ujang Maman<br> -->
+<!--                             1234 Main<br> -->
+<!--                             Apt. 4B<br> -->
+<!--                             Bogor Barat, Indonesia -->
+<!--                         </address> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                     <div class="row"> -->
+<!--                       <div class="col-md-6"> -->
+<!--                         <address> -->
+<!--                           <strong>Payment Method:</strong><br> -->
+<!--                           Visa ending **** 4242<br> -->
+<!--                           ujang@maman.com -->
+<!--                         </address> -->
+<!--                       </div> -->
+<!--                       <div class="col-md-6 text-md-right"> -->
+<!--                         <address> -->
+<!--                           <strong>Order Date:</strong><br> -->
+<!--                           September 19, 2018<br><br> -->
+<!--                         </address> -->
+<!--                       </div> -->
+<!--                     </div> -->
                   </div>
                 </div>
 
@@ -75,6 +79,7 @@ font-size:1.2rem
                         
                         <tr>
                           <th data-width="40">刪除</th>
+                          <th >商品</th>
                           <th>名稱</th>
                           <th class="text-center">單價</th>
                           <th class="text-center">數量</th>
@@ -221,6 +226,7 @@ font-size:1.2rem
 	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 	     	     var item =  '<tr id='+n.product.proId+'>'+
 	     	    '<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
+	     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
                  '<td>'+n.product.proName+'</td>'+
                  '<td class="text-center">'+n.product.proPrice+'</td>'+
                  '<td class="text-center">'+'<button class="btn btn-sm btn-icon btn-light mx-1 minus" id="'+n.product.proId+'minus'+'"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+

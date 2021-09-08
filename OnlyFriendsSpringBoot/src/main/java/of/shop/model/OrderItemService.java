@@ -7,16 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class OrderService {
+public class OrderItemService {
 
 	@Autowired
-	private OrderRepository orderRepository;
-
+	private OrderItemRepository orderItemRepository;
 	
-
-	public void insert(OrderDetails orderDetails) {
-		orderRepository.save(orderDetails);
+	public void updateamount(int amount,String paymentId,int proId) {
+		orderItemRepository.updateamount(amount,paymentId,proId);
 	}
-	
-
 }
