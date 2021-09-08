@@ -118,6 +118,12 @@
                     活動地點:                
                     <div id="twzipcode"></div>            
                 </div>
+                
+                
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label"></label>
+				  <input type="text" class="form-control"  placeholder="請輸入地址..." name="address">
+				</div>
                 <br> 活動圖片上傳
                 
                 

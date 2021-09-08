@@ -59,7 +59,8 @@ public class OfficialActive implements Serializable{
 	private String female;//女性
 	@Column(name="Img")
 	private String img;//圖片
-	
+	@Column(name = "Address")//地址
+	private String address;
 	
 	
 	@ManyToMany
@@ -219,4 +220,13 @@ public class OfficialActive implements Serializable{
 		this.img = img;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	
 }

@@ -86,7 +86,7 @@ public class OfficialActiveController {
 			@RequestParam(name = "atype2") String atype2, @RequestParam(name = "adate") String adate,
 			@RequestParam(name = "startDeadline") String startDeadline,
 			@RequestParam(name = "finishDeadline") String finishDeadline, @RequestParam(name = "active") String active,
-			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
+			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,@RequestParam(name = "address") String address,
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
@@ -108,6 +108,7 @@ public class OfficialActiveController {
 		officialActive.setActive(active);
 		officialActive.setCounty(county);
 		officialActive.setDistrict(district);
+		officialActive.setAddress(address);
 		officialActive.setConditions(conditions);
 		officialActive.setMale(male);
 		officialActive.setFemale(female);
@@ -135,7 +136,7 @@ public class OfficialActiveController {
 			@RequestParam(name = "atype2") String atype2, @RequestParam(name = "adate") String adate,
 			@RequestParam(name = "startDeadline") String startDeadline,
 			@RequestParam(name = "finishDeadline") String finishDeadline, @RequestParam(name = "active") String active,
-			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
+			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,@RequestParam(name = "address") String address,
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
@@ -160,6 +161,7 @@ public class OfficialActiveController {
 		officialActive.setActive(active);
 		officialActive.setCounty(county);
 		officialActive.setDistrict(district);
+		officialActive.setAddress(address);
 		officialActive.setConditions(conditions);
 		officialActive.setMale(male);
 		officialActive.setFemale(female);
@@ -250,9 +252,7 @@ public class OfficialActiveController {
 			String memberAccount = m1.getMemberAccount();
 			List<Long> oanaum = officialActiveService.findByMemAcc(memberAccount);
 
-			System.out.println("oanaum:" + oanaum);
-			
-			System.out.println("幹你娘");
+
 			
 			List<OfficialActive> oaList = new ArrayList<OfficialActive>();
 			

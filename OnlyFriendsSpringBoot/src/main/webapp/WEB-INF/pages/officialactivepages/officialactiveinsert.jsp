@@ -105,7 +105,12 @@
                 <div>
                     活動地點:
                     <div id="twzipcode"></div>
-                </div>
+                </div>  
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label"></label>
+				  <input type="text" class="form-control"  placeholder="活動地址" name="address">
+				</div>
+                
                 <br> 活動圖片上傳
                 <div class=" mb-2">
                     <input type="file" class="form-control" id="activeFile" name="activeFile"  multiple onchange="lovdFile(event)">
