@@ -205,4 +205,19 @@ public class BlogController {
 		return "y";
 	}
 	
+	// 管理者文章前端分類頁面
+	@GetMapping(path = "/blogofficialmain")
+	public String blogEmpMainEntry() {
+		return "bloguserspages/empbloglabelpage";
+	}
+	
+	// 管理者文章前端分類頁面搜尋選項(愛情)
+	@PostMapping(path = "/queryByBlogType")
+	@ResponseBody
+	public List<BlogBean> queryByBlogType(@RequestParam(name = "blogType") String blogType, Model m){
+		System.out.println("查詢管理者文章分類為:" + blogType);
+		
+		List<BlogBean> blogList = bService.findByBlogType(blogType);
+		return blogList;
+	}
 }
