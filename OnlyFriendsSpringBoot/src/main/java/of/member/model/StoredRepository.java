@@ -10,5 +10,8 @@ public interface StoredRepository extends JpaRepository<Stored,Integer>{
 	@Query(value = "select sum(total) from Stored where Month(orderTime) = ?1 ",nativeQuery = true)
 	public Float searchtotal(Integer month);
 	
+	@Query(value = "select sum(total) from Stored",nativeQuery = true)
+	public Float storedannual();
+	
 
 }

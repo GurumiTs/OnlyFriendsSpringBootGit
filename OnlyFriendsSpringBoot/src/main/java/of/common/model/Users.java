@@ -40,7 +40,6 @@ public class Users implements Serializable{
 	public Users() {
 		
 	}
-	
 	public Users(String usersEmail,String usersPassword,String usersRole) {
 		this.usersEmail = usersEmail;
 		this.usersPassword = usersPassword;

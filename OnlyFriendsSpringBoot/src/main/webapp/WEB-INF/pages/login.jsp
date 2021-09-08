@@ -520,7 +520,7 @@
 	<script>
 		$(function() {
 			$("#employee").click(function() {
-				$("#username").val("hollan5835650@gmail.com");
+				$("#username").val("guava123@gmail.com");
 				$("#password").val("Apple1234*")
 			});
 

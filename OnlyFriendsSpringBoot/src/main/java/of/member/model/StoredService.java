@@ -19,6 +19,10 @@ public class StoredService {
 		Float a = storedRepository.searchtotal(month);
 		return a; 
 	};
+	
+	public Float storedannual() {
+		return storedRepository.storedannual();
+	}
 
 
 }
