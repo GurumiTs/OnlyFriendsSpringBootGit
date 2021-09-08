@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,19 +50,25 @@ public class AdvertisementController {
 		List<Advertisement> advertisement = advertisementService.findAll();
 		return advertisement;
 	}
+	
+	@GetMapping("/adEntry.controller")
+	public String adEntry() {
+		
+		return "advertisementpages/adview";
+	}
 
 
 	@PostMapping("/getPositionOneToJson.controller")
 	@ResponseBody
 	public List<Advertisement> showPositionOneToJson() {
-		List<Advertisement> advertisement = advertisementService.findByadCondition("上架中1");
+		List<Advertisement> advertisement = advertisementService.findByadCondition("已上架1");
 		return advertisement;
 	}
 
 	@PostMapping("/getPositionTwoToJson.controller")
 	@ResponseBody
 	public List<Advertisement> showPositionTwoToJson() {
-		List<Advertisement> advertisement = advertisementService.findByadCondition("上架中2");
+		List<Advertisement> advertisement = advertisementService.findByadCondition("已上架2");
 		return advertisement;
 	}
 
@@ -164,6 +169,20 @@ public class AdvertisementController {
 		}
 	}
 
+//	@PostMapping("/empdeleteAdvertisement.controller")
+//	@ResponseBody
+//	public String deleteAdvertisement(@RequestParam Integer adId) {
+//       System.out.println(adId);
+//       System.out.println("delet");
+//		Advertisement c = advertisementService.findByadId(adId);
+//
+//		if (c != null) {
+//			advertisementService.deleteByadId(adId);
+//			return "success";
+//		} else {
+//			return "fail";
+//		}
+//	}
 	@PostMapping("/empdeleteAdvertisement.controller")
 	public String deleteAdvertisement(@RequestParam Integer adId) {
        System.out.println(adId);

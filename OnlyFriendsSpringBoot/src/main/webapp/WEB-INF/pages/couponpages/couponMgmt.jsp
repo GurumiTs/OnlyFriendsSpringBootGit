@@ -642,7 +642,7 @@ span {
 		                  })
 
 						</script>
-		<script>
+	<!--  	<script>
 			document.getElementById("caNameUpdate").onblur = checkcaNameUpdate;
 			document.getElementById("coNameUpdate").onblur = checkCoNameUpdate;
 			document.getElementById("priceUpdate").onblur = checkPriceUpdate;
@@ -715,8 +715,8 @@ span {
 			}
 
 			
-			}
-		</script>
+			
+		</script>-->
 		<!-- 修改區域!!------------------------------------------------------------------------- -->
 
 		<!-- 刪除Modal ----------------------------------------------------------------------------->
