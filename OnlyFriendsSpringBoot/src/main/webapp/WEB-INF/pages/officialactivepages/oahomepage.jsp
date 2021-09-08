@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 .img1 {
 	weight: 456.89px;
 	height: 250px;

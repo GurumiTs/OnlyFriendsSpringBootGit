@@ -6,6 +6,10 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 </style>
  </head>
 <body id="page-top">

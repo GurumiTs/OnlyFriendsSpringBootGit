@@ -4,6 +4,10 @@
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
 
+body{
+font-size:1.2rem
+}
+
 </style>
 
 </head>

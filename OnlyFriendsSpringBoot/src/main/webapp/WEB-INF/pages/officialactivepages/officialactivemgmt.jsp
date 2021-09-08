@@ -6,6 +6,10 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 .edit {
 	cursor: pointer;
 	color: green;
