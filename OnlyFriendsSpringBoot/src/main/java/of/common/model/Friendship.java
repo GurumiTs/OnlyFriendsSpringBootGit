@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 @IdClass(Friendship.class)
 public class Friendship implements Serializable{
 	
-	@Id@Column(name = "usersEmail")
+	@Id@Column(name = "usersEmail",length = 50)
 	private String usersEmail;
-	@Id@Column(name = "memberAccount")		
+	@Id@Column(name = "memberAccount",length = 50)		
 	private String memberAccount;
 	@Column(name = "chatnum")
 	private Integer chatnum;

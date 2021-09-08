@@ -8,9 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -41,6 +45,11 @@ public class UserActivityController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplete;
+	@Autowired
+	private JavaMailSender sender;
 
 	// 管理員首頁
 	@RequestMapping(path = "/emppActivity.Entry")
@@ -85,13 +94,390 @@ public class UserActivityController {
 	@PostMapping(path = "/approve")
 	@ResponseBody
 	public String approve(@RequestParam(name = "number") int number, Model model) {
-		System.out.println("controller:number" + number);
-		userActivity = userActivityService.select(number);
-
+		userActivity = userActivityService.select(number);			
+		
 		String appove = userActivity.getApprove();
-		System.out.println(appove);
+				System.out.println(appove);
 		if (appove.equals("false")) {
 			userActivity.setApprove("true");
+			//寄信通知 他活動以開放
+			try {
+			MimeMessage mimeMessage = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+			String htmlMsg = "<!DOCTYPE html>\r\n"
+					+ "<html>\r\n"
+					+ "  <head>\r\n"
+					+ "    <title></title>\r\n"
+					+ "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n"
+					+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n"
+					+ "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\r\n"
+					+ "    <style type=\"text/css\">\r\n"
+					+ "      @media screen {\r\n"
+					+ "        @font-face {\r\n"
+					+ "          font-family: \"Lato\";\r\n"
+					+ "          font-style: normal;\r\n"
+					+ "          font-weight: 400;\r\n"
+					+ "          src: local(\"Lato Regular\"), local(\"Lato-Regular\"),\r\n"
+					+ "            url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff)\r\n"
+					+ "              format(\"woff\");\r\n"
+					+ "        }\r\n"
+					+ "\r\n"
+					+ "        @font-face {\r\n"
+					+ "          font-family: \"Lato\";\r\n"
+					+ "          font-style: normal;\r\n"
+					+ "          font-weight: 700;\r\n"
+					+ "          src: local(\"Lato Bold\"), local(\"Lato-Bold\"),\r\n"
+					+ "            url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff)\r\n"
+					+ "              format(\"woff\");\r\n"
+					+ "        }\r\n"
+					+ "\r\n"
+					+ "        @font-face {\r\n"
+					+ "          font-family: \"Lato\";\r\n"
+					+ "          font-style: italic;\r\n"
+					+ "          font-weight: 400;\r\n"
+					+ "          src: local(\"Lato Italic\"), local(\"Lato-Italic\"),\r\n"
+					+ "            url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff)\r\n"
+					+ "              format(\"woff\");\r\n"
+					+ "        }\r\n"
+					+ "\r\n"
+					+ "        @font-face {\r\n"
+					+ "          font-family: \"Lato\";\r\n"
+					+ "          font-style: italic;\r\n"
+					+ "          font-weight: 700;\r\n"
+					+ "          src: local(\"Lato Bold Italic\"), local(\"Lato-BoldItalic\"),\r\n"
+					+ "            url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff)\r\n"
+					+ "              format(\"woff\");\r\n"
+					+ "        }\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      /* CLIENT-SPECIFIC STYLES */\r\n"
+					+ "      body,\r\n"
+					+ "      table,\r\n"
+					+ "      td,\r\n"
+					+ "      a {\r\n"
+					+ "        -webkit-text-size-adjust: 100%;\r\n"
+					+ "        -ms-text-size-adjust: 100%;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      table,\r\n"
+					+ "      td {\r\n"
+					+ "        mso-table-lspace: 0pt;\r\n"
+					+ "        mso-table-rspace: 0pt;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      img {\r\n"
+					+ "        -ms-interpolation-mode: bicubic;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      /* RESET STYLES */\r\n"
+					+ "      img {\r\n"
+					+ "        border: 0;\r\n"
+					+ "        height: auto;\r\n"
+					+ "        line-height: 100%;\r\n"
+					+ "        outline: none;\r\n"
+					+ "        text-decoration: none;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      table {\r\n"
+					+ "        border-collapse: collapse !important;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      body {\r\n"
+					+ "        height: 100% !important;\r\n"
+					+ "        margin: 0 !important;\r\n"
+					+ "        padding: 0 !important;\r\n"
+					+ "        width: 100% !important;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      /* iOS BLUE LINKS */\r\n"
+					+ "      a[x-apple-data-detectors] {\r\n"
+					+ "        color: inherit !important;\r\n"
+					+ "        text-decoration: none !important;\r\n"
+					+ "        font-size: inherit !important;\r\n"
+					+ "        font-family: inherit !important;\r\n"
+					+ "        font-weight: inherit !important;\r\n"
+					+ "        line-height: inherit !important;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      /* MOBILE STYLES */\r\n"
+					+ "      @media screen and (max-width: 600px) {\r\n"
+					+ "        h1 {\r\n"
+					+ "          font-size: 32px !important;\r\n"
+					+ "          line-height: 32px !important;\r\n"
+					+ "        }\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      /* ANDROID CENTER FIX */\r\n"
+					+ "      div[style*=\"margin: 16px 0;\"] {\r\n"
+					+ "        margin: 0 !important;\r\n"
+					+ "      }\r\n"
+					+ "    </style>\r\n"
+					+ "  </head>\r\n"
+					+ "\r\n"
+					+ "  <body\r\n"
+					+ "    style=\"\r\n"
+					+ "      background-color: #f4f4f4;\r\n"
+					+ "      margin: 0 !important;\r\n"
+					+ "      padding: 0 !important;\r\n"
+					+ "    \"\r\n"
+					+ "  >\r\n"
+					+ "    <!-- HIDDEN PREHEADER TEXT -->\r\n"
+					+ "    <div\r\n"
+					+ "      style=\"\r\n"
+					+ "        display: none;\r\n"
+					+ "        font-size: 1px;\r\n"
+					+ "        color: #fefefe;\r\n"
+					+ "        line-height: 1px;\r\n"
+					+ "        font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "        max-height: 0px;\r\n"
+					+ "        max-width: 0px;\r\n"
+					+ "        opacity: 0;\r\n"
+					+ "        overflow: hidden;\r\n"
+					+ "      \"\r\n"
+					+ "    ></div>\r\n"
+					+ "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n"
+					+ "      <!-- LOGO -->\r\n"
+					+ "      <tr>\r\n"
+					+ "        <td bgcolor=\"#6777ef\" align=\"center\">\r\n"
+					+ "          <table\r\n"
+					+ "            border=\"0\"\r\n"
+					+ "            cellpadding=\"0\"\r\n"
+					+ "            cellspacing=\"0\"\r\n"
+					+ "            width=\"100%\"\r\n"
+					+ "            style=\"max-width: 600px\"\r\n"
+					+ "          >\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                align=\"center\"\r\n"
+					+ "                valign=\"top\"\r\n"
+					+ "                style=\"padding: 40px 10px 40px 10px\"\r\n"
+					+ "              ></td>\r\n"
+					+ "            </tr>\r\n"
+					+ "          </table>\r\n"
+					+ "        </td>\r\n"
+					+ "      </tr>\r\n"
+					+ "      <tr>\r\n"
+					+ "        <td bgcolor=\"#6777ef\" align=\"center\" style=\"padding: 0px 10px 0px 10px\">\r\n"
+					+ "          <table\r\n"
+					+ "            border=\"0\"\r\n"
+					+ "            cellpadding=\"0\"\r\n"
+					+ "            cellspacing=\"0\"\r\n"
+					+ "            width=\"100%\"\r\n"
+					+ "            style=\"max-width: 600px\"\r\n"
+					+ "          >\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#ffffff\"\r\n"
+					+ "                align=\"center\"\r\n"
+					+ "                valign=\"top\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 40px 20px 20px 20px;\r\n"
+					+ "                  border-radius: 4px 4px 0px 0px;\r\n"
+					+ "                  color: #111111;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 48px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  letter-spacing: 4px;\r\n"
+					+ "                  line-height: 48px;\r\n"
+					+ "                \"\r\n"
+					+ "              >\r\n"
+					+ "                <h1 style=\"font-size: 48px; font-weight: 400; margin: 2\">\r\n"
+					+ "                  恭喜~"+userActivity.getActivityname()+"活動!!<br/>已經開放瞜\r\n"
+					+ "                </h1>\r\n"
+					+ "                <img\r\n"
+					+ "                  src=\" https://img.icons8.com/clouds/100/000000/handshake.png\"\r\n"
+					+ "                  width=\"125\"\r\n"
+					+ "                  height=\"120\"\r\n"
+					+ "                  style=\"display: block; border: 0px\"\r\n"
+					+ "                />\r\n"
+					+ "              </td>\r\n"
+					+ "            </tr>\r\n"
+					+ "          </table>\r\n"
+					+ "        </td>\r\n"
+					+ "      </tr>\r\n"
+					+ "      <tr>\r\n"
+					+ "        <td bgcolor=\"#f4f4f4\" align=\"center\" style=\"padding: 0px 10px 0px 10px\">\r\n"
+					+ "          <table\r\n"
+					+ "            border=\"0\"\r\n"
+					+ "            cellpadding=\"0\"\r\n"
+					+ "            cellspacing=\"0\"\r\n"
+					+ "            width=\"100%\"\r\n"
+					+ "            style=\"max-width: 600px\"\r\n"
+					+ "          >\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#ffffff\"\r\n"
+					+ "                align=\"left\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 20px 30px 40px 30px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 18px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 25px;\r\n"
+					+ "                \"\r\n"
+					+ "              ></td>\r\n"
+					+ "            </tr>\r\n"					
+					+ "            <!-- COPY -->\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#ffffff\"\r\n"
+					+ "                align=\"left\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 0px 30px 0px 30px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 18px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 25px;\r\n"
+					+ "                \"\r\n"
+					+ "              ></td>\r\n"
+					+ "            </tr>\r\n"
+					+ "            <!-- COPY -->\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#ffffff\"\r\n"
+					+ "                align=\"left\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 20px 30px 20px 30px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 18px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 25px;\r\n"
+					+ "                \"\r\n"
+					+ "              ></td>\r\n"
+					+ "            </tr>\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#ffffff\"\r\n"
+					+ "                align=\"left\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 0px 30px 20px 30px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 18px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 25px;\r\n"
+					+ "                \"\r\n"
+					+ "              ></td>\r\n"
+					+ "            </tr>\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#ffffff\"\r\n"
+					+ "                align=\"left\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 0px 30px 40px 30px;\r\n"
+					+ "                  border-radius: 0px 0px 4px 4px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 18px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 25px;\r\n"
+					+ "                \"\r\n"
+					+ "              >\r\n"
+					+ "                <p style=\"margin: 0\">Cheers,<br />OnlyFriends Team</p>\r\n"
+					+ "              </td>\r\n"
+					+ "            </tr>\r\n"
+					+ "          </table>\r\n"
+					+ "        </td>\r\n"
+					+ "      </tr>\r\n"
+					+ "      <tr>\r\n"
+					+ "        <td\r\n"
+					+ "          bgcolor=\"#f4f4f4\"\r\n"
+					+ "          align=\"center\"\r\n"
+					+ "          style=\"padding: 30px 10px 0px 10px\"\r\n"
+					+ "        >\r\n"
+					+ "          <table\r\n"
+					+ "            border=\"0\"\r\n"
+					+ "            cellpadding=\"0\"\r\n"
+					+ "            cellspacing=\"0\"\r\n"
+					+ "            width=\"100%\"\r\n"
+					+ "            style=\"max-width: 600px\"\r\n"
+					+ "          >\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#FFECD1\"\r\n"
+					+ "                align=\"center\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 30px 30px 30px 30px;\r\n"
+					+ "                  border-radius: 4px 4px 4px 4px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 18px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 25px;\r\n"
+					+ "                \"\r\n"
+					+ "              >\r\n"
+					+ "                <h2\r\n"
+					+ "                  style=\"\r\n"
+					+ "                    font-size: 20px;\r\n"
+					+ "                    font-weight: 400;\r\n"
+					+ "                    color: #111111;\r\n"
+					+ "                    margin: 0;\r\n"
+					+ "                  \"\r\n"
+					+ "                >\r\n"
+					+ "                  Need more help?\r\n"
+					+ "                </h2>\r\n"
+					+ "                <p style=\"margin: 0\">\r\n"
+					+ "                  <a href=\"#\" target=\"_blank\" style=\"color: #ffa73b\"\r\n"
+					+ "                    >We&rsquo;re here to help you out</a\r\n"
+					+ "                  >\r\n"
+					+ "                </p>\r\n"
+					+ "              </td>\r\n"
+					+ "            </tr>\r\n"
+					+ "          </table>\r\n"
+					+ "        </td>\r\n"
+					+ "      </tr>\r\n"
+					+ "      <tr>\r\n"
+					+ "        <td bgcolor=\"#f4f4f4\" align=\"center\" style=\"padding: 0px 10px 0px 10px\">\r\n"
+					+ "          <table\r\n"
+					+ "            border=\"0\"\r\n"
+					+ "            cellpadding=\"0\"\r\n"
+					+ "            cellspacing=\"0\"\r\n"
+					+ "            width=\"100%\"\r\n"
+					+ "            style=\"max-width: 600px\"\r\n"
+					+ "          >\r\n"
+					+ "            <tr>\r\n"
+					+ "              <td\r\n"
+					+ "                bgcolor=\"#f4f4f4\"\r\n"
+					+ "                align=\"left\"\r\n"
+					+ "                style=\"\r\n"
+					+ "                  padding: 0px 30px 30px 30px;\r\n"
+					+ "                  color: #666666;\r\n"
+					+ "                  font-family: 'Lato', Helvetica, Arial, sans-serif;\r\n"
+					+ "                  font-size: 14px;\r\n"
+					+ "                  font-weight: 400;\r\n"
+					+ "                  line-height: 18px;\r\n"
+					+ "                \"\r\n"
+					+ "              >\r\n"
+					+ "                <br />\r\n"
+					+ "              </td>\r\n"
+					+ "            </tr>\r\n"
+					+ "          </table>\r\n"
+					+ "        </td>\r\n"
+					+ "      </tr>\r\n"
+					+ "    </table>\r\n"
+					+ "  </body>\r\n"
+					+ "</html>\r\n"
+					+ "";
+			
+			helper.setText(htmlMsg, true); // Use this or above line.
+			
+			String account=userActivity.getMemberAccount();
+			Member mm=memberService.findByMemberAccount(account);
+			String  mmEmail= mm.getMemberEmail();
+			
+			helper.setTo(mmEmail); //寄給誰
+			helper.setSubject("Welcome OnlyFriends");
+			helper.setFrom("onlyfriendseeit29@gmail.com");
+			sender.send(mimeMessage);
+			
+			System.out.println("寄了一封信到"+mmEmail);
+			
+			}catch(Exception e) {
+				return "寄信失敗";
+			}
 
 		} else if (appove.equals("true")) {
 			userActivity.setApprove("false");
@@ -215,7 +601,7 @@ public class UserActivityController {
 		userActivity.setCondition(condition);
 		userActivity.setMan(Integer.parseInt(man));
 		userActivity.setWoman(Integer.parseInt(woman));
-		userActivity.setTotal(Integer.parseInt(man) + Integer.parseInt(woman));
+		userActivity.setTotal((Integer.parseInt(man) + Integer.parseInt(woman))-1);
 		userActivity.setSee(0);
 
 		userActivityService.insert(userActivity);
@@ -274,14 +660,15 @@ public class UserActivityController {
 		userActivity.setCondition(condition);
 		userActivity.setMan(Integer.parseInt(man));
 		userActivity.setWoman(Integer.parseInt(woman));
-		userActivity.setTotal(Integer.parseInt(man) + Integer.parseInt(woman));
+		userActivity.setTotal(userActivity.getTotal());
+		userActivity.setSee(userActivity.getSee());
 
 		userActivityService.updata(userActivity);
 
 		return "redirect:/useractivity.post";
 	}
 
-	// 會員刪除
+	// 會員刪除自己創辦活動
 	@RequestMapping(path = "/deleteactivity.controller", method = RequestMethod.GET)
 	public String Deleteactivity(@RequestParam(name = "number") int number, Model model) {
 
@@ -307,28 +694,12 @@ public class UserActivityController {
 
 		List<UserActivity> useractivityList = userActivityService.findByAccount(memberAccount);
 
-
-
 		model.addAttribute("useractivityList", useractivityList);
 
 		return useractivityList;
 	}
 
-	// 搜尋以參加的會員資料 
-	@RequestMapping(path = "/lo", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Member> Member(@RequestParam(name = "number") Integer number) {
-
-		List<String> number1 = userActivityService.findthemembers(11);
-		List<Member> listmList = new ArrayList<Member>();
-		for (String string : number1) {
-			Member member = memberService.findByMemberAccount(string);
-			System.out.println(member.getMemberName());
-			listmList.add(member);
-		}
-		return listmList;
-	}
-
+	
 	// 會員參加活動
 	@RequestMapping(path = "/addactivity", method = RequestMethod.GET)
 	public String addactivity(HttpServletRequest request, @RequestParam(name = "number") Integer number) {
@@ -346,10 +717,36 @@ public class UserActivityController {
 
 		List<Member> par = ua.getParticipate();
 		par.add(m2);
+		
 		userActivityService.updata(ua);
 
 		return "useractivepage/usermgmtjson";
 	}
+	//會員取消參加活動 後 人數要加回去
+	@RequestMapping(path = "/cancelactivity", method = RequestMethod.GET)
+	public String Cancel(HttpServletRequest request,@RequestParam(name = "number") Integer number) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		
+		UserActivity ua = userActivityService.select(number);
+		
+		List<Member> par = ua.getParticipate();
+
+		System.out.println("要被取消的活動"+number);
+		System.out.println("要取消的參加者"+memberAccount);
+
+		int tt= ua.getTotal();
+		
+		ua.removepart(m2);
+		ua.setTotal(tt+1);
+		userActivityService.updata(ua);
+
+		
+		System.out.println("刪除結束");
+		return "Good";
+	}
+	
 
 	// 會員查詢自己參加活動
 	@RequestMapping(path = "/AlreadyParticipated", method = RequestMethod.POST)
@@ -373,5 +770,33 @@ public class UserActivityController {
 
 		return activity;
 	}
+	
+	// 創辦者搜尋以參加的會員資料 
+		@RequestMapping(path = "/lo", method = RequestMethod.POST)
+		@ResponseBody
+		public List<Member> Member(@RequestParam(name = "number") Integer number) {
+			List<String> number1 = userActivityService.findthemembers(number);
+			List<Member> listmList = new ArrayList<Member>();
+			for (String string : number1) {
+				Member member = memberService.findByMemberAccount(string);
+				System.out.println(member.getMemberName());
+				listmList.add(member);
+			}
+			return listmList;
+		}
+		
+	//活動創辦人資訊
+		@RequestMapping(path = "/ao", method = RequestMethod.POST)
+		@ResponseBody
+		public Member maker(@RequestParam(name = "number") Integer number) {
+
+			UserActivity active = userActivityService.select(number);
+			String mm= active.getMemberAccount().toString();
+		
+			Member member = memberService.findByMemberAccount(mm);
+	
+			
+			return member;
+		}
 
 }

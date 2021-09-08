@@ -53,6 +53,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			users.setUsersRole("member");		
 			usersService.insert(users);			
 			
+			member.setMemberAuth(1);
+			member.setMemberEmailCheck(1);
 			member.setMemberAccount(id);
 			member.setMemberEmail(email);
 			member.setMemberName(name);
@@ -63,12 +65,14 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			request.getSession().setAttribute("member", "member");
 			Member member = memberService.findByMemberAccount(id);
 			request.getSession().setAttribute("personalinfo",member);
+			request.getSession().setAttribute("googlelogin","googlelogin");
 				
 		}
 		else {
 			request.getSession().setAttribute("member", "member");
 			Member member = memberService.findByMemberAccount(id);
 			request.getSession().setAttribute("personalinfo",member);
+			request.getSession().setAttribute("googlelogin","googlelogin");
 			System.out.println("該用戶已存在");	
 		}
 				

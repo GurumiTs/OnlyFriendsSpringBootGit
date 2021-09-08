@@ -25,7 +25,8 @@ font-size:1.2rem
 							<!-- Post header-->
 							<header class="mb-4">
 								<!-- Post title-->
-								<h1 class="fw-bolder mb-1" name="name" value="${userActivity.activityname}"></h1>
+								<h1 class="fw-bolder mb-1" name="name"
+									value="${userActivity.activityname}"></h1>
 								<!-- Post meta content-->
 
 							</header>
@@ -33,26 +34,32 @@ font-size:1.2rem
 							<a href="useractivity.post" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
-								<img class="img-fluid rounded" style="width:700px;height:500px;" src="${userActivity.cover}" alt="..." />
+								<img class="img-fluid rounded"
+									style="width: 700px; height: 500px;"
+									src="${userActivity.cover}" alt="..." />
 							</figure>
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">
-									活動名稱: ${userActivity.activityname} <br /> 審核狀態: ${userActivity.approve} <br />活動類型: ${userActivity.type} <br />
-									活動日期:${userActivity.time} <br /> 報名截止日: ${userActivity.time_up} <br /> <br />
-									活動內容: ${userActivity.detail} <br /> <br /> 活動地點: ${userActivity.county}
-									${userActivity.district} ${userActivity.place} <br />
-									參加條件:${userActivity.condition} <br /> 男生人數: ${userActivity.man}
-									女生人數:${userActivity.woman}
+									活動名稱: ${userActivity.activityname} <br /> 審核狀態:
+									${userActivity.approve} <br />活動類型: ${userActivity.type} <br />
+									活動日期:${userActivity.time} <br /> 報名截止日:
+									${userActivity.time_up} <br /> <br /> 活動內容:
+									${userActivity.detail} <br /> <br /> 活動地點:
+									${userActivity.county} ${userActivity.district}
+									${userActivity.place} <br /> 參加條件:${userActivity.condition} <br />
+									男生人數: ${userActivity.man} 女生人數:${userActivity.woman}<br />
+									<br />剩餘名額: ${userActivity.total}
 								</p>
 							</section>
-							<a href="userActivity.up.controller?number=${userActivity.number}"><button type="button" class="btn btn-primary"
-								data-bs-toggle="modal" data-bs-target="#exampleModal">
-								修改活動</button></a>
-
-						
+							<a
+								href="userActivity.up.controller?number=${userActivity.number}"><button
+									type="button" class="btn btn-primary" data-bs-toggle="modal"
+									data-bs-target="#exampleModal">修改活動</button></a> <input
+								id="activitynumber" type="text" class="d-none"
+								value="${userActivity.number}">
 							<!-- Modal -->
-							
+
 						</article>
 					</div>
 					<!-- Side widgets-->
@@ -60,11 +67,9 @@ font-size:1.2rem
 					
 						<!-- Side widget-->
 						<div class="card mb-4">
-							<div class="card-header">There are all kinds of people in
-								this world. It happens that we have become friends. This is not
-								fate. It is just that we should be friends.</div>
+							<div class="card-header">You know, some people can only meet one in a lifetime.</div>
 							<div class="card-body">
-								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本因該是朋友。</div>
+								你知道，有些人一輩子只能遇到一個。</div>
 							
 						</div>
 						<div class="card mb-4">
@@ -88,19 +93,21 @@ font-size:1.2rem
 			load()
 		})
 			function load(){
+			let number = $('#activitynumber').val()
+			console.log(number);
 			$.ajax({
 				type: 'post',
 				url: 'lo',
-				dataType:'JSON',
-				contentType : 'application/json',
-				success:function(data){
-					 var json = JSON.stringify(data, null, 2);
-					 var parsedObjinArray = JSON.parse(json);
-					 console.log(parsedObjinArray)
+				data:{"number":number},
+				success:function(data){		
+					console.log(data);
 					  var itemarea = $('#area');
 			    	     $('#area').empty("");
-			    	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-			    	     var item = "<span>"+n.memberName+"</span>" 
+			    	 	 $.each(data,function(i,n){ //i為順序 n為單筆物件
+			    	     var item = "<img id='img' class='rounded-circle border border-4' style='width:100px;' src='"+n.memberPic+"'>" +
+			    	     "<span  class='fw-bold fs-3'>ㅤ"+n.memberName+" ㅤ</span><br/>"+
+			    	     "<span class='fw-bold fs-4'>"+n.personalInfo+"</span><br/>"+"<hr>"
+			    				    	     
 			    	     itemarea.append(item);
 			    	 	 });
 				},

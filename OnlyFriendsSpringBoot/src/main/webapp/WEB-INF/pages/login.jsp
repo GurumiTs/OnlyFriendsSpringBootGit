@@ -8,6 +8,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
 	name="viewport" />
+
 <title>Login/Sign up</title>
 
 <!-- General CSS Files -->
@@ -209,7 +210,7 @@
             </div>
 
             <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
+              <div class="card-header"><h4>登入</h4></div>
               
               <div class="card-body">
               <form action="${pageContext.request.contextPath}/login"
@@ -306,7 +307,7 @@
 
               </div>
             </div>
-          
+         
           
             <div class="simple-footer">
               Copyright &copy; OnlyFriends 2021
@@ -450,6 +451,8 @@
 		<script src="${pageContext.request.contextPath}/js/crypto-js.js"></script>
 		<script src="${pageContext.request.contextPath}/js/ase.js"></script>
         <script src="${pageContext.request.contextPath}/js/verify.js" ></script>
+ 
+        
 
 	 <!--  <script>
 	   function onSubmit(token) {
@@ -517,7 +520,7 @@
 	<script>
 		$(function() {
 			$("#employee").click(function() {
-				$("#username").val("hollan5835650@gmail.com");
+				$("#username").val("guava123@gmail.com");
 				$("#password").val("Apple1234*")
 			});
 

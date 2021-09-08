@@ -24,6 +24,7 @@ font-size:1.2rem
 				<section class="section">
 					<div class="section-header">
 						<h1>個人資訊</h1>
+						
 					</div>
 					<div class="section-body">
 						<div class="row mt-sm-4">
@@ -104,6 +105,7 @@ font-size:1.2rem
 								</div>
 							</div>
 							<!-- edit -->
+							
 
 							<!-- show profile-->
 							<div class="col-12 col-md-12 col-lg-5">
@@ -228,7 +230,9 @@ font-size:1.2rem
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/broadcast.js"></script>
+	 
 	  <script>
+	 
       $("#twzipcode").twzipcode({
         zipcodeIntoDistrict: true,
         css: ["county form-control col", "district form-control col"],

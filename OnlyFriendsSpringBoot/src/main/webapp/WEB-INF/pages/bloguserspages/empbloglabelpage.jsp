@@ -132,7 +132,7 @@ a:-webkit-any-link {
 						<div class="row">
 						
 							<div class="col-md-4">
-								<!-- Blog post 第一個分類-->
+								<!-- Blog post 愛情-->
 								<div class="card mb-4">
 									<a href="#!"><img class="card-img-top"
 										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
@@ -140,47 +140,7 @@ a:-webkit-any-link {
 									<div class="list-text">
 										<h2 class="list-title h3" style="text-align:center;">Only 愛情</h2>
 										<table class="list-table">
-											<tbody>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章123456789</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章12345</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章1234567</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章1234</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章156</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
+											<tbody id="lovetype">
 											</tbody>
 										</table>
 										
@@ -190,7 +150,7 @@ a:-webkit-any-link {
 							</div>
 							
 							<div class="col-md-4">
-								<!-- Blog post 第一個分類-->
+								<!-- Blog post 星座-->
 								<div class="card mb-4">
 									<a href="#!"><img class="card-img-top"
 										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
@@ -198,47 +158,7 @@ a:-webkit-any-link {
 									<div class="list-text">
 										<h2 class="list-title h3" style="text-align:center;">Only 星座</h2>
 										<table class="list-table">
-											<tbody>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章123456789</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章12345</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章1234567</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章1234</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
-												<tr>
-													<td>
-														<h3>
-															<a href="#!">第一篇文章156</a>
-														</h3>
-													</td>
-													<td class="date">2021-09-06</td>
-												</tr>
+											<tbody id="startype">
 											</tbody>
 										</table>
 										
@@ -248,32 +168,25 @@ a:-webkit-any-link {
 							</div>
 							
 							<div class="col-lg-4">
-								<!-- Blog post 第一個分類(上下兩塊)-->
+								<!-- Blog post 新聞-->
 								<div class="card mb-4">
 									<a href="#!"><img class="card-img-top"
 										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
 										alt="..." /></a>
-									<div class="card-body" style="margin-left: 20px;margin-right: 20px">
-										<h2 class="card-title h3" style="text-align:center;">Only 新聞</h2>
-										&nbsp;
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題aaa</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										&nbsp;
-										<div style="text-align:center;"><a class="btn btn-primary" href="#!">Read more →</a></div>
+									<div class="list-text">
+										<h2 class="list-title h3" style="text-align:center;">Only 新聞</h2>
+										<table class="list-table">
+											<tbody id="newstype">
+											</tbody>
+										</table>
+										
+										<div class="list-more"><a class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
 							
 							<div class="col-lg-4">
-								<!-- Blog post 第一個分類(上下兩塊)-->
+								<!-- Blog post Beauty-->
 								<div class="card mb-4">
 									<a href="#!"><img class="card-img-top"
 										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
@@ -298,7 +211,7 @@ a:-webkit-any-link {
 							</div>
 							
 							<div class="col-lg-4">
-								<!-- Blog post 第一個分類(上下兩塊)-->
+								<!-- Blog post 心測-->
 								<div class="card mb-4">
 									<a href="#!"><img class="card-img-top"
 										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
@@ -324,7 +237,7 @@ a:-webkit-any-link {
 							
 							
 							<div class="col-lg-4">
-								<!-- Blog post 第一個分類(上下兩塊)-->
+								<!-- Blog post 其他-->
 								<div class="card mb-4">
 									<a href="#!"><img class="card-img-top"
 										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
@@ -359,6 +272,57 @@ a:-webkit-any-link {
 
 	<script>
 		
+		
+		// 查詢分類方法 
+		let blogType = "愛情";
+		let love = '#lovetype';
+		let star = '#startype';
+		let news = '#newstype';
+		
+		
+		
+		$(function(){
+			queryblogtype("愛情", love);
+			queryblogtype("星座", star);
+			queryblogtype("新聞", news);
+		});
+		
+		function queryblogtype(a, b){
+			$.ajax({
+	            type: "POST",
+	            url: "queryByBlogType",
+	            data:{"blogType": a},
+	            success: function(data) {           	
+	            	var lovetype = $(b);
+	            	$(b).empty("");
+	            	console.log(data.length);
+	            	if(data.length == 0){
+	            		var message = 
+	            			"<div class='ms-3' style='text-align:center; margin-right: 15px'>"+
+                    		"目前暫無最新文章"+
+                			"</div>";
+                		lovetype.append(message);
+	            	}
+	            	else{
+	            		$.each(data, function(i,n){
+			            	var message = 
+			            		"<tr>"+
+								"<td>"+
+								"<h3>"+
+								"<a href='blogarticleentry?ArticleId="+n.articleID+"&name=official'>"+n.title.substr(0,14)+"777</a>"+
+								"</h3>"+
+								"</td>"+
+								"<td class='date'>"+n.updateTime.substr(0,10)+"</td>"+
+								"</tr>";
+							lovetype.append(message);
+	            		});
+	            	}
+	            },
+	            error: function(xhr){
+	            	console.log("error!")
+	            }
+	        });// ajax end
+		};
 						
 	</script>
 

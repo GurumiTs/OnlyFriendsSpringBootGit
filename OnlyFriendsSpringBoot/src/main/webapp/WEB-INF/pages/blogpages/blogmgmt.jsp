@@ -280,6 +280,8 @@ height:50px;
 		    		targets: [2],
 		    		createdCell: function (td, cellData, rowData, row, col){
 		    			$(td).css("width", "250px");
+		    			$(td).css("font-size", "18px");
+		    			$(td).css("font-weight", "bold");
 		    		},
 		    	},
 		    	{
@@ -375,9 +377,17 @@ height:50px;
 				    		},
 				    	},
 				    	{
+				    		targets: [1],
+				    		createdCell: function (td, cellData, rowData, row, col){
+				    			$(td).css("width", "150px");
+				    		},
+				    	},
+				    	{
 				    		targets: [2],
 				    		createdCell: function (td, cellData, rowData, row, col){
 				    			$(td).css("width", "250px");
+				    			$(td).css("font-size", "18px");
+				    			$(td).css("font-weight", "bold");
 				    		},
 				    	},
 				    	{
