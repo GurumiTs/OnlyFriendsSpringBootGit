@@ -296,7 +296,7 @@
                 >
                   <a class="dropdown-item" href="employeeprofile.controller">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    個人主頁
                   </a>
            
                   <div class="dropdown-divider"></div>
@@ -309,7 +309,7 @@
                     <i
                       class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                     ></i>
-                    Logout
+                    登出
                   </a>
                 </div>
               </li>
