@@ -48,12 +48,10 @@ public class MemberController {
 	private Users users;
 	@Autowired
 	private JavaMailSender sender;
-	@Autowired
-	private StoredService storedService;
 	
 	
 		
-	//@Secured({"ROLE_USER","ROLE_member"})
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/member" ,method = RequestMethod.GET )
 	public String memberEntry(HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -67,25 +65,25 @@ public class MemberController {
 		return "memberpages/member" ;
 	}
 	
-	//@Secured({"ROLE_USER","ROLE_member"})
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberprofile" ,method = RequestMethod.GET )
 	public String memberProfile() {
 		return "memberpages/memberprofile" ;
 	}
 
-	//@Secured({"ROLE_USER","ROLE_member"})
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipeloading" ,method = RequestMethod.GET )
 	public String memberSwipeLoadingEntry() {
 		return "memberpages/memberswipeloading" ;
 	}
 	
-	//@Secured({"ROLE_USER","ROLE_member"})
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberswipe" ,method = RequestMethod.GET )
 	public String memberSwipeEntry() {
 		return "memberpages/memberswipe" ;
 	}
 	
-	//@Secured({"ROLE_USER","ROLE_member"})
+	@Secured({"ROLE_USER","ROLE_member"})
 	@RequestMapping(path="/memberfriends" ,method = RequestMethod.GET )
 	public String memberFriendsEntry() {
 		return "memberpages/memberfriends" ;
@@ -135,23 +133,7 @@ public class MemberController {
 		return "memberpages/invoice";
 	}
 	
-	@PostMapping(path = "/total")
-	@ResponseBody
-	public List<Float> totalEntry() {
-		List<Float> total = new ArrayList<Float>();
-		
-		for(int i = 1;i<=12;i++) {
-			Float f = storedService.searchtotal(i);
-			if(f == null) {
-				f = (float) 0;
-			}
-			total.add(f);
-		}
-		return total;	
-		
-	}
-	
-	
+
 	
 
 }

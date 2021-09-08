@@ -18,6 +18,11 @@
                   ><i class="fas fa-snowboarding"></i> <span>個人活動</span></a
                 >
               </li>
+                <li>
+                <a class="nav-link" href="oaforuserpages"
+                  ><i class="fas fa-snowboarding"></i> <span>官方活動</span></a
+                >
+              </li>
               <li>
                 <a class="nav-link" href="memberfriends"
                   ><i class="fas fa-users"></i> <span>我的好友</span></a

@@ -174,9 +174,9 @@ public class PaypalController {
 	public Payment successPay(@RequestParam("paymentID") String paymentId, @RequestParam("payerID") String payerId,Model model,HttpServletRequest request) {
 		Payment payment = null;
 		try {
-			System.out.println(paymentId);
+			//System.out.println(paymentId);
 			payment = service.executePayment(paymentId, payerId);
-			System.out.println(payment.toJSON());
+			//System.out.println(payment.toJSON());
 			String total = payment.getTransactions().get(0).getAmount().getTotal();
 			Float ftotal = Float.parseFloat(total);
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
@@ -184,16 +184,27 @@ public class PaypalController {
 			Member m2 = memberService.findByMemberAccount(memberAccount);
 			String newswipetime = null;
 			
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());			
-			Stored stored = new Stored(payment.getId(),memberAccount,timestamp,ftotal);
-			storedService.insert(stored);
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());	
 			
-			if("199.00".equals(total)) {
+			if(ftotal>199) {
+				
+				
+				
+				
+			}
+			
+		
+			
+			if("199.00".equals(total)) {	
+				Stored stored = new Stored(payment.getId(),memberAccount,timestamp,ftotal);
+				storedService.insert(stored);
 				newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+10) ; 
 				m2.setSwipeTime(newswipetime);
 				memberService.update(m2);
 			}
 			else if("99.00".equals(total)) {
+				Stored stored = new Stored(payment.getId(),memberAccount,timestamp,ftotal);
+				storedService.insert(stored);
 				newswipetime = String.valueOf(Integer.parseInt(m2.getSwipeTime())+3) ; 
 				m2.setSwipeTime(newswipetime);
 				memberService.update(m2);

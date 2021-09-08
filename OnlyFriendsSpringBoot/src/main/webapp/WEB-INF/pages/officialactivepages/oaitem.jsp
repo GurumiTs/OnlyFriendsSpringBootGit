@@ -4,6 +4,10 @@
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
 
+body{
+font-size:1.2rem
+}
+
 </style>
 
 </head>
@@ -54,7 +58,7 @@
        <div class="mb-3">
        
        
-       <input type = "text" id= "anum"  >
+       <input type = "hidden" id= "anum"  >
 							<label for="memberEmail" class="form-label">Email</label> <input
 								type="email" class="form-control" name="memberEmail" id="memberEmail" value="${personalinfo.memberEmail}" 
 								required readonly />
@@ -103,8 +107,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-		   <a href = "oauserpage.controller">
-        <button  type="button" class="btn btn-primary" id = "send" data-bs-dismiss="medal">送出</button></a>
+		 <!--   <a href = "oauserpage.controller">--> 
+        <button  type="button" class="btn btn-primary" id = "send" data-bs-dismiss="medal">送出</button>
         
       </div>
     </div>
@@ -116,20 +120,9 @@
         </section>
         </form>
         
-        <iframe 
-    width="100%" 
-    height="300" 
-    frameborder="0"
-    src="https://www.google.com/maps?
-    q=台北101
-    &hl=en
-    &z=18
-    &t=m
-    &output=embed ">
-</iframe>
+    
         
         
-        <P>---------------------------------------------------------------------------------------
       <section class="mb-5">
 								<div class="fs-5 mb-4">
 								
@@ -138,116 +131,35 @@
 									
 								</div>  
 								
-		<P>----------------------------------------------------------------------------------------
+
+        
+        <h4>活動地點</h4>
+       
+ <iframe width="1000" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="da">
+ 
+ 
+ </iframe>
+       
+       
+       
         <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">相關活動</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    
-                                </div>
-                            </div>
+        
+        
+        
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                   
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." id= "img" />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                   
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
+
                                     <!-- Product name-->
                             
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
                                   
-                                </div>
-                            </div>
+                           
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        </div>
+       
       
       
       
@@ -257,11 +169,7 @@
 
 					
 					</form>
-				</div>
-
-			</div>
-		</div>
-	</div>
+		
         
 		
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
@@ -317,6 +225,8 @@
 				for(let i=0;i<oa.length;i++){
 					if (anum==oa[i].anum && active== oa[i].active){
 					
+						var daa = oa[i].county + oa[i].district+ oa[i].address;
+					console.log(daa)
 					$('#anum').attr('value',anum)
 					$('#active').text(oa[i].active);
 					$('#img').attr("src",oa[i].img);
@@ -326,9 +236,10 @@
 					$('#finishDeadline').text(oa[i].finishDeadline);
 					$('#county').text(oa[i].county);
 					$('#district').text(oa[i].district);
+					$('#address').text(oa[i].address);					
 					$('#male').text(oa[i].male);
 					$('#female').text(oa[i].female);
-					
+					$('#da').attr('src', 'http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q='+daa+'&z=18&output=embed&t=p');
 					}
 				}
 				}
@@ -338,23 +249,31 @@
 			$("#send").on("click", function () {
 				let anum = $('#anum').val()
 				console.log(anum)
+				
 				  $.ajax({
 					  type : "POST",
 					  url: "addmember/"+anum,
 					  success:function(data)
-					  {
-						console.log("success")  
-						 // $('#anum').attr('value',anum);				  
-						  console.log(123123)
-					  },error:function(xhr)
-					  {
-						  console.log('無法送出')
-					  }
+					  { 
+						  Swal.fire(	
+								  '報名成功!',
+								  '',
+								  'success'
+					  )
+					  table.ajax.reload();
+						  },
+					  error:function(e){
+						  Swal.fire(
+							'重複報名',
+							'',
+							'warning'
+						  )
+						  }, //error close
 				     
-				  });			  
+				  });		//ajax close  
+			
 			});
-			  
-		});//function
+	});//function
 		
 		
 		

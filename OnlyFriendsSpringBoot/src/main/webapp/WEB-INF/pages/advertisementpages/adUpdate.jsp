@@ -11,29 +11,26 @@
 	display: flex;
 	width: 50%;
 	padding-right: 100px;
+
 }
 
 #main {
 	width: 50%;
 }
 
-#topright {
-	margin-left: auto;
-}
 
 input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 	width: 100%;
 	box-sizing: border-box;
 	border: 3px solid #555;
+	
 }
 
 .line {
 	margin-bottom: -10px;
 }
 
-#right {
-	height: 500px;
-}
+
 
 .formName {
 	margin-bottom: -10px;
@@ -43,6 +40,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 	height: 50%;
 	width: 70%;
 	margin: 7% 0 0 6%;
+	
 }
 
 #buttomImg {
@@ -179,8 +177,9 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 														<select name="adCondition" id="adConditionUpdate" required>
 															<option value="">請選擇</option>
 															<option value="未上架">未上架</option>
-															<option value="已上架">已上架</option>
-															<option value="上架中2">上架中2</option>
+															<option value="已上架1" id="op1">已上架1</option>
+															<option value="已上架2" id="op2">已上架2</option>
+															<option value="已下架">已下架</option>
 														</select>
 													</div>
 												</div>
@@ -228,7 +227,8 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
                                        var adId = url.searchParams.get("adId");
                                        console.log(adId)
 
-
+                                       var op1= $('#op1').val();
+			                           var op2= $('#op2').val();
 
                                      $.ajax({
 										   type:'POST',
@@ -239,10 +239,18 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 						               	   console.log(data)
 						               	 for(let i=0;i<data.length;i++){					      
 						               		 console.log(data[i].adId)
-						               		   if(adId==data[i].adId){
+						               			 console.log(data[i].adCondition)
+						               			if(data[i].adCondition==op1 && adId!=data[i].adId){
+						    						//console.log()
+						    						$("option[value='已上架1']").attr("disabled", "disabled");
+						    						
+						    					}else if(data[i].adCondition==op2 && adId!=data[i].adId){
+						    						$("option[value='已上架2']").attr("disabled", "disabled");
+						    					}	
+						    					
+						    					if(adId==data[i].adId){
 						               			 console.log(data[i].adImg[0])
 						               			 var adImg = data[i].adImg.split(",");	
-						               			 
 						               			 
 					                            $('#imgUpdate').attr("src",adImg[0]);	
 						               			$('#imgUpdate2').attr("src",adImg[1]);	
@@ -263,5 +271,6 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 						               	})
 })
 </script>
+ 
 </body>
 </html>

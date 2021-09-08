@@ -66,7 +66,11 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 	width: 30%;
 }
 .card-body{border: 3px solid #555;}
+table{
 
+　　word-break:break-all;
+
+}
 </style>
 </head>
 <body id="page-top">
@@ -90,14 +94,14 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<h1 class="h3 mb-2 text-gray-800">AD Tables</h1>
-					<span>${Error}</span>
+					
 					<div class="card shadow mb-4">
 
 						<div class="card-body" style="width: 100%">
 							<div class="table-responsive">
 								<a data-bs-toggle="modal" data-bs-target="#insert"><img
-									src='images/couponPic/fileplus.JPG' style="width: 3%"></a>
-							</div>
+									src='images/couponPic/fileplus.JPG' style="width: 3%" id="insertpic"></a>
+							
 							<table id="ad" class="table" style="width: 100%;text-align:center;">
 								<thead>
 									<tr>
@@ -119,6 +123,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 
 								</tbody>
 							</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -237,8 +242,9 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 										<select name="adCondition" id="adConditionInsert" required>
 											<option value="">請選擇</option>
 											<option value="未上架">未上架</option>
-											<option value="上架中1">上架中1</option>
-											<option value="上架中2">上架中2</option>
+											<option value="已上架1" id="op1">已上架1</option>
+											<option value="已上架2" id="op2">已上架2</option>
+											<option value="已下架">已下架</option>
 										</select>
 									</div>
 								</div>
@@ -259,6 +265,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 		$(function() {
 			
 			                 $('#ad').DataTable(
+			                	
 							   {
 
 								"ajax" : {
@@ -327,10 +334,9 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 		                      $(function () {
 		                    	  $("#ad tbody").on("click", ".delete", function () {
 		                    	 
-		                    		  console.log("123")
 		                    	      var adId = $(this).attr("id");
-		                    		  console.log(adId)
-		                    	  let tr = $(this).closest("tr");
+		                
+		                    	      let tr = $(this).closest("tr");
 		                    		  
 		                    		  Swal.fire({
 		              	                title: 'Are you sure?',
@@ -343,18 +349,16 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 		              	              }).then((result) => {
 		              	                if (result.isConfirmed) {
 		              	                  $.ajax({
-		              	                        type: "POST",
-		              	                        url: "empdeleteAdvertisement.controller",
-		              	                        	data:{"adId":adId},
-		              	                        success: function(response) { 
-		              	                        	
-		              	                        	console.log(response)
+		              	                        type: 'POST',
+		              	                        url: 'empdeleteAdvertisement.controller',
+		              	                        data:{"adId":adId},		              	                    
+		              	                        success(data) { 		              	                        	
 		              	                        	tr.remove();
 		              	                             Swal.fire(
 		              	                              'Deleted!',
 		              	                              'Your file has been deleted.',
 		              	                              'success'
-		              	                            ) } ,
+		              	                            ),location.reload() } ,
 		              	                            error: function (response) {
 		              	                            Swal.fire({
 		              	                              icon: 'error',
@@ -367,14 +371,41 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 		              	           }); 
 		              		});
 		              	});
-	
-
-		
-		
-		
-		
 		
 	</script>
+	 <script>
+	
+	$(function () {
+		
+		$('#insertpic').click(function(){
+		 $.ajax({
+			 type: "POST",
+             url: "showAd.controller",
+          	dataType:'json',			
+			success:function(data){ 
+				
+				var op1= $('#op1').val();
+				var op2= $('#op2').val();
+					console.log(op1)
+					console.log(op2)
+				for(let i=0;i<data.length;i++){
+					console.log(data[i].adCondition)
+					
+					if(data[i].adCondition==op1 ){
+						
+						$("option[value='已上架1']").attr("disabled", "disabled");
+						
+					}else if(data[i].adCondition==op2){
+						$("option[value='已上架2']").attr("disabled", "disabled");
+						
+					}
+				}		
+			}
+		 })
+		
+		})
+	})
+	</script> 
 
 
 </body>

@@ -3,12 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+body{
+font-size:1.2rem
+}
+
 .img1 {
-	weight: 320px;
+	weight: 456.89px;
 	height: 250px;
 }
 .text{
 text-align: center;
+
 }
 
 .wrap {
@@ -125,7 +130,9 @@ a.slide-arrow {
 			
 			
 			<!-- Main Content -->
+			
 			<div class="main-content">
+			
 				<section class="section">
 						<div id="container">
 						<div class="wrap">
@@ -134,10 +141,10 @@ a.slide-arrow {
 							</a> <a class="slide-arrow right" id="slideNext"><i
 								class="fas fa-arrow-right"></i> </a>
 							<ul class="slide-img" id="slide-img">
-								<li><img src="images/productPic/4260126.jpg" alt="view1"></li>
-								<li><img src="images/productPic/5592103.jpg" alt="view2"></li>
-								<li><img src="images/productPic/5668341.jpg" alt="view3"></li>
-								<li><img src="images/productPic/5844959.jpg" alt="view4"></li>
+								<li><img src="images/officialActivePic/野餐.jpg" alt="view1"></li>
+								<li><img src="images/officialActivePic/tablegame2.jpg" alt="view2"></li>
+								<li><img src="images/officialActivePic/粉紅泡泡妹仔3.jpg" alt="view3"></li>
+								<li><img src="images/officialActivePic/清純妹仔.jpg" alt="view4"></li>
 							</ul>
 							<ul class="pages" id="pages">
 								<li></li>
@@ -147,14 +154,7 @@ a.slide-arrow {
 							</ul>
 						</div>
 					</div>
-						<div class="bg-dark py-5">
-							<div class="container px-4 px-lg-5 my-5">
-								<div class="text-center text-white">
-									<h1 class="display-4 fw-bolder" style=color:pink>OnlyFriends</h1>
-									<p class="lead fw-normal text-white-50 mb-0" style=color:pink>官方聯誼活動</p>
-								</div>
-							</div>
-						</div>
+						
 					
 					<div class="section-body">
 						<div class="card">
@@ -296,19 +296,14 @@ a.slide-arrow {
                +  
               "</div>" +    
                "<img class='img1' src='"+n.img+"'/>"+     
-                   "<h5 class='text'>"+n.active+"</h5>"+
-               "<div  class='text'>"+n.atype2+
-               "<div  class='text'>"+n.county+n.district+
-               "<div  class='text'>"+"📆 活動日期:"+n.adate+
-               "<div  class='text'>"+"📆 報名截止日期:"+n.finshDeadline+
-               "<div  class='text'>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
+                   "<h5 class='text'>"+n.active+"</h6>"+
+               "<div  class='text' style ='font-size: 15px';>"+n.atype2+
+               "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
+               "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
+               "<div  class='text' style ='font-size: 15px';>"+"📆 報名截止日期:"+n.finishDeadline+
+               "<div  class='text' style ='font-size: 15px';>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
                  "<div class='text-center'>" +
                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
                   "</div>"+
                 " </div>"+
                "</div>"+

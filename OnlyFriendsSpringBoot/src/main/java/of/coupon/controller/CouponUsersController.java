@@ -591,4 +591,18 @@ public class CouponUsersController {
 
 		return coupon;
 	}
+	
+	@GetMapping("/couponAnalyzeEntry.controller")
+	public String couponAnalyzeEntry() {
+
+		return "couponpages/couponAnalyze";
+	}
+	
+	@PostMapping("/couponAnalyzeUserEntry.controller")
+	@ResponseBody
+	public List<CouponUsers> couponAnalyzeUserEntry() {
+		List<CouponUsers> couponAnalyze = couponUsersService.findAll();
+		return couponAnalyze;
+	}
+
 }

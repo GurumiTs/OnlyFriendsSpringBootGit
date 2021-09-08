@@ -50,6 +50,7 @@ import of.emp.model.EmployeeService;
 import of.member.model.Member;
 import of.member.model.MemberChatnum;
 import of.member.model.MemberService;
+import of.member.model.StoredService;
 
 @Controller
 @SessionAttributes(names = { "personalinfo", "member" })
@@ -73,6 +74,9 @@ public class MemberJsonController {
 	private JavaMailSender sender;
 	@Autowired
 	private FriendshipService friendshipService;
+	@Autowired
+	private StoredService storedService;
+	
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
@@ -386,5 +390,31 @@ public class MemberJsonController {
 		chatService.clearnotification(memberAccount);
 		return "yes";
 	}
+	@PostMapping(path = "/total")
+	@ResponseBody
+	public List<Float> totalEntry() {
+		List<Float> total = new ArrayList<Float>();
+		
+		for(int i = 1;i<=12;i++) {
+			Float f = storedService.searchtotal(i);
+			if(f == null) {
+				f = (float) 0;
+			}
+			total.add(f);
+		}
+		return total;	
+		
+	}
+	
+	@PostMapping(path = "/storedannual")
+	@ResponseBody
+	public Float storedannualEntry() {
+	
+		return storedService.storedannual();
+		
+	}
+	
+	
+	
 
 }

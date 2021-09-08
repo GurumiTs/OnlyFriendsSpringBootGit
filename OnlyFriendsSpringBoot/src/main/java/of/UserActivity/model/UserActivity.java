@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.sun.xml.bind.v2.schemagen.xmlschema.Particle;
+
 import of.member.model.Member;
 
 @Entity
@@ -90,9 +92,10 @@ public class UserActivity implements Serializable {
 	public void addFriend(Member member) {
 		this.participate.add(member);
 	}
-	//如果只帶入會員 會不知道刪除的是哪一筆資料 但不能帶兩個參數
-	public void remove(Member member) {
-		this.participate.remove(member);
+	//如果只帶入會員 
+	public void removepart(Member i) {
+		System.out.println("有進入刪除:"+i);
+		this.participate.remove(i);
 	}
 
 	public UserActivity() {	}
@@ -229,5 +232,7 @@ public class UserActivity implements Serializable {
 	public void setSee(int see) {
 		this.see = see;
 	}
+
+
 	
 }

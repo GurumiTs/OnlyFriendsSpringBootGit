@@ -182,6 +182,8 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="empCoupons.controller">優惠券管理</a>
+              <a class="collapse-item" href="couponAnalyzeEntry.controller">優惠券分析</a>
+              <a class="collapse-item" href="Advertisement.controller">廣告牆</a>
             </div>
           </div>
         </li>

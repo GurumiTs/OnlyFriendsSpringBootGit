@@ -196,6 +196,7 @@ font-size:1.2rem
 					</div>
 				</section>
 			</div>
+		
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
 	</div>

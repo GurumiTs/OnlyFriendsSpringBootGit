@@ -19,6 +19,10 @@ public class OfficialActiveService {
 
 	@Autowired
 	private OfficialActiveRepository officialActiveRepository;
+	
+	@Autowired
+	
+	private MemberActiveRepository memberActiveRepository;
 
 	
 	
@@ -32,9 +36,6 @@ public class OfficialActiveService {
 	}
 	
 
-	
-
-	
 	public OfficialActive findByAnum(Long anum) {
 		  Optional<OfficialActive> officialActive = officialActiveRepository.findByAnum(anum);
 		  if(officialActive.isPresent()) {
@@ -51,6 +52,11 @@ public class OfficialActiveService {
 	public void deleteById(Long anum) {
 		officialActiveRepository.deleteById(anum);;
 	}
+	
+	public void deleteById1(Long anum) {
+		memberActiveRepository.deleteById(anum);;
+	}
+	
 
 	public Page<OfficialActive> findAllByPage(Pageable pageable) {
 	
@@ -71,6 +77,11 @@ public class OfficialActiveService {
 	public  void  updateMember(OfficialActive officialActive) {
 	
 		 officialActiveRepository.save(officialActive);
+	}
+	
+	//在memberactive 找到使用者報名哪些活動
+	public List<Long> findByMemAcc(String memberAccount){
+		return memberActiveRepository.findByMemAcc(memberAccount);
 	}
 
 }

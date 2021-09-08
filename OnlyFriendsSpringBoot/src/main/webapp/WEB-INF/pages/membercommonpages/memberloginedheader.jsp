@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="navbar-bg"></div>
 <nav class="navbar navbar-expand-lg main-navbar">
   <a
@@ -23,7 +24,7 @@ pageEncoding="UTF-8"%>
           <li>
             <a class="dropdown-item fs-6" href="useractivity.entry">會員活動</a>
           </li>
-          <li><a class="dropdown-item fs-6" href="#!">官方活動</a></li>
+          <li><a class="dropdown-item fs-6" href="oauserpage.controller">官方活動</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">
@@ -183,9 +184,26 @@ pageEncoding="UTF-8"%>
         </a>
 
         <div class="dropdown-divider"></div>
+    
+    	 <c:if test="${not empty googlelogin}">
+        <a  class="dropdown-item has-icon text-danger" onclick="signOut();">
+          <i class="fas fa-sign-out-alt"></i> 登出
+        </a>
+        <script>
+        function signOut() {  
+		    logoutWindow = window.open("https://accounts.google.com/SignOutOptions", "_blank", "toolbar=no,width=600,height=400");
+		    location.href="http://localhost:8080/OnlyFriends/logout"
+		  }
+        </script>
+      	</c:if>
+    
+       <c:if test="${empty googlelogin}">
         <a href="logout" class="dropdown-item has-icon text-danger">
           <i class="fas fa-sign-out-alt"></i> 登出
         </a>
+      	</c:if>
+      	
+      	
       </div>
     </li>
   </ul>
