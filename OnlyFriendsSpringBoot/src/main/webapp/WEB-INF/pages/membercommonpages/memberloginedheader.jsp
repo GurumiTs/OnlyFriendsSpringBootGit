@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
           <li>
             <a class="dropdown-item fs-6" href="useractivity.entry">會員活動</a>
           </li>
-          <li><a class="dropdown-item fs-6" href="#!">官方活動</a></li>
+          <li><a class="dropdown-item fs-6" href="oauserpage.controller">官方活動</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">
