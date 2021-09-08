@@ -48,7 +48,8 @@ public class OfficialActiveController {
 	private MemberService memberService;
 
 
-	
+
+
 	@GetMapping(path= "/oatojson")
 	@ResponseBody
 	public List<OfficialActive> allOaToJson(Model m) {
@@ -60,6 +61,7 @@ public class OfficialActiveController {
 		
 		
 	}
+
 	
 
 	@RequestMapping(path = "/empofficialactivemgmt.controller", method = RequestMethod.GET)

@@ -85,10 +85,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.userService(oAuth2UserService)
 			.and()
 			.successHandler(oAuth2LoginSuccessHandler)
-		.and()
-		.logout().permitAll();	
+		.and().logout().invalidateHttpSession(true)
+        .clearAuthentication(true).logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID").permitAll();
+}
+		
 		 //http.addFilterAt(filterSecurityInterceptor, FilterSecurityInterceptor.class);
-	}
+	
 	
     @Bean
     public AuthenticationFailureHandler customAuthenticationFailureHandler() {

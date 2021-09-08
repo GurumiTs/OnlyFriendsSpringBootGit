@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
-body{
-font-size:1.2rem
+body {
+	font-size: 1.2rem
 }
 </style>
 </head>
@@ -33,31 +33,37 @@ font-size:1.2rem
 							<a href="useractivity.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
 							<figure class="mb-4">
-								<img class="img-fluid rounded" style="width:700px;height:500px;" src="${userActivity.cover}" alt="..." />
+								<img class="img-fluid rounded"
+									style="width: 700px; height: 500px;"
+									src="${userActivity.cover}" alt="..." />
 							</figure>
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">
-									活動名稱: ${userActivity.activityname} <br /> 活動類型: ${userActivity.type} <br />
-									活動日期:${userActivity.time} <br /> 報名截止日: ${userActivity.time_up} <br /> <br />
-									活動內容: ${userActivity.detail} <br /> <br /> 活動地點: ${userActivity.county}
-									${userActivity.district} ${userActivity.place} <br />
-									活動須知:${userActivity.condition} <br /> 男生人數: ${userActivity.man}
-									女生人數:${userActivity.woman}<br /><br />剩餘名額: ${userActivity.total}
+									活動名稱: ${userActivity.activityname} <br /> 活動類型:
+									${userActivity.type} <br /> 活動日期:${userActivity.time} <br />
+									報名截止日: ${userActivity.time_up} <br /> <br /> 活動內容:
+									${userActivity.detail} <br /> <br /> 活動地點:
+									${userActivity.county} ${userActivity.district}
+									${userActivity.place} <br /> 活動須知:${userActivity.condition} <br />
+									男生人數: ${userActivity.man} 女生人數:${userActivity.woman}<br />
+									<br />剩餘名額: ${userActivity.total}
 								</p>
 							</section>
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
 								我要報名</button>
-
+							<input id="activitynumber" type="text" class="d-none"
+								value="${userActivity.number}">
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">確定報名 ${userActivity.activityname}</h5>
+											<h5 class="modal-title" id="exampleModalLabel">確定報名
+												${userActivity.activityname}</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
@@ -65,8 +71,9 @@ font-size:1.2rem
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">返回</button>
-												<a href="addactivity?number=${userActivity.number}">
-											<button type="button" class="btn btn-primary" >確定</button></a>
+											<a href="addactivity?number=${userActivity.number}">
+												<button type="button" class="btn btn-primary">確定</button>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -84,6 +91,13 @@ font-size:1.2rem
 							<div class="card-body">
 								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本因該是朋友。</div>
 						</div>
+						<div class="card mb-4">
+							<div class="card-header">
+								<h3>活動創辦人:</h3>
+							</div>
+							<div class="card-body" id="area"></div>
+
+						</div>
 					</div>
 				</div>
 			</div>
@@ -94,7 +108,33 @@ font-size:1.2rem
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
 	<script>
-		
+		$(function() {
+			load()
+		})
+		function load() {
+			let number = $('#activitynumber').val()
+			console.log(number);
+			$.ajax({
+				type : 'post',
+				url : 'ao',
+				data : {"number" : number},
+				success : function(data) {
+					console.log(data);
+					var itemarea = $('#area');
+					$('#area').empty("");
+					let item = 
+						"<img class='rounded-circle border border-4 mx-auto' style='width:125px;' src='"+data.memberPic+"'>"+
+						"<span class='fw-bold fs-3'> ㅤ"+data.memberName+"</span></br>"+
+						"<span class='fw-bold fs-4'>"+data.personalInfo+"</span>"
+						
+						;
+					$('#area').append(item)
+						},
+						error : function() {
+							console.log("error");
+						}
+					});
+		}
 	</script>
 </body>
 </html>

@@ -35,4 +35,8 @@ public interface UserActivityRepositor extends JpaRepository<UserActivity, Integ
 	@Query(value = "SELECT p.memberAccount FROM participate p WHERE p.number = ?1", nativeQuery = true)
 	public List<String> findmembers(Integer number);
 	
+	//取消活動
+//	@Query(value = "SELECT p.memberAccount FROM participate p WHERE p.number = ?1p.memberAccount=?")
+//	public String findpart(Integer number,String memberAccount);
+	
 }
