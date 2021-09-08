@@ -66,6 +66,10 @@
 
 	<script>
 	 var couponRecord=[];
+	 var cash=0;//現金券
+	 var company=0;//異業券
+	 var discount=0;//折價券
+	 var freight=0;//運費券
 	//console.log(couponRecord)
 		                  $(function () {
 		                	  
@@ -92,10 +96,6 @@
 										}		                	   		                	   
 									 })						
 		                  })
-		                  var cash=0;//現金券
-		                  var company=0;//異業券
-		                  var discount=0;//折價券
-		                  var freight=0;//運費券
 		                  $(function () {
 		                	  
 		                	 
