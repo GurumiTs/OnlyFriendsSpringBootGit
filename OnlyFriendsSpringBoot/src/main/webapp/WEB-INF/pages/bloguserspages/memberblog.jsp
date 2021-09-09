@@ -82,7 +82,7 @@ height:50px;
                   <!-- table -->
              		 <div class="card shadow mb-4">
 						<div class="card-body">
-							<div class="table-responsive">
+							<div class="">
 								<table id="example" class="table table-striped">
 									<thead>
 										<tr>
@@ -237,6 +237,18 @@ height:50px;
 	            }
 	        }
 	    ],
+	    ,language: {
+	    	"lengthMenu": "顯示 _MENU_ 筆資料",
+	    	"sProcessing": "處理中...",
+	    	"sSearch": "搜尋:",
+	    	"sLoadingRecords": "載入資料中...",
+	    	"oPaginate": {
+	            "sFirst": "首頁",
+	            "sPrevious": "上一頁",
+	            "sNext": "下一頁",
+	            "sLast": "末頁"
+	         },
+	    },
 	    columnDefs:[
 	    	{
 	    		targets: [0],

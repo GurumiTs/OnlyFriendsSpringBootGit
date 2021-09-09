@@ -44,13 +44,13 @@
 }
 
 .insert{
-height:50px;
+	height: 50px;
+	weight: 150px;
 }
 
 .insert a img:hover {
 	width: 50px;
 	height: 50px;
-	display: block;
 }
 </style>
 </head>
@@ -77,16 +77,19 @@ height:50px;
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Employee Blog Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">後台文章管理</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 
 						<div class="card-body">
-							<div class="table-responsive">
+							<div>
+								<div>
 								<div class="insert">
 									<a href="empbloginsertform.controller"><img
 										src="images/smallicon/BlogmgmtInsert.png" width="45px"
-										height="45px"></a>
+										height="45px"></a>&nbsp;
+									<span>點擊左圖新增</span>
+								</div>
 								</div>
 <!-- 								<ul class="nav nav-tabs" id="myTab" role="tablist"> -->
 <!-- 									<li role="presentation" class="active"> -->
@@ -262,7 +265,18 @@ height:50px;
 		              return "<i class='far fa-trash-alt delete' id="+data.articleID+"></i>";
 		            }
 		        }
-		    ],
+		    ],language: {
+		    	"lengthMenu": "顯示 _MENU_ 筆資料",
+		    	"sProcessing": "處理中...",
+		    	"sSearch": "搜尋:",
+		    	"sLoadingRecords": "載入資料中...",
+		    	"oPaginate": {
+		            "sFirst": "首頁",
+		            "sPrevious": "上一頁",
+		            "sNext": "下一頁",
+		            "sLast": "末頁"
+		         },
+		    },
 		    columnDefs:[
 		    	{
 		    		targets: [0],
@@ -352,7 +366,6 @@ height:50px;
 				        	"data": null,
 				        	render:function(data, type, row)
 				        	{
-				        		console.log(data.blogAuthority)
 				        		if(data.blogAuthority == '審核通過'){
 					        		return "<p style=''>"+data.blogAuthority+"</p>"+
 					        		"<div class='form-check form-switch'style='position: relative; text-align:center;'>"+
@@ -368,12 +381,23 @@ height:50px;
 				        		}
 				        	}
 				        },
-				    ],
+				    ],language: {
+				    	"lengthMenu": "顯示 _MENU_ 筆資料",
+				    	"sProcessing": "處理中...",
+				    	"sSearch": "搜尋:",
+				    	"sLoadingRecords": "載入資料中...",
+				    	"oPaginate": {
+				            "sFirst": "首頁",
+				            "sPrevious": "上一頁",
+				            "sNext": "下一頁",
+				            "sLast": "末頁"
+				         },
+				    },
 				    columnDefs:[
 				    	{
 				    		targets: [0],
 				    		createdCell: function (td, cellData, rowData, row, col){
-				    			$(td).css("width", "60px");
+				    			$(td).css("width", "40px");
 				    		},
 				    	},
 				    	{
