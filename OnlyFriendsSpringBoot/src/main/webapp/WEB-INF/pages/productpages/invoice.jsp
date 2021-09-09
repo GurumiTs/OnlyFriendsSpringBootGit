@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.proimg{
+weight:100px;
+height:100px;
+}
 </style>
 </head>
 <body>
@@ -37,32 +41,32 @@ font-size:1.2rem
 <!--                       <div class="invoice-number">Order #12345</div> -->
                     </div>
                     <hr>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <address>
-                          <strong>Billed To:</strong><br>
-                            Ujang Maman<br>
-                            1234 Main<br>
-                            Apt. 4B<br>
-                            Bogor Barat, Indonesia
-                        </address>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <address>
-                          <strong>Payment Method:</strong><br>
-                          Visa ending **** 4242<br>
-                          ujang@maman.com
-                        </address>
-                      </div>
-                      <div class="col-md-6 text-md-right">
-                        <address>
-                          <strong>Order Date:</strong><br>
-                          September 19, 2018<br><br>
-                        </address>
-                      </div>
-                    </div>
+<!--                     <div class="row"> -->
+<!--                       <div class="col-md-6"> -->
+<!--                         <address> -->
+<!--                           <strong>Billed To:</strong><br> -->
+<!--                             Ujang Maman<br> -->
+<!--                             1234 Main<br> -->
+<!--                             Apt. 4B<br> -->
+<!--                             Bogor Barat, Indonesia -->
+<!--                         </address> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                     <div class="row"> -->
+<!--                       <div class="col-md-6"> -->
+<!--                         <address> -->
+<!--                           <strong>Payment Method:</strong><br> -->
+<!--                           Visa ending **** 4242<br> -->
+<!--                           ujang@maman.com -->
+<!--                         </address> -->
+<!--                       </div> -->
+<!--                       <div class="col-md-6 text-md-right"> -->
+<!--                         <address> -->
+<!--                           <strong>Order Date:</strong><br> -->
+<!--                           September 19, 2018<br><br> -->
+<!--                         </address> -->
+<!--                       </div> -->
+<!--                     </div> -->
                   </div>
                 </div>
 
@@ -75,6 +79,7 @@ font-size:1.2rem
                         
                         <tr>
                           <th data-width="40">刪除</th>
+                          <th >商品</th>
                           <th>名稱</th>
                           <th class="text-center">單價</th>
                           <th class="text-center">數量</th>
@@ -117,7 +122,6 @@ font-size:1.2rem
 <!--                           <div class="invoice-detail-name">Shipping</div> -->
 <!--                           <div class="invoice-detail-value">$15</div> -->
 <!--                         </div> -->
-                        <hr class="mt-2 mb-2">
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
                           <div class="invoice-detail-value invoice-detail-value-lg">$<span id="ordertotal"></span></div>
@@ -127,13 +131,12 @@ font-size:1.2rem
                   </div>
                 </div>
               </div>
-              <hr>
+<!--                         <hr class="mt-2 mb-2"> -->
               <div class="text-md-right">
-                <div class="float-lg-left mb-lg-0 mb-3">
-                  <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
-                  <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
+                <div class="mb-lg-3 mb-7">
+                  <i class="fas paypalbutton"></i>
+<!--                   <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button> -->
                 </div>
-                <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
               </div>
             </div>
           </div>
@@ -155,8 +158,53 @@ font-size:1.2rem
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
     
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script >
+    paypal.Button.render({
+        style: {
+        		 color:'blue',
+        		 shape:'rect',
+        		 label:'checkout',
+        		 size: 'small',
+//         		 fundingicons:'true',
+        		},
+        env: 'sandbox', // Or 'production'
+        // Set up the payment:
+        // 1. Add a payment callback
+        payment: function(data, actions) {
+          // 2. Make a request to your server
+          return actions.request.post('http://localhost:8080/OnlyFriends/payproduct')
+            .then(function(res) {
+              // 3. Return res.id from the response
+              console.log(res)
+              return res.id;
+            });
+        },
+        // Execute the payment:
+        // 1. Add an onAuthorize callback
+        onAuthorize: function(data, actions) {
+        	console.log(data)
+          // 2. Make a request to your server
+          return actions.request.post('http://localhost:8080/OnlyFriends/pay/success', {
+            paymentID: data.paymentID,
+            payerID:   data.payerID
+          })
+            .then(function(res) {
+              console.log(res)
+              $('#exampleModal').modal('hide')
+              Swal.fire(
+    	               '感謝'+res.payer.payerInfo.firstName+'已儲值成功!',
+    	               '',
+    	               'success'
+    	                         )	
+              loadnewmember();                            
+            });
+        }
+      }, '.paypalbutton');
     
-    <script >  
+
+    
+    
     $(function(){
     	findcart()
     	$(".minus").on("click",minus)	
@@ -178,6 +226,7 @@ font-size:1.2rem
 	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
 	     	     var item =  '<tr id='+n.product.proId+'>'+
 	     	    '<td>'+'<i class="fas fa-times-circle fs-5 deleteitem"></i>'+'</td>'+
+	     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
                  '<td>'+n.product.proName+'</td>'+
                  '<td class="text-center">'+n.product.proPrice+'</td>'+
                  '<td class="text-center">'+'<button class="btn btn-sm btn-icon btn-light mx-1 minus" id="'+n.product.proId+'minus'+'"><i class="fas fa-minus text-black-50"></i></button>'+'<i id="amount>">'+n.amount+'</i>'+'<button  class="btn btn-sm btn-icon btn-light mx-1 plus"><i class="fas fa-plus text-black-50"></i></button>'+'</td>'+

@@ -19,7 +19,7 @@ public class Product implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "proId")
+	@Column(name = "proId",columnDefinition = "int")
 	private Integer proId;
 	
 	@Column(name = "Photo",nullable = false)
