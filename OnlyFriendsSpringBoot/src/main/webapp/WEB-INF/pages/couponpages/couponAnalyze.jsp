@@ -33,6 +33,7 @@
 
 				<!-- Topbar -->
 				<%@include file="../commonpages/dashboardheader.jsp"%>
+				
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
@@ -66,10 +67,11 @@
 
 	<script>
 	 var couponRecord=[];
-	 var cash=0;//現金券
-	 var company=0;//異業券
-	 var discount=0;//折價券
-	 var freight=0;//運費券
+	 
+	 var cash1;//現金券
+	 var company1=0;//異業券
+	 var discount1=0;//折價券
+	 var freight1=0;//運費券
 	//console.log(couponRecord)
 		                  $(function () {
 		                	  
@@ -126,16 +128,21 @@
 												console.log(cr1[0]);
 												console.log(cr1[2]);
 											
-										
+												var cash=0;//現金券
+												var company=0;//異業券
+												var discount=0;//折價券
+												var freight=0;//運費券
 										for(let j=0;j<data.length;j++){
 											//console.log("a:"+data[j].couponId)
 											//console.log("b:"+cr1[i])
 											//console.log("c:"+data[j].category)
 											if(data[j].couponId == cr1[i] && data[j].category=="現金券"){//找出分類為現金券的數量~												
 											    cash++;
-										        console.log("cash:"+cash);											
+										        console.log("cash:"+cash);
+										        
 											}else if(data[j].couponId == cr1[i] && data[j].category=="異業券"){
 												company++;
+												
 												console.log("company:"+company);
 											}else if(data[j].couponId == cr1[i] && data[j].category=="折扣券"){
 												discount++;
@@ -155,14 +162,14 @@
 						</script>
 							<script>
 var ctx = document.getElementById('myChart').getContext('2d');
-console.log("123:"+cash)
+console.log("cash123:"+cash1);	
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         labels: ['現金券', '折扣券', '運費券', '異業券'],
         datasets: [{
             label: '# of Votes',
-            data: [cash, discount, freight, company],
+            data: [cash1, discount, freight, company],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
