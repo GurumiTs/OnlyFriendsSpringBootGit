@@ -6,6 +6,7 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
+	
 <style>
 .wrap {
 	width: 800px;
@@ -163,7 +164,12 @@ a.slide-arrow {
 							            row-cols-2 row-cols-md-3 row-cols-xl-4
 							            justify-content-center
 							          "
-									id="itemarea"></div>
+									id="itemarea">
+									<ul></ul>
+									<ul></ul>
+									<ul></ul>
+									<ul></ul>
+									</div>
 							</div>
 							<div class="card-footer bg-whitesmoke">
 								<table id="showpage" class="d-flex justify-content-center">
@@ -187,10 +193,12 @@ a.slide-arrow {
 
 	<%@include file="../frontcommonpages/shopbottom.jsp"%>
 
+<!-- <script src="/path/to/masonry.pkgd.min.js"></script> -->
 	<script>  
     var indexPage = 1;
     $(function(){
     	load(indexPage);
+// 		load()
     })
 
 	function change(page){
@@ -210,7 +218,7 @@ a.slide-arrow {
     	     $('#itemarea').empty("");
     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
     	     var item = 
-    	    "<div class='col mb-5'>"+
+    	    "<div class='col mb-5 cards'>"+
              "<div class='card h-100'>"+          
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
                +  "Sale"+
@@ -235,6 +243,7 @@ a.slide-arrow {
              "</div>"+
            "</div>" ;
            itemarea.append(item);
+           
     	       });
     	    
     	},
@@ -243,6 +252,12 @@ a.slide-arrow {
     	}
     	});
     	}
+
+//     $('.itemarea').masonry({
+//         itemSelector: '.cards',  //選擇要做佈局的項目方塊
+//         columnWidth: 200,        //網格對齊的寬度 
+//     })
+    
     
   //LuckyItem
  	$(function () {

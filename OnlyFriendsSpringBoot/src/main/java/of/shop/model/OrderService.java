@@ -1,5 +1,6 @@
 package of.shop.model;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -23,6 +24,10 @@ public class OrderService {
 	public OrderDetails findByPaymentId(String paymentId) {
 		Optional<OrderDetails> orderoptional=orderRepository.findByPaymentId(paymentId);
 		return orderoptional.get();
+	}
+	
+	public List<OrderDetails> findAll(){
+		return orderRepository.findAll();
 	}
 
 }
