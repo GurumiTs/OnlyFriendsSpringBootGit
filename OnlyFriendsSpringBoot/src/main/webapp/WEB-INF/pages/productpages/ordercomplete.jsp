@@ -60,6 +60,7 @@ height:100px;
                     <hr>
                     <div class="row">
                       <div class="col-md-6">
+                      <input type="hidden" id="paymentId" value="${paymentID}"></input>
                         <address>
                           <strong>Billed To:</strong><br>
                             Ujang Maman<br>
@@ -164,56 +165,7 @@ height:100px;
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
     <script>
-    $(function(){
-    	findcart()
-    })
     
-    //showshopcartlist
-    function findcart () {
-		$.ajax({
-			type:"post",
-			url:"getShoppingCars",
-			success:function(data){
-// 				 console.log(data);
-				 var json = JSON.stringify(data,null,4);
-	     	     var parsedObjinArray = JSON.parse(json);
-	     	     var checkoutlist = $('#checkoutlist');
-	     	     $('#checkoutlist').empty("");
-	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-	     	     var item =  '<tr id='+n.product.proId+'>'+
-	     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
-                 '<td>'+n.product.proName+'</td>'+
-                 '<td class="text-center">'+n.product.proPrice+'</td>'+
-                 '<td class="text-center">'+'<i id="amount>">'+n.amount+'</i>'+'</td>'+
-                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-               	 '</tr>';
-               	  checkoutlist.append(item);
-	 				
-	     	    });
-	     	 	shopcartfinaltotal() 
-	     	 	
-			},
-			error:function(error){
-				console.log("error");
-			}
-		})
-	}
-    
-//	shoppingcartfinaltotal
-	  function shopcartfinaltotal() {						  
-			$.ajax({
-				type:"get",
-				url:"shopcarttotal",
-				success:function(data){
-					$('#checkouttotal').empty()
-		            $('#checkouttotal').text(data)
-				}
-				,error: function(error){
-					console.log(error);
-				}
-			})
-		}
- 
     </script>
    </body>
 </html>  
