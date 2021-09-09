@@ -1,5 +1,7 @@
 package of.shop.model;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +20,9 @@ public class OrderService {
 		orderRepository.save(orderDetails);
 	}
 	
+	public OrderDetails findByPaymentId(String paymentId) {
+		Optional<OrderDetails> orderoptional=orderRepository.findByPaymentId(paymentId);
+		return orderoptional.get();
+	}
 
 }
