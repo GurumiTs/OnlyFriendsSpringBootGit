@@ -220,4 +220,52 @@ public class BlogController {
 		List<BlogBean> blogList = bService.findByBlogType(blogType);
 		return blogList;
 	}
+	
+	// 查看更多按鈕跳轉頁面
+	@GetMapping(path = "/blogtypeofficial/{number}")
+	public String blogTypeEmpEntry(@PathVariable(name = "number") Integer number, Model m) {
+		m.addAttribute("number", number);
+		return "bloguserspages/empblogtablepage";
+	}
+	
+	@PostMapping(path = "blogtypejson")
+	@ResponseBody
+	public Map blogType(@RequestParam(name = "number") Integer number, Model m){
+		System.out.println("文章分類number為:" + number);
+		System.out.println("number意思> 1:愛情, 2:星座, 3:新聞, 4:Beauty, 5:心測, 6:其他");
+		String blogType = "";
+		Map<String, Object> map = new HashMap<>();
+		if (number.equals(1)) {
+			blogType = "愛情";
+			List<BlogBean> blogList = bService.findByBlogType(blogType);
+			map.put("data", blogList);
+			return map;
+		}else if (number.equals(2)) {
+			blogType = "星座";
+			List<BlogBean> blogList = bService.findByBlogType(blogType);
+			map.put("data", blogList);
+			return map;
+		}else if (number.equals(3)) {
+			blogType = "新聞";
+			List<BlogBean> blogList = bService.findByBlogType(blogType);
+			map.put("data", blogList);
+			return map;
+		}else if (number.equals(4)) {
+			blogType = "Beauty";
+			List<BlogBean> blogList = bService.findByBlogType(blogType);
+			map.put("data", blogList);
+			return map;
+		}else if (number.equals(5)) {
+			blogType = "心測";
+			List<BlogBean> blogList = bService.findByBlogType(blogType);
+			map.put("data", blogList);
+			return map;
+		}else{
+			blogType = "其他";
+			List<BlogBean> blogList = bService.findByBlogType(blogType);
+			map.put("data", blogList);
+			return map;
+		}
+	}
+	
 }

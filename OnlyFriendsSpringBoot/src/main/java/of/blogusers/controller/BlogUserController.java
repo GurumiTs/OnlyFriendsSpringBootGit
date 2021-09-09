@@ -94,10 +94,10 @@ public class BlogUserController {
 	}
 	
 	// 進empBlog主頁controller
-		@GetMapping(path = "/blogofficial")
-		public String blogEmpEntry() {
-			return "bloguserspages/empblogmainpage";
-		}
+	@GetMapping(path = "/blogofficial")
+	public String blogEmpEntry() {
+		return "bloguserspages/empblogmainpage";
+	}
 	
 	// 管理者文章前端首頁
 	@PostMapping(path = "/empblogallbypage/{pageNo}")

@@ -89,7 +89,7 @@ a:-webkit-any-link {
     
 }
 
-.list-table h3 {
+.list-text h3 {
 	color: #424443;
     font-size: 18px;
     margin: 0;
@@ -101,6 +101,12 @@ a:-webkit-any-link {
     max-width: 200px;
 	text-align: left;
 	font-family: "Times New Roman", "Noto Serif TC", Times, serif;
+	text-align:center;
+}
+
+.h3{
+	font-family: "微軟正黑體";
+	color: #928b84;
 }
 
 .list-table td.date {
@@ -132,29 +138,29 @@ a:-webkit-any-link {
 						<div class="row">
 						
 							<div class="col-md-4">
-								<!-- Blog post 愛情-->
+								<!-- Blog post 愛情 -->
 								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
+									<img class="card-img-top"
+										src="images/blogPic/empblog/lovestory01.jpg"
+										alt="Only 愛情" />
 									<div class="list-text">
-										<h2 class="list-title h3" style="text-align:center;">Only 愛情</h2>
+										<h2 class="list-title h3">Only 愛情</h2>
 										<table class="list-table">
 											<tbody id="lovetype">
 											</tbody>
 										</table>
 										
-										<div class="list-more"><a class="btn btn-primary" href="#!">查看更多</a></div>
+										<div class="list-more" id="lovetypemore"><a id="lovetypea" class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="col-md-4">
 								<!-- Blog post 星座-->
 								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
+									<img class="card-img-top"
+										src="images/blogPic/empblog/lovestory02.jpg"
+										alt="Only 星座" />
 									<div class="list-text">
 										<h2 class="list-title h3" style="text-align:center;">Only 星座</h2>
 										<table class="list-table">
@@ -162,17 +168,17 @@ a:-webkit-any-link {
 											</tbody>
 										</table>
 										
-										<div class="list-more"><a class="btn btn-primary" href="#!">查看更多</a></div>
+										<div class="list-more" id="startypemore"><a id="startypea" class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
 							
-							<div class="col-lg-4">
+							<div class="col-md-4">
 								<!-- Blog post 新聞-->
 								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
+									<img class="card-img-top"
+										src="images/blogPic/empblog/lovestory03.jpg"
+										alt="Only 新聞" />
 									<div class="list-text">
 										<h2 class="list-title h3" style="text-align:center;">Only 新聞</h2>
 										<table class="list-table">
@@ -180,83 +186,62 @@ a:-webkit-any-link {
 											</tbody>
 										</table>
 										
-										<div class="list-more"><a class="btn btn-primary" href="#!">查看更多</a></div>
+										<div class="list-more" id="newstypemore"><a id="newstypea" class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
 							
-							<div class="col-lg-4">
+							<div class="col-md-4">
 								<!-- Blog post Beauty-->
 								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body" style="margin-left: 20px;margin-right: 20px">
-										<h2 class="card-title h3" style="text-align:center;">Only Beauty</h2>
-										&nbsp;
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題aaa</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										&nbsp;
-										<div style="text-align:center;"><a class="btn btn-primary" href="#!">Read more →</a></div>
+									<img class="card-img-top"
+										src="images/blogPic/empblog/lovestory04.jpg"
+										alt="Only Beauty" />
+									<div class="list-text">
+										<h2 class="list-title h3" style="text-align:center;">Only Beauty</h2>
+										<table class="list-table">
+											<tbody id="beautytype">
+											</tbody>
+										</table>
+										
+										<div class="list-more" id="beautytypemore"><a id="beautytypea" class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
 							
-							<div class="col-lg-4">
+							<div class="col-md-4">
 								<!-- Blog post 心測-->
 								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body" style="margin-left: 20px;margin-right: 20px">
-										<h2 class="card-title h3" style="text-align:center;">Only 心測</h2>
-										&nbsp;
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題aaa</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										&nbsp;
-										<div style="text-align:center;"><a class="btn btn-primary" href="#!">Read more →</a></div>
+									<img class="card-img-top"
+										src="images/blogPic/empblog/lovestory05.jpg"
+										alt="Only 心測" />
+									<div class="list-text">
+										<h2 class="list-title h3" style="text-align:center;">Only 心測</h2>
+										<table class="list-table">
+											<tbody id="testtype">
+											</tbody>
+										</table>
+										
+										<div class="list-more" id="testtypemore"><a id="testtypea" class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
 							
 							
-							<div class="col-lg-4">
-								<!-- Blog post 其他-->
+							<div class="col-md-4">
+								<!-- Blog post other-->
 								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body" style="margin-left: 20px;margin-right: 20px">
-										<h2 class="card-title h3" style="text-align:center;">Only 其他</h2>
-										&nbsp;
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題123</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題aaa</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										<div class="card-text"><a href="#!">第一篇文章標題1234</a>...<span class="small text-muted rightStyle"> January 1, 2021</span></div>
-										&nbsp;
-										<div style="text-align:center;"><a class="btn btn-primary" href="#!">Read more →</a></div>
+									<img class="card-img-top"
+										src="images/blogPic/empblog/lovestory06.jpg"
+										alt="Only 其他" />
+									<div class="list-text">
+										<h2 class="list-title h3" style="text-align:center;">Only 其他</h2>
+										<table class="list-table">
+											<tbody id="othertype">
+											</tbody>
+										</table>
+										
+										<div class="list-more" id="othertypemore"><a id="othertypea" class="btn btn-primary" href="#!">查看更多</a></div>
 									</div>
 								</div>
 							</div>
@@ -278,16 +263,22 @@ a:-webkit-any-link {
 		let love = '#lovetype';
 		let star = '#startype';
 		let news = '#newstype';
+		let beauty = '#beautytype';
+		let test = '#testtype';
+		let other = '#othertype';
 		
 		
 		
 		$(function(){
-			queryblogtype("愛情", love);
-			queryblogtype("星座", star);
-			queryblogtype("新聞", news);
+			queryblogtype("愛情", love, 1);
+			queryblogtype("星座", star, 2);
+			queryblogtype("新聞", news, 3);
+			queryblogtype("Beauty", beauty, 4);
+			queryblogtype("心測", test, 5);
+			queryblogtype("其他", other, 6);
 		});
 		
-		function queryblogtype(a, b){
+		function queryblogtype(a, b, c){
 			$.ajax({
 	            type: "POST",
 	            url: "queryByBlogType",
@@ -295,13 +286,15 @@ a:-webkit-any-link {
 	            success: function(data) {           	
 	            	var lovetype = $(b);
 	            	$(b).empty("");
-	            	console.log(data.length);
+	            	console.log(b+":"+data.length);
 	            	if(data.length == 0){
+	            		var listmore = $('#list-more');
 	            		var message = 
 	            			"<div class='ms-3' style='text-align:center; margin-right: 15px'>"+
                     		"目前暫無最新文章"+
                 			"</div>";
                 		lovetype.append(message);
+                		$(b+"more").css("display", "none");
 	            	}
 	            	else{
 	            		$.each(data, function(i,n){
@@ -315,6 +308,7 @@ a:-webkit-any-link {
 								"<td class='date'>"+n.updateTime.substr(0,10)+"</td>"+
 								"</tr>";
 							lovetype.append(message);
+							$(b+"a").attr("href", 'blogtypeofficial/'+c+'');
 	            		});
 	            	}
 	            },
@@ -323,7 +317,7 @@ a:-webkit-any-link {
 	            }
 	        });// ajax end
 		};
-						
+		
 	</script>
 
 </body>
