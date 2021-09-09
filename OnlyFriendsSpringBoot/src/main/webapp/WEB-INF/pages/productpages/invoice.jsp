@@ -197,13 +197,17 @@ height:100px;
     	               '',
     	               'success'
     	                         )	
-              loadnewmember();                            
+               location.href="ordercomplete"                          
             });
         }
       }, '.paypalbutton');
     
 
-    
+//     function ordercomplete(){
+// 		$.ajax({
+// 			type:"get",
+// 			url:"ordercomplete"})
+// 			}
     
     $(function(){
     	findcart()
