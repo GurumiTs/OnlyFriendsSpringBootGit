@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
 </style>
 </head>
 <body>
@@ -169,7 +173,7 @@ font-size:1.2rem
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Show me!</h5>
+            <h5 class="modal-title" id="exampleModalLabel">更換大頭貼照</h5>
             <button
               type="button"
               class="btn-close"
@@ -212,9 +216,9 @@ font-size:1.2rem
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
-                    Cancel
+                    取消
                   </button>
-                  <button id="updatePic" type="button" class="btn btn-primary">Save</button>
+                  <button id="updatePic" type="button" class="btn btn-primary">完成</button>
                 </div>
               </div>
             </form>
@@ -395,6 +399,7 @@ font-size:1.2rem
                       memberAccount: memberAccount,
                     },
                     success: function (data) {
+                      $("#headername").text(data.memberName)		
                       $("#email").prop("value", data.memberEmail);
                       $("#name").prop("value", data.memberName);
                       $("#age").prop("value", data.memberAge);

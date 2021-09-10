@@ -7,6 +7,11 @@ body{
 font-size:1.2rem
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
 .row {
     color: #928b84;
     font-family: "Times New Roman", 微軟正黑體, Microsoft JhengHei UI, Microsoft JhengHei, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -14,10 +19,14 @@ font-size:1.2rem
     font-size: 16px;
 }
 
+.container{
+	max-width: 1600px;
+}
+
 .rightStyle{
-float: right;
-position: absolute;
-right: 30px;
+	float: right;
+	position: absolute;
+	right: 30px;
 }
 
 .card{
@@ -308,7 +317,7 @@ a:-webkit-any-link {
 								"<td class='date'>"+n.updateTime.substr(0,10)+"</td>"+
 								"</tr>";
 							lovetype.append(message);
-							$(b+"a").attr("href", 'blogtypeofficial/'+c+'');
+							$(b+"a").attr("href", 'blogofficial?blogtype='+a+'');
 	            		});
 	            	}
 	            },

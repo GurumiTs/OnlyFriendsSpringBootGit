@@ -383,6 +383,7 @@
 				        },
 				    ],language: {
 				    	"lengthMenu": "顯示 _MENU_ 筆資料",
+				    	"sInfoEmpty": "目前有 _MAX_ 筆資料",
 				    	"sProcessing": "處理中...",
 				    	"sSearch": "搜尋:",
 				    	"sLoadingRecords": "載入資料中...",

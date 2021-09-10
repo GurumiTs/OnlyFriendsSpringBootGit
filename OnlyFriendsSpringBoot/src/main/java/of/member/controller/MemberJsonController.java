@@ -104,7 +104,7 @@ public class MemberJsonController {
 			@RequestParam(name = "personalInfo", required = false) String pInfo, Model model) {
 		try {
 			int age = Integer.parseInt(sage);
-			member = memberService.findByMemberAccount(account);
+			Member member = memberService.findByMemberAccount(account);
 			member.setMemberEmail(email);
 			member.setMemberAccount(account);
 			member.setMemberName(name);
@@ -119,6 +119,8 @@ public class MemberJsonController {
 			member.setTagThree(hobby3);
 			member.setPersonalInfo(pInfo);
 			memberService.update(member);
+			Member m2 = memberService.findByMemberAccount(account);
+			model.addAttribute("personalinfo",m2);
 			return "y";
 		} catch (Exception e) {
 			return "n";

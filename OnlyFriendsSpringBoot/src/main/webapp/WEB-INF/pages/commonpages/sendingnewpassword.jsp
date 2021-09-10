@@ -203,10 +203,10 @@
             </div>
 
             <div class="card card-primary">
-              <div class="card-header"><h4>Forgot Password</h4></div>
+              <div class="card-header"><h4>忘記密碼</h4></div>
 
               <div class="card-body">
-                <p class="text-muted">We will send a new password to your email</p>
+                <p class="text-muted">我們將會寄一組新的密碼到您註冊的信箱</p>
                 <form
 		            action="sendingnewpasswordform.controller"
 		            method="POST"
@@ -243,14 +243,14 @@
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Forgot Password
+                      送出
                     </button>
                   </div>
                 </form>
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; OnlyFriends 2021 <a href="${pageContext.request.contextPath}/">Back</a>
+              Copyright &copy; OnlyFriends 2021 <a href="${pageContext.request.contextPath}/">返回</a>
             </div>
           </div>
         </div>

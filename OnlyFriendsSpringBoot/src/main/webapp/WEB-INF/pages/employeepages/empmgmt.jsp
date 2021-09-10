@@ -52,7 +52,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Employee Info Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">員工基本資料表</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 					<!--  
@@ -66,29 +66,17 @@
 						</div>-->
 						<div class="card-body">
 							<div class="table-responsive">
-								<table id="example" class="table  text-center fs-5 bg-linear2"
-									style="width: 100%">
+								<table id="example" class="table table-hover text-center text-dark fs-5 hover" style="width: 100%">
 									<thead>
 										<tr>
-											<th>Email</th>
-											<th>Account</th>
-											<th>Name</th>
-											<th>Dept</th>
-											<th>edit</th>
+											<th>信箱</th>
+											<th>帳號</th>
+											<th>姓名</th>
+											<th>部門代號</th>
+											<th>編輯</th>
 										
 										</tr>
-									</thead>
-
-									<tfoot>
-										<tr>
-											<th>Email</th>
-											<th>Account</th>
-											<th>Name</th>
-											<th>Dept</th>
-											<th>edit</th>
-											
-										</tr>
-									</tfoot>
+									</thead>								
 								</table>
 
 							</div>
@@ -290,7 +278,7 @@
 			        success:function(data)
 			        {
 			        	Swal.fire(
-	                              'Success!',
+	                              '修改成功!',
 	                              '',
 	                              'success'
 	                            )		        	
@@ -308,13 +296,13 @@
 			console.log($(this).closest("tr"));
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
-	                title: 'Are you sure?',
-	                text: "You won't be able to revert this!",
+	                title: '刪除?',
+	                text: "確定刪除此員工?",
 	                icon: 'warning',
 	                showCancelButton: true,
 	                confirmButtonColor: '#3085d6',
 	                cancelButtonColor: '#d33',
-	                confirmButtonText: 'Yes, delete it!'
+	                confirmButtonText: '刪除'
 	              }).then((result) => {
 	                if (result.isConfirmed) {
 	                  $.ajax({
@@ -323,15 +311,15 @@
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(
-	                              'Deleted!',
-	                              'Your file has been deleted.',
+	                              '刪除!',
+	                              '成功刪除該員工資料.',
 	                              'success'
 	                            ) } ,
 	                            error: function (xhr) {
 	                            Swal.fire({
 	                              icon: 'error',
-	                              title: 'Oops...',
-	                              text: 'Something went wrong!'
+	                              title: '失敗...',
+	                              text: '刪除失敗，請稍後再試'
 	                            }) },  //error close
 	                     }); //ajax close          
 	                } //if close 

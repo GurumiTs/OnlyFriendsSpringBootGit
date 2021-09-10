@@ -2,7 +2,7 @@
 pageEncoding="UTF-8"%>
 <div class="navbar-bg"></div>
          <nav class="navbar navbar-expand-lg main-navbar">
-          <a href="${pageContext.request.contextPath}/" class="navbar-brand sidebar-gone-hide">OnlyFriends</a>          
+          <a href="${pageContext.request.contextPath}/" class="navbar-brand sidebar-gone-hide"><img src="${pageContext.request.contextPath}/images/login/flower.svg" alt="logo" width="45" class="shadow-light rounded-circle mx-3">OnlyFriends</a>          
           <div class="nav-collapse">
            
             <ul class="navbar-nav">
@@ -17,8 +17,10 @@ pageEncoding="UTF-8"%>
                   >活動專區</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item fs-6" href="useractivity.entry">會員活動></a></li>
-                  <li><a class="dropdown-item fs-6" href="oauserpage.controller">官方活動</a></li>
+                 <li>
+            <a class="dropdown-item fs-6" href="useractivity.entry"><i class="fas fa-gamepad mx-2 text-primary"></i>會員活動</a>
+          </li>
+          <li><a class="dropdown-item fs-6" href="oauserpage.controller"><i class="fas fa-dice mx-2 text-primary"></i>官方活動</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -32,9 +34,10 @@ pageEncoding="UTF-8"%>
                   >招桃商城</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="shopentrypage">招桃商城</a></li>
-                  <li><a class="dropdown-item" href="couponshop.controller">聯盟票券</a></li>
-                  <li><a class="dropdown-item" href="shop.controller">example</a></li>
+                 <li><a class="dropdown-item fs-6" href="shopentrypage"><i class="fas fa-store mx-2 text-primary"></i>招桃商城</a></li>
+		          <li>
+		            <a class="dropdown-item fs-6" href="couponshop.controller"><i class="fas fa-ticket-alt mx-2 text-primary"></i>聯盟票券</a>
+		          </li>
                 </ul>
               </li>
               
@@ -49,8 +52,8 @@ pageEncoding="UTF-8"%>
                   >愛情討論版</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="blogofficial">幸福故事</a></li>
-                  <li><a class="dropdown-item" href="blogusers">戀人分享</a></li>
+                   <li><a class="dropdown-item fs-6" href="blogofficial"><i class="fas fa-book mx-2 text-primary"></i>幸福故事</a></li>
+          		   <li><a class="dropdown-item fs-6" href="blogusers"><i class="fas fa-heart mx-2 text-primary"></i>戀人分享</a></li>
                 </ul>
               </li>
             </ul>
