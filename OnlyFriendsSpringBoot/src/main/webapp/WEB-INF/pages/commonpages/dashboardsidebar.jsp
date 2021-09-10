@@ -157,6 +157,7 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="empproductPage.controller">商品管理</a>
+              <a class="collapse-item" href="emporderPage.controller">訂單管理</a>
             </div>
           </div>
         </li>
