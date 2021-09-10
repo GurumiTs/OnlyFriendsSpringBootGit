@@ -1,7 +1,9 @@
 package of.shop.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,13 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.paypal.api.payments.Payment;
+import com.paypal.base.rest.PayPalRESTException;
+
 import of.member.model.MemberService;
+import of.paypal.model.PaypalService;
 import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
+import of.shop.model.OrderDetails;
+import of.shop.model.OrderService;
 
 @Controller
-@SessionAttributes(names = { "cartlist" })
+@SessionAttributes(names = { "cartlist","orderList" })
 public class ShoppingCartController {
 
 	@Autowired
@@ -35,6 +44,10 @@ public class ShoppingCartController {
 
 	@Autowired
 	private Product product;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private PaypalService paypalService;
 
 	@RequestMapping(path = "/entryshoppingcart.controller")
 	public String shoppinCartEntry() {
@@ -224,11 +237,36 @@ public class ShoppingCartController {
 		return "productpages/invoice";
 	}
 	
-	@RequestMapping(path = "/ordercomplete", method = RequestMethod.GET)
-	 public String userordercomplete(Model model) {
-	  return "productpages/ordercomplete";
-	 }
+	@RequestMapping(path = "/emporderPage.controller", method = RequestMethod.GET)
+	public String orderMgmtEntry(Model model) {
+		return "productpages/orderMgmtPage";
+	}
 	
+	@GetMapping(path = "/order.controller")
+	@ResponseBody
+	public Map orderEntryAction(Model model){
+		List<OrderDetails> orderList=orderService.findAll();
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", orderList);
+		model.addAttribute("orderList",orderList);
+		return map;
+	}
+	@PostMapping(path = "/getorderaddress")
+	@ResponseBody
+	public String  getOrderAddress(@RequestParam("paymentId") String paymentId,Model model) {
+		System.out.println("controller pid:" + paymentId);
+		OrderDetails orderDetails =new OrderDetails();
+		System.out.println("1");
+		orderDetails=orderService.findByPaymentId(paymentId);
+		System.out.println("2");
+		System.out.println(paymentId);
+//		
+//		String oda =  orderDetails.getOrderAddress();
+//		System.out.println("3");
+//		System.out.println(oda);
+		model.addAttribute("orderDetails",orderDetails);
+		return "y";
+	}
 //	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
 //		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
 //		cartlist.remove(productService.findById(proId));

@@ -598,6 +598,23 @@ public class CouponUsersController {
 		return "couponpages/couponAnalyze";
 	}
 	
+	@GetMapping("/couponAnalyzeEntry2.controller")
+	public String couponAnalyzeEntry2() {
+
+		return "couponpages/couponAnalyze2";
+	}
+	
+	@GetMapping("/couponAnalyzeEntry3.controller")
+	public String couponAnalyzeEntry3() {
+
+		return "couponpages/couponAnalyze3";
+	}
+	@GetMapping("/couponAnalyzeEntry4.controller")
+	public String couponAnalyzeEntry4() {
+
+		return "couponpages/couponAnalyze4";
+	}
+	
 	@PostMapping("/couponAnalyzeUserEntry.controller")
 	@ResponseBody
 	public List<CouponUsers> couponAnalyzeUserEntry() {

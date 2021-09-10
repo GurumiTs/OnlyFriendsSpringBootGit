@@ -220,4 +220,22 @@ public class BlogController {
 		List<BlogBean> blogList = bService.findByBlogType(blogType);
 		return blogList;
 	}
+	
+	// 查看更多按鈕跳轉頁面
+	@GetMapping(path = "/blogtypeofficial/{number}")
+	public String blogTypeEmpEntry(@PathVariable(name = "number") Integer number, Model m) {
+		m.addAttribute("number", number);
+		return "bloguserspages/empblogtablepage";
+	}
+	
+	@PostMapping(path = "blogtypejson")
+	@ResponseBody
+	public Map blogType(@RequestParam(name = "blogtype") String blogType, Model m){
+		System.out.println("表格文章分類為:" + blogType);
+		Map<String, Object> map = new HashMap<>();
+		List<BlogBean> blogList = bService.findByBlogType(blogType);
+		map.put("data", blogList);
+		return map;
+	}
+	
 }
