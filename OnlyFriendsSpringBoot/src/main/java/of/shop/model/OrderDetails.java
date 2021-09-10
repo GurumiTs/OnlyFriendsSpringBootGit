@@ -1,12 +1,13 @@
 package of.shop.model;
 
-import java.lang.reflect.Member;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -38,6 +39,13 @@ public class OrderDetails {
 	@Column(name = "orderTime")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp orderTime;// 更新日期
+	
+	@Column(name = "orderId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int orderId;
+	
+	@Column(name = "orderStatus")
+	private String orderStatus;
 	
 	@ManyToMany
 	@JoinTable(
@@ -111,6 +119,23 @@ public class OrderDetails {
 		this.orderitem = orderitem;
 	}
 
+	public int getOrderId() {
+		return orderId;
+	}
 
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+
+	
 	
 }

@@ -29,5 +29,10 @@ public class OrderService {
 	public List<OrderDetails> findAll(){
 		return orderRepository.findAll();
 	}
+	
+	public List<OrderDetails> findByMemberAccount(String memberAccount) {
+		List<OrderDetails> orderDetails = orderRepository.findByMemberAccount(memberAccount);
+		return orderDetails;
+	}
 
 }

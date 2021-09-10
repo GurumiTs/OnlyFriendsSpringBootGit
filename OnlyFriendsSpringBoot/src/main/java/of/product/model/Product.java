@@ -40,8 +40,6 @@ public class Product implements Serializable{
 	@Column(name = "Num", nullable = false)
 	private Integer proNum;
 	
-	@Column(name = "Shipping", nullable = false)
-	private Integer proShipping;
 	
 	public Product() {
 		
@@ -107,14 +105,6 @@ public class Product implements Serializable{
 
 	public void setProNum(Integer proNum) {
 		this.proNum = proNum;
-	}
-
-	public Integer getProShipping() {
-		return proShipping;
-	}
-
-	public void setProShipping(Integer proShipping) {
-		this.proShipping = proShipping;
 	}
 
 	

@@ -21,8 +21,8 @@
 	height: 100px;
 }
 .proimg{
-    weight: 60px;
-	height: 60px;
+    weight: 80px;
+	height: 80px;
 }
 </style>
 </head>
@@ -68,7 +68,7 @@
 										</tr>
 									</thead>
 <!-- 									<tbody id="ordertable"></tbody> -->
-									<tfoot>
+									<tfoot class="d-none">
 										<tr>
 											<th>Id</th>
 											<th>會員編號</th>
@@ -99,15 +99,10 @@
 				              <div class="invoice-print">
 				                <div class="row">
 				                  <div class="col-lg-12">
-				                    <div class="invoice-title">
-				                      <h2>訂單完成</h2>
-				<!--                       <div class="invoice-number">Order #12345</div> -->
-				                    </div>
-				                    <hr>
 					        <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-6 ">
                         <address>
-                          <strong>訂單地址:</strong><br>
+                          <span><i class="fas fa-map-marked-alt mx-2"></i></span><strong>訂單地址:</strong><br>
                             <span id="postalCode"></span><span id="country"></span>
                             <span id="orderline1"></span>
                             <span id="orderline2"></span>
@@ -123,7 +118,7 @@
 <!--                       </div> -->
                       <div class="col-md-6">
                         <address>
-                          <strong>訂購時間:</strong><br>
+                          <span><i class="far fa-calendar-alt mx-2"></i></span><strong>訂購時間:</strong><br>
                           <span id="ordertime"></span><br><br>
                         </address>
                       </div>
@@ -132,7 +127,7 @@
                 </div>
 
                 <div class="row mt-4">
-                  <div class="col-md-12">
+                  <div class="col-md-11 mx-auto">
 <!--                     <div class="section-title">Order Summary</div> -->
 <!--                     <p class="section-lead">All items here cannot be deleted.</p> -->
                     <div class="table-responsive">
@@ -276,6 +271,7 @@
 			    	  $('#orderline1').text(address.line1);
 			    	  $('#orderline2').text(address.line2);
 			    	  $('#ordertime').text(data.orderTime);
+			    	  $('#orderfinaltotal').text(data.total);
 			    	  let json=JSON.stringify(data.orderItem,null,4)
 			    	  console.log(json)
 					  var parsedObjinArray = JSON.parse(json);

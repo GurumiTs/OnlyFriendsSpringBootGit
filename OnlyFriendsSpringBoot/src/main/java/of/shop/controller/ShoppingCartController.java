@@ -25,6 +25,7 @@ import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
 import of.emp.model.Employee;
+import of.member.model.Member;
 import of.member.model.MemberService;
 import of.paypal.model.PaypalService;
 import of.product.model.Product;
@@ -248,6 +249,11 @@ public class ShoppingCartController {
 		return "productpages/orderMgmtPage";
 	}
 	
+	@RequestMapping(path = "/orderrecord", method = RequestMethod.GET)
+	public String orderrecordEntry(Model model) {
+		return "productpages/orderrecord";
+	}
+	
 	@GetMapping(path = "/order.controller")
 	@ResponseBody
 	public Map orderEntryAction(Model model){
@@ -257,6 +263,16 @@ public class ShoppingCartController {
 		model.addAttribute("orderList",orderList);
 		return map;
 	}
+	
+	@RequestMapping(path = "/getuserorderlists", method = RequestMethod.POST)
+	@ResponseBody
+	public List<OrderDetails> getuserorderlist(Model model, HttpServletRequest request) {
+
+		List<OrderDetails> orderDetaillist = orderService.findAll();
+//		System.out.println("y");
+		return orderDetaillist;
+	}
+	
 	@PostMapping(path = "/getorderaddress")
 	@ResponseBody
 	public String  getOrderAddress(@RequestParam("paymentId") String paymentId,Model model) {
@@ -283,44 +299,26 @@ public class ShoppingCartController {
 		return orderDetails;
 	}
 	
-//	@GetMapping(path = "/orderIdItem")
-//	@ResponseBody
-//	public List<Integer> orderIdItem(@RequestParam(name = "paymentId")String paymentId,Model model) {
-////		List<OrderItem> oredItems=orderItemRepository.findAllByPaymentId("PAYID-ME5CY3Y3D590211VA0093709");
-//		List<Integer> oredItems = orderItemRepository.orderproIdlist("paymentId");
-//		System.out.println(oredItems.size());
-//		
-//		
-//		return oredItems;
-//	}
-//	
-//	@GetMapping(path = "/orderproduct")
-//	@ResponseBody
-//	public List<Product> orderproduct(@RequestParam(name = "paymentId")String paymentId){
-//		List<Product> orderitem = orderService.findByPaymentId(paymentId).getOrderItem();
-//		List<OrderDetails> orderDetails = new ArrayList<>();
-//		for(Product product : orderitem) {
-//			OrderDetails orderDetails = new OrderDetails();
-//			
-//		}
-//		
-//	}
+	@PostMapping(path = "/orderquery")
+	@ResponseBody
+	public OrderDetails userrderDetailsquery(@RequestParam(name = "paymentId") String paymentId) {
+		OrderDetails orderDetails = orderService.findByPaymentId(paymentId);
+		System.out.println(paymentId);
+		System.out.println(orderDetails);
+		return orderDetails;
+	}
 	
-//	@GetMapping(path = "/orderproductlist")
-//	@ResponseBody
-//	public Map orderProductlist(Model model){
-//		List<OrderItem> productList=OrderItemService.findAll();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("data", orderList);
-//		model.addAttribute("orderList",orderList);
-//		return map;
-//	}
+	@PostMapping(path = "/userorderquery")
+	@ResponseBody
+	public List<OrderDetails> userorderquery(HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		List<OrderDetails> orderDetails = orderService.findByMemberAccount(memberAccount);
+		System.out.println(memberAccount);
+		System.out.println(orderDetails);
+		return orderDetails;
+	}
 	
-//	public List<CartItem> deleteCartItems(Integer proId,Model model,HttpServletRequest request){
-//		List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist");
-//		cartlist.remove(productService.findById(proId));
-//		return cartlist ;
-//	}
 	
 	
 }
