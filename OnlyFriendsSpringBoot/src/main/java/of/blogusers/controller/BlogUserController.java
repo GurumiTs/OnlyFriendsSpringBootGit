@@ -80,7 +80,6 @@ public class BlogUserController {
 	@ResponseBody
 	public List<BlogUser> queryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
 		int pageSize = 6;
-		System.out.println("controller");
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		String blogAuthority = "審核通過";
 		Page<BlogUser> page = bUserService.findAllByBlogAuthority(blogAuthority, pageable);
@@ -102,11 +101,12 @@ public class BlogUserController {
 	// 管理者文章前端首頁
 	@PostMapping(path = "/empblogallbypage/{pageNo}")
 	@ResponseBody
-	public List<BlogBean> queryByPageActionEmp(@PathVariable("pageNo") int pageNo, Model m) {
-		int pageSize = 6;
-		System.out.println("controller");
+	public List<BlogBean> queryByPageActionEmp(@PathVariable("pageNo") int pageNo,
+											   @RequestParam(name = "blogtype") String blogType, Model m) {
+		int pageSize = 5;
+//		System.out.println("blogtype=" + blogType);
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		Page<BlogBean> page = bService.findAllByPage(pageable);
+		Page<BlogBean> page = bService.findAllByBlogType(blogType, pageable);
 		
 		int totalPages = page.getTotalPages();
 		long totalElements = page.getTotalElements();// 全部有幾筆資料

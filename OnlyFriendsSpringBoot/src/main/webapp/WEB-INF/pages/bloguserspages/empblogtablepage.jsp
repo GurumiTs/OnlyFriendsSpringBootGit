@@ -107,40 +107,15 @@ a {
 						<table id="example" class="table table-striped">
 							<thead class="thead">
 								<tr>
-									<th scope="col" style="color: black;">NO</th>
-									<th scope="col" style="color: black;">圖片</th>
-									<th scope="col" style="color: black;">文章標題</th>
-									<th scope="col" style="color: black;">作者</th>
-									<th scope="col" style="color: black;">日期</th>
-									<th scope="col" style="color: black;">人氣</th>
+									<th style="color: black;">NO</th>
+									<th style="color: black;">圖片</th>
+									<th style="color: black;">文章標題</th>
+									<th style="color: black;">作者</th>
+									<th style="color: black;">日期</th>
+									<th style="color: black;">人氣</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">2</th>
-									<th>Pic</th>
-									<td>Jacob</td>
-									<td>11</td>
-									<td>@fat</td>
-									<td>0</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<th>Pic</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-									<td>0</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<th>Pic</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-									<td>0</td>
-								</tr>
-							</tbody>
+							
 							<thead>
 								<tr>
 									<th class="d-none">NO</th>

@@ -308,7 +308,7 @@ a:-webkit-any-link {
 								"<td class='date'>"+n.updateTime.substr(0,10)+"</td>"+
 								"</tr>";
 							lovetype.append(message);
-							$(b+"a").attr("href", 'blogtypeofficial/'+c+'');
+							$(b+"a").attr("href", 'blogofficial?blogtype='+a+'');
 	            		});
 	            	}
 	            },
