@@ -18,6 +18,11 @@ font-size:1.2rem
 	box-shadow: 3px 3px 3px gray;
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
 </style>
 </head>
 <body>

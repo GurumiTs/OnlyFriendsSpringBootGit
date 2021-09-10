@@ -13,8 +13,13 @@ height: 650px;
 }
 
 .container{
-    max-width: 1450px;
+    max-width: 1400px;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
 
 div{
     display: block;
@@ -22,9 +27,11 @@ div{
 /* table */
 .thead>tr{
     background-color: #97CBFF;
+    font-size: 20px;
+    font-weight: bold;
 }
 tbody{
-	background-color: #ECF5FF;
+	background-color: ;
 }
 /* 目錄 */
 .blog-sidebar {
@@ -88,6 +95,10 @@ a {
     color: #a3ad71;
 }
 
+.img1 {
+	weight: 80px;
+	height: 80px;
+}
 
 </style>
 </head>
@@ -129,7 +140,7 @@ a {
 									<thead class="thead">
 										<tr>
 											<th style="color: black;">NO</th>
-											<th style="color: black;">圖片</th>
+											<th style="color: black;"></th>
 											<th style="color: black;">文章標題</th>
 											<th style="color: black;">作者</th>
 											<th style="color: black;">日期</th>
@@ -239,18 +250,24 @@ a {
 	        			return i;
 	        		}
 	        	},
-		       	{ "data": "images" },
 		       	{ 
-		       		"data": "title",
-// 		       		render:function(data, type, row)
-// 		       		{
-// 	        			if (data) {
-// 		        			return data.title+"<br/>"+
-// 		        			data.substring(0, 50)+"...";
-// 		        		} else {
-// 		        			return '';
-// 			       		}
-// 		       		}
+	        		"data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<img src="+data.images+" class='img1'>";
+		            }
+		       	},
+		       	{ 
+		       		"data": null,
+		       		render:function(data, type, row)
+		       		{
+	        			if (data) {
+		        			return data.title.substring(0, 15)+"...<br/>"+
+		        			"<div class='mainText'>"+data.mainText.substring(0, 50)+"<a href='#!'>繼續閱讀</a></div>";
+		        		} else {
+		        			return '';
+			       		}
+		       		}
 		       	},
 	        	{ "data": "userID" },
 	        	{ "data": "updateTime" },
@@ -270,7 +287,15 @@ a {
 			    },
 		    },
 		    columnDefs:[
-		    	
+		    	{
+			    	targets: [4],
+			    	createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "130px");
+		    		},
+			    	render: function(data){
+			    		return moment(data).format('YYYY-MM-DD');
+			    	},
+		    	},
 		    ]
 		});
 		table.on('order.dt search.dt', function () {

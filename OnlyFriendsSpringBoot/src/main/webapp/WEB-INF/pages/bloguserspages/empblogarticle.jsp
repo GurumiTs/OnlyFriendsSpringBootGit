@@ -8,11 +8,83 @@ body{
 font-size:1.2rem
 }
 
+.container{
+max-width: 1400px;
+}
+
 .articleimg{
 weight: 900px;
 height: 400px;
 margin: 0 auto;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
+/* 目錄 */
+.blog-sidebar {
+    padding: 40px 30px;
+   	background-image: url(${pageContext.request.contextPath}/images/blogPic/empblog/bg_light.jpg);
+    background-repeat: repeat;
+    background-position: center center;
+    color: #928b84;
+    font-family: "Times New Roman", 微軟正黑體, Microsoft JhengHei UI, Microsoft JhengHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+}
+
+.blog-sidebar-title {
+    text-align: left;
+    font-size: 28px;
+    color: #424443;
+    font-family: "Times New Roman", "Noto Serif TC", Times, serif;
+    margin-bottom: 20px;
+}
+
+.blog-sidebar-list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.blog-sidebar-title ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.blog-sidebar-list li {
+    position: relative;
+    padding-left: 20px;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.blog-sidebar-list li::before {
+    content: "\f0da";
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}
+
+
+.blog-sidebar-list li + li {
+    margin-top: 10px;
+}
+
+
+a {
+	text-decoration:none;
+    color: #a3ad71;
+}
+
 </style>
 </head>
 <body>
@@ -26,7 +98,7 @@ margin: 0 auto;
         <div class="container mt-5">
         <br><br><br><br><br>
             <div class="row">
-                <div class="col-lg-12 border border-secondary" style="background-color:#FBFBFF;">
+                <div class="col-lg-10" style="background-color:#FBFBFF;">
                     <!-- Post content-->
                     <article>
                         <!-- Post header-->
@@ -45,100 +117,30 @@ margin: 0 auto;
                         <!-- Post content-->
                         <section class="mb-5">
                         	<p class="fs-5 mb-4">${blogOfficial.mainText}</p>
-<!--                             <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p> -->
-<!--                             <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p> -->
-<!--                             <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p> -->
-<!--                             <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2> -->
-<!--                             <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p> -->
-<!--                             <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> -->
                         </section>
                     </article>
-                    <!-- Comments section留言板-->
-                    <section class="mb-5">
-                        <div class="card " style="background-color:#F0F0F0;">
-                            <div class="card-body">
-                                <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                            </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                 </div>
-                <!-- Side widgets-->
-<!--                 <div class="col-lg-4"> -->
+					<!-- 側邊目錄-->
+					<div class="col-lg-2">
+						<div class="blog-sidebar"
+							style="background-image: url(../images/blogPic/empblog/bg_light.jpg);">
+							<div class="blog-sidebar-title">目錄</div>
+							<ul class="blog-sidebar-list">
+								<li><a
+									href="http://localhost:8080/OnlyFriends/blogofficialmain">回主目錄</a>
+								</li>
+								<li><a href="blogofficial?blogtype=愛情">Only 愛情篇</a></li>
+								<li><a href="blogofficial?blogtype=星座">Only 星座篇</a></li>
+								<li><a href="blogofficial?blogtype=新聞">Only 新聞篇</a></li>
+								<li><a href="blogofficial?blogtype=Beauty">Only Beauty篇</a>
+								</li>
+								<li><a href="blogofficial?blogtype=心跳">Only 心測篇</a></li>
+								<li><a href="blogofficial?blogtype=其他">Only 其他</a></li>
+							</ul>
+						</div>
+					</div>
 
-                    <!-- Search widget-->
-<!--                     <div class="card mb-4"> -->
-<!--                         <div class="card-header">Search</div> -->
-<!--                         <div class="card-body"> -->
-<!--                             <div class="input-group"> -->
-<!--                                 <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" /> -->
-<!--                                 <button class="btn btn-primary" id="button-search" type="button">Go!</button> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-                    
-                    <!-- Categories widget-->
-<!--                     <div class="card mb-4"> -->
-<!--                         <div class="card-header">Categories</div> -->
-<!--                         <div class="card-body"> -->
-<!--                             <div class="row"> -->
-<!--                                 <div class="col-sm-6"> -->
-<!--                                     <ul class="list-unstyled mb-0"> -->
-<!--                                         <li><a href="#!">Web Design</a></li> -->
-<!--                                         <li><a href="#!">HTML</a></li> -->
-<!--                                         <li><a href="#!">Freebies</a></li> -->
-<!--                                     </ul> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-sm-6"> -->
-<!--                                     <ul class="list-unstyled mb-0"> -->
-<!--                                         <li><a href="#!">JavaScript</a></li> -->
-<!--                                         <li><a href="#!">CSS</a></li> -->
-<!--                                         <li><a href="#!">Tutorials</a></li> -->
-<!--                                     </ul> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-                    <!-- Side widget-->
-<!--                     <div class="card mb-4"> -->
-<!--                         <div class="card-header">Side Widget</div> -->
-<!--                         <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div> -->
-<!--                     </div> -->
-<!--                 </div> -->
-            </div>
+				</div>
         </div>
 			<%@include file="../frontcommonpages/shopfooter.jsp"%>
 		</div>
