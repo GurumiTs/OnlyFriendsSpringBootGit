@@ -116,7 +116,7 @@ font-size:1.2rem
 				<section class="section">
 
 					<div class="section-body">
-						<div class="card" style="background-color: ##FFFAF2;">
+						<div class="card">
 							<div>
 								<!--  	<nav class="navbar navbar-expand-lg " style="background-color: #DDDDDD;">
 									<div class="container-fluid">
