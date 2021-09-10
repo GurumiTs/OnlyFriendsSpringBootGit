@@ -23,7 +23,7 @@
 				<div class="container-fluid">
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Edit Profile</h1>
+					<h1 class="h3 mb-2 text-gray-800">編輯個人資訊</h1>
 					<div class="container">
 						<div class="row">
 							<!-- form  -->
@@ -32,7 +32,7 @@
 									class="needs-validation" novalidate>
 									<!-- email  -->
 									<div class="mb-3">
-										<label for="empEmail" class="form-label">Email</label> <input
+										<label for="empEmail" class="form-label">信箱</label> <input
 											type="email" class="form-control" name="empEmail"
 											id="empEmail" value="${personalinfo.empEmail}" readonly required />
 									</div>
@@ -41,12 +41,12 @@
 									<!-- account name row  -->
 									<div class="mb-3 row">
 										<div class="col">
-											<label for="empAcc" class="form-label">Account</label> <input
+											<label for="empAcc" class="form-label">帳號</label> <input
 												type="text" class="form-control" name="empAcc" id="empAcc"
 												value="${personalinfo.empAccount}" readonly required />
 										</div>
 										<div class="col">
-											<label for="empName" class="form-label">Name</label> <input
+											<label for="empName" class="form-label">姓名</label> <input
 												type="text" class="form-control" id="empName" name="empName"
 												value="${personalinfo.empName}" required />
 											<div class="valid-feedback">Beautiful!</div>
@@ -69,7 +69,7 @@
 									<div
 										class="row d-flex justify-content-start align-items-center">
 										<div class="col-4">
-											<label for="empBday" class="form-label">Birthday</label> <input
+											<label for="empBday" class="form-label">生日</label> <input
 												type="text" class="form-control" name="empBday" id="empBday"
 												value="${personalinfo.empBday}" required />
 											<div class="invalid-feedback">Choose your Happy Bday!</div>
@@ -77,7 +77,7 @@
 
 										<div class="button d-flex flex-row justify-content-end">
 											<button type="submit" class="btn btn-primary my-3">
-												Save</button>
+												儲存</button>
 										</div>
 									</div>
 								</form>
@@ -100,7 +100,7 @@
 									<!-- old pwd  -->
 									<div class="mb-3 row">
 										<div class="col-6">
-											<label class="form-label">Old Password</label> <input
+											<label class="form-label">舊密碼</label> <input
 												type="password" class="form-control" name="oldPwd"
 												id="oldPwd" required />
 										</div>
@@ -110,12 +110,11 @@
 									<!-- updatepwd row   -->
 									<div class="mb-3 row">
 										<div class="col">
-											<label for="updatePwd1" class="form-label">New
-												Password</label> <input type="password" class="form-control"
+											<label for="updatePwd1" class="form-label">新密碼</label> <input type="password" class="form-control"
 												name="updatePwd1" id="updatePwd1" required />
 										</div>
 										<div class="col">
-											<label for="updatePwd2" class="form-label">Confirm</label> <input
+											<label for="updatePwd2" class="form-label">確認密碼</label> <input
 												type="password" class="form-control" name="updatePwd2"
 												id="updatePwd2" required />
 										</div>
@@ -125,7 +124,7 @@
 									<!-- updatepwd row   -->
 
 									<div class="button d-flex flex-row justify-content-end">
-										<button type="submit" class="btn btn-primary ">Save</button>
+										<button type="submit" class="btn btn-primary ">儲存</button>
 									</div>
 								</form>
 							</div>

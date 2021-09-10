@@ -500,7 +500,7 @@
               success: function (data) {
             	  Swal.fire({
             		  icon: 'success',
-            		  title: 'invite successful',
+            		  title: '成功寄出交友邀請',
             		  showConfirmButton: false,
             		  timer: 1500
             		})
@@ -509,7 +509,7 @@
     	  ,error:function(data){
     		  Swal.fire({
         		  icon: 'error',
-        		  title: 'save already',
+        		  title: '已發送過邀請',
         		  showConfirmButton: false,
         		  timer: 1500
         		})	 

@@ -49,6 +49,10 @@
 	body{
 	font-size:1.2rem
 	}
+	.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
 </style>
   </head>
 
@@ -64,12 +68,13 @@
 		<c:when test="${not empty member}">
 			<%@include file="./membercommonpages/memberloginedheader.jsp"%>	
 			 <input id="getAccount" value="${personalinfo.memberAccount}"
-				class="d-none"></input>		 
+				class="d-none"></input>			 
 		</c:when>
 		<c:otherwise>
 			<%@include file="./commonpages/header.jsp"%>
-			  <div class="login-brand position-fixed bottom-0 end-0" id="customerbtn">
-              <img src="${pageContext.request.contextPath}/images/smallicon/support.svg" alt="logo" width="75" class="shadow-light rounded-circle">              
+			  <div  class="login-brand position-fixed bottom-0 end-0 d-flex flex-column" id="customerbtn">
+              <img src="${pageContext.request.contextPath}/images/smallicon/support.svg" alt="logo" width="75" class="shadow-light rounded-circle">      
+              <span class="badge bg-success">線上客服</span>        
             </div>	
 
 		</c:otherwise>
@@ -247,7 +252,7 @@
 		<c:when test="${not empty employee}">
 		</c:when>
 		<c:when test="${not empty member}">
-		 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>		 
+		 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>	 
 		</c:when>
 		<c:otherwise>
 			<script src="${pageContext.request.contextPath}/js/customerservice.js"></script>

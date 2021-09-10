@@ -52,7 +52,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Employee Info Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">會員帳號管理</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 					<!--  
@@ -66,26 +66,26 @@
 						</div>-->
 						<div class="card-body">
 							<div class="table-responsive">
-								<table id="example" class="table  text-center fs-5 bg-linear2"
+								<table id="example" class="table table-hover text-center text-dark fs-5 hover"
 									style="width: 100%">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Account</th>
-											<th>Email</th>
-											<th>Age</th>
-											<th>edit</th>
+											<th>姓名</th>
+											<th>帳號</th>
+											<th>信箱</th>
+											<th>年齡</th>
+											<th>編輯</th>
 										
 										</tr>
 									</thead>
 
 									<tfoot>
 										<tr>
-											<th>Name</th>
-											<th>Account</th>
-											<th>Email</th>
-											<th>Age</th>
-											<th>edit</th>
+											<th>姓名</th>
+											<th>帳號</th>
+											<th>信箱</th>
+											<th>年齡</th>
+											<th>編輯</th>
 											
 										</tr>
 									</tfoot>

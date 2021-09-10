@@ -82,11 +82,11 @@ public class EmployeeController {
 			System.out.println("try");
 			System.out.println(employee.getEmpName());
 			empService.update(employee);
-			model.addAttribute("successMsg", "basic info update success");
+			model.addAttribute("successMsg", "更新成功!");
 			model.addAttribute("personalinfo", employee);
 			return "employeepages/empprofile";
 		} catch (Exception e) {
-			model.addAttribute("errorMsg", "basic info update failed");
+			model.addAttribute("errorMsg", "更新失敗，請稍後再試");
 			model.addAttribute("personalinfo", employee);
 			return "employeepages/empprofile";
 		}
@@ -107,14 +107,14 @@ public class EmployeeController {
 				String newHashPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 				users.setUsersPassword(newHashPassword);
 				usersService.update(users);
-				model.addAttribute("successMsg", "update password success");
+				model.addAttribute("successMsg", "更新密碼成功");
 				return "employeepages/empprofile";
 			}
-			model.addAttribute("errorMsg", "update password failed");
+			model.addAttribute("errorMsg", "更新密碼失敗，請稍後再試");
 			return "employeepages/empprofile";
 			
 		} catch (Exception e) {
-			model.addAttribute("errorMsg", "update password failed");
+			model.addAttribute("errorMsg", "更新密碼失敗，請稍後再試");
 			return "employeepages/empprofile";
 		}
 
@@ -134,11 +134,11 @@ public class EmployeeController {
 			Employee employee = empService.findByEmpEmail(empEmail);
 			employee.setEmpPic("images/empPic/" + fileName);
 			empService.update(employee);
-			model.addAttribute("successMsg", "basic info update success");
+			model.addAttribute("successMsg", "更新成功!");
 			model.addAttribute("personalinfo", employee);
 			return "employeepages/empprofile";
 		} catch (Exception e) {
-			model.addAttribute("errorMsg", "update picture failed");
+			model.addAttribute("errorMsg", "更新失敗，請稍後再試");
 			return "employeepages/empprofile";
 		}
 
