@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrderRepository extends JpaRepository<OrderDetails,String>{
 
-	Optional<OrderDetails> findByPaymentId(String paymentId);
+	OrderDetails findByPaymentId(String paymentId);
 		
 	
 }

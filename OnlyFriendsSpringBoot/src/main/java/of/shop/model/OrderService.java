@@ -22,8 +22,8 @@ public class OrderService {
 	}
 	
 	public OrderDetails findByPaymentId(String paymentId) {
-		Optional<OrderDetails> orderoptional=orderRepository.findByPaymentId(paymentId);
-		return orderoptional.get();
+		OrderDetails orders=orderRepository.findByPaymentId(paymentId);
+		return orders;
 	}
 	
 	public List<OrderDetails> findAll(){

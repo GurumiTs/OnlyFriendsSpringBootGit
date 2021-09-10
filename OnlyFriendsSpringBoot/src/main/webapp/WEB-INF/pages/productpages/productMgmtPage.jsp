@@ -52,7 +52,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">商品管理</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 
@@ -65,29 +65,29 @@
 									<thead>
 										<tr>
 											<th>Id</th>
-											<th>Photo</th>
-											<th>Name</th>
-											<th>Price</th>
-											<th>Item</th>
-											<th>Num</th>
-											<th>Shipping</th>
-											<th>Description</th>
-											<th>Edit</th>
-											<th>Delete</th>
+											<th>商品圖</th>
+											<th>商品名稱</th>
+											<th>價格</th>
+											<th>類別</th>
+											<th>數量</th>
+<!-- 											<th>運費</th> -->
+											<th>描述</th>
+											<th>修改</th>
+											<th>刪除</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
 											<th>Id</th>
-											<th>Photo</th>
-											<th>Name</th>
-											<th>Price</th>
-											<th>Item</th>
-											<th>Num</th>
-											<th>Shipping</th>
-											<th>Description</th>
-											<th>Edit</th>
-											<th>Delete</th>
+											<th>商品圖</th>
+											<th>商品名稱</th>
+											<th>價格</th>
+											<th>類別</th>
+											<th>數量</th>
+<!-- 											<th>運費</th> -->
+											<th>描述</th>
+											<th>修改</th>
+											<th>刪除</th>
 
 										</tr>
 									</tfoot>
@@ -145,8 +145,6 @@
 			}, {
 				"data" : "proNum"
 			}, {
-				"data" : "proShipping"
-			}, {
 				"data" : "proDescription"
 			}, {
 				"data" : null,
@@ -169,13 +167,13 @@
 			console.log($(this).closest("tr"));
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
-	                title: 'Are you sure?',
-	                text: "You won't be able to revert this!",
+	                title: '確定要刪除嗎?',
+	                text: "刪除後就無法回復了!",
 	                icon: 'warning',
 	                showCancelButton: true,
 	                confirmButtonColor: '#3085d6',
 	                cancelButtonColor: '#d33',
-	                confirmButtonText: 'Yes, delete it!'
+	                confirmButtonText: '確定刪除!'
 	              }).then((result) => {
 	                if (result.isConfirmed) {
 	                  $.ajax({
@@ -184,8 +182,8 @@
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(
-	                              'Deleted!',
-	                              'Your file has been deleted.',
+	                              '已刪除!',
+	                              '這筆資料已被刪除',
 	                              'success'
 	                            ) } ,
 	                            error: function (xhr) {
