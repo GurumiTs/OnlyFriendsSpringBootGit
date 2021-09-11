@@ -13,6 +13,7 @@ public class CouponUsers {
 	@Id
 	private String memberAccount;	
 	private String couponRecord;
+	private String useRecord;
 	
 	public String getMemberAccount() {
 		return memberAccount;
@@ -26,6 +27,13 @@ public class CouponUsers {
 	public void setCouponRecord(String couponRecord) {
 		this.couponRecord = couponRecord;
 	}
+	public String getUseRecord() {
+		return useRecord;
+	}
+	public void setUseRecord(String useRecord) {
+		this.useRecord = useRecord;
+	}
+	
 
 	
 }

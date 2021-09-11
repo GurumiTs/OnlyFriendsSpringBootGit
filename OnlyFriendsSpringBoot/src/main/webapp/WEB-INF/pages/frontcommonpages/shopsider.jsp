@@ -8,8 +8,9 @@
                   ><i class="fas fa-user"></i> <span>帳號資訊</span></a
                 >
               </li>
-              <li >
-                <a class="nav-link" href="orderpage"
+
+              <li>
+                <a class="nav-link" href="orderrecord"  id="userorder"
                   ><i class="fas fa-shopping-basket"></i> <span>歷史訂單</span></a
                 >
                 <!--  img alt='image' class='mr-1 rounded-circle ' width=25 src="${pageContext.request.contextPath}/images/smallicon/sideorder.svg">-->

@@ -58,6 +58,7 @@ public class CouponService {
 		return couponRepository.findBycouponIdIn(couponIds);
 	}
 	
+	
 //	public Page<Coupon> findAllByPage(Pageable pageable){
 //		return couponRepository.findAll(pageable);
 //	}

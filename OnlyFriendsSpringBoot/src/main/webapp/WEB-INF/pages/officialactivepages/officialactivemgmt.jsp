@@ -229,8 +229,8 @@ font-size:1.2rem
 							success:function(response){
 								dtr.remove();
 								Swal.fire(
-										'Deleted!',
-										'Your file has been deleted.',
+										'刪除成功!',
+										'',
 										'success'
 										) },
 										error:function(xhr){

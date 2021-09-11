@@ -213,7 +213,9 @@ a.slide-arrow {
     	   contentType:'application/json',
     	   success: function(data) {
     	     var json = JSON.stringify(data, null, 4);
+    	     console.log(json)
     	     var parsedObjinArray = JSON.parse(json);
+    	     console.log(parsedObjinArray)
     	     var itemarea = $('#itemarea');
     	     $('#itemarea').empty("");
     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
@@ -391,7 +393,9 @@ a.slide-arrow {
      		   
      		 console.log(data);
      	     var json = JSON.stringify(data, null, 4);
+     	     console.log(json)
      	     var parsedObjinArray = JSON.parse(json);
+     	     console.log(parsedObjinArray)
      	     var itemarea = $('#itemarea');
      	     $('#itemarea').empty("");
      	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件

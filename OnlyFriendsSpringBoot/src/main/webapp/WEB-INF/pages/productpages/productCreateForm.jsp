@@ -77,7 +77,7 @@
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">商品管理</h1>
 					<div class="zi_box_1">
       <form action="empaddProduct.controller" class="row g-3"  method="post" enctype="multipart/form-data">
         <div class="col-md-12">
@@ -124,12 +124,12 @@
           </div>
           
         </div>
-        <div class="col-md-6">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">運費</span>
-            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="Shipping" id="Shipping"><span id="shipping"></span>
-          </div>
-        </div>
+<!--         <div class="col-md-6"> -->
+<!--           <div class="input-group mb-3"> -->
+<!--             <span class="input-group-text" id="inputGroup-sizing-default">運費</span> -->
+<!--             <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="Shipping" id="Shipping"><span id="shipping"></span> -->
+<!--           </div> -->
+<!--         </div> -->
         <div class="col-12">
             <div class="input-group">
               <span class="input-group-text">商品描述</span>
@@ -147,6 +147,7 @@
         </div> --> 
         <div class="col-12">
           <button type="submit" class="btn btn-primary">新增商品</button>
+          <button type="button" class="btn btn-info">一鍵輸入</button>
         </div>
       </form>
     </div>
@@ -218,18 +219,18 @@
             }
             
         }
-        document.getElementById("Shipping").onblur=checkShipping;
-        function checkShipping(){
-            let sp=document.getElementById("shipping");
-            let theNameVal=document.getElementById("Shipping").value;
-            console.log(theNameVal);
-            if(theNameVal != ""){
-                        sp.innerHTML='<img id="check" src="images/smallicon/check.png" > ';
-            }else{
-                sp.innerHTML='<img id="error" src="images/smallicon/error.png"> 不可空白'; 
-            }
+//         document.getElementById("Shipping").onblur=checkShipping;
+//         function checkShipping(){
+//             let sp=document.getElementById("shipping");
+//             let theNameVal=document.getElementById("Shipping").value;
+//             console.log(theNameVal);
+//             if(theNameVal != ""){
+//                         sp.innerHTML='<img id="check" src="images/smallicon/check.png" > ';
+//             }else{
+//                 sp.innerHTML='<img id="error" src="images/smallicon/error.png"> 不可空白'; 
+//             }
             
-        }
+//         }
         document.getElementById("formFile").onblur=checkImg;
         function checkImg(){
             let sp=document.getElementById("img");
@@ -243,6 +244,8 @@
             
         }
          
+        
+        
 		
         </script>
  </body>

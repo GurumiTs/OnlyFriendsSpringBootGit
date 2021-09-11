@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
@@ -234,7 +233,7 @@
 														if (data[j].couponId == cr1[i] && data[j].couponName == "秋日購物全館九折") {//找出分類為現金券的數量~												
 															discount1++;														
 														   // console.log("cash1:"+cash1);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "全站滿萬打八折") {
+														} else if (data[j].couponId == cr1[i] && data[j].couponName == "全站滿10000打八折") {
 															discount2++;
 															//console.log("cash2:"+cash2);
 														} else if (data[j].couponId == cr1[i] && data[j].couponName == "招桃小物全館九折") {

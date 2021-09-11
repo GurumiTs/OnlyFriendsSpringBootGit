@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
@@ -126,7 +125,7 @@
 
 						dataType : 'json',
 
-						success : function a(data) {
+						success : function (data) {
 
 							console.log(data)
 							//console.log(couponRecord[0]);
