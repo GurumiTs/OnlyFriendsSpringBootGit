@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface OfficialActiveRepository extends JpaRepository<OfficialActive,Long> {
 		   
 	public Optional<OfficialActive> findByAnum(Long anum);
+	
+	
 }

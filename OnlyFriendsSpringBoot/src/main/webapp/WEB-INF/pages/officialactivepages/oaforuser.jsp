@@ -15,6 +15,11 @@ font-size:1.2rem
 	user-select: none;
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
 @media ( min-width : 768px) {
 	.bd-placeholder-img-lg {
 		font-size: 3.5rem;
@@ -22,8 +27,8 @@ font-size:1.2rem
 }
 
 .img1 {
-	weight: 150px;
-	height: 150px;
+	weight: 100px;
+	height: 100px;
 }
 
 .edit:hover{
@@ -42,10 +47,29 @@ font-size:1.2rem
 height:50px;
 }
 
+
+tr th{
+	font-size: 20px;
+}
+.data:hover {
+	color: white;
+	background-color: rgba(92, 92, 92, 0.637);
+}
+
+.delete:hover {
+	color: red;
+}
+
+.delete {
+	cursor: pointer;
+	color: red;
+	font-size: 25px;
+}
 .icon1 img:hover {
 	width: 50px;
 	height: 50px;
 	display: block;
+	
 }
 </style>
 </head>
@@ -86,19 +110,21 @@ height:50px;
 											<th>活動縣市</th>
 											<th>活動行政區</th>
 											<th>活動時間</th>
-											
+											<th>活動簡介</th>
+											<th>退出活動</th>
 										</tr>
 									</thead>
 
 									<tfoot>
 									<tr>
-											<th>活動編號</th>
-											<th>照片</th>
-											<th>活動名稱</th>
-											<th>活動縣市</th>
-											<th>活動行政區</th>
-											<th>活動時間</th>
-											
+											<th class="d-none">活動編號</th>
+											<th class="d-none">照片</th>
+											<th class="d-none">活動名稱</th>
+											<th class="d-none">活動縣市</th>
+											<th class="d-none">活動行政區</th>
+											<th class="d-none">活動時間</th>
+											<th class="d-none">活動簡介</th>
+											<th class="d-none">退出活動</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -151,12 +177,70 @@ height:50px;
 	        { "data":"county"},
 	        { "data":"district"},
 	        { "data":"adate"},
+	    	{"data": "conditions",
+	        	render:function(data, type, row)
+	        	{
+	        		if (data) {
+	        			return (data.length > 30)?data.substring(0, 30)+"...":data;
+	        		} else {
+	        			return '';
+	        		}
+	        	}
+	        },
+	        {
+	            "data": null,
+	            render:function(data, type, row)
+	            {
+	              return "<i class='far fa-trash-alt delete' id="+data.anum+"></i>";
+	            },
+	            "targets": -1
+	        }
 	    ]
 	});		
 	
 	
 	
-	});
+	/*delete*/
+	$("#example tbody").on("click",".delete",function(){
+		
+		let anum = $(this).attr("id");
+//			console.log($(this).closest("tr"));
+		let dtr = $(this).closest("tr");
+			Swal.fire({
+				title:'你確定?',
+				text:"按下去就真的退出了喔!",
+				icon:'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '確定退出'
+			}).then((result)=>{
+				if(result.isConfirmed){
+					$.ajax({
+						type:"POST",
+						url:"memberactivedelete/"+anum,	
+						success:function(response){
+							dtr.remove();
+							Swal.fire(
+									'退出成功!',
+									'您已成功取消參加活動',
+									'success'
+									) },
+									error:function(xhr){
+										Swal.fire({
+											icon:'error',
+											title:'Oops...',
+											text:'Something went wrong!'
+										}) },	//error close
+					});//ajax close
+				} //if close
+			}); //then close
+		});
+	
+	
+	
+	
+	});// function close
 	
 	/* load data table */
 	
