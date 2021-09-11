@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import of.UserActivity.model.UserActivity;
 import of.member.model.Member;
+import of.member.model.MemberRepository;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
@@ -281,9 +283,28 @@ public class OfficialActiveController {
 			
 		}
 		
+		//會員退出活動
 		
-
-
+		
+		@PostMapping(path="/memberactivedelete/{anum}")
+		@ResponseBody
+		public String deleteMemberActive (@PathVariable("anum") String a,HttpServletRequest request) {
+			long anum = Long.parseLong(a);
+			Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+			String memberAccount = m1.getMemberAccount();
+			Member m2 = memberService.findByMemberAccount(memberAccount);			
+			OfficialActive oa = officialActiveService.select(anum);
+			List<Member> memberactive = oa.getMemberactive();
+			
+			System.out.println(m2);
+			System.out.println(anum);
+			memberactive.remove(m2);
+			officialActiveService.update(oa);
+			
+			
+			
+			return"yes";
+		}
 		
 }
 		

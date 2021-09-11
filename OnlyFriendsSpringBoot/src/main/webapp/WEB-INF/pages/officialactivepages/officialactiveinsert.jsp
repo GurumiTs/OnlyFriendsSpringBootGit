@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
@@ -129,7 +130,7 @@ font-size:1.2rem
                 <div>
                     <label>活動內容說明(500字內)</label>
                     <br>
-                    <textarea name="conditions" cols="100" rows="15" placeholder="請輸入活動內容"></textarea>
+                    <textarea  id="editor" name="conditions" cols="100" rows="15" placeholder="請輸入活動內容"></textarea>
                     <br>
 
                     <button type="submit" class="btn btn-lg btn-primary">確認送出</button>
@@ -137,8 +138,25 @@ font-size:1.2rem
 								type="button" class="btn btn-lg btn-primary">返回</button>
                 </div>
 
+							<script>
+				        	ClassicEditor
+				              .create( document.querySelector( '#editor' ),{
+				            	  toolbar: {
+				            		    items: [
+				            		        'heading', '|',
+// 				            		        'Font', 'Fontfamily', 'Fontsize', '|',
+				            		        'bold', 'italic', '|',
+				            		        'undo', 'redo'
+				            		    ],
+				            		    shouldNotGroupWhenFull: true
+				            	  },
+				              } )
+				          	  .catch( error => {
+				            	    console.error(error);
+				            } );
+				  		</script>
 
-        </form>
+						</form>
         </div>
 				
 				

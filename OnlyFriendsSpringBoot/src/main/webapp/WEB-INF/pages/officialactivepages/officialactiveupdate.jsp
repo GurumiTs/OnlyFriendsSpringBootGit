@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
@@ -9,6 +10,9 @@
 body{
 font-size:1.2rem
 }
+
+
+
 
 </style>
  </head>
@@ -77,7 +81,7 @@ font-size:1.2rem
                       <option value="4">一對一活動#室內</option>
                     </select>
                 </div>
-                <div>
+                <div> 
                     	<lebel> 請選擇活動類型2(多選):<br>
                         <input type="checkbox" name="atype2" value="rom">浪漫
                         <input type="checkbox" name="atype2" value="view">賞景
@@ -115,7 +119,7 @@ font-size:1.2rem
                 <br>
 
                 <div>
-                    <label>活動報名日期:<input type="date" name="startDeadline">~<input type="date" name="finishDeadline"></label>
+                    <label>活動報名日期:<input type="date" name="startDeadline"value="${officialActive.startDeadline}" >~<input type="date" name="finishDeadline" value="${officialActive.finishDeadline }" ></label>
                 </div>
 
                 <div>
@@ -126,13 +130,13 @@ font-size:1.2rem
                 
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label"></label>
-				  <input type="text" class="form-control"  placeholder="請輸入地址..." name="address">
+				  <input type="text" class="form-control"  placeholder="請輸入地址..." name="address" value="${officialActive.address}">
 				</div>
                 <br> 活動圖片上傳
                 
                 
                 <div class="">
-                <img id="output" src=" " alt=""><br>
+                <img id="output" src=" " alt="" ><br>
 
               </div>
                 <div class=" mb-2">
@@ -144,7 +148,7 @@ font-size:1.2rem
                 <div>
                     <label>活動內容說明(500字內)</label>
                     <br>
-                    <textarea name="conditions" cols="100" rows="15" placeholder="請輸入活動內容">${officialActive.conditions}</textarea>
+                    <textarea  id="editor"  name="conditions" cols="100" rows="15" placeholder="請輸入活動內容">${officialActive.conditions}</textarea>
                     <br>
 
                     <button type="submit" class="btn btn-lg btn-primary">確認送出</button>
@@ -154,6 +158,23 @@ font-size:1.2rem
                     
                 </div>
                 
+                <script>
+				        	ClassicEditor
+				              .create( document.querySelector( '#editor' ),{
+				            	  toolbar: {
+				            		    items: [
+				            		        'heading', '|',
+// 				            		        'Font', 'Fontfamily', 'Fontsize', '|',
+				            		        'bold', 'italic', '|',
+				            		        'undo', 'redo'
+				            		    ],
+				            		    shouldNotGroupWhenFull: true
+				            	  },
+				              } )
+				          	  .catch( error => {
+				            	    console.error(error);
+				            } );
+				  		</script>
                
 
 

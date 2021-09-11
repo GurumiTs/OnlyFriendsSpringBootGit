@@ -20,6 +20,8 @@ public interface MemberActiveRepository extends JpaRepository<MemberActive, Long
 	//中介表格查詢個人參加活動
 	@Query(value = "select anum from memberactive oa where oa.memberAccount = ?1" , nativeQuery = true)
 	public List<Long> findByMemAcc(String memberAccount);
+
+
 	
-	
+
 }
