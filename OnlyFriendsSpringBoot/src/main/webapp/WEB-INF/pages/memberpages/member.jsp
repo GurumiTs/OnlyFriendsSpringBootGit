@@ -113,7 +113,7 @@ font-size:1.2rem
 
 							<!-- show profile-->
 							<div class="col-12 col-md-12 col-lg-5">
-								<div class="card profile-widget">
+								<div class="card profile-widget shadow">
 									<div class="profile-widget-header">
 								<i
 				                  class="fas fa-edit text-dark btn fs-5"
@@ -130,17 +130,13 @@ font-size:1.2rem
 				
 										<div class="profile-widget-items">
 											<div class="profile-widget-item">
-												<div class="profile-widget-item-label">Posts</div>
-												<div class="profile-widget-item-value">187</div>
+												<div class="profile-widget-item-label text-danger" ><i class='fas fa-users'></i>Friends</div>
+												<div class="profile-widget-item-value" id="friendsnum"></div>
 											</div>
 											<div class="profile-widget-item">
-												<div class="profile-widget-item-label">Followers</div>
-												<div class="profile-widget-item-value">6,8K</div>
-											</div>
-											<div class="profile-widget-item">
-												<div class="profile-widget-item-label">Following</div>
-												<div class="profile-widget-item-value">2,1K</div>
-											</div>
+												<div class="profile-widget-item-label text-warning"><i class='fas fa-flask'></i>Level</div>
+												<div class="profile-widget-item-value" id="level"></div>
+											</div>											
 										</div>
 									</div>
 									<div class="profile-widget-description">
@@ -356,6 +352,22 @@ font-size:1.2rem
             console.log("無法送出");
           },
         });
+        
+        $.ajax({
+        	type: "post",
+            url: "memberfriendsnum",
+            data: {
+              memberAccount: memberAccount,
+            },
+            success: function (data) {
+            	let json = data[0];
+            	$("#friendsnum").text(json.friendsnum)
+            	$("#level").text(json.level)
+            },
+            error:function(xhr){
+            	console.log("friends num error")
+            }
+        })
 
         $("#email").on("change", function () {
           let email = $(this).val();
@@ -531,6 +543,11 @@ font-size:1.2rem
             },
           });
         });
+        
+        
+        
+        
+        
       }); //()
     </script>
 

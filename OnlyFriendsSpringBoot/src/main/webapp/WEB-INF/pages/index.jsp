@@ -95,11 +95,11 @@
             </div>
             <div class="col-lg-5">
               <h1 class="font-weight-light">OnlyFriends®</h1>
-              <h3 class="card-title mt-3">The Most Popular Dating Web</h3>
+              <h3 class="card-title mt-3">本年度最火爆活動交友網站</h3>
               <p class="card-text mt-3">
-                Dating, Make Friends & Meet New People
+                約會，多人聚會活動，抽卡配對
               </p>
-              <a class="btn btn-primary" href="#!">Call to Action!</a>
+              <a class="btn btn-primary" href="login">立即加入</a>
             </div>
           </div>
 
@@ -160,6 +160,7 @@
           </div>
           
           <!-- 廣告牆 -->
+           <div class="col d-flex justify-content-end"><%@include file="./advertisementpages/adview.jsp"%></div>
 
           <div class="card text-white bg-transparent my-5 py-4 text-center">
             <div class="card-body d-flex flex-row text-dark">

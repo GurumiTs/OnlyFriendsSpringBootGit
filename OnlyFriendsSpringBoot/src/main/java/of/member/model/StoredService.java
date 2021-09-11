@@ -23,6 +23,10 @@ public class StoredService {
 	public Float storedannual() {
 		return storedRepository.storedannual();
 	}
+	
+	public Float memberstoredtotal(String memberAccount) {
+		return storedRepository.memberstoredtotal(memberAccount);
+	}
 
 
 }

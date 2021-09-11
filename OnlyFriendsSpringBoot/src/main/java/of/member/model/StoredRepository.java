@@ -13,5 +13,7 @@ public interface StoredRepository extends JpaRepository<Stored,Integer>{
 	@Query(value = "select sum(total) from Stored",nativeQuery = true)
 	public Float storedannual();
 	
+	@Query(value = "select sum(total) from Stored where memberAccount =?1",nativeQuery = true)
+	public Float memberstoredtotal(String memberAccount);
 
 }

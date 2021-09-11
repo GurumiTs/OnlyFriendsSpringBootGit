@@ -16,6 +16,10 @@ font-size:1.2rem
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
  }
+ .profile-widget{
+ 	
+ }
+
 </style>
 
 </head>
@@ -199,7 +203,7 @@ font-size:1.2rem
               $.each(data,function(i,friend){ //i為順序 n為單筆物件
                if(friend.chatnum != 0){
             	  var item =          	    	 
-         	    "<li class='media' id='"+friend.friendAccount+"'>"+
+         	    "<li class='media position-relative' id='"+friend.friendAccount+"'>"+
                  "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.friendPic+"'>"+
                  "<div class='media-body'>"+
                   "<div class='mt-0 mb-1 font-weight-bold friend-name position-relative'>"+friend.friendName+                    
@@ -218,6 +222,8 @@ font-size:1.2rem
                }
               $('#friendsarea').append(item)});              
               $("li").on('click',createroom)
+              $("li img").mouseenter(friendsinfo)
+              $("li img").mouseleave(removeinfo)
        
              },
              error: function (data) {           			 
@@ -243,14 +249,13 @@ font-size:1.2rem
                  $.each(data,function(i,friend){ //i為順序 n為單筆物件
             	     var item =          	    	 
             	    "<li class='media' id='"+friend.memberAccount+"'>"+
-                    "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.memberPic+"'>"+
+                    "<img alt='image' class='mr-3 rounded-circle ' width='50' src='"+friend.memberPic+"'>"+
                     "<div class='media-body'>"+
                     "<div class='mt-0 mb-1 font-weight-bold friend-name'>"+friend.memberName+"</div>"+                          
                    " </div>"+
                   "</li>";
                  $('#friendsarea').append(item);}); }     
             	$("li").on('click',createroom)
-            	
             },
             error: function (data) {
               loadfriends()
@@ -485,7 +490,53 @@ font-size:1.2rem
     	
     }
     
- 
+    function friendsinfo(){
+    	let a = $(this).parent().attr('id');
+      	let b = $(this).parent();
+      	$.ajax({
+      		type: "post",
+      		url: "memberfriendsnum",
+      		data:{"memberAccount":a},    		
+      		success: function(data) {
+      			let json = data[0]
+      			let item = 
+    				"<div class='card profile-widget position-absolute shadow border rounded-3' style='z-index:5' id='friendsinfo'>"+
+    					"<div class='profile-widget-header'>"+
+    					//"<img id='showMemberPic' src='"+data.memberPic+"' class='rounded-circle profile-widget-picture'"+
+    			            //"style='width: 5vw; height: 5vw; object-fit: cover'/>"+
+    						"<div class='profile-widget-items'>"+
+    							"<div class='profile-widget-item'>"+
+    								"<div class='profile-widget-item-label text-danger' style='font-size:12px;'><i class='fas fa-users'></i>Friends</div>"+
+    								"<div class='profile-widget-item-value' id='friendsnum' style='font-size:12px;'>"+json.friendsnum+"</div>"+
+    							"</div>"+
+    							"<div class='profile-widget-item'>"+
+    								"<div class='profile-widget-item-label text-warning' style='font-size:12px;'><i class='fas fa-flask'></i>Level</div>"+
+    								"<div class='profile-widget-item-value' id='level' style='font-size:12px;'>"+json.level+"</div>"+
+    							"</div>"+
+    						"</div>"+
+    					"</div>"+
+    					"<div class='profile-widget-description'>"+
+    						"<div class='profile-widget-name' id='prifleName' style='font-size:12px;'>"+
+    						json.member.personalInfo+
+    						"<div class='d-flex flex-row'>" +
+    						"<a class='badge badge-success text-decoration-none text-white' style='font-size:10px;'>"+json.member.tagOne+"</a>"+
+        					"<a class='badge badge-warning text-decoration-none text-white ' style='font-size:10px;'>"+json.member.tagTwo+"</a>"+
+        					"<a class='badge badge-info text-decoration-none text-white' style='font-size:10px;'>"+json.member.tagThree+"</a>"+
+        					"</div>"+
+        					"</div>"+
+    					"</div>"+   				
+    			"</div>";	
+      			b.append(item)                 			     		
+      		},
+      		error: function(xhr) {
+  			console.log("friendsinfo  error")
+      		},
+      	});            	   
+     }
+    
+    function removeinfo(){
+    	$("#friendsinfo").remove()
+    }
 
     
    
