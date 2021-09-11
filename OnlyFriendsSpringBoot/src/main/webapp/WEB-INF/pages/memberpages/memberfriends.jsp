@@ -17,7 +17,7 @@ font-size:1.2rem
     margin-top: 0; // remove the gap so it doesn't close
  }
  .profile-widget{
- 	width:20vw;
+ 	
  }
 
 </style>
@@ -204,7 +204,7 @@ font-size:1.2rem
                if(friend.chatnum != 0){
             	  var item =          	    	 
          	    "<li class='media position-relative' id='"+friend.friendAccount+"'>"+
-                 "<img alt='image' class='mr-3 rounded-circle ' width='50' src='"+friend.friendPic+"'>"+
+                 "<img alt='image' class='mr-3 rounded-circle' width='50' src='"+friend.friendPic+"'>"+
                  "<div class='media-body'>"+
                   "<div class='mt-0 mb-1 font-weight-bold friend-name position-relative'>"+friend.friendName+                    
                   "<span class='position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger'>+"+friend.chatnum+"</span>"+
@@ -256,70 +256,6 @@ font-size:1.2rem
                   "</li>";
                  $('#friendsarea').append(item);}); }     
             	$("li").on('click',createroom)
-            	$("li").hover(function(){
-              	  let a = $(this).attr('id')
-                	let b = $(this)
-                	$.ajax({
-                		type: "post",
-                		url: "memberBasicInfoQuery",
-                		data:{"memberAccount":a},    		
-                		success: function(data) {
-                			console.log(data)
-                			let item = 
-            				"<div class='card profile-widget position-absolute' style='z-index:5;height:100px' id='friendsinfo'>"+
-            					"<div class='profile-widget-header'>"+
-            					//"<img id='showMemberPic' src='"+data.memberPic+"' class='rounded-circle profile-widget-picture'"+
-            			            //"style='width: 5vw; height: 5vw; object-fit: cover'/>"+
-            						"<div class='profile-widget-items'>"+
-            							"<div class='profile-widget-item'>"+
-            								"<div class='profile-widget-item-label' style='font-size:12px;'>Friends</div>"+
-            								"<div class='profile-widget-item-value' id='friendsnum' style='font-size:12px;'></div>"+
-            							"</div>"+
-            							"<div class='profile-widget-item'>"+
-            								"<div class='profile-widget-item-label' style='font-size:12px;'>Level</div>"+
-            								"<div class='profile-widget-item-value' id='level' style='font-size:12px;'></div>"+
-            							"</div>"+
-            						"</div>"+
-            					"</div>"+
-            					"<div class='profile-widget-description'>"+
-            						"<div class='profile-widget-name' id='prifleName' style='font-size:12px;'>"+
-            						data.personalInfo+
-            						"</div>"+
-            						"<p id='profileTextarea'</p>"+
-            					"</div>"+
-            					"<div class='card-footer text-center' id='tagArea'>"+	
-            					"<a class='badge badge-success text-decoration-none text-white' style='font-size:12px;'>"+data.tagOne+"</a>"+
-            					"<a class='badge badge-warning text-decoration-none text-white ' style='font-size:12px;'>"+data.tagTwo+"</a>"+
-            					"<a class='badge badge-info text-decoration-none text-white' style='font-size:12px;'>"+data.tagThree+"</a>"+
-            					"</div>"+
-            			"</div>";	
-                		b.append(item) 
-                		  $.ajax({
-  				        	type: "post",
-  				            url: "memberfriendsnum",
-  				            data:{"memberAccount":a},    	
-  				            success: function (data) {
-  				            	$('#friendsnum').text(data[0].friendsnum)
-  				            	$('#level').text(data[1].level)
-  				
-  				
-  				            },
-  				            error:function(xhr){
-  				            	console.log("friends num error")
-  				            }
-  				        })
-       		
-                		},
-                		error: function(xhr) {
-            			console.log("friendsinfo  error")
-                		},
-                	});
-              	    }, function(){
-              	    	$('#friendsinfo').remove()
-              	  }); 
-                 	
-            	
-            	
             },
             error: function (data) {
               loadfriends()
@@ -563,8 +499,34 @@ font-size:1.2rem
       		data:{"memberAccount":a},    		
       		success: function(data) {
       			let json = data[0]
-      			let item = "<p id='friendsinfo'>"+json.member.memberName+"</p>";
-      			b.append(item)                   			     		
+      			let item = 
+    				"<div class='card profile-widget position-absolute' style='z-index:5' id='friendsinfo'>"+
+    					"<div class='profile-widget-header'>"+
+    					//"<img id='showMemberPic' src='"+data.memberPic+"' class='rounded-circle profile-widget-picture'"+
+    			            //"style='width: 5vw; height: 5vw; object-fit: cover'/>"+
+    						"<div class='profile-widget-items'>"+
+    							"<div class='profile-widget-item'>"+
+    								"<div class='profile-widget-item-label' style='font-size:12px;'>Friends</div>"+
+    								"<div class='profile-widget-item-value' id='friendsnum' style='font-size:12px;'>"+json.friendsnum+"</div>"+
+    							"</div>"+
+    							"<div class='profile-widget-item'>"+
+    								"<div class='profile-widget-item-label' style='font-size:12px;'>Level</div>"+
+    								"<div class='profile-widget-item-value' id='level' style='font-size:12px;'>"+json.level+"</div>"+
+    							"</div>"+
+    						"</div>"+
+    					"</div>"+
+    					"<div class='profile-widget-description'>"+
+    						"<div class='profile-widget-name' id='prifleName' style='font-size:12px;'>"+
+    						json.member.personalInfo+
+    						"<div class='d-flex flex-row'>" +
+    						"<a class='badge badge-success text-decoration-none text-white' style='font-size:10px;'>"+json.member.tagOne+"</a>"+
+        					"<a class='badge badge-warning text-decoration-none text-white ' style='font-size:10px;'>"+json.member.tagTwo+"</a>"+
+        					"<a class='badge badge-info text-decoration-none text-white' style='font-size:10px;'>"+json.member.tagThree+"</a>"+
+        					"</div>"+
+        					"</div>"+
+    					"</div>"+   				
+    			"</div>";	
+      			b.append(item)                 			     		
       		},
       		error: function(xhr) {
   			console.log("friendsinfo  error")
