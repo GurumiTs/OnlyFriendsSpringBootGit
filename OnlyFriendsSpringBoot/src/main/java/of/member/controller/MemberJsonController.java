@@ -77,6 +77,7 @@ public class MemberJsonController {
 	@Autowired
 	private StoredService storedService;
 	
+	
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
@@ -154,6 +155,26 @@ public class MemberJsonController {
 	public Member memberBasicInfoQuery(@RequestParam(name = "memberAccount") String memberAccount) {
 		Member member = memberService.findByMemberAccount(memberAccount);
 		return member;
+	}
+	
+	@PostMapping(path = "/memberfriendsnum")
+	@ResponseBody
+	public List<Map> memberFriendsNum(@RequestParam(name = "memberAccount") String memberAccount) {
+		Member member = memberService.findByMemberAccount(memberAccount);
+		Users u1  = usersService.findByEmail(memberAccount);
+		String a = Integer.toString(u1.getFriends().size()); 
+		String b   = Float.toString((storedService.memberstoredtotal(memberAccount))/100);
+		b=b.substring(0,b.indexOf('.'));
+		List<Map> list = new ArrayList<>();
+		Map m1 = new HashMap<String, Object>();
+		m1.put("member",member);
+		m1.put("friendsnum", a);
+		m1.put("level", b);
+		
+		list.add(m1);
+		
+		return list ;
+
 	}
 
 	@PostMapping(path = "/memberswipe")
