@@ -10,6 +10,11 @@ font-size:1.2rem
 weight:100px;
 height:100px;
 }
+
+
+#couponarea{display:flex;}
+#coupondetail{width:300px;margin-top:6px;}
+#couponprice{width:300px;margin-left:auto;text-align: right;font-size:1.4rem;color:red;padding-right:10px;}
 </style>
 </head>
 <body>
@@ -101,6 +106,17 @@ height:100px;
 <!--                           <td class="text-right">$600.00</td> -->
 <!--                         </tr> -->
                       </table>
+                      
+                       <!-- 優惠券 -->
+                        <div id="couponarea">                      
+                        <div class="mb-3">                     
+                        <select name="" id="coupondetail" >
+							<option value="">輸入優惠折扣碼</option>																				
+						</select>
+                        </div>
+                        <div id="couponprice"></div>                     
+                        </div>
+                       
                     </div>
                     <div class="row mt-4">
                       <div class="col-lg-8">
@@ -245,7 +261,7 @@ height:100px;
 <!--                           <div class="invoice-detail-name">Shipping</div> -->
 <!--                           <div class="invoice-detail-value">$15</div> -->
 <!--                         </div> -->
-                        <hr class="mt-2 mb-2">
+                        <hr class="mt-2 mb-2">                      
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
                           <div class="invoice-detail-value invoice-detail-value-lg">$<span id="orderfinaltotal"></span></div>
@@ -278,9 +294,6 @@ height:100px;
       </footer>
     </div>
   </div>
-
-
-        
     
     <%@include file="../frontcommonpages/shopbottom.jsp"%>
     
@@ -469,13 +482,13 @@ height:100px;
 	}
     
 //		shoppingcartfinaltotal
-	  function shopcartfinaltotal() {						  
+	  function shopcartfinaltotal() {	
 			$.ajax({
 				type:"get",
 				url:"shopcarttotal",
 				success:function(data){
 					$('#ordertotal').empty()
-		            $('#ordertotal').text(data)
+		            $('#ordertotal').text(data)                               
 				}
 				,error: function(error){
 					console.log(error);
@@ -494,8 +507,140 @@ height:100px;
 					console.log(error);
 				}
 			})
+		}	
+	  //優惠券序號判斷 
+	  $(function () {
+		  $.ajax({
+			  type:'GET',
+			  url:'usecoupon.controller',
+			  dataType:'json',
+			  success(data){
+				  
+				  for(let i=0;i<data.length;i++){
+					  if(data[i].category != "異業券" && data[i].category != "運費券"){
+						  
+				      $("#coupondetail").append('<option value="'+ data[i].couponName +'">' + data[i].couponName + '</option>');					     
+			        } 
+				  }				  				  			  
+			  }			  			  			  			  
+		  })		  		  		  		  
+	  })
+	  
+	 //異動折扣
+	  $('#orderlist').click(function(){
+		  
+		$('#couponprice').text("");
+		$('#coupondetail').val("");
+		
+	 })
+	
+	  //扣除優惠券
+	  var coupon;
+	  function couponclickfinaltotal() {	
+			$.ajax({
+				type:"get",
+				url:"shopcarttotal",
+				success:function(data){
+					coupon=data;
+					if(data>0){
+					if(cash!=0 && cashId==1){						
+					    $('#ordertotal').empty();
+		                $('#ordertotal').text(data-cash); 
+					}else if(cash!=0 && cashId!=1){
+						if(cashName<=data){
+						$('#ordertotal').empty();
+			            $('#ordertotal').text(data-cash); 	
+						}else{
+							$('#couponprice').text("優惠條件不符");
+							$('#ordertotal').empty();
+				            $('#ordertotal').text(data); 
+						}
+					
+					}else if(discount!=0 && discountId!=9) {
+						$('#ordertotal').empty();
+			            $('#ordertotal').text(Math.round(data*discount/100)); 
+					}else if(discount!=0 && discountId==9) {
+						    if(discountName<=data){
+							$('#ordertotal').empty();
+				            $('#ordertotal').text(Math.round(data*discount/100)); 	
+							}else{
+								$('#couponprice').text("優惠條件不符");
+								$('#ordertotal').empty();
+					            $('#ordertotal').text(data); 
+							}						
+					}else{
+						$('#ordertotal').empty();
+			            $('#ordertotal').text(data);  
+					}	
+					}else{
+						$('#couponprice').text("");
+					}
+				}
+				,error: function(error){
+					console.log(error);
+				}
+			})
 		}
-   
+	  
+	  //優惠券選擇
+	  var cash=null;
+	  var discount=null;
+	  var cashId=null;
+	  var discountId=null;
+	  var cashName=null;
+	  var discountName=null;
+	  $(function () {
+		
+		  $('#coupondetail').click(function () {
+			  
+			  cash=0;
+			  discount=0;
+			  cashId=0;
+			  discountId=0;
+			 
+			  var couponName=$('#coupondetail').val();
+
+		  $.ajax({
+			  type:'GET',
+			  url:'usecoupon.controller',
+			  dataType:'json',
+			  success(data){
+  
+				  for(let i=0;i<data.length;i++){
+					  if(couponName==data[i].couponName && data[i].category =="現金券"){
+						  
+						  cash=data[i].couponPrice;
+						  cashId=data[i].couponId;
+						  cn=data[i].couponName;						
+						  cashName=cn.split('折')[0].substr(3);					
+						 				
+						  $('#couponprice').text("-"+data[i].couponPrice);
+						  
+					  }else if(couponName==data[i].couponName && data[i].category =="折扣券"){
+						 
+						  discount=data[i].couponPrice;
+						  discountId=data[i].couponId;
+						  console.log("discountId:"+discountId)
+						  dn=data[i].couponName;
+						  discountName=dn.split('打')[0].substr(3);
+					
+						  var c= Math.round(coupon-coupon*data[i].couponPrice/100);
+											  
+						  $('#couponprice').text("-"+c);
+					  }else if(couponName==""){
+						  $('#couponprice').text("");
+					  }
+				  }		
+				  console.log("cash:"+cash);
+				  console.log("discount:"+discount);
+				  console.log("cashId:"+cashId);
+				  console.log("discountId:"+discountId);
+				  couponclickfinaltotal();
+				   
+			  }			  			  			  			  
+		  })		  		  		  		  
+	  })
+	})  
     </script>
   </body>
 </html>       
