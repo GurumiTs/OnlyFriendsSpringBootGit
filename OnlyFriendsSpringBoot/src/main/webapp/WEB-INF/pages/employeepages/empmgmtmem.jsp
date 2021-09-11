@@ -77,18 +77,7 @@
 											<th>編輯</th>
 										
 										</tr>
-									</thead>
-
-									<tfoot>
-										<tr>
-											<th>姓名</th>
-											<th>帳號</th>
-											<th>信箱</th>
-											<th>年齡</th>
-											<th>編輯</th>
-											
-										</tr>
-									</tfoot>
+									</thead>									
 								</table>
 
 							</div>
@@ -151,7 +140,18 @@
 		            },
 		            "targets": -1
 		        }
-		    ]
+		    ],language: {
+		    	"lengthMenu": "顯示 _MENU_ 筆資料",
+		    	"sProcessing": "處理中...",
+		    	"sSearch": "搜尋:",
+		    	"sLoadingRecords": "載入資料中...",
+		    	"oPaginate": {
+		            "sFirst": "首頁",
+		            "sPrevious": "上一頁",
+		            "sNext": "下一頁",
+		            "sLast": "末頁"
+		         },
+		    }
 		});		
 		/* load data table */
 		$("#example tbody").on("click", ".edit", function () {

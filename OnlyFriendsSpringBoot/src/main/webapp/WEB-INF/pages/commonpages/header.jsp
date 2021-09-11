@@ -53,7 +53,7 @@ pageEncoding="UTF-8"%>
                   >愛情討論版</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                   <li><a class="dropdown-item fs-6" href="blogofficial"><i class="fas fa-book mx-2 text-primary"></i>幸福故事</a></li>
+                   <li><a class="dropdown-item fs-6" href="blogofficialmain"><i class="fas fa-book mx-2 text-primary"></i>幸福故事</a></li>
           		   <li><a class="dropdown-item fs-6" href="blogusers"><i class="fas fa-heart mx-2 text-primary"></i>戀人分享</a></li>
                 </ul>
               </li>

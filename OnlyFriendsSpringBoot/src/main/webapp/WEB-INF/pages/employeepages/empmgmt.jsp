@@ -109,7 +109,7 @@
 
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">
-						<i class="fas fa-pencil-alt"></i><span id="modalHeader">Edit</span>
+						<i class="fas fa-pencil-alt"></i><span id="modalHeader">編輯</span>
 					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
@@ -118,21 +118,21 @@
 					<form id="basicInfoForm"
 						  class="needs-validation" novalidate>
 						<div class="mb-3">
-							<label for="empEmail" class="form-label">Email</label> <input
+							<label for="empEmail" class="form-label">信箱</label> <input
 								type="email" class="form-control" name="empEmail" id="empEmail"
 								required readonly />
 						</div>
 
 						<div class="mb-3 row">
 							<div class="col">
-								<label for="empAcc" class="form-label">Account</label> <input
+								<label for="empAcc" class="form-label">帳號</label> <input
 									type="text" class="form-control" name="empAcc" id="empAcc"
 									required readonly />
 								<div class="valid-feedback">Looks good!</div>
 								<div class="invalid-feedback">should be 6~12 numbers</div>
 							</div>
 							<div class="col">
-								<label for="empName" class="form-label">Name</label> <input
+								<label for="empName" class="form-label">姓名</label> <input
 									type="text" class="form-control" id="empName" name="empName"
 									required />
 								<div class="valid-feedback">Beautiful!</div>
@@ -144,7 +144,7 @@
 
 						<div class="mb-3 row">
 							<div class="col">
-								<label for="empBday" class="form-label">Birthday</label> <input
+								<label for="empBday" class="form-label">生日</label> <input
 									type="text" class="form-control" name="empBday" id="empBday"
 									required />
 								<div class="invalid-feedback">Choose your Happy Bday!</div>
@@ -161,10 +161,10 @@
 
 						<div class="mb-3 row">
 							<div class="col">
-								<label for="empAuth" class="form-label">Authority</label> <select
+								<label for="empAuth" class="form-label">權限</label> <select
 									id="empAuth" class="form-select form-select-sm" name="empAuth"
 									required>
-									<option selected disabled value="">Choose...</option>
+									<option selected disabled value="">請選擇...</option>
 									<option value="1">employee</option>
 									<option value="2">highest</option>
 								</select>
@@ -172,10 +172,10 @@
 							</div>
 
 							<div class="col">
-								<label for="empDept" class="form-label">Department</label> <select
+								<label for="empDept" class="form-label">部門</label> <select
 									id="empDeptNum" class="form-select form-select-sm"
 									name="empDeptNum" required>
-									<option selected disabled value="">Choose...</option>
+									<option selected disabled value="">請選擇...</option>
 									<option value="7001">活動部</option>
 									<option value="7002">公關部</option>
 									<option value="7003">論壇管理</option>
@@ -188,8 +188,8 @@
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button id="updateBasicInfo" type="button" class="btn btn-primary">Submit</button>
+								data-bs-dismiss="modal">關閉</button>
+							<button id="updateBasicInfo" type="button" class="btn btn-primary">提交</button>
 						</div>
 					</form>
 				</div>
@@ -229,7 +229,18 @@
 		            },
 		            "targets": -1
 		        }
-		    ]
+		    ],language: {
+		    	"lengthMenu": "顯示 _MENU_ 筆資料",
+		    	"sProcessing": "處理中...",
+		    	"sSearch": "搜尋:",
+		    	"sLoadingRecords": "載入資料中...",
+		    	"oPaginate": {
+		            "sFirst": "首頁",
+		            "sPrevious": "上一頁",
+		            "sNext": "下一頁",
+		            "sLast": "末頁"
+		         },
+		    }
 		});		
 		/* load data table */
 		
