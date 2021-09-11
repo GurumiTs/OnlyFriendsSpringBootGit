@@ -9,7 +9,7 @@
       content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
       name="viewport"
     />
-    <title>Layout &rsaquo; Transprent Sidebar &mdash; Stisla</title>
+    <title>OnlyFriends &rsaquo; dating,gathering &mdash; OnlyFriends Team</title>
 
     <!-- General CSS Files -->
     <link
