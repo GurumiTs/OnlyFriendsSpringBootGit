@@ -197,5 +197,11 @@ public class AdvertisementController {
 		}
 	}
 	
+	@GetMapping("/Entry.controller")
+	public String Entry() {
+		
+		return "advertisementpages/testInvoice";
+	}
+	
 
 }

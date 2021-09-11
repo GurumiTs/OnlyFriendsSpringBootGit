@@ -553,18 +553,9 @@ public class CouponUsersController {
 			List<Coupon> coupons = couponService.findBycategoryName("活動券");
 
 			return coupons;
-		}
-	
-	
-	
-	
-	
+		}	
 	}
-	
-	
-	
-	
-	
+
 
 	@GetMapping("/myCouponEntry.controller")
 	public String myCouponEntry() {
@@ -621,5 +612,106 @@ public class CouponUsersController {
 		List<CouponUsers> couponAnalyze = couponUsersService.findAll();
 		return couponAnalyze;
 	}
+	
+	@GetMapping("/usecoupon.controller")
+	@ResponseBody
+	public List<Coupon> usecoupon(HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String mAccount = m1.getMemberAccount();
+		CouponUsers memberAccount = couponUsersService.findBymemberAccount(mAccount);
+		String couponRecord = memberAccount.getCouponRecord();
+		
+		System.out.println("couponRecord:"+couponRecord);
+		
+		
+		
+		String[] arrayCouponRecord = couponRecord.split(",");
+		
+		System.out.println("arrayCouponRecord:"+arrayCouponRecord);
+		
+
+		for (int i = 0; i < arrayCouponRecord.length; i++) {
+			arrayCouponRecord[i] = arrayCouponRecord[i].trim();
+		}
+		System.out.println("arrayCouponRecord1:"+arrayCouponRecord);
+		List<String> list = Arrays.asList(arrayCouponRecord);	
+		List<Integer> newList = list.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+		System.out.println("newList:"+newList);
+		List<Coupon> coupon = couponService.findBycouponIdIn(newList);
+
+		
+		return coupon;
+	}
+	
+	
+	
+	//領用後的結果
+//	@PostMapping("/useData.controller")
+//	@ResponseBody
+//	public List<CouponUsers> useData() {
+//		List<CouponUsers> couponData = couponUsersService.findAll();
+//		return couponData;
+//	}
+	
+	
+	
+//	@PostMapping("/updateUseRecord.controller")
+//	@ResponseBody
+//	public String updateUseRecord(@RequestParam String cashId, Model m, HttpServletRequest request) {
+//		System.out.println("cashId:"+cashId);
+//		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+//		String mAccount = m1.getMemberAccount();
+//		CouponUsers memberAccount2 = couponUsersService.findBymemberAccount(mAccount);
+//		String membeCouponRecord2 = memberAccount2.getCouponRecord();
+//        
+//		System.out.println("membeCouponRecord2:"+membeCouponRecord2);
+//		int couponId = Integer.parseInt(cashId);
+//		Optional<Coupon> coupon = couponService.findBycouponId(couponId);
+//		System.out.println("couponId:"+couponId);
+//		String couponRecordt="";
+//
+//			if (coupon.isPresent()) {
+//
+//				if (membeCouponRecord2 != null) {
+//					String[] arrayCouponRecord2 = membeCouponRecord2.split(",");
+//					
+//					for (int i = 0; i < arrayCouponRecord2.length; i++) {
+//						arrayCouponRecord2[i] = arrayCouponRecord2[i].trim();
+//						if (arrayCouponRecord2[i].equals(cashId)) {
+//							couponRecordt = arrayCouponRecord2[i];
+//							if(!couponRecordt.equals("")) {
+//								m.addAttribute("Error", "已領取此優惠券");
+//								return "success";
+//							}
+//						}
+//						
+//					}
+//					
+//					System.out.println(cashId);
+//
+//					List<String> list = Arrays.asList(arrayCouponRecord2);
+//					List<Integer> newList = list.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+//					newList.add(Integer.parseInt(cashId));
+//
+//					CouponUsers couponUsers = new CouponUsers();
+//					couponUsers.setMemberAccount(mAccount);
+//					couponUsers.setCouponRecord(newList.toString().replace("[", "").replace("]", "").trim());
+//					couponUsersService.update(couponUsers);
+//					m.addAttribute(couponUsers);
+//					return "success";
+//				} else {
+//					CouponUsers couponUsers = new CouponUsers();
+//					couponUsers.setMemberAccount(mAccount);
+//					couponUsers.setCouponRecord(cashId);
+//					couponUsersService.update(couponUsers);
+//					m.addAttribute(couponUsers);
+//					return "success";
+//				}
+//			} else {
+//				m.addAttribute("Error", "無此優惠券序號");
+//				return "Error";
+//			}
+
+//	}
 
 }

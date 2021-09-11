@@ -126,7 +126,7 @@
 
 						dataType : 'json',
 
-						success : function a(data) {
+						success : function (data) {
 
 							console.log(data)
 							//console.log(couponRecord[0]);
