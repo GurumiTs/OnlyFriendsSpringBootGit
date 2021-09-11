@@ -160,6 +160,7 @@
           </div>
           
           <!-- 廣告牆 -->
+           <div class="col d-flex justify-content-end"><%@include file="./advertisementpages/adview.jsp"%></div>
 
           <div class="card text-white bg-transparent my-5 py-4 text-center">
             <div class="card-body d-flex flex-row text-dark">
