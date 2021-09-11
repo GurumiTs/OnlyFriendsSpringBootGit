@@ -299,6 +299,7 @@ height:100px;
     
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script >
+    let  dtotal;    
     paypal.Button.render({
         style: {
         		 color:'blue',
@@ -312,7 +313,9 @@ height:100px;
         // 1. Add a payment callback
         payment: function(data, actions) {
           // 2. Make a request to your server
-          return actions.request.post('http://localhost:8080/OnlyFriends/payproduct')
+          return actions.request.post('http://localhost:8080/OnlyFriends/payproduct',{
+        	  discounttotal: dtotal
+          })
             .then(function(res) {
               // 3. Return res.id from the response
               console.log(res)
@@ -348,8 +351,24 @@ height:100px;
 				$('#orderline2').text(address.line2)
 				$('#orderemail').text(res.payer.payerInfo.email)
 				$('#ordertime').text(res.updateTime)
+				$('#orderfinaltotal').text(data.total);
+			    	  let json=JSON.stringify(data.orderItem,null,4)
+			    	  console.log(json)
+					  var parsedObjinArray = JSON.parse(json);
+			    	  console.log(parsedObjinArray)
+		     	     var ordercompletelist = $('#ordercompletelist');
+		     	     $('#ordercompletelist').empty("");
+		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+		     	     var item =  '<tr id='+n.proId+'>'+
+		     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
+	                 '<td>'+n.proName+'</td>'+
+	                 '<td class="text-center">'+n.proPrice+'</td>'+
+// 	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
+// 	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+	               	 '</tr>';
 				
 				showorderlist()
+		     	 	 })
             });
         }
       }, '.paypalbutton');
@@ -488,7 +507,8 @@ height:100px;
 				url:"shopcarttotal",
 				success:function(data){
 					$('#ordertotal').empty()
-		            $('#ordertotal').text(data)                               
+		            $('#ordertotal').text(data)      
+		            dtotal =  $('#ordertotal').text() 
 				}
 				,error: function(error){
 					console.log(error);
@@ -527,8 +547,7 @@ height:100px;
 	  })
 	  
 	 //異動折扣
-	  $('#orderlist').click(function(){
-		  
+	  $('#orderlist').click(function(){	  
 		$('#couponprice').text("");
 		$('#coupondetail').val("");
 		
@@ -546,34 +565,43 @@ height:100px;
 					if(cash!=0 && cashId==1){						
 					    $('#ordertotal').empty();
 		                $('#ordertotal').text(data-cash); 
+		                dtotal = $('#ordertotal').text(); 
 					}else if(cash!=0 && cashId!=1){
 						if(cashName<=data){
 						$('#ordertotal').empty();
 			            $('#ordertotal').text(data-cash); 	
+			            dtotal = $('#ordertotal').text(); 
 						}else{
 							$('#couponprice').text("優惠條件不符");
 							$('#ordertotal').empty();
 				            $('#ordertotal').text(data); 
+				            dtotal = data
 						}
 					
 					}else if(discount!=0 && discountId!=9) {
 						$('#ordertotal').empty();
 			            $('#ordertotal').text(Math.round(data*discount/100)); 
+			            dtotal = $('#ordertotal').text(); 
 					}else if(discount!=0 && discountId==9) {
 						    if(discountName<=data){
 							$('#ordertotal').empty();
-				            $('#ordertotal').text(Math.round(data*discount/100)); 	
+				            $('#ordertotal').text(Math.round(data*discount/100)); 
+				            dtotal = $('#ordertotal').text(); 
 							}else{
 								$('#couponprice').text("優惠條件不符");
 								$('#ordertotal').empty();
 					            $('#ordertotal').text(data); 
+					            dtotal = data
 							}						
 					}else{
 						$('#ordertotal').empty();
-			            $('#ordertotal').text(data);  
+			            $('#ordertotal').text(data);             
+			            dtotal = data
+			            console.log("dtotal"+dtotal)
 					}	
 					}else{
 						$('#couponprice').text("");
+						
 					}
 				}
 				,error: function(error){
