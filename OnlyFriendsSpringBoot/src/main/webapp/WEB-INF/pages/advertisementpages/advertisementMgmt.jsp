@@ -22,6 +22,7 @@
 
 #main {
 	width: 50%;
+	color: black;
 }
 
 #topright {
@@ -32,6 +33,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 	width: 100%;
 	box-sizing: border-box;
 	border: 3px solid #555;
+	color: black;
 }
 
 .line {
@@ -206,40 +208,40 @@ table{
 									}
 
 								};
-							</script>
+							</script>							
 							<div id="main">
-								<div id="mainright">
-									<label for="adCompanyName" class="formName">廠商名稱</label>
+								<div class="mb-3">
+									<label for="adCompanyName" class="formName form-label">廠商名稱</label>
 									<div class="line">
 										<input placeholder="請輸入廠商名稱" type="text" name="adCompanyName"
-											id="adCompanyNameInsert" required>
+											id="adCompanyNameInsert" class="form-control" required>
 									</div>
-									<br> <label for="adCompanyPhone;" class="formName">連絡電話</label>
+									<br> <label for="adCompanyPhone;" class="formName form-label">連絡電話</label>
 									<div class="line">
 										<input placeholder="請輸入連絡電話" type="text" name="adCompanyPhone"
-											id="adCompanyPhoneInsert" required>
+											id="adCompanyPhoneInsert" class="form-control" required>
 									</div>
-									<br> <label for="adCompanyEmail" class="formName">電子郵件</label>
+									<br> <label for="adCompanyEmail" class="formName form-label">電子郵件</label>
 									<div class="line">
 										<input placeholder="請輸入電子郵件" type="text" name="adCompanyEmail"
-											id="adCompanyEmailInsert" required>
+											id="adCompanyEmailInsert" class="form-control" required>
 									</div>
-									<br> <label for="adName" class="formName">廣告名稱</label>
+									<br> <label for="adName" class="formName form-label">廣告名稱</label>
 									<div class="line">
 										<input placeholder="請輸入廣告名稱" type="text" id="adNameInsert"
-											name="adName" required>
+											name="adName" class="form-control" required>
 									</div>
-									<br> <label for="adStartDate" class="formName">上架日</label>
+									<br> <label for="adStartDate" class="formName form-label">上架日</label>
 									<div class="line">
-										<input type="date" name="adStartDate" id="adStartDateInsert">
+										<input type="date" name="adStartDate" id="adStartDateInsert" class="form-control">
 									</div>
-									<br> <label for="adEndDate" class="formName">下架日</label>
+									<br> <label for="adEndDate" class="formName form-label">下架日</label>
 									<div class="line">
-										<input type="date" name="adEndDate" id="adEndDateInsert">
+										<input type="date" name="adEndDate" id="adEndDateInsert" class="form-control">
 									</div>
-									<br> <label for="adCondition" class="formName">分類名稱</label>
+									<br> <label for="adCondition" class="formName form-label">分類名稱</label>
 									<div class="line">
-										<select name="adCondition" id="adConditionInsert" required>
+										<select name="adCondition" id="adConditionInsert" class="form-control" required style="background-color:white;">
 											<option value="">請選擇</option>
 											<option value="未上架">未上架</option>
 											<option value="已上架1" id="op1">已上架1</option>

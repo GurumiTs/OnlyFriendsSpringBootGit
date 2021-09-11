@@ -10,7 +10,7 @@
 #top {
 	display: flex;
 	width: 50%;
-	padding-right: 100px;
+	padding-right: 100px;	
 }
 
 #main {
@@ -83,7 +83,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 					<div class="modal-content modal-dialog-scrollable" id="mainpage">
 						<div class="modal-header">
 							<h5 class="modal-title" id="staticBackdropLabel">
-								修改 <img src='images/couponPic/fileplus.JPG' class="fileplus">
+								修改 <img src='images/couponPic/edit.JPG' class="fileplus">
 							</h5>
 
 						</div>
@@ -182,7 +182,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 											<br> <label for="adCondition" class="formName">分類名稱</label>
 											<div class="line">
 												<select name="adCondition" id="adConditionUpdate"
-													class="form-control" required>
+													class="form-control" required style="background-color:white;">
 													<option value="">請選擇</option>
 													<option value="未上架">未上架</option>
 													<option value="已上架1" id="op1">已上架1</option>
