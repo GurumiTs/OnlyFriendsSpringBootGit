@@ -1,5 +1,6 @@
 package of.shop.model;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,7 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrderRepository extends JpaRepository<OrderDetails,String>{
 
-	Optional<OrderDetails> findByPaymentId(String paymentId);
+	OrderDetails findByPaymentId(String paymentId);
+	
+	List<OrderDetails> findByMemberAccount(String memberAccount);
 		
 	
 }

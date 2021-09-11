@@ -12,7 +12,12 @@ font-size:1.2rem
  .friend-name:hover{
  color:green;
  }
+ .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
 </style>
+
 </head>
 <body>
  <body class="layout-2">
@@ -89,8 +94,8 @@ font-size:1.2rem
     	var friendname = $('#searchfriend').prop('value') 
     	loadfriends()   
     	$('#searchfriend').on('change',searchfriend)  
-    	$("#inviteicon").on('click', loadinvitemsg)
-		$("#notificationicon").on('click', loadnotifymsg)
+    	$("#inviteicon").on('mouseover', loadinvitemsg)
+		$("#notificationicon").on('mouseover', loadnotifymsg)
 		$("#clearnotification").on('click',clearnotification)
 
     	const socket = new SockJS('/OnlyFriends/chat-example')

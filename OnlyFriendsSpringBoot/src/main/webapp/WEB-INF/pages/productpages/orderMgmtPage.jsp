@@ -5,27 +5,24 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
-.edit {
+.information {
 	cursor: pointer;
-	color: green;
+	color: purple;
 }
 
-.delete {
-	cursor: pointer;
-	color: red;
+
+.information:hover {
+	color: purple;
 }
 
-.edit:hover {
-	color: green;
-}
-
-.delete:hover {
-	color: red;
-}
 
 .img1 {
 	weight: 100px;
 	height: 100px;
+}
+.proimg{
+    weight: 80px;
+	height: 80px;
 }
 </style>
 </head>
@@ -67,18 +64,18 @@
 											<th>訂單時間</th>
 											<th>訂單地址</th>
 											<th>訂單總金額</th>
-											<th>訂單商品</th>
+											<th>訂單資訊</th>
 										</tr>
 									</thead>
 <!-- 									<tbody id="ordertable"></tbody> -->
-									<tfoot>
+									<tfoot class="d-none">
 										<tr>
 											<th>Id</th>
 											<th>會員編號</th>
 											<th>訂單時間</th>
 											<th>訂單地址</th>
 											<th>訂單總金額</th>
-											<th>訂單商品</th>
+											<th>訂單資訊</th>
 
 										</tr>
 									</tfoot>
@@ -88,6 +85,110 @@
 						</div>
 					</div>
 					<!-- table end -->
+
+					<!-- model -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					       <div class="invoice" >
+				              <div class="invoice-print">
+				                <div class="row">
+				                  <div class="col-lg-12">
+					        <div class="row">
+                      <div class="col-md-6 ">
+                        <address>
+                          <span><i class="fas fa-map-marked-alt mx-2"></i></span><strong>訂單地址:</strong><br>
+                            <span id="postalCode"></span><span id="country"></span>
+                            <span id="orderline1"></span>
+                            <span id="orderline2"></span>
+                        </address>
+                      </div>
+                    </div>
+                    <div class="row">
+<!--                       <div class="col-md-6"> -->
+<!--                         <address> -->
+<!--                           <strong>信箱:</strong><br> -->
+<!--                           <span id="orderemail"></span> -->
+<!--                         </address> -->
+<!--                       </div> -->
+                      <div class="col-md-6">
+                        <address>
+                          <span><i class="far fa-calendar-alt mx-2"></i></span><strong>訂購時間:</strong><br>
+                          <span id="ordertime"></span><br><br>
+                        </address>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col-md-11 mx-auto">
+<!--                     <div class="section-title">Order Summary</div> -->
+<!--                     <p class="section-lead">All items here cannot be deleted.</p> -->
+                    <div class="table-responsive">
+                      <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th class="text-left">商品</th>
+                          <th class="text-left">名稱</th>
+                          <th class="text-center">單價</th>
+                          <th class="text-center">數量</th>
+                          <th class="text-center">小計</th>
+                        </tr>
+                      </thead>
+                      <tbody id="customerorderlist">
+                      </tbody>
+                    </table>
+                    </div>
+                    <div class="row mt-4">
+                      <div class="col-lg-8">
+<!--                         <div class="section-title">Payment Method</div> -->
+<!--                         <p class="section-lead">The payment method that we provide is to make it easier for you to pay invoices.</p> -->
+                        <div class="d-flex">
+                          <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
+                          <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
+                          <div class="mr-2 bg-mastercard" data-width="61" data-height="38"></div>
+                          <div class="bg-paypal" data-width="61" data-height="38"></div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 text-right" >
+<!--                         <div class="invoice-detail-item"> -->
+<!--                           <div class="invoice-detail-name">總計</div> -->
+<!--                           <div class="invoice-detail-value" id="finaltotal"></div> -->
+<!--                         </div> -->
+<!--                         <div class="invoice-detail-item"> -->
+<!--                           <div class="invoice-detail-name">Shipping</div> -->
+<!--                           <div class="invoice-detail-value">$15</div> -->
+<!--                         </div> -->
+                        <hr class="mt-2 mb-2">
+                        <div class="invoice-detail-item">
+                          <div class="invoice-detail-name">總計</div>
+                          <div class="invoice-detail-value invoice-detail-value-lg">$<span id="orderfinaltotal"></span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+<!-- 					        <button type="button" class="btn btn-primary">Save changes</button> -->
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					
+					
+					
+					<!-- model end -->
+
 
 					<!-- **************************end of your content*************************** -->
 				</div>
@@ -126,52 +227,109 @@
 				"data" : "memberAccount"
 			}, {
 				"data" : "orderTime"
-			}, {
-				"data": "orderAddress"
-			}, {
-				"data" : "total"
-			}, {
-				"data": null,
+			},
+			 { 
+	        	"data": null,
 	            render:function(data, type, row)
 	            {
-	              return data.proName;
+	             	let a =  JSON.parse(data.orderAddress);
+// 	             	console.log(a)
+	            	return a.line1+a.line2;
 	            }
-			} ]
+	        },			
+			
+			{
+				"data" : "total"
+			}, {
+	            "data": null,
+	            render:function(data, type, row)
+	            {
+	              return "<a class='details' id="+data.paymentId+">&nbsp&nbsp&nbsp<i class='fas fa-info-circle information' data-bs-toggle='modal' data-bs-target='#exampleModal'></i>";
+	            }
+	        }]
 		})
 		  
-// 		$(function(){
-// 			getordertable() 
-// 		})
-// 		function getordertable () {
-// 			console.log("hello")
+		/* load data table */
+		
+		$("#ordertable tbody").on("click", ".details", function () {
+			let paymentId=$(this).attr("id");
+// 			console.log(paymentId);
+			let dtr = $(this).closest("th");
+			 $.ajax({
+				  type : "post",
+				  url: "emporderquery", 
+				  dataType: "json",   
+			      cache: false,  
+			      data: {"paymentId":paymentId}, 
+			      success: function(data) 
+			        {
+// 						console.log(data)
+			    	  let address =  JSON.parse(data.orderAddress);
+// 			         	console.log(address)
+			    	  $('#postalCode').text(address.postal_code);
+			    	  $('#country').text(address.country_code);
+			    	  $('#orderline1').text(address.line1);
+			    	  $('#orderline2').text(address.line2);
+			    	  $('#ordertime').text(data.orderTime);
+			    	  $('#orderfinaltotal').text(data.total);
+			    	  let json=JSON.stringify(data.orderItem,null,4)
+			    	  console.log(json)
+					  var parsedObjinArray = JSON.parse(json);
+			    	  console.log(parsedObjinArray)
+		     	     var customerorderlist = $('#customerorderlist');
+		     	     $('#customerorderlist').empty("");
+		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+		     	     var item =  '<tr id='+n.proId+'>'+
+		     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
+	                 '<td>'+n.proName+'</td>'+
+	                 '<td class="text-center">'+n.proPrice+'</td>'+
+// 	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
+// 	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+	               	 '</tr>';
+	               		customerorderlist.append(item);
+		     	 	});
+			        },
+			      error: function(data) 
+			        {
+			           console.log('無法送出');
+			        }
+			  });			  
+		});
+		
+// 		function customerorderlist() {
+// 			let paymentId=$(this).attr("id");
+// 			console.log(paymentId);
+// 			let dtr = $(this).closest("th");
 // 			$.ajax({
 // 				type:"get",
-// 				url:"order.controller",
+// 				url:"orderIdItem",
+// 				dataType: "json",   
+// 			    cache: false,  
+// 			    data: {"paymentId":paymentId},
 // 				success:function(data){
-// // 					 console.log(data);
-// 					 var json = JSON.stringify(data,null,4);
+// 					console.log(data) 
+// 					var json = JSON.stringify(data,null,4);
 // 		     	     var parsedObjinArray = JSON.parse(json);
-// 		     	     var ordertable = $('#ordertable');
-// 		     	     $('#ordertable').empty("");
+// 		     	     var customerorderlist = $('#customerorderlist');
+// 		     	     $('#customerorderlist').empty("");
 // 		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-// 		     	     var item = '<tr id='+n.orderDetails.paymentId+'>'+
-// 		 				'<td>'+n.orderDetails.memberAccount+'</td>'+
-// 		 				'<td>'+n.orderDetails.orderTime+'</td>'+
-// 		 				'<td>'+n.orderDetails.orderAddress.line1+'</td>'+
-// 		 				'<td>'+n.orderDetails.total+'</td>'+
-// 		 				'<td>'+n.orderDetails.proName+'</td>'+
-// 		 				'</tr>';
-// 		 				ordertable.append(item);
+// 		     	     var item =  '<tr id='+n.product.proId+'>'+
+// 		     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
+// 	                 '<td>'+n.product.proName+'</td>'+
+// 	                 '<td class="text-center">'+n.product.proPrice+'</td>'+
+// 	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
+// 	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+// 	               	 '</tr>';
+// 	               		customerorderlist.append(item);
 		 				
 // 		     	    });
+// 		     	 	orderfinaltotal()	     	 	
 // 				},
-// 				error:function(){
+// 				error:function(error){
 // 					console.log("error");
 // 				}
 // 			})
 // 		}	
-		/* load data table */
-		
 		
 // 		function getorderaddress() {
 			

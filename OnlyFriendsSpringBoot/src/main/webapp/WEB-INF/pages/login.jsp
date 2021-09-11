@@ -284,12 +284,12 @@
                   </div>
                 </form>
                 <div class="text-center mt-4 mb-3">
-                  <div class="text-job text-muted">Login With Social</div>
+                  <div class="text-job text-muted">第三方登入</div>
                 </div>
                 <div class="row sm-gutters">
                   <div class="col-6">
                   <button class="btn btn-outline-danger">
-                  login with google
+                  login with
                   <a href="${pageContext.request.contextPath}/oauth2/authorization/google"> <img
 									src="${pageContext.request.contextPath}/images/smallicon/google.svg"
 									alt="">
@@ -301,8 +301,8 @@
                    </div>
                 </div>
                  <div class="mt-5 text-muted text-center">
-              Don't have an account?  <a type="button" class="fst-italic text-primary" data-bs-toggle="modal"
-									data-bs-target="#staticBackdrop">Create One</a>
+              	尚未擁有帳號?  <a type="button" class="fst-italic text-primary" data-bs-toggle="modal"
+									data-bs-target="#staticBackdrop">前往註冊</a>
            		 </div>
 
               </div>
@@ -339,7 +339,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Register</h5>
+					<h5 class="modal-title" id="staticBackdropLabel">帳號註冊</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -348,7 +348,7 @@
 			        <div class="form-group">    
 			        <div class="row">
                     <div class="col-8">           
-                    <label class="form-label">Id</label>
+                    <label class="form-label">帳號</label>
 	                <input
 	                  type="text"
 	                  class="form-control"
@@ -363,7 +363,7 @@
                   <div class="form-group">
                     <div class="row">
                     <div class="col-8">
-                    <label for="email" class="form-label">Email</label> 
+                    <label for="email" class="form-label">信箱</label> 
                     <input type="text" class="form-control" name="email" id="email" required />
 	                </div>
 	                </div>	                
@@ -374,7 +374,7 @@
                   <div class="form-group">
                     <div class="row">
                     <div class="col-8">
-                    <label for="empPwd1" class="form-label">Password</label> 
+                    <label for="empPwd1" class="form-label">密碼</label> 
                     <input type="password" class="form-control" name="empPwd1" id="empPwd1" required />
 	                </div>
 	                </div>	                
@@ -383,7 +383,7 @@
                    <div class="form-group">
                     <div class="row">
                     <div class="col-8">
-                     <label for="empPwd2" class="form-label">Confirm</label> 
+                     <label for="empPwd2" class="form-label">確認密碼</label> 
                      <input type="password" class="form-control" name="empPwd2" id="empPwd2" required />
                      <div class="invalid-feedback">First letter should be uppercase,mix number and eng letters(8~12)</div>
 	                </div>
@@ -393,8 +393,8 @@
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button id="memberRegister" type="button" class="btn btn-primary">Submit</button>
+								data-bs-dismiss="modal">取消</button>
+							<button id="memberRegister" type="button" class="btn btn-primary">送出</button>
 						</div>
 					</form>
 				</div>
@@ -567,7 +567,7 @@
 		              $('#empPwd2').prop('value','')
 		              $('#email').prop('value','')
 		              
-		   			  Swal.fire("Success!", "", "success");		              
+		   			  Swal.fire("註冊成功，前往信箱收取認證信!", "", "success");		              
 		            },
 		            error: function (e) {
 		              console.log("error");

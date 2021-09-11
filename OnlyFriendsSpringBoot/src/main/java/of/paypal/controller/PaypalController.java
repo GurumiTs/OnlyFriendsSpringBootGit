@@ -191,7 +191,7 @@ public class PaypalController {
 		try {
 			//System.out.println(paymentId);
 			payment = service.executePayment(paymentId, payerId);
-			//System.out.println(payment.toJSON());
+			System.out.println(payment.toJSON());
 			String total = payment.getTransactions().get(0).getAmount().getTotal();
 			Float ftotal = Float.parseFloat(total);
 			Member m1 = (Member) request.getSession().getAttribute("personalinfo");

@@ -28,7 +28,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Signup New Employee</h1>
+					<h1 class="h3 mb-2 text-gray-800">建立員工帳號</h1>
 					<!-- signup section  -->
 					<div class="container">
 						<div class="row mt-5">
@@ -64,7 +64,7 @@
 									enctype="multipart/form-data" class="needs-validation"
 									novalidate>
 									<div class="mb-3">
-										<label for="empEmail" class="form-label">Email</label> <input
+										<label for="empEmail" class="form-label">信箱</label> <input
 											type="email" class="form-control" name="empEmail"
 											id="empEmail" required />
 										<div class="valid-feedback">Looks good!</div>
@@ -73,14 +73,14 @@
 
 									<div class="mb-3 row">
 										<div class="col">
-											<label for="empAcc" class="form-label">Account</label> <input
+											<label for="empAcc" class="form-label">帳號</label> <input
 												type="text" class="form-control" name="empAcc" id="empAcc"
 												required />
 											<div class="valid-feedback">Looks good!</div>
 											<div class="invalid-feedback">should be 6~12 numbers</div>
 										</div>
 										<div class="col">
-											<label for="empName" class="form-label">Name</label> <input
+											<label for="empName" class="form-label">姓名</label> <input
 												type="text" class="form-control" id="empName" name="empName"
 												required />
 											<div class="valid-feedback">Beautiful!</div>
@@ -90,12 +90,12 @@
 
 									<div class="mb-3 row">
 										<div class="col">
-											<label for="empPwd1" class="form-label">Password</label> <input
+											<label for="empPwd1" class="form-label">密碼</label> <input
 												type="password" class="form-control" name="empPwd1"
 												id="empPwd1" required />
 										</div>
 										<div class="col">
-											<label for="empPwd2" class="form-label">Confirm</label> <input
+											<label for="empPwd2" class="form-label">確認密碼</label> <input
 												type="password" class="form-control" name="empPwd2"
 												id="empPwd2" required />
 										</div>
@@ -105,13 +105,13 @@
 
 									<div class="mb-3 row">
 										<div class="col">
-											<label for="empBday" class="form-label">Birthday</label> <input
+											<label for="empBday" class="form-label">生日</label> <input
 												type="text" class="form-control" name="empBday" id="empBday"
 												required />
 											<div class="invalid-feedback">Choose your Happy Bday!</div>
 										</div>
 										<div class="col">
-											<label for="empPic" class="form-label">Photo</label> <input
+											<label for="empPic" class="form-label">個人照</label> <input
 												type="file" class="form-control" name="empPic" id="empPic"
 												required />
 											<div class="valid-feedback">Awesome!</div>
@@ -127,10 +127,10 @@
 
 									<div class="mb-3 row">
 										<div class="col">
-											<label for="empAuth" class="form-label">Authority</label> <select
+											<label for="empAuth" class="form-label">權限</label> <select
 												id="empAuth" class="form-select form-select-sm"
 												name="empAuth" required>
-												<option selected disabled value="">Choose...</option>
+												<option selected disabled value="">請選擇...</option>
 												<option value="1">employee</option>
 												<option value="2">highest</option>
 											</select>
@@ -138,10 +138,10 @@
 										</div>
 
 										<div class="col">
-											<label for="empDept" class="form-label">Department</label> <select
+											<label for="empDept" class="form-label">部門</label> <select
 												id="empDeptNum" class="form-select form-select-sm"
 												name="empDeptNum" required>
-												<option selected disabled value="">Choose...</option>
+												<option selected disabled value="">請選擇...</option>
 												<option value="7001">活動部</option>
 												<option value="7002">公關部</option>
 												<option value="7003">論壇管理</option>
@@ -156,12 +156,12 @@
 										<div class="col showPwd mx-4">
 											<input class="form-check-input" type="checkbox"
 												name="showPwd" id="showPwd" onclick="pwdType()" /><label
-												for="showPwd">show password</label>
+												for="showPwd">顯示密碼</label>
 										</div>
 									</div>
 
 									<div class="button">
-										<button type="submit" class="btn btn-primary">Submit</button>
+										<button type="submit" class="btn btn-primary">提交</button>
 									</div>
 								</form>
 							</div>

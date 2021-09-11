@@ -54,6 +54,10 @@ height:50px;
 	height: 50px;
 	display: block;
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
 </style>
 </head>
 <body>
@@ -236,7 +240,7 @@ height:50px;
 	              return "<p>"+data.blogAuthority+"</p>";
 	            }
 	        }
-	    ],
+	    ]
 	    ,language: {
 	    	"lengthMenu": "顯示 _MENU_ 筆資料",
 	    	"sProcessing": "處理中...",

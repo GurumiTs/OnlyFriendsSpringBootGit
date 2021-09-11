@@ -10,8 +10,8 @@ $(function() {
 	const socket = new SockJS('/OnlyFriends/chat-example')
 	stompClient = Stomp.over(socket)
 	stompClient.connect({}, onConnected, onError)
-	$("#inviteicon").on('click', loadinvitemsg)
-	$("#notificationicon").on('click', loadnotifymsg)
+	$("#inviteicon").on('mouseover', loadinvitemsg)
+	$("#notificationicon").on('mouseover', loadnotifymsg)
 	$("#clearnotification").on('click',clearnotification)
 
 })

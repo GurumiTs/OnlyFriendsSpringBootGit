@@ -58,6 +58,7 @@ public class MamberEmail {
 			member.setMemberName("Users");
 			member.setMemberPic("images/smallicon/nonephoto2.svg");
 			member.setMemberEmailCheckNum(emailCheckNum);
+			member.setMemberAuth(1);
 			memberService.insert(member);
 			
 			
@@ -241,7 +242,7 @@ public class MamberEmail {
 					+ "                \"\r\n"
 					+ "              >\r\n"
 					+ "                <h1 style=\"font-size: 48px; font-weight: 400; margin: 2\">\r\n"
-					+ "                  Welcome!\r\n"
+					+ "                  歡迎加入OnlyFriends!\r\n"
 					+ "                </h1>\r\n"
 					+ "                <img\r\n"
 					+ "                  src=\" https://img.icons8.com/clouds/100/000000/handshake.png\"\r\n"
@@ -308,7 +309,7 @@ public class MamberEmail {
 					+ "                                border: 1px solid #ffa73b;\r\n"
 					+ "                                display: inline-block;\r\n"
 					+ "                              \"\r\n"
-					+ "                              >Click To Verify</a\r\n"
+					+ "                              >點擊認證</a\r\n"
 					+ "                            >\r\n"
 					+ "                          </td>\r\n"
 					+ "                        </tr>\r\n"
@@ -376,7 +377,7 @@ public class MamberEmail {
 					+ "                  line-height: 25px;\r\n"
 					+ "                \"\r\n"
 					+ "              >\r\n"
-					+ "                <p style=\"margin: 0\">Cheers,<br />OnlyFriends Team</p>\r\n"
+					+ "                <p style=\"margin: 0\">Cheers<br />OnlyFriends Team</p>\r\n"
 					+ "              </td>\r\n"
 					+ "            </tr>\r\n"
 					+ "          </table>\r\n"
@@ -417,7 +418,7 @@ public class MamberEmail {
 					+ "                    margin: 0;\r\n"
 					+ "                  \"\r\n"
 					+ "                >\r\n"
-					+ "                  Need more help?\r\n"
+					+ "                  需要更多幫助?\r\n"
 					+ "                </h2>\r\n"
 					+ "                <p style=\"margin: 0\">\r\n"
 					+ "                  <a href=\"#\" target=\"_blank\" style=\"color: #ffa73b\"\r\n"
