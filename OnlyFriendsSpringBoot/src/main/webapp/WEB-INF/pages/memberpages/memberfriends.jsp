@@ -222,8 +222,8 @@ font-size:1.2rem
                }
               $('#friendsarea').append(item)});              
               $("li").on('click',createroom)
-              $("li").mouseenter(friendsinfo)
-              $("li").mouseleave(removeinfo)
+              $("li img").mouseenter(friendsinfo)
+              $("li img").mouseleave(removeinfo)
        
              },
              error: function (data) {           			 
@@ -491,8 +491,8 @@ font-size:1.2rem
     }
     
     function friendsinfo(){
-    	let a = $(this).attr('id')
-      	let b = $(this)
+    	let a = $(this).parent().attr('id');
+      	let b = $(this).parent();
       	$.ajax({
       		type: "post",
       		url: "memberfriendsnum",
@@ -500,17 +500,17 @@ font-size:1.2rem
       		success: function(data) {
       			let json = data[0]
       			let item = 
-    				"<div class='card profile-widget position-absolute' style='z-index:5' id='friendsinfo'>"+
+    				"<div class='card profile-widget position-absolute shadow border rounded-3' style='z-index:5' id='friendsinfo'>"+
     					"<div class='profile-widget-header'>"+
     					//"<img id='showMemberPic' src='"+data.memberPic+"' class='rounded-circle profile-widget-picture'"+
     			            //"style='width: 5vw; height: 5vw; object-fit: cover'/>"+
     						"<div class='profile-widget-items'>"+
     							"<div class='profile-widget-item'>"+
-    								"<div class='profile-widget-item-label' style='font-size:12px;'>Friends</div>"+
+    								"<div class='profile-widget-item-label text-danger' style='font-size:12px;'><i class='fas fa-users'></i>Friends</div>"+
     								"<div class='profile-widget-item-value' id='friendsnum' style='font-size:12px;'>"+json.friendsnum+"</div>"+
     							"</div>"+
     							"<div class='profile-widget-item'>"+
-    								"<div class='profile-widget-item-label' style='font-size:12px;'>Level</div>"+
+    								"<div class='profile-widget-item-label text-warning' style='font-size:12px;'><i class='fas fa-flask'></i>Level</div>"+
     								"<div class='profile-widget-item-value' id='level' style='font-size:12px;'>"+json.level+"</div>"+
     							"</div>"+
     						"</div>"+

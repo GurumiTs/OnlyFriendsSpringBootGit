@@ -113,7 +113,7 @@ font-size:1.2rem
 
 							<!-- show profile-->
 							<div class="col-12 col-md-12 col-lg-5">
-								<div class="card profile-widget">
+								<div class="card profile-widget shadow">
 									<div class="profile-widget-header">
 								<i
 				                  class="fas fa-edit text-dark btn fs-5"
@@ -130,11 +130,11 @@ font-size:1.2rem
 				
 										<div class="profile-widget-items">
 											<div class="profile-widget-item">
-												<div class="profile-widget-item-label" >Friends</div>
+												<div class="profile-widget-item-label text-danger" ><i class='fas fa-users'></i>Friends</div>
 												<div class="profile-widget-item-value" id="friendsnum"></div>
 											</div>
 											<div class="profile-widget-item">
-												<div class="profile-widget-item-label">Level</div>
+												<div class="profile-widget-item-label text-warning"><i class='fas fa-flask'></i>Level</div>
 												<div class="profile-widget-item-value" id="level"></div>
 											</div>											
 										</div>
