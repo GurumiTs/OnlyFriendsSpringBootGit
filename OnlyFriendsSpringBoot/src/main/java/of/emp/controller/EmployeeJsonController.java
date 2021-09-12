@@ -1,8 +1,14 @@
 package of.emp.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import of.common.model.Users;
 import of.common.model.UsersService;
 import of.emp.model.Employee;
 import of.emp.model.EmployeeService;
+import of.member.model.Member;
+import of.member.model.MemberService;
 
 @Controller
 public class EmployeeJsonController {
@@ -32,6 +43,8 @@ public class EmployeeJsonController {
 	private UsersService usersService;
 	@Autowired
 	private Users users;
+	@Autowired
+	private MemberService memeberService;
 
 	@GetMapping(path = "/empalltojson")
 	@ResponseBody
@@ -40,6 +53,14 @@ public class EmployeeJsonController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", empList);
 		return map;
+	}
+	
+	@PostMapping(path = "/membersum")
+	@ResponseBody
+	public Integer memberSum(Model m) {
+		List<Member> memberList = memeberService.findAll();
+		Integer membersum = memberList.size();
+		return membersum;
 	}
 	
 //	@PostMapping(path = "/alltojsonarray")
@@ -102,6 +123,30 @@ public class EmployeeJsonController {
 			return new ResponseEntity<String>("y", HttpStatus.OK);
 		}
 			return new ResponseEntity<String>("n", HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(path = "/exportmembertocsv")
+	public void exportmembertocsv(HttpServletResponse response) throws IOException {
+		response.setContentType("text/csv");
+		response.setCharacterEncoding("UTF-8");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currenttime = df.format(new Date());
+		System.out.println(currenttime);
+		String fileName = "members"+currenttime+".csv";
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachement;filename="+fileName;
+		response.setHeader(headerKey, headerValue);
+		List<Member> listmember = memeberService.findAll();
+		ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
+		
+		String[] csvHeader = {"account","email","name","age","phone","address","county","district","zipcode"};
+		String[] nameMapping = {"memberAccount","memberEmail","memberName","memberAge","memberPhone","memberAddress","memberCounty","memberDistrict","memberZipcode"};
+		csvWriter.writeHeader(csvHeader);
+		for(Member m :listmember) {
+			csvWriter.write(m, nameMapping);
+		}
+		csvWriter.close();
 	}
 
 }

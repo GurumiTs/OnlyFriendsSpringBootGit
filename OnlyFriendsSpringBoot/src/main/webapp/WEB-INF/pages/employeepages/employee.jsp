@@ -28,6 +28,7 @@
 				<div class="container-fluid">
 
 					<h1 class="h3 mb-2 text-gray-800">Dashboards</h1>
+					<a href="exportmembertocsv">Download member</a>
 				<!-- first row  -->	
 				<div class="row my-3">	
 				
@@ -56,8 +57,30 @@
                     </div>
                   </div>
                 </div>
+              </div>       
+              
+              <div class="col-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                         總會員數
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="membersum">
+                         
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                      	<i class="fas fa-users fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>             
-            
+              
+    
              </div>   
              <!-- first row  -->	
              
@@ -124,6 +147,7 @@
 $(function(){
 	storedchart()
 	storedannual()
+	membersum()
 })
 
 function storedchart(){
@@ -197,9 +221,21 @@ function storedannual(){
         	 console.log("storedannual error")
          },
       });
-	
-	
-	
+
+}
+
+function membersum(){
+	 $.ajax({
+         type: "post",
+         url: "membersum",
+         success: function (data) {
+        	 $('#membersum').text(data)
+        	 console.log(data)
+         },
+         error:function(xhr){
+        	 console.log("membersum error")
+         },
+      });
 }
 
 </script>

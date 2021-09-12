@@ -108,7 +108,7 @@
             <div class="card-body d-flex flex-row text-dark">
               <div class="col">
                 <img src="${pageContext.request.contextPath}/images/indexPic/hangout1.svg" alt="" />
-                <h1>Outdoor Active</h1>
+                <h1>Outdoor</h1>
               </div>
               <div class="col">
                 <img src="${pageContext.request.contextPath}/images/indexPic/hangout2.svg" alt="" />
