@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -65,6 +66,20 @@ public class OfficialActiveController {
 		
 		
 		
+	}
+	
+	//查詢單筆活動
+	@PostMapping(path="/empfindanum")
+	@ResponseBody
+	public OfficialActive findOfficialActive(@RequestParam("anum") Long anum) {
+		
+		//officialActive = officialActiveService.findByAnum(anum);
+//		officialActiveService.deleteById1(anum);
+		//model.addAttribute("officialActive",officialActive);
+		OfficialActive foa = officialActiveService.findByAnum(anum);
+		
+		System.out.println(anum+"幹");
+		return foa;
 	}
 
 	

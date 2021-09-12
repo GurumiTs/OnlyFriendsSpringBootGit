@@ -44,7 +44,7 @@ font-size:1.2rem
  		<div>                              
  		<div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>
-  <input type="email" class="form-control"  placeholder="請輸入管理者編號" name="anum" value = "${officialActive.anum}" disabled="disabled">
+  <input type="email" class="form-control"  placeholder="請輸入管理者編號" name="anum" value = "${officialActive.anum}" disabled="disabled" id = "anum">
 </div>
                    
                     <input type="hidden" name="anum" size="20" placeholder="請輸入活動ID..." value="${officialActive.anum}">
@@ -225,7 +225,31 @@ font-size:1.2rem
                  $(function(){
                  	 $("#twzipcode").twzipcode({
                          zipcodeIntoDistrict: true,
+                         
                      });
+                  	  let anum = $('#anum').attr('value');
+                   	  console.log  (anum)
+        			  $.ajax({
+        				  type : "post",
+        				  url: "empfindanum",     
+        			      data: {"anum":anum}, 
+        			      success : function(data) 
+        			        {
+        			    	  console.log(data)
+        			    	  $("#twzipcode").twzipcode("set", {
+        			              county: data.county,
+        			              district: data.district,
+        			            });
+        			    	  
+        			    	  
+        			        },error: function(data) 
+        			        {
+        			           console.log('無法送出');
+        			        }
+        			  });	
+                     	 
+                 	 
+                 	 
                  })
                  
                    // 照片顯示
