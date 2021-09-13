@@ -30,6 +30,10 @@ public class OrderService {
 		return orderRepository.findAll();
 	}
 	
+	public void update(OrderDetails orderDetails) {
+		orderRepository.save(orderDetails);
+	}
+	
 	public List<OrderDetails> findByMemberAccount(String memberAccount) {
 		List<OrderDetails> orderDetails = orderRepository.findByMemberAccount(memberAccount);
 		return orderDetails;

@@ -261,6 +261,7 @@ height:100px;
 <!--                           <div class="invoice-detail-name">Shipping</div> -->
 <!--                           <div class="invoice-detail-value">$15</div> -->
 <!--                         </div> -->
+						<div class="invoice-detail-name" id="finaldicountdiv">折價券<span id="finaldiscount"></span></div>
                         <hr class="mt-2 mb-2">                      
                         <div class="invoice-detail-item">
                           <div class="invoice-detail-name">總計</div>
@@ -318,7 +319,7 @@ height:100px;
           })
             .then(function(res) {
               // 3. Return res.id from the response
-              console.log(res)
+//               console.log(res)
               return res.id;
             });
         },
@@ -342,64 +343,58 @@ height:100px;
 				$("#first").addClass("d-none")
 				$("#second").removeClass("d-none")
 				let address = res.payer.payerInfo.shippingAddress;
-				console.log(address)
+// 				console.log(address)
 				let b = address.line1
-				console.log(b)
+// 				console.log(b)
               	$('#postalCode').text(address.postalCode);
 				$('#country').text(address.countryCode);
 				$('#orderline1').text(address.line1);
 				$('#orderline2').text(address.line2)
 				$('#orderemail').text(res.payer.payerInfo.email)
 				$('#ordertime').text(res.updateTime)
-				$('#orderfinaltotal').text(data.total);
-			    	  let json=JSON.stringify(data.orderItem,null,4)
-			    	  console.log(json)
-					  var parsedObjinArray = JSON.parse(json);
-			    	  console.log(parsedObjinArray)
-		     	     var ordercompletelist = $('#ordercompletelist');
-		     	     $('#ordercompletelist').empty("");
-		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-		     	     var item =  '<tr id='+n.proId+'>'+
-		     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
-	                 '<td>'+n.proName+'</td>'+
-	                 '<td class="text-center">'+n.proPrice+'</td>'+
-// 	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
-// 	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-	               	 '</tr>';
+				let paymentId=data.paymentID;
+				console.log(paymentId);
+				let dtr = $(this).closest("th");
+				 $.ajax({
+					  type : "post",
+					  url: "orderquery", 
+				      data: {"paymentId":paymentId}, 
+				      success: function(data) 
+				        {
+						  console.log(data)
+				    	  let json=JSON.stringify(data.orderItem,null,4)
+				    	  console.log(json)
+						  var parsedObjinArray = JSON.parse(json);
+				    	  console.log(parsedObjinArray)
+			     	     var ordercompletelist = $('#ordercompletelist');
+				    	  $('#orderfinaltotal').text(data.total);
+				    	  $('#finaldiscount').text(data.orderDiscount);
+				    	  if(data.orderDiscount==0){
+				    		  $('#finaldicountdiv').remove()
+				    	  }
+			     	     $('#ordercompletelist').empty("");
+			     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+			     	     var item =  '<tr id='+n.proId+'>'+
+			     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
+			             '<td>'+n.proName+'</td>'+
+			             '<td class="text-center">'+n.proPrice+'</td>'+
+			//                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
+			//                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+			           	 '</tr>';
+			           	ordercompletelist.append(item);
+			     	 	});
+				        },
+				      error: function(data) 
+				        {
+				           console.log('無法送出');
+				        }
+	  });	
 				
 				showorderlist()
-		     	 	 })
+// 		     	 	 })
             });
         }
       }, '.paypalbutton');
-    
-    function showorderlist() {
-		$.ajax({
-			type:"post",
-			url:"getShoppingCars",
-			success:function(data){
-				 var json = JSON.stringify(data,null,4);
-	     	     var parsedObjinArray = JSON.parse(json);
-	     	     var ordercompletelist = $('#ordercompletelist');
-	     	     $('#ordercompletelist').empty("");
-	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-	     	     var item =  '<tr id='+n.product.proId+'>'+
-	     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
-                 '<td>'+n.product.proName+'</td>'+
-                 '<td class="text-center">'+n.product.proPrice+'</td>'+
-                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
-                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-               	 '</tr>';
-               		ordercompletelist.append(item);
-	 				
-	     	    });
-	     	 	orderfinaltotal()	     	 	
-			},
-			error:function(error){
-				console.log("error");
-			}
-		})
-	}	
 
     $(function(){
     	findcart()

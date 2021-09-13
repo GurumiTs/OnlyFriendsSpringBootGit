@@ -21,6 +21,14 @@ public class OrderItem implements Serializable{
 	@Column(name = "amount")
 	private int amount;
 	
+	public OrderItem() {
+		
+	}
+	public OrderItem(String paymentId, int proId, int amount) {
+		this.paymentId = paymentId;
+		this.proId = proId;
+		this.amount = amount;
+	}
 	public String getPaymentId() {
 		return paymentId;
 	}

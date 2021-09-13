@@ -1,5 +1,6 @@
 package of.paypal.controller;
 
+import java.io.Console;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
 import of.shop.model.OrderDetails;
+import of.shop.model.OrderItem;
 import of.shop.model.OrderItemService;
 import of.shop.model.OrderService;
 
@@ -210,7 +212,7 @@ public class PaypalController {
 	public Payment successPay(@RequestParam("paymentID") String paymentId, @RequestParam("payerID") String payerId,Model model,HttpServletRequest request) {
 		Payment payment = null;
 		try {
-			//System.out.println(paymentId);
+			//System.out.println(paymentId); 
 			payment = service.executePayment(paymentId, payerId);
 			System.out.println(payment.toJSON());
 			String total = payment.getTransactions().get(0).getAmount().getTotal();
@@ -222,35 +224,46 @@ public class PaypalController {
 			
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());	
 			
-			if(ftotal>199) {
+			if(ftotal>199) { 
+
 				List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist"); 
 				List<Product> productlist=  new ArrayList<>();
 				List<Integer> amountlist = new ArrayList<>();
 				List<Integer> ppidList = new ArrayList<>();
+				Integer finaltotal=0;
+				Integer afterdiscountInteger = ftotal.intValue();
 				for(CartItem cartItem:cartlist) {
 					productlist.add(productService.findById(cartItem.getProduct().getProId()));
 					amountlist.add(cartItem.getAmount());
 					ppidList.add(cartItem.getProduct().getProId());
+					finaltotal+=cartItem.getProduct().getProPrice()*cartItem.getAmount();
 				}
+				Integer discountInteger = finaltotal - afterdiscountInteger;
 				OrderDetails orderDetails = new OrderDetails();
-				orderDetails.setPaymentId(payment.getId());
+				orderDetails.setPaymentId(payment.getId()); 
 				orderDetails.setOrderAddress(payment.getPayer().getPayerInfo().getShippingAddress().toString());
 				orderDetails.setMemberAccount(memberAccount);
 				orderDetails.setTotal(ftotal);
-				orderDetails.setOrderTime(timestamp);
+				orderDetails.setOrderTime(timestamp); 
 				orderDetails.setOrderItem(productlist); 
+				orderDetails.setOrderDiscount(discountInteger.toString());
+				
 				
 				orderService.insert(orderDetails);
-				System.out.println(amountlist.toString());
-				System.out.println(ppidList.toString());
-			 					
-//				for(Integer i : amountlist) {
-//					int a = 0;
-//					int ppid = ppidList.get(a);
-//					a++;
-//					orderItemService.updateamount(i, paymentId, ppid);
-//				}
 				
+				List<Product> orderitem = orderDetails.getOrderItem();			
+				int a = 0;
+				for(Integer i : amountlist) {
+					System.out.println("i"+i);					
+					int ppid = ppidList.get(a);
+					a++;
+					System.out.println("ppid"+ppid);				
+					orderItemService.updateamount(i, paymentId, ppid);
+								
+				} 
+				
+				request.getSession().removeAttribute("cartlist");
+				   
 			}
 			 
 		
@@ -269,11 +282,11 @@ public class PaypalController {
 				m2.setSwipeTime(newswipetime);
 				memberService.update(m2);
 			}
-			
+			  
 		} catch (PayPalRESTException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			
+		
 		}
 		return payment;
 

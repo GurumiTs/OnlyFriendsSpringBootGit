@@ -47,6 +47,9 @@ public class OrderDetails {
 	@Column(name = "orderStatus")
 	private String orderStatus;
 	
+	@Column(name = "orderDiscount")
+	private String orderDiscount;
+	
 	@ManyToMany
 	@JoinTable(
 			name = "orderitem",
@@ -135,7 +138,16 @@ public class OrderDetails {
 		this.orderStatus = orderStatus;
 	}
 
+	public String getOrderDiscount() {
+		return orderDiscount;
+	}
 
+	public void setOrderDiscount(String orderDiscount) {
+		this.orderDiscount = orderDiscount;
+	}
+
+
+	
 	
 	
 }
