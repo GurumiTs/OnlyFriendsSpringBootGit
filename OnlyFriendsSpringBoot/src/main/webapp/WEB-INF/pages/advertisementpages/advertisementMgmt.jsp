@@ -320,7 +320,7 @@ table{
 											render : function(data, type, row) {
 												return "<a href='adDetailEntry.controller?adId="
 														+ data.adId
-														+ "'><img src='images/couponPic/edit.JPG' style='width:60%;padding-top:17px'></a>";
+														+ "'><img src='images/couponPic/edit.JPG' style='width:60%;padding-top:12px'></a>";
 											}
 										},
 										{
