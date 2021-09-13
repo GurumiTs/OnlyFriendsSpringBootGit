@@ -6,6 +6,10 @@
 body {
 	font-size: 1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 </style>
 </head>
 <body>
@@ -21,41 +25,42 @@ body {
 				<div class="row">
 					<div class="col-lg-8">
 						<!-- Post content-->
-						<article>
+						<article >
 							<!-- Post header-->
-							<header class="mb-4">
-								<!-- Post title-->
-								<h1 class="fw-bolder mb-1" name="name" value="${party.name}"></h1>
-								<!-- Post meta content-->
 
-							</header>
 							<!-- Preview image figure-->
 							<a href="useractivity.entry" style="text-decoration: none;"><p>↩
 									返回上一頁</p> </a>
-							<figure class="mb-4">
+							
 								<img class="img-fluid rounded"
 									style="width: 700px; height: 500px;"
 									src="${userActivity.cover}" alt="..." />
-							</figure>
+							
 							<!-- Post content-->
-							<section class="mb-5">
+							<section class="mb-5" id="area2">
 								<p class="fs-5 mb-4">
-									活動名稱: ${userActivity.activityname} <br /> 活動類型:
-									${userActivity.type} <br /> 活動日期:${userActivity.time} <br />
-									報名截止日: ${userActivity.time_up} <br /> <br /> 活動內容:
-									${userActivity.detail} <br /> <br /> 活動地點:
-									${userActivity.county} ${userActivity.district}
-									${userActivity.place} <br /> 活動須知:${userActivity.condition} <br />
+									活動名稱: ${userActivity.activityname} <br /> 
+									活動類型: ${userActivity.type} <br /> 
+									活動日期: ${userActivity.time} <br />
+									報名截止: ${userActivity.time_up} <br /> <br /> 
+									活動內容:	${userActivity.detail} <br /> <br /> 
+									活動地點:	${userActivity.county} ${userActivity.district}	${userActivity.place} <br /> 活動須知:${userActivity.condition} <br />
 									男生人數: ${userActivity.man} 女生人數:${userActivity.woman}<br />
 									<br />剩餘名額: ${userActivity.total}
 								</p>
 							</section>
-							<!-- Button trigger modal -->
+							<!-- Button trigger modal 判斷-->
+							<div id=buttonarea>
+							</div>
+							
 							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
 								我要報名</button>
+								
 							<input id="activitynumber" type="text" class="d-none"
 								value="${userActivity.number}">
+								<input id="account" type="text" class="d-none"
+								value="${userActivity.memberAccount}">
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,7 +94,7 @@ body {
 								this world. It happens that we have become friends. This is not
 								fate. It is just that we should be friends.</div>
 							<div class="card-body">
-								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本因該是朋友。</div>
+								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本應該是朋友。</div>
 						</div>
 						<div class="card mb-4">
 							<div class="card-header">
@@ -110,7 +115,9 @@ body {
 	<script>
 		$(function() {
 			load()
+			load2()
 		})
+		
 		function load() {
 			let number = $('#activitynumber').val()
 			console.log(number);
@@ -129,6 +136,22 @@ body {
 						
 						;
 					$('#area').append(item)
+						},
+						error : function() {
+							console.log("error");
+						}
+					});
+		}
+		function load2(){
+			let number = $('#activitynumber').val()
+			let account = $('#account').val()
+				console.log(account)
+			$.ajax({
+				type : 'post',
+				url : 'userpagejson',
+				data : {"number" : number},
+				success : function(data) {
+					console.log(data);				
 						},
 						error : function() {
 							console.log("error");

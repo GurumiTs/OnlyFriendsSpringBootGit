@@ -6,10 +6,13 @@
 #shoppingCartTable {
 	font-size: 15px;
 }
+body{
+	font-size:1.2rem
+}
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
-  }
+ }
 
 </style>
 </head>
@@ -49,7 +52,7 @@
 										class="btn btn-outline-dark flex-shrink-0 add-to-cart addCart"
 										id="addchart" data-bs-toggle="modal"
 										data-bs-target="#staticBackdrop"> <i
-										class="bi-cart-fill me-1"></i> 加入購物車
+										class="bi-cart-fill me-1"></i> Add to cart
 									</a>
 
 								</div>
@@ -61,7 +64,7 @@
 				<section>
 					<div class="card">
 						<div class="card-header">
-							<h2 class="fw-bolder mb-4">相關產品</h2>
+							<h2 class="fw-bolder mb-4">Related products</h2>
 						</div>
 						<div class="card-body">
 							<div
@@ -306,7 +309,7 @@
 													<!-- Product actions-->
 													"<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+ 
 														"<div class='text-center'>"+ 
-															"<a class='btn btn-outline-dark mt-auto' href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'>查看更多</a>"+ 
+															"<a class='btn btn-outline-dark mt-auto' href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'>Viewoptions</a>"+ 
 														"</div>"+ 
 													"</div>"+ 
 												"</div>"+ 

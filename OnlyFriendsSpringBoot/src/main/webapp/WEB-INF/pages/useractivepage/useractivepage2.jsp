@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 </style>
 </head>
 <body>
@@ -38,17 +42,20 @@ font-size:1.2rem
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">
-									活動名稱: ${userActivity.activityname} <br /> 活動類型: ${userActivity.type} <br />
-									活動日期:${userActivity.time} <br /> 報名截止日: ${userActivity.time_up} <br /> <br />
-									活動內容: <br /> <br /> 活動地點: ${userActivity.county}
-									${userActivity.district} ${userActivity.place} <br />
-									參加條件:${userActivity.condition} <br /> 男生人數: ${userActivity.man}
-									女生人數:${userActivity.woman}<br /><br />剩餘名額: ${userActivity.total}
+									活動名稱: ${userActivity.activityname} <br /> 
+									活動類型: ${userActivity.type} <br />
+									活動日期:${userActivity.time} <br /> 
+									報名截止: ${userActivity.time_up} <br /> <br />
+									活動內容:${userActivity.detail}  <br /> <br /> 
+									活動地點: ${userActivity.county}${userActivity.district} ${userActivity.place} <br />
+									參加須知:${userActivity.condition} <br /> 
+									男生人數: ${userActivity.man} 女生人數:${userActivity.woman}<br /><br />
+									剩餘名額: ${userActivity.total}
 								</p>
 							</section>
 							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
-								已參加此活動</button><input
+								取消參加</button><input
 								id="activitynumber" type="text" class="d-none"
 								value="${userActivity.number}">
 <!-- Modal -->
@@ -62,7 +69,7 @@ font-size:1.2rem
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="modal-body">活動須知:${userActivity.condition}</div>
+										<div class="modal-body">活動內容:${userActivity.detail}</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">返回</button>
@@ -85,7 +92,7 @@ font-size:1.2rem
 								this world. It happens that we have become friends. This is not
 								fate. It is just that we should be friends.</div>
 							<div class="card-body">
-								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本因該是朋友。</div>
+								這是世界上有各式各樣的人，恰巧我們成為了朋友，这不是缘分，只僅僅是我們本應該是朋友。</div>
 						</div>
 						<div class="card mb-4">
 							<div class="card-header">

@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 </style>
 </head>
 <body>
@@ -41,13 +45,13 @@ font-size:1.2rem
 							<!-- Post content-->
 							<section class="mb-5">
 								<p class="fs-5 mb-4">
-									活動名稱: ${userActivity.activityname} <br /> 審核狀態:
-									${userActivity.approve} <br />活動類型: ${userActivity.type} <br />
-									活動日期:${userActivity.time} <br /> 報名截止日:
-									${userActivity.time_up} <br /> <br /> 活動內容:
-									${userActivity.detail} <br /> <br /> 活動地點:
-									${userActivity.county} ${userActivity.district}
-									${userActivity.place} <br /> 參加條件:${userActivity.condition} <br />
+									活動名稱: ${userActivity.activityname} <br /> 
+									審核狀態: ${userActivity.approve} <br />
+									活動類型: ${userActivity.type} <br />
+									活動日期: ${userActivity.time} <br />
+								    報名截止: ${userActivity.time_up} <br /> <br /> 
+									活動內容: ${userActivity.detail} <br /> <br /> 
+									活動地點: ${userActivity.county} ${userActivity.district}	${userActivity.place} <br /> 參加條件:${userActivity.condition} <br />
 									男生人數: ${userActivity.man} 女生人數:${userActivity.woman}<br />
 									<br />剩餘名額: ${userActivity.total}
 								</p>

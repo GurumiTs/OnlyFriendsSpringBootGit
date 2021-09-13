@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AD</title>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@include file="../commonpages/dashboardtop.jsp"%>
@@ -95,7 +94,7 @@ table{
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800">AD Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">廣告管理</h1>
 					
 					<div class="card shadow mb-4">
 
@@ -265,7 +264,7 @@ table{
 
 	<script type="text/javascript">
 		$(function() {
-			
+			console.log("ad")
 			                 $('#ad').DataTable(
 			                	
 							   {
@@ -329,6 +328,18 @@ table{
 												return "<i class='fas fa-trash-alt delete' id="+data.adId+" style='font-size: 1.5em;padding-top:20px'></i>";
 											}
 										} ]
+								,language: {
+									    	"lengthMenu": "顯示 _MENU_ 筆資料",
+									    	"sProcessing": "處理中...",
+									    	"sSearch": "搜尋:",
+									    	"sLoadingRecords": "載入資料中...",
+									    	"oPaginate": {
+									            "sFirst": "首頁",
+									            "sPrevious": "上一頁",
+									            "sNext": "下一頁",
+									            "sLast": "末頁"
+									         }
+								}
 							});
 
 		})

@@ -484,7 +484,7 @@ span {
 						<div class="modal-content modal-dialog-scrollable" style="width: 650px; margin: 50px auto;">
 							<div class="modal-header">
 								<h5 class="modal-title" id="staticBackdropLabel">
-									修改 <img src='images/couponPic/fileplus.JPG' class="fileplus">
+									修改 <img src='images/couponPic/edit.JPG' class="fileplus">
 								</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
@@ -628,7 +628,7 @@ span {
 										},error:function(data) 
 								        {
 											$('#loadImg').css("display","none");
-											  Swal.fire('Error!');										   
+											  Swal.fire('此優惠券序號不存在!');										   
 									        }
 								   
 									})

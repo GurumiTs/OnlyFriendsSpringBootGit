@@ -503,7 +503,19 @@ public class UserActivityController {
 	public String userpartymgmtenty(Model m) {
 		return "useractivepage/usermgmtjson";
 	}
+	
+	//內頁資料抓取
+	@RequestMapping(path = "/userpagejson", method = RequestMethod.POST)
+	@ResponseBody
+	public UserActivity userpagejson(HttpServletRequest request,Model m) {
+		Integer number = Integer.parseInt(request.getParameter("number"));
+		UserActivity useractivity = userActivityService.select(number);
 
+		m.addAttribute("useractivity", useractivity);
+
+		return useractivity;
+	}
+	
 	// 會員活動內頁
 	@RequestMapping(path = "/useractivity.page", method = RequestMethod.GET)
 	public String userpartyenty(HttpServletRequest request, Model model) {
@@ -720,7 +732,7 @@ public class UserActivityController {
 		
 		userActivityService.updata(ua);
 
-		return "useractivepage/usermgmtjson";
+		return "useractivepage/useractivepost";
 	}
 	//會員取消參加活動 後 人數要加回去
 	@RequestMapping(path = "/cancelactivity", method = RequestMethod.GET)
@@ -744,7 +756,7 @@ public class UserActivityController {
 
 		
 		System.out.println("刪除結束");
-		return "Good";
+		return "useractivepage/useractivepost";
 	}
 	
 
@@ -757,7 +769,7 @@ public class UserActivityController {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		System.out.println("會員參加活動");
-//		使用帳號在 participate 找到使用著有參加哪些活動
+		//	使用帳號在 participate 找到使用著有參加哪些活動
 		List<Integer> activitynumber = userActivityService.findByparticipate(Integer.parseInt(memberAccount));
 
 		System.out.println("number" + activitynumber);

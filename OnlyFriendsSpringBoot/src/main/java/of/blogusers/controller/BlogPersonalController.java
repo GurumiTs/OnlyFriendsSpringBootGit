@@ -159,7 +159,9 @@ public class BlogPersonalController {
 			blogUser.setUsersTitle(usersTitle);
 			blogUser.setUsersMainText(usersMainText);
 			blogUser.setUsersUpdateTime(ts);
-
+			String blogAuthority = "待審核";
+			blogUser.setBlogAuthority(blogAuthority);
+			
 			bUserService.updateBlogUser(blogUser);
 
 			m.addAttribute("success", "更新資料成功!");

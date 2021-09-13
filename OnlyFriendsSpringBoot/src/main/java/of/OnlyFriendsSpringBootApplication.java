@@ -13,5 +13,5 @@ public class OnlyFriendsSpringBootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OnlyFriendsSpringBootApplication.class, args);
 	}
-
+	
 }

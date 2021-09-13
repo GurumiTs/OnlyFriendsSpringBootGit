@@ -35,6 +35,10 @@ public class MemberService {
 		return memberRepository.findByMemberNameLike(text);
 	}
 	
+	public List<Member> memberAge(String a,String b){
+		return memberRepository.memberAge(a, b);
+	}
+	
 
 
 }

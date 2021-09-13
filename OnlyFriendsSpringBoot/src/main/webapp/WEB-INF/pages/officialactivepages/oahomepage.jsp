@@ -112,24 +112,7 @@ a.slide-arrow {
 
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 			
-		<div class="main-sidebar">
-          <aside id="sidebar-wrapper">
-            <div class="card">
-                  <div class="card-header">
-                    <h4>搜尋</h4>
-                  </div>
-                  <div class="card-body">
-                  <div class="container d-flex flex-column">
-                  <input class="form-control" type="search" placeholder="搜尋..." aria-label="搜尋" data-width="250">
-            	  <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                   	  <span class="badge badge-primary mb-2">clothes</span>
-                      <span class="badge badge-secondary mb-2">lucky stuff</span>
-                      <span class="badge badge-success mb-2">Success</span>
-                  </div>
-                  </div>
-                </div>
-          </aside>
-        </div>
+		
 			
 			
 			

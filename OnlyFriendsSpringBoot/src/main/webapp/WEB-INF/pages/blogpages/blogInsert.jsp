@@ -59,13 +59,12 @@
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Insert New Article</h1>
+					<h1 class="h3 mb-2 text-gray-800">管理者文章 - 新增</h1>
 					<div class="box1">
 					<form class="row" action="empaddBlog.controller" method="post"
 						enctype="multipart/form-data">
 						<div class="col-md-12">
 
-							<legend style="text-align: center;">文章新增</legend>
 							<!-- 圖片 -->
 							<div style="margin: auto; text-align: center">
 								<img id="output" weight="100%" height="300px" /> <br>
@@ -129,15 +128,6 @@
 						<script>
 				        	ClassicEditor
 				              .create( document.querySelector( '#editor' ),{
-				            	  toolbar: {
-				            		    items: [
-				            		        'heading', '|',
-// 				            		        'Font', 'Fontfamily', 'Fontsize', '|',
-				            		        'bold', 'italic', '|',
-				            		        'undo', 'redo'
-				            		    ],
-				            		    shouldNotGroupWhenFull: true
-				            	  },
 				              } )
 				          	  .catch( error => {
 				            	    console.error(error);
@@ -198,6 +188,8 @@
             }
             
         }
+        
+        
 	</script>
 
  </body>

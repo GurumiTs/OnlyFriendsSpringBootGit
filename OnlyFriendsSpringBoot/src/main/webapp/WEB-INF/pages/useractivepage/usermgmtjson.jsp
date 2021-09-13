@@ -9,6 +9,10 @@
 body{
 font-size:1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 </style>
 </head>
 <body>
@@ -31,22 +35,22 @@ font-size:1.2rem
 						<div class="carousel-item active">
 							<a href="useractivity.entry">
 							<img src="images\partyPic\t000.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 500px;"></a>
+								alt="..." style="width: 900px; height: 600px;"></a>
 						</div>
 						<div class="carousel-item">
 						<a href="couponshop.controller">
 							<img src="images\partyPic\coupon.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 500px;"></a>
+								alt="..." style="width: 900px; height: 600px;"></a>
 						</div>
 						<div class="carousel-item">
 						<a href="shopentrypage">
 							<img src="images\partyPic\t001.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 500px;"></a>
+								alt="..." style="width: 900px; height: 600px;"></a>
 						</div>
 						<div class="carousel-item">
 						<a href="blogofficial">
 							<img src="images\partyPic\love-story.jpg" class="d-block w-100"
-								alt="..." style="width: 900px; height: 500px;"></a>
+								alt="..." style="width: 900px; height: 600px;"></a>
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button"

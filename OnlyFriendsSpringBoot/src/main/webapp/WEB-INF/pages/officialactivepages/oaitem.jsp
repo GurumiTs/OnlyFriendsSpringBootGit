@@ -130,13 +130,13 @@ font-size:1.2rem
       <section class="mb-5">
 								<div class="fs-5 mb-4">
 								
-								<div class="lead" id="conditions">
-								</div>
+								<p class="lead" id="conditions">
+								</p>
 									
 								</div>  
 								
 
-        
+        </section>
         <h4>活動地點</h4>
        
  <iframe width="1000" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="da">
@@ -234,7 +234,7 @@ font-size:1.2rem
 					$('#anum').attr('value',anum)
 					$('#active').text(oa[i].active);
 					$('#img').attr("src",oa[i].img);
-					$('#conditions').text(oa[i].conditions);
+					$('#conditions').html(oa[i].conditions);
 					$('#atype2').text(oa[i].atype2);
 					$('#adate').text(oa[i].adate);
 					$('#finishDeadline').text(oa[i].finishDeadline);
