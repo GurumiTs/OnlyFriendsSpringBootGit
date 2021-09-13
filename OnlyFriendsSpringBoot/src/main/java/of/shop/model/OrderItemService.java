@@ -26,4 +26,7 @@ public class OrderItemService {
 		return orderItemRepository.findorderitem(paymentId, proId);
 	}
 	 
+	public Integer findorderAmount(String paymentId,int proId){
+		return orderItemRepository.orderAmountlist(paymentId, proId);
+	}
 }
