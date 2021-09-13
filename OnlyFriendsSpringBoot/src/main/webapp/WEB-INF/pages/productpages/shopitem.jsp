@@ -52,7 +52,7 @@ body{
 										class="btn btn-outline-dark flex-shrink-0 add-to-cart addCart"
 										id="addchart" data-bs-toggle="modal"
 										data-bs-target="#staticBackdrop"> <i
-										class="bi-cart-fill me-1"></i> Add to cart
+										class="bi-cart-fill me-1"></i> 加入購物車
 									</a>
 
 								</div>
@@ -309,7 +309,7 @@ body{
 													<!-- Product actions-->
 													"<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+ 
 														"<div class='text-center'>"+ 
-															"<a class='btn btn-outline-dark mt-auto' href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'>Viewoptions</a>"+ 
+															"<a class='btn btn-outline-dark mt-auto' href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'>查看更多</a>"+ 
 														"</div>"+ 
 													"</div>"+ 
 												"</div>"+ 
