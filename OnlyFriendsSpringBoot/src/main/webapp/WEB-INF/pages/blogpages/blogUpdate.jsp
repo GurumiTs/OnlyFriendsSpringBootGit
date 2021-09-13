@@ -49,11 +49,10 @@
 
 <!-- ************************** your content*************************** -->		
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Update Article</h1>
+					<h1 class="h3 mb-2 text-gray-800">管理者文章 - 修改</h1>
 					<div class="box1">
 					<form class="row g-3" action="empblogUpdate.controller" method="post"
 					enctype="multipart/form-data">
-					<legend style="text-align: center;">更新資料</legend>
 					<div class="mb-3">
 						<label>文章編號:</label> <input name="articleId" disabled="disabled"
 							size="2" value="${blog.articleID}" style="text-align: center"/> <input type="hidden"
@@ -174,15 +173,6 @@
 		
 		ClassicEditor
         .create( document.querySelector( '#editor' ),{
-      	  toolbar: {
-      		    items: [
-      		        'heading', '|',
-//       		        'Font', 'Fontfamily', 'Fontsize', '|',
-      		        'bold', 'italic', '|',
-      		        'undo', 'redo'
-      		    ],
-      		    shouldNotGroupWhenFull: true
-      	  },
         })
     	  .catch( error => {
       	    console.error(error);

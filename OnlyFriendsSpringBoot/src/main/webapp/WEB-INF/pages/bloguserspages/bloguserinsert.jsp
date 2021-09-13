@@ -36,13 +36,12 @@ font-size:1.2rem
         <div class="container mt-5">
         <br>
                 <!-- Page Heading -->
-<!-- 					<h1 class="h3 mb-2 text-gray-800">發布文章</h1> -->
+					<h1 class="h3 mb-2 text-gray-800">會員文章 - 新增</h1>
 					<div class="box1">
 					<form class="row" action="blogusersinsertform" method="post"
 						enctype="multipart/form-data">
 						<div class="col-md-12">
 
-							<legend style="text-align: center;">文章新增</legend>
 							<!-- 圖片 -->
 							<div style="margin: auto; text-align: center">
 								<img id="output" weight="100%" height="300px" /> <br>
@@ -92,15 +91,6 @@ font-size:1.2rem
 						<script>
 				        	ClassicEditor
 				              .create( document.querySelector( '#editor' ),{
-				            	  toolbar: {
-				            		    items: [
-				            		        'heading', '|',
-// 				            		        'Font', 'Fontfamily', 'Fontsize', '|',
-				            		        'bold', 'italic', '|',
-				            		        'undo', 'redo'
-				            		    ],
-				            		    shouldNotGroupWhenFull: true
-				            	  },
 				              } )
 				          	  .catch( error => {
 				            	    console.error(error);

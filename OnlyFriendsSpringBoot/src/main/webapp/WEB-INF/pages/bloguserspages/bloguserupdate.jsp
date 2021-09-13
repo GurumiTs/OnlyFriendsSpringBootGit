@@ -38,7 +38,7 @@ body {
 			<div class="container mt-5">
 				<br>
 				<!-- Page Heading -->
-				<h1 class="h3 mb-2 text-gray-800">Update Article</h1>
+				<h1 class="h3 mb-2 text-gray-800">會員文章 - 修改</h1>
 				<div class="box1">
 					<form class="row g-3" action="blogusersupdateform" method="post"
 						enctype="multipart/form-data">

@@ -100,6 +100,40 @@ a {
 	height: 80px;
 }
 
+.a-small{
+	font-size: 10px;
+}
+
+.table-blog-title .title {
+    color: #424443;
+    font-family: "Times New Roman", "Noto Serif TC", Times, serif;
+    font-size: 24px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.table-blog-title a > p {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    max-height: 3em;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #928b84;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin: 0 0 10px;
+}
+
 </style>
 </head>
 <body>
@@ -262,8 +296,11 @@ a {
 		       		render:function(data, type, row)
 		       		{
 	        			if (data) {
-		        			return data.title.substring(0, 15)+"...<br/>"+
-		        			"<div class='mainText'>"+data.mainText.substring(0, 50)+"<a href='#!'>繼續閱讀</a></div>";
+		        			return "<div class='table-blog-title'>"+
+		        					"<a href='blogarticleentry?ArticleId="+data.articleID+"&name=official'>"+
+		        					"<h2 class='title'>"+data.title.substring(0, 14)+"...</h2>"+
+		        					"<p>"+data.mainText.substring(0, 50)+"...</p>"+
+		        					"</a></div>";
 		        		} else {
 		        			return '';
 			       		}
@@ -287,6 +324,12 @@ a {
 			    },
 		    },
 		    columnDefs:[
+		    	{
+			    	targets: [2],
+			    	createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("height", "80px");
+		    		},
+		    	},
 		    	{
 			    	targets: [4],
 			    	createdCell: function (td, cellData, rowData, row, col){
