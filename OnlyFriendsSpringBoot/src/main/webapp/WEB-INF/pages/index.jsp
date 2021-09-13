@@ -52,10 +52,14 @@
 	.dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
- }
+ 	}
+ 	#googleMap {
+        width: 100%;
+        height: 200px;
+        margin: 5px 5px;
+      }
 </style>
   </head>
-
   <body class="layout-2">
     <div id="app">
       <div class="main-wrapper">
@@ -68,7 +72,10 @@
 		<c:when test="${not empty member}">
 			<%@include file="./membercommonpages/memberloginedheader.jsp"%>	
 			 <input id="getAccount" value="${personalinfo.memberAccount}"
-				class="d-none"></input>			 
+				class="d-none"></input>		
+			<div  class="login-brand position-fixed bottom-0 end-0 d-flex flex-column" id="mapservice">
+              <img type="button" src="${pageContext.request.contextPath}/images/smallicon/google-maps.svg" alt="logo" width="50" class="shadow-light rounded-circle">            
+            </div>			 
 		</c:when>
 		<c:otherwise>
 			<%@include file="./commonpages/header.jsp"%>
@@ -159,7 +166,7 @@
             </div>
           </div>
           
-          <!-- 廣告牆 -->
+      
            <div class="col d-flex justify-content-end"><%@include file="./advertisementpages/adview.jsp"%></div>
 
           <div class="card text-white bg-transparent my-5 py-4 text-center">
@@ -246,7 +253,28 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	
+	<script>
+	// 先確認使用者裝置能不能抓地點
+	if(navigator.geolocation) {
+
+	  // 使用者不提供權限，或是發生其它錯誤
+	  function error() {
+	    console.log('無法取得你的位置');
+	  }
+
+	  // 使用者允許抓目前位置，回傳經緯度
+	  function success(position) {
+	    console.log(position.coords.latitude);
+	    console.log(position.coords.longitude);
+	  }
+
+	  // 跟使用者拿所在位置的權限
+	  navigator.geolocation.getCurrentPosition(success, error);
+
+	} else {
+	  console.log('Sorry, 你的裝置不支援地理位置功能。')
+	}
+	</script>
 	
 	
 	 <c:choose>
@@ -254,6 +282,8 @@
 		</c:when>
 		<c:when test="${not empty member}">
 		 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>	 
+		 <script src="${pageContext.request.contextPath}/js/map.js"></script>	 
+		 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9mG0ol3JtTnFcaACUlsBouWbeV3HCCVU&libraries=places"></script>
 		</c:when>
 		<c:otherwise>
 			<script src="${pageContext.request.contextPath}/js/customerservice.js"></script>

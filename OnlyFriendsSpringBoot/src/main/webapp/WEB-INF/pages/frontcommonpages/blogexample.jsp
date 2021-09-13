@@ -1,177 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="../frontcommonpages/shoptop.jsp"%>
-</head>
-<body>
-<body class="layout-2">
-	<div id="app">
-		<div class="main-wrapper">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Locator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://www.gstatic.com/external_hosted/handlebars/v4.7.6/handlebars.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <style>
+      #googleMap {
+        width: 80%;
+        height: 400px;
+        margin: 20px auto;
+      }
+    </style>
+    <body>
+       <div class="jumbotron">
+      <div class="container-fluid">
+        <h1>find distance between two places</h1>
+        <p>help you calculate your traveling distance</p>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="from" class="col-xs-2 control label">from</label>
+            <input type="text" id="from" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="to" class="col-xs-2 control label">to</label>
+            <input type="text" id="to" class="form-control" />
+          </div>
+        </form>
+        <button class="btn btn-primary">find</button>
+      </div>
 
-			<%@include file="../frontcommonpages/shopheader.jsp"%>
+      <div class="container-fluid">
+        <div id="googleMap"></div>
+        <div id="output"></div>
+      </div>
+    </div>
+    
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9mG0ol3JtTnFcaACUlsBouWbeV3HCCVU&libraries=places"></script>
+		<script>
+		var myLatLng = { lat: 24.967991899999998, lng: 121.19168279999998 };
+		var mapOptions = {
+		  center: myLatLng,
+		  zoom: 7,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP,
+		};
 
-
-
-			<!-- Page content-->
-			<div class="container mt-5">
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<div class="row">
-					<!-- Blog entries-->
-					<div class="col-lg-8">
-						<!-- Featured blog post-->
-						<div class="card mb-4">
-							<a href="#!"><img class="card-img-top"
-								src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-							<div class="card-body">
-								<div class="small text-muted">January 1, 2021</div>
-								<h2 class="card-title">Featured Post Title</h2>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex
-									quis soluta, a laboriosam. Dicta expedita corporis animi vero
-									voluptate voluptatibus possimus, veniam magni quis!</p>
-								<a class="btn btn-primary" href="#!">Read more →</a>
-							</div>
-						</div>
-						<!-- Nested row for non-featured blog posts-->
-						<div class="row">
-							<div class="col-lg-6">
-								<!-- Blog post-->
-								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body">
-										<div class="small text-muted">January 1, 2021</div>
-										<h2 class="card-title h4">Post Title</h2>
-										<p class="card-text">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Reiciendis aliquid atque,
-											nulla.</p>
-										<a class="btn btn-primary" href="#!">Read more →</a>
-									</div>
-								</div>
-								<!-- Blog post-->
-								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body">
-										<div class="small text-muted">January 1, 2021</div>
-										<h2 class="card-title h4">Post Title</h2>
-										<p class="card-text">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Reiciendis aliquid atque,
-											nulla.</p>
-										<a class="btn btn-primary" href="#!">Read more →</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<!-- Blog post-->
-								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body">
-										<div class="small text-muted">January 1, 2021</div>
-										<h2 class="card-title h4">Post Title</h2>
-										<p class="card-text">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Reiciendis aliquid atque,
-											nulla.</p>
-										<a class="btn btn-primary" href="#!">Read more →</a>
-									</div>
-								</div>
-								<!-- Blog post-->
-								<div class="card mb-4">
-									<a href="#!"><img class="card-img-top"
-										src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-										alt="..." /></a>
-									<div class="card-body">
-										<div class="small text-muted">January 1, 2021</div>
-										<h2 class="card-title h4">Post Title</h2>
-										<p class="card-text">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Reiciendis aliquid atque,
-											nulla? Quos cum ex quis soluta, a laboriosam.</p>
-										<a class="btn btn-primary" href="#!">Read more →</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Pagination-->
-						<nav aria-label="Pagination">
-							<hr class="my-0" />
-							<ul class="pagination justify-content-center my-4">
-								<li class="page-item disabled"><a class="page-link"
-									href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-								<li class="page-item active" aria-current="page"><a
-									class="page-link" href="#!">1</a></li>
-								<li class="page-item"><a class="page-link" href="#!">2</a></li>
-								<li class="page-item"><a class="page-link" href="#!">3</a></li>
-								<li class="page-item disabled"><a class="page-link"
-									href="#!">...</a></li>
-								<li class="page-item"><a class="page-link" href="#!">15</a></li>
-								<li class="page-item"><a class="page-link" href="#!">Older</a></li>
-							</ul>
-						</nav>
-					</div>
-					<!-- Side widgets-->
-					<div class="col-lg-4">
-						<!-- Search widget-->
-						<div class="card mb-4">
-							<div class="card-header">Search</div>
-							<div class="card-body">
-								<div class="input-group">
-									<input class="form-control" type="text"
-										placeholder="Enter search term..."
-										aria-label="Enter search term..."
-										aria-describedby="button-search" />
-									<button class="btn btn-primary" id="button-search"
-										type="button">Go!</button>
-								</div>
-							</div>
-						</div>
-						<!-- Categories widget-->
-						<div class="card mb-4">
-							<div class="card-header">Categories</div>
-							<div class="card-body">
-								<div class="row">
-									<div class="col-sm-6">
-										<ul class="list-unstyled mb-0">
-											<li><a href="#!">Web Design</a></li>
-											<li><a href="#!">HTML</a></li>
-											<li><a href="#!">Freebies</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-6">
-										<ul class="list-unstyled mb-0">
-											<li><a href="#!">JavaScript</a></li>
-											<li><a href="#!">CSS</a></li>
-											<li><a href="#!">Tutorials</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Side widget-->
-						<div class="card mb-4">
-							<div class="card-header">Side Widget</div>
-							<div class="card-body">You can put anything you want inside
-								of these side widgets. They are easy to use, and feature the
-								Bootstrap 5 card component!</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<%@include file="../frontcommonpages/shopfooter.jsp"%>
-		</div>
-	</div>
-
-	<%@include file="../frontcommonpages/shopbottom.jsp"%>
-
-	<script>
-		
-	</script>
-</body>
+		//create map
+		var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+		var directionsDisplay = new google.maps.DirectionsRenderer();
+		directionsDisplay.setMap(map);
+  	</script>
+  </body>
 </html>

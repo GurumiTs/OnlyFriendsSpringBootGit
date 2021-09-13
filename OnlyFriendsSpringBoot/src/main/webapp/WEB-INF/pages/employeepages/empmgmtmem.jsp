@@ -74,8 +74,7 @@
 											<th>帳號</th>
 											<th>信箱</th>
 											<th>年齡</th>
-											<th>狀態</th>
-										
+											<th>狀態</th>									
 										</tr>
 									</thead>									
 								</table>
