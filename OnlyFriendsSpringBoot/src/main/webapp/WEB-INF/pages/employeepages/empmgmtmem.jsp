@@ -74,8 +74,7 @@
 											<th>帳號</th>
 											<th>信箱</th>
 											<th>年齡</th>
-											<th>編輯</th>
-										
+											<th>狀態</th>									
 										</tr>
 									</thead>									
 								</table>
@@ -131,10 +130,10 @@
 		            {
 		              if(data.memberAuth == 0){
 		            	 console.log(data.memberName+data.memberAuth) 
-			             return "<i class='fas fa-user-slash edit text-danger' id="+data.memberAccount+"></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+			             return "<i class='fas fa-user-slash edit text-danger' id="+data.memberAccount+"></i> <span class='d-none'>|</span> <i class='far fa-trash-alt delete d-none' id="+data.memberAccount+"></i>";
 		              }
 		              else{
-				         return "<i class='fas fa-user edit' id="+data.memberAccount+"></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.memberAccount+"></i>";
+				         return "<i class='fas fa-user edit' id="+data.memberAccount+"></i> <span class='d-none'>|</span> <i class='far fa-trash-alt delete d-none' id="+data.memberAccount+"></i>";
 
 		              }
 		            },

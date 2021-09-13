@@ -16,9 +16,6 @@ font-size:1.2rem
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
  }
- .profile-widget{
- 	
- }
 
 </style>
 

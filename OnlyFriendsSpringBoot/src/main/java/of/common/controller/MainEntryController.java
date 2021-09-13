@@ -74,7 +74,7 @@ public class MainEntryController {
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String mainEntry(Model model,HttpServletRequest request) {
-		
+			
 			return "index";
 	}
 	
@@ -159,6 +159,9 @@ public class MainEntryController {
 		return "404";
 	}
 	
-
+	@RequestMapping(path = "/map", method = RequestMethod.GET)
+	public String mapEntry() {
+		return "frontcommonpages/blogexample";
+	}
 
 }

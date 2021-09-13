@@ -264,7 +264,7 @@ table{
 
 	<script type="text/javascript">
 		$(function() {
-			
+			console.log("ad")
 			                 $('#ad').DataTable(
 			                	
 							   {
