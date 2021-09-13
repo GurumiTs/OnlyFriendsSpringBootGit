@@ -4,18 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -29,14 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import of.UserActivity.model.UserActivity;
 import of.member.model.Member;
-import of.member.model.MemberRepository;
 import of.member.model.MemberService;
 import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
-import of.officialactive.model.MemberActive;
-import of.officialactive.model.MemberActiveRepository;
 import of.officialactive.model.OfficialActiveService;
 
 @Controller
@@ -78,7 +70,7 @@ public class OfficialActiveController {
 		//model.addAttribute("officialActive",officialActive);
 		OfficialActive foa = officialActiveService.findByAnum(anum);
 		
-		System.out.println(anum+"幹");
+		
 		return foa;
 	}
 
@@ -109,12 +101,12 @@ public class OfficialActiveController {
 			throws SQLException, IllegalStateException, IOException {
 			OfficialActive  officialActive =new OfficialActive();
 		String fileName = img.getOriginalFilename();
-		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+		String path = ResourceUtils.getURL("classpath:static/images/officialactivePic").getPath();
 		System.out.println(path);
 		String filePath =  path+ "/" + fileName; 
 		File saveFile = new File(filePath);
 	    img.transferTo(saveFile);
-	    officialActive.setImg("images/empPic/" + fileName);
+	    officialActive.setImg("images/officialactivePic/" + fileName);
 		officialActive.setEmpAcc(empAcc);
 		officialActive.setAname(aname);
 		officialActive.setAtype(atype);
@@ -136,38 +128,39 @@ public class OfficialActiveController {
 	
 	//修改
 	
-	@GetMapping(path = "/empofficialactivesaveorupdate.controller")
+	@RequestMapping(path = "/empofficialactivesaveorupdate.controller", method = RequestMethod.GET)
 	
 	public String processIntoUpdate(HttpServletRequest request,Model model) {
 		Long anum = Long.parseLong(request.getParameter("anum"));
 		officialActive = officialActiveService.findByAnum(anum);
 		model.addAttribute("officialActive",officialActive);
-		return "/officialactivepages/officialactiveupdate";
+		return "officialactivepages/officialactiveupdate";
 	}
 	
-	@GetMapping(path = "/empofficialActiveUpdate.controller")
-	@ResponseBody
+	@RequestMapping(path = "/empofficialActiveUpdate.controller", method = RequestMethod.POST)
+	
 	public String officialActiveUpdate(@RequestParam(name = "activeFile") MultipartFile img,
 			@RequestParam(name = "empAcc") String empAcc, @RequestParam(name = "aname") String aname,
 		    @RequestParam(name = "atype") String atype,@RequestParam(name = "anum" ,required = false) Integer anum,
 			@RequestParam(name = "atype2") String atype2, @RequestParam(name = "adate") String adate,
 			@RequestParam(name = "startDeadline") String startDeadline,
 			@RequestParam(name = "finishDeadline") String finishDeadline, @RequestParam(name = "active") String active,
-			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,@RequestParam(name = "address") String address,
+			@RequestParam(name = "county") String county, @RequestParam(name = "district") String district,
+			@RequestParam(name = "address") String address,
 			@RequestParam(name = "conditions") String conditions, @RequestParam(name = "male") String male,
 			@RequestParam(name = "female") String female, Model model, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
 			
-		try {
+		
 			
 		
 		String fileName = img.getOriginalFilename();
-		String path = ResourceUtils.getURL("classpath:static/images/empPic").getPath();
+		String path = ResourceUtils.getURL("classpath:static/images/officialactivePic").getPath();
 		System.out.println(path);
 		String filePath =  path+ "/" + fileName; 
 		File saveFile = new File(filePath);
 	    img.transferTo(saveFile);
-	    officialActive.setImg("images/empPic/" + fileName);
+	    officialActive.setImg("images/officialactivePic/" + fileName);
 		officialActive.setEmpAcc(empAcc);
 		officialActive.setAname(aname);
 		officialActive.setAtype(atype);
@@ -183,19 +176,16 @@ public class OfficialActiveController {
 		officialActive.setMale(male);
 		officialActive.setFemale(female);
 		
+		
 		officialActiveService.update(officialActive);
-		
 		List<OfficialActive> officialActiveList = officialActiveService.findAll();
+		model.addAttribute("officialActiveList",officialActiveList);
 		
-				model.addAttribute("officialActiveList",officialActiveList);
-				return "y";
-		}catch (Exception e) {
-			model.addAttribute("error!");
-			return "n";
-		}
+		return "officialactivepages/officialactivemgmt";
 		
-		}
-	
+		
+		
+	}
 		
 		//刪除
 		@PostMapping(path="/empdeleteofficailactive/{anum}")

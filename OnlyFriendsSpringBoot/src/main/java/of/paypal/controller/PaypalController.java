@@ -1,10 +1,9 @@
 package of.paypal.controller;
 
+import java.io.Console;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.IntPredicate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,14 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Details;
 import com.paypal.api.payments.Item;
 import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -37,8 +33,8 @@ import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
 import of.shop.model.OrderDetails;
-import of.shop.model.OrderItemService;
 import of.shop.model.OrderItem;
+import of.shop.model.OrderItemService;
 import of.shop.model.OrderService;
 
 @Controller
@@ -132,9 +128,10 @@ public class PaypalController {
 
 	@PostMapping(path = "/payproduct")
 	@ResponseBody
-	public Payment paymentproduct(HttpServletRequest request) {
+	public Payment paymentproduct(@RequestParam(name = "discounttotal")String discounttotal,HttpServletRequest request) {
 		Order order = null;
 		Payment payment =  null;
+		System.out.println(discounttotal);
 		try {
 			System.out.println("step1");
 			List<CartItem> cartlist=(List<CartItem>) request.getSession().getAttribute("cartlist");
@@ -150,18 +147,44 @@ public class PaypalController {
 				
 				listitem.add(orderItem);
 			}
+			
+				//listitem.add(i2);
+				
+				int d = Integer.parseInt(discounttotal);
+				String discountvalue = Integer.toString(finaltotal - d);
+				System.out.println("discountvalue"+discountvalue);
+				if(discountvalue.equals("0")) {
+					ItemList itemlist = new ItemList();
+					itemlist.setItems(listitem);
+					
+					String finaltotalString = Integer.toString(finaltotal);
+					
+					Details details = new Details();
+					details.setShipping("0");
+					details.setTax("0");
+					details.setSubtotal(finaltotalString); //商品總計
+					payment = service.createPayment(finaltotalString,"TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+							"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);
+					
+					
+				}else{
+					Item dItem =  new Item("discount","1","-"+discountvalue,"TWD");
+					listitem.add(dItem);		
+					ItemList itemlist = new ItemList();
+					itemlist.setItems(listitem);
+					Details details = new Details();
+					details.setShipping("0");
+					details.setTax("0");
+					details.setSubtotal(discounttotal); //商品總計
+					payment = service.createPayment(discounttotal,"TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
+							"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);
+					//data = payment.toJSON();
+				}
+			
+			
+			
 			//listitem.add(i2);
-			ItemList itemlist = new ItemList();
-			itemlist.setItems(listitem);
 			
-			String finaltotalString = Integer.toString(finaltotal);
-			
-			Details details = new Details();
-			details.setShipping("0");
-			details.setTax("0");
-			details.setSubtotal(finaltotalString); //商品總計
-			payment = service.createPayment(finaltotalString,"TWD","paypal","sale","OnlyFriends", "http://localhost:8080/OnlyFriends" + CANCEL_URL,
-					"http://localhost:8080/OnlyFriends" + SUCCESS_URL , itemlist, details);
 			//data = payment.toJSON();
 			
 			for (Links link : payment.getLinks()) {
@@ -189,7 +212,7 @@ public class PaypalController {
 	public Payment successPay(@RequestParam("paymentID") String paymentId, @RequestParam("payerID") String payerId,Model model,HttpServletRequest request) {
 		Payment payment = null;
 		try {
-			//System.out.println(paymentId);
+			//System.out.println(paymentId); 
 			payment = service.executePayment(paymentId, payerId);
 			System.out.println(payment.toJSON());
 			String total = payment.getTransactions().get(0).getAmount().getTotal();
@@ -201,37 +224,48 @@ public class PaypalController {
 			
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());	
 			
-			if(ftotal>199) {
+			if(ftotal>199) { 
+
 				List<CartItem> cartlist = (List<CartItem>) request.getSession().getAttribute("cartlist"); 
 				List<Product> productlist=  new ArrayList<>();
 				List<Integer> amountlist = new ArrayList<>();
 				List<Integer> ppidList = new ArrayList<>();
+				Integer finaltotal=0;
+				Integer afterdiscountInteger = ftotal.intValue();
 				for(CartItem cartItem:cartlist) {
 					productlist.add(productService.findById(cartItem.getProduct().getProId()));
 					amountlist.add(cartItem.getAmount());
 					ppidList.add(cartItem.getProduct().getProId());
+					finaltotal+=cartItem.getProduct().getProPrice()*cartItem.getAmount();
 				}
+				Integer discountInteger = finaltotal - afterdiscountInteger;
 				OrderDetails orderDetails = new OrderDetails();
-				orderDetails.setPaymentId(payment.getId());
+				orderDetails.setPaymentId(payment.getId()); 
 				orderDetails.setOrderAddress(payment.getPayer().getPayerInfo().getShippingAddress().toString());
 				orderDetails.setMemberAccount(memberAccount);
 				orderDetails.setTotal(ftotal);
-				orderDetails.setOrderTime(timestamp);
-				orderDetails.setOrderItem(productlist);
+				orderDetails.setOrderTime(timestamp); 
+				orderDetails.setOrderItem(productlist); 
+				orderDetails.setOrderDiscount(discountInteger.toString());
+				
 				
 				orderService.insert(orderDetails);
-				System.out.println(amountlist.toString());
-				System.out.println(ppidList.toString());
-								
-//				for(Integer i : amountlist) {
-//					int a = 0;
-//					int ppid = ppidList.get(a);
-//					a++;
-//					orderItemService.updateamount(i, paymentId, ppid);
-//				}
 				
+				List<Product> orderitem = orderDetails.getOrderItem();			
+				int a = 0;
+				for(Integer i : amountlist) {
+					System.out.println("i"+i);					
+					int ppid = ppidList.get(a);
+					a++;
+					System.out.println("ppid"+ppid);				
+					orderItemService.updateamount(i, paymentId, ppid);
+								
+				} 
+				
+				request.getSession().removeAttribute("cartlist");
+				   
 			}
-			
+			 
 		
 			
 			if("199.00".equals(total)) {	
@@ -248,11 +282,11 @@ public class PaypalController {
 				m2.setSwipeTime(newswipetime);
 				memberService.update(m2);
 			}
-			
+			  
 		} catch (PayPalRESTException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			
+		
 		}
 		return payment;
 

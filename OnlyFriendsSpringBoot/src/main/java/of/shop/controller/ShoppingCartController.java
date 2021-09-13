@@ -152,7 +152,7 @@ public class ShoppingCartController {
 			Integer a = c.getAmount() + cartItem.getAmount();
 			if (cartfindproid.equals(cartItem.getProduct().getProId())) {
 			}
-		}
+		} 
 
 		return 1;
 	}
