@@ -41,19 +41,19 @@ font-size:1.2rem
 
 <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>
-  <input type="text" class="form-control"  placeholder="請輸入管理者編號" name="empAcc">
+  <input type="text" class="form-control"  placeholder="請輸入管理者編號" name="empAcc" id = "empAcc">
 </div>
 
 
 <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>
-  <input type="text" class="form-control"  placeholder="請輸入管理者姓名" name="aname">
+  <input type="text" class="form-control"  placeholder="請輸入管理者姓名" name="aname" id= "aname">
 </div>
 
 
 <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>
-  <input type="text" class="form-control"  placeholder="活動名稱" name="active">
+  <input type="text" class="form-control"  placeholder="活動名稱" name="active" id = "active">
 </div>
            
                 <div>
@@ -93,18 +93,18 @@ font-size:1.2rem
 
                     <div>
 
-                        <input type="text" name="male" size=20 placeholder="輸入參加男性人數 "> <input type="text" name="female" size=20  placeholder="輸入參加女性人數 "> 
+                        <input id="male" type="text" name="male" size=20 placeholder="輸入參加男性人數 "> <input type="text" id="female" name="female" size=20  placeholder="輸入參加女性人數 "> 
                     </div>
                   <br>
 
                 </div>
                 <div>
-                    <lebel> 活動日期:<input type="date" name="adate"></lebel>
+                    <lebel> 活動日期:<input type="date" name="adate" id="adate"></lebel>
                 </div>
                 <br>
 
                 <div>
-                    <label>活動報名日期:<input type="date" name="startDeadline">~<input type="date" name="finishDeadline"></label>
+                    <label>活動報名日期:<input type="date" name="startDeadline" id="startDeadline">~<input type="date" name="finishDeadline" id="finishDeadline"></label>
                 </div>
 
                 <div>
@@ -113,17 +113,17 @@ font-size:1.2rem
                 </div>  
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label"></label>
-				  <input type="text" class="form-control"  placeholder="活動地址" name="address">
+				  <input type="text" class="form-control"  placeholder="活動地址" name="address" id = "address">
 				</div>
                 
                 <br> 活動圖片上傳
-                <div class=" mb-2">
-                    <input type="file" class="form-control" id="activeFile" name="activeFile"  multiple onchange="lovdFile(event)">
-                
                 <div class="">
                 <img id="output" src=" " alt=""><br>
 
               </div>
+                <div class=" mb-2">
+                    <input type="file" class="form-control" id="activeFile" name="activeFile"  multiple onchange="lovdFile(event)">
+                
                 </div>
 
 
@@ -136,6 +136,7 @@ font-size:1.2rem
                     <button type="submit" class="btn btn-lg btn-primary">確認送出</button>
                     <button onclick="location.href='empofficialactivemgmt.controller'"
 								type="button" class="btn btn-lg btn-primary">返回</button>
+					<button type="button" id="autoinsert" class="btn btn-success">一鍵輸入</button>
                 </div>
 
 							<script>
@@ -187,7 +188,7 @@ font-size:1.2rem
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	
             <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
                     
                     <script>
@@ -196,6 +197,34 @@ font-size:1.2rem
                             zipcodeIntoDistrict: true,
                         });
                     })
+                    
+                    
+                    $(function(){		
+		
+						$("#autoinsert").click(function(){
+							$("#empAcc").val("60021");
+							$("#aname").val("Regan");
+							$("#active").val("123");
+							$("#inlineFormCustomSelectPref").val("2");
+					
+							$("#twzipcode").twzipcode("set", {
+								county : "桃園市",
+								district : "中壢區",
+							});
+							
+							$("#male").val("12");
+							$("#female").val("12");
+							$("#adate").val("2021-09-24");
+							$("#startDeadline").val("2021-09-17");
+							$("#finishDeadline").val("2021-09-20");
+							$("#address").val("中央路232巷36號");
+							$("#editor").val("測試測試");
+							
+							
+						});
+						
+	});
+                    
                     
                     
                                // 照片顯示
@@ -233,6 +262,7 @@ font-size:1.2rem
    						
                     </script>
                        
+                  
                        
                        
 
