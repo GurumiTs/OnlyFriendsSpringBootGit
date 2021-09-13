@@ -9,6 +9,10 @@
 body {
 	font-size: 1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 
 .img1{
  width:250px;
@@ -52,24 +56,24 @@ transform: scale(1.2)
 									style="width: 100%">
 									<thead>
 										<tr>
-											<th>Cover</th>
-											<th>ID</th>
-											<th>Member</th>
-											<th>name　　　　</th>
-											<th>Type</th>
-											<th>Time　　　</th>
-											<th>Deadline　　　</th>
-											<th>County</th>
-											<th>District</th>
-											<th>Place　　　</th>
-											<th>detail　　　　　　　　　　　　</th>
-											<th>Condition　　　</th>
-											<th>Man</th>
-											<th>Woman</th>
-											<th>Total</th>
-											<th>see</th>
-											<th>Approve</th>
-											<th>Delete</th>
+											<th>封面</th>
+											<th>編號</th>
+											<th>會員ID</th>
+											<th>名稱　　　　</th>
+											<th>類型</th>
+											<th>時間　　　</th>
+											<th>截止時間　　　</th>
+											<th>縣市</th>
+											<th>區域</th>
+											<th>地點　　　</th>
+											<th>活動內容　　　　　　　　　　　　</th>
+											<th>參加條件　　　</th>
+											<th>男生人數</th>
+											<th>女生人數</th>
+											<th>總人數</th>
+											<th>遊覽人數</th>
+											<th>權限</th>
+											<th>刪除</th>
 										</tr>
 									</thead>
 
@@ -186,7 +190,18 @@ transform: scale(1.2)
 			              return "<i class='far fa-trash-alt delete' id="+data.number+"></i>";
 			            }
 			   },
-			],
+			],language: {
+		    	"lengthMenu": "顯示 _MENU_ 筆資料",
+		    	"sProcessing": "處理中...",
+		    	"sSearch": "搜尋:",
+		    	"sLoadingRecords": "載入資料中...",
+		    	"oPaginate": {
+		            "sFirst": "首頁",
+		            "sPrevious": "上一頁",
+		            "sNext": "下一頁",
+		            "sLast": "末頁"
+		         },
+			 },
 			"columnDefs":[
 				{
 		    		targets: [16],
