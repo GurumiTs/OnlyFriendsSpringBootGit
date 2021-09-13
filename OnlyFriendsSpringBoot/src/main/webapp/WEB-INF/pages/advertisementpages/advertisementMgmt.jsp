@@ -328,6 +328,18 @@ table{
 												return "<i class='fas fa-trash-alt delete' id="+data.adId+" style='font-size: 1.5em;padding-top:20px'></i>";
 											}
 										} ]
+								,language: {
+									    	"lengthMenu": "顯示 _MENU_ 筆資料",
+									    	"sProcessing": "處理中...",
+									    	"sSearch": "搜尋:",
+									    	"sLoadingRecords": "載入資料中...",
+									    	"oPaginate": {
+									            "sFirst": "首頁",
+									            "sPrevious": "上一頁",
+									            "sNext": "下一頁",
+									            "sLast": "末頁"
+									         }
+								}
 							});
 
 		})
