@@ -40,11 +40,11 @@ font-size:1.2rem
 <!-- ************************** your content*************************** -->		
 		
 		   <div class="container">
-            <form action="empofficialActiveUpdate.controller" method="GET"  enctype="multipart/form-data"  > 
+            <form action="empofficialActiveUpdate.controller" method="POST"  enctype="multipart/form-data"  > 
  		<div>                              
  		<div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label"></label>
-  <input type="email" class="form-control"  placeholder="請輸入管理者編號" name="anum" value = "${officialActive.anum}" disabled="disabled" id = "anum">
+  <input type="email" class="form-control"  placeholder="請輸入管理者編號" name="empAcc" value = "${officialActive.anum}" disabled="disabled" id = "anum">
 </div>
                    
                     <input type="hidden" name="anum" size="20" placeholder="請輸入活動ID..." value="${officialActive.anum}">
@@ -83,22 +83,21 @@ font-size:1.2rem
                 </div>
                 <div> 
                     	<lebel> 請選擇活動類型2(多選):<br>
-                        <input type="checkbox" name="atype2" value="rom">浪漫
-                        <input type="checkbox" name="atype2" value="view">賞景
-                        <input type="checkbox" name="atype2" value="travl">郊遊
-                        <input type="checkbox" name="atype2" value="heart">談心
-                        <input type="checkbox" name="atype2" value="pair">配對
-                        <input type="checkbox" name="atype2" value="talk">閒聊
+                    	<input type="checkbox" name="atype2" value="浪漫">浪漫
+                        <input type="checkbox" name="atype2" value="賞景">賞景
+                        <input type="checkbox" name="atype2" value="郊遊">郊遊
+                        <input type="checkbox" name="atype2" value="談心">談心
+                        <input type="checkbox" name="atype2" value="配對">配對
+                        <input type="checkbox" name="atype2" value="閒聊">閒聊
                     </lebel>
 
                     <div>
-                        <input type="checkbox" name="atype2" value="adventure">冒險
-                        <input type="checkbox" name="atype2" value="high">High起來
-                        <input type="checkbox" name="atype2" value="photo">攝影
-                        <input type="checkbox" name="atype2" value="sport">運動
-                        <input type="checkbox" name="atype2" value="game">遊戲
-                        <input type="checkbox" name="atype2" value="other">其它
-
+                        <input type="checkbox" name="atype2" value="冒險">冒險
+                        <input type="checkbox" name="atype2" value="High起來">High起來
+                        <input type="checkbox" name="atype2" value="攝影">攝影
+                        <input type="checkbox" name="atype2" value="運動">運動
+                        <input type="checkbox" name="atype2" value="遊戲">遊戲
+                        <input type="checkbox" name="atype2" value="其它">其它
                     </div>
                     <br>
 
@@ -158,7 +157,8 @@ font-size:1.2rem
                     
                 </div>
                 
-                <script>
+             
+							<script>
 				        	ClassicEditor
 				              .create( document.querySelector( '#editor' ),{
 				            	  toolbar: {
@@ -248,6 +248,7 @@ font-size:1.2rem
         			        }
         			  });	
                      	 
+                   	  
                  	 
                  	 
                  })
