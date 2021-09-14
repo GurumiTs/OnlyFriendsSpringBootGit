@@ -159,7 +159,7 @@ body {
 
 										<c:when test="${empty employee && empty member}">
 											<div>
-												<a href="http://localhost/OnlyFriends/login">請登入後再留言。</a>
+												<a href="http://localhost:8080/OnlyFriends/login">請登入後再留言。</a>
 											</div>
 											&nbsp;
 											&nbsp;
