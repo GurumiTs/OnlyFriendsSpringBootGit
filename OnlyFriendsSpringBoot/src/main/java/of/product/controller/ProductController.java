@@ -170,5 +170,11 @@ public class ProductController {
 		}
 	}
 
-
+	@PostMapping(path = "/empchangeproductstatus")
+	@ResponseBody
+	public void changeproStatus(@RequestParam("proId")Integer proId) {
+		Product product=productService.findById(proId);
+		product.setProStatus(1);
+		productService.update(product);
+	}
 }

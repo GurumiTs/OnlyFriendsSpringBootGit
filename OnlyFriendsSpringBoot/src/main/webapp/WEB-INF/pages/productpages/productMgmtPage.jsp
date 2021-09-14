@@ -180,7 +180,7 @@
 			let proId = $(this).attr("id");
 			console.log(proId);
 			$.ajax({
-                type: "get",
+                type: "POST",
                 url: "empchangeproductstatus",
                 data:{"proId":proId},
                 success: function(data){
