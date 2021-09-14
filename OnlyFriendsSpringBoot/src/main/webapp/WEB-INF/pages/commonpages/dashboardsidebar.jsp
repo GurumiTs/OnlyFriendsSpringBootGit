@@ -54,7 +54,6 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="employeemgmt.controller">員工管理</a>
-              <a class="collapse-item" href="empsignup">新增員工</a>
               <a class="collapse-item" href="empmgmtmem">會員管理</a>
               <a class="collapse-item" href="customerservice.controller" target="_blank">線上客服</a>
             </div>

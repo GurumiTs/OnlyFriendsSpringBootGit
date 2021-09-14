@@ -81,10 +81,11 @@ public class MemberJsonController {
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
-	public Map allMemberToJson(Model m) {
+	public Map allMemberToJson(Model m) throws InterruptedException {
 		List<Member> memberList = memberService.findAll();
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", memberList);
+		//Thread.sleep(1000);
 		return map;
 	}
 
@@ -136,8 +137,9 @@ public class MemberJsonController {
 			System.out.println(memberAccount);
 			String fileName = multipartFile.getOriginalFilename();
 			String path = ResourceUtils.getURL("classpath:static/images/memberPic").getPath();
-			// System.out.println(path);
+			System.out.println(path);
 			String filePath = path + "/" + fileName;
+			System.out.println(filePath);
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			Member member = memberService.findByMemberAccount(memberAccount);

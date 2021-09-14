@@ -128,7 +128,7 @@ pageEncoding="UTF-8"%>
       <a
         href="#"
         data-toggle="dropdown"
-        class="nav-link notification-toggle nav-link-lg beep"
+        class="nav-link notification-toggle nav-link-lg"
         ><i class="far fa-bell" id="notificationicon"></i
       ></a>
       <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -151,8 +151,8 @@ pageEncoding="UTF-8"%>
       <a
         href="#"
         data-toggle="dropdown"
-        class="nav-link notification-toggle nav-link-lg beep"
-        ><i class="fas fa-user-plus" id="inviteicon"></i
+        class="nav-link notification-toggle nav-link-lg"
+        ><i class="far fa-envelope" id="inviteicon"></i
       ></a>
       <div class="dropdown-menu dropdown-list dropdown-menu-right">
         <div class="dropdown-header">交友邀請</div>
