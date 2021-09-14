@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import of.product.model.Product;
 import of.product.model.ProductService;
+import of.shop.model.OrderItemService;
 
 @Controller
 @SessionAttributes(names= {"proList","product"})
@@ -34,6 +35,8 @@ public class ProductController {
 	private ProductService productService;
 	@Autowired
 	private Product product;
+	@Autowired
+	private OrderItemService orderItemService;
 
 	@RequestMapping(path = "/empproductPage.controller", method = RequestMethod.GET)
 	public String productMgmtEntry(Model model) {
@@ -213,6 +216,7 @@ public class ProductController {
 		if (delete) {
 			productService.deleteById(Id);
 		}
+		orderItemService.deleteFindByProId(Id);
 	}
 
 
