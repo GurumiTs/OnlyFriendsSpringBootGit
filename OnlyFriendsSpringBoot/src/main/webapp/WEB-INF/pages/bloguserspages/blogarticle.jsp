@@ -73,10 +73,10 @@ body {
 									發文者:${blogUser.usersName}</div>
 								<div class="text-muted fst-italic mb-2">瀏覽人數:${blogUser.watchNum}</div>
 								<!-- Post categories-->
-								<a class="badge bg-secondary text-decoration-none link-light"
-									href="#!">Web Design</a> <a
-									class="badge bg-secondary text-decoration-none link-light"
-									href="#!">Freebies</a>
+<!-- 								<a class="badge bg-secondary text-decoration-none link-light" -->
+<!-- 									href="#!">Web Design</a> <a -->
+<!-- 									class="badge bg-secondary text-decoration-none link-light" -->
+<!-- 									href="#!">Freebies</a> -->
 							</header>
 							<!-- Preview image figure-->
 							<figure class="mb-4" style="text-align: center;">
@@ -97,6 +97,7 @@ body {
 						<div class="d-flex flex-row justify-content-start align-items-center mb-2">
 							<div class="mx-3">
 							<i type="button" id="thumbs" class="far fa-thumbs-up fs-3"></i>
+							<span id="likenumber"></span>
 							</div>
 							<!-- Line icon -->
 							<div class="line-it-button" data-lang="zh_Hant" data-type="share-b" data-ver="3" 
@@ -215,12 +216,13 @@ body {
 		var url_String = location.href;
 		var url = new URL(url_String);
 		var articleId = url.searchParams.get("ArticleId");
-		console.log(articleId);
+		console.log("articleId:" + articleId);
 
 		$(function() {
 			// 檢查點讚與否
 			checklike();
 			thumbs();
+			likenumber();
 			message();
 			$('#mesbutton').on('click', addmessage);
 
@@ -239,9 +241,12 @@ body {
 				url: "checklike",
 				data: {"usersArticleID": articleId},
 				success : function(data) {
-					console.log(data);
 					if(data == "exist"){
+						console.log("按下讚");
 						$("#thumbs").addClass("text-primary");						
+					}else{
+						console.log("沒有讚");
+						$("#thumbs").removeClass("text-primary");
 					}
 				},
 				error : function(xhr) {
@@ -258,9 +263,8 @@ body {
 					url: "bloglike",
 					data: {"usersArticleID": articleId},
 					success : function(data) {
-						console.log(data);
-						checklike();
-						
+							checklike();
+							likenumber()
 					},
 					error : function(xhr) {
 						console.log("error!");
@@ -269,6 +273,21 @@ body {
 			});
 		};
 		
+		// 記錄點讚數
+		function likenumber() {
+			$.ajax({
+				type: "GET",
+				url: "bloglikenumber",
+				data: {"usersArticleID": articleId},
+				success : function(data) {
+					console.log(data);
+					$("#likenumber").text(data);
+				},
+				error : function(xhr) {
+					console.log("error!");
+				}
+			});
+		}
 		
 		// 送出留言
 		function addmessage() {

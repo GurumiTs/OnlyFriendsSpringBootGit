@@ -49,4 +49,9 @@ public class FirstMessageService {
 		return fMesRepository.findAll();
 	}
 	
+	// 刪除全部
+	public void deleteByUsersArticleID(Integer usersArticleID) {
+		fMesRepository.deleteByArticleID(usersArticleID);
+	}
+	
 }
