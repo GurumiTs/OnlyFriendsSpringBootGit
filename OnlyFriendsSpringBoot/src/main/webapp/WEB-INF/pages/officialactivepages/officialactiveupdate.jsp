@@ -75,10 +75,10 @@ font-size:1.2rem
                         <label class="my-1 mr-2" for="inlineFormCustomSelectPref">請選擇活動類型(1)</label>
                         <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="atype">
                       
-                      <option value="1">多人團體活動#戶外</option>
-                      <option value="2">多人團體活動#室內</option>
-                      <option value="3">一對一活動#戶外</option>
-                      <option value="4">一對一活動#室內</option>
+                      <option value="多人團體活動#戶外">多人團體活動#戶外</option>
+                      <option value="多人團體活動#室內">多人團體活動#室內</option>
+                      <option value="一對一活動#戶外">一對一活動#戶外</option>
+                      <option value="一對一活動#室內">一對一活動#室內</option>
                     </select>
                 </div>
                 <div> 

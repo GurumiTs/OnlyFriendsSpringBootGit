@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import of.member.model.Member;
 import of.member.model.MemberService;
-import of.oamember.model.OaMemberService;
 import of.officialactive.model.OfficialActive;
 import of.officialactive.model.OfficialActiveService;
 
@@ -40,8 +39,6 @@ public class OfficialActiveController {
 	private OfficialActiveService officialActiveService;
 	@Autowired
 	private OfficialActive officialActive;
-	@Autowired 
-	private OaMemberService oamService;
 	@Autowired 
 	private MemberService memberService;
 
@@ -311,8 +308,45 @@ public class OfficialActiveController {
 			return"yes";
 		}
 		
-}
 		
+		//依照活動類型查詢 
+		@PostMapping(path="/findbyatype1")
+		@ResponseBody
+		public List<OfficialActive> findByAtype(){
+			List<OfficialActive> atypeList = officialActiveService.findByAtype("多人團體活動#戶外");
+			return atypeList;
+		
+		}
+		@PostMapping(path="/findbyatype2")
+		@ResponseBody
+		public List<OfficialActive> findByAtype2(){
+			List<OfficialActive> atypeList = officialActiveService.findByAtype("多人團體活動#室內");
+			System.out.println(atypeList);
+			return atypeList;
+			
+		
+		}
+		@PostMapping(path="/findbyatype3")
+		@ResponseBody
+		public List<OfficialActive> findByAtype3(){
+			List<OfficialActive> atypeList = officialActiveService.findByAtype("一對一活動#戶外");
+			System.out.println(atypeList);
+			return atypeList;
+		
+		}
+		@PostMapping(path="/findbyatype4")
+		@ResponseBody
+		public List<OfficialActive> findByAtype4(){
+			List<OfficialActive> atypeList = officialActiveService.findByAtype("一對一活動#室內");
+			System.out.println(atypeList);
+			return atypeList;
+		
+		}
+	
+				
+		}
+
+	
 
 			
 		
