@@ -225,6 +225,7 @@
 // 		  $(document).ready(function(){
 
 		/* load data table */
+		
 		var table = $('#ordertable').DataTable({
 			"ajax" : {
 				"url" : "order.controller",
@@ -258,8 +259,9 @@
 	        {"data": null,
 	            render:function(data, type, row)
 	            {
+	            	console.log(data.paymentId)
 	             if(data.orderStatus == '待出貨'){
-	            	 return "<select class='form-select' >"+	            
+	            	 return "<select class='form-select' id="+data.paymentId+" >"+	            
 		              "<option  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
 		              "<option selected value='待出貨'>"+'待出貨'+"</option>"+
 		              "<option   value='已取消'>"+'已取消'+"</option>"+
@@ -267,7 +269,7 @@
 		              "</select>";	            	 
 	            	 }
 	             if(data.orderStatus == '已取消'){
-	            	 return "<select class='form-select' >"+	            
+	            	 return "<select class='form-select'  id="+data.paymentId+" >"+	            
 		              "<option  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
 		              "<option  value='待出貨'>"+'待出貨'+"</option>"+
 		              "<option selected  value='已取消'>"+'已取消'+"</option>"+
@@ -275,7 +277,7 @@
 		              "</select>";	            	 
 	            	 }
 	             if(data.orderStatus == '已出貨'){
-	            	 return "<select class='form-select sendorder' id="+data.paymentId+" >"+	            
+	            	 return "<select class='form-select sendorder'  id="+data.paymentId+" >"+	            
 		              "<option  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
 		              "<option  value='待出貨'>"+'待出貨'+"</option>"+
 		              "<option  value='已取消'>"+'已取消'+"</option>"+
@@ -283,7 +285,7 @@
 		              "</select>";	            	 
 	            	 }
 	             else{
-	            	 return "<select class='form-select' >"+	            
+	            	 return "<select class='form-select' id="+data.paymentId+">"+	            
 		              "<option selected  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
 		              "<option  value='待出貨'>"+'待出貨'+"</option>"+
 		              "<option  value='已取消'>"+'已取消'+"</option>"+
@@ -397,23 +399,52 @@
 // 			 sendorder()
 //   		  })
 		
-		$("#ordertable tbody").on("click", ".sendorder", function () {
+// 		$("#ordertable tbody").on("click", ".sendorder", function () {
+// 			let paymentId=$(this).attr("id");
+// 			let dtr = $(this).closest("th");
+// 			console.log(paymentId)
+// 			$.ajax({
+// 				type:"get",
+// 				url:"updatestatus",
+// 				data:{"paymentId":paymentId},
+// 				success:function(data){	
+// 	 				console.log(data)
+	     	 	
+// 				},
+// 				error:function(){
+// 					console.log("error");
+// 				}
+// 			})			
+// 		})
+		
+		setTimeout(function(){
+			
+			
+		$("#ordertable tbody").on("click", ".form-select", function () {
+				
 			let paymentId=$(this).attr("id");
-			let dtr = $(this).closest("th");
 			console.log(paymentId)
+			let b  = $(this).find("option:selected").text()
+			console.log(b)
 			$.ajax({
 				type:"get",
-				url:"updatestatus",
-				data:{"paymentId":paymentId},
+				url:"updatestatus",	
+				data:{"paymentId":paymentId,"orderStatus":b},
 				success:function(data){	
-	 				console.log(data)
-	     	 	
+	 				console.log(data)    	 	
 				},
 				error:function(){
 					console.log("error");
 				}
 			})			
 		})
+		
+		
+			}, 3000);
+		
+	
+		
+		
 		
 	</script>
 </body>

@@ -73,7 +73,7 @@
 <!-- 											<th>運費</th> -->
 											<th>描述</th>
 											<th>修改</th>
-											<th>刪除</th>
+											<th>狀態</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -87,7 +87,7 @@
 <!-- 											<th>運費</th> -->
 											<th>描述</th>
 											<th>修改</th>
-											<th>刪除</th>
+											<th>狀態</th>
 
 										</tr>
 									</tfoot>
@@ -154,7 +154,13 @@
 			}, {
 				"data" : null,
 				render : function(data, type, row) {
-					return "<i class='far fa-trash-alt delete' id="+data.proId+"></i>";
+				
+					if(data.proStatus==1){
+					return '<div class="badge badge-secondary orderstatus">'+'已下架'+'</div>';
+						
+					}else{
+						return '<a href="" class="badge badge-primary orderstatus deletepro" id='+data.proId+'>'+'已上架'+'</a>';
+					}
 				}
 			} ],language: {
 		    	"lengthMenu": "顯示 _MENU_ 筆資料",
@@ -170,44 +176,58 @@
 		    }
 		});
 		/* load data table */
+		$("#example tbody").on("click", ".deletepro", function () {
+			let proId = $(this).attr("id");
+			console.log(proId);
+			$.ajax({
+                type: "get",
+                url: "empchangeproductstatus",
+                data:{"proId":proId},
+                success: function(data){
+                	
+                }
+			})
+		})
+		
+		
 		
 		
 		/*delete*/
-		$("#example tbody").on("click", ".delete", function () {
-			let proId = $(this).attr("id");
-			console.log($(this).closest("tr"));
-			let dtr = $(this).closest("tr");
-			  Swal.fire({
-	                title: '確定要刪除嗎?',
-	                text: "刪除後就無法回復了!",
-	                icon: 'warning',
-	                showCancelButton: true,
-	                confirmButtonColor: '#3085d6',
-	                cancelButtonColor: '#d33',
-	                confirmButtonText: '確定刪除!'
-	              }).then((result) => {
-	                if (result.isConfirmed) {
-	                  $.ajax({
-	                        type: "POST",
-	                        url: "empdeleteentry.controller/"+proId,
-	                        success: function(response) {  
-	                        	dtr.remove();
-	                             Swal.fire(
-	                              '已刪除!',
-	                              '這筆資料已被刪除',
-	                              'success'
-	                            ) } ,
-	                            error: function (xhr) {
-	                            Swal.fire({
-	                              icon: 'error',
-	                              title: 'Oops...',
-	                              text: 'Something went wrong!'
-	                            }) },  //error close
-	                     }); //ajax close          
-	                } //if close 
+// 		$("#example tbody").on("click", ".delete", function () {
+// 			let proId = $(this).attr("id");
+// 			console.log($(this).closest("tr"));
+// 			let dtr = $(this).closest("tr");
+// 			  Swal.fire({
+// 	                title: '確定要刪除嗎?',
+// 	                text: "刪除後就無法回復了!",
+// 	                icon: 'warning',
+// 	                showCancelButton: true,
+// 	                confirmButtonColor: '#3085d6',
+// 	                cancelButtonColor: '#d33',
+// 	                confirmButtonText: '確定刪除!'
+// 	              }).then((result) => {
+// 	                if (result.isConfirmed) {
+// 	                  $.ajax({
+// 	                        type: "POST",
+// 	                        url: "empdeleteentry.controller/"+proId,
+// 	                        success: function(response) {  
+// 	                        	dtr.remove();
+// 	                             Swal.fire(
+// 	                              '已刪除!',
+// 	                              '這筆資料已被刪除',
+// 	                              'success'
+// 	                            ) } ,
+// 	                            error: function (xhr) {
+// 	                            Swal.fire({
+// 	                              icon: 'error',
+// 	                              title: 'Oops...',
+// 	                              text: 'Something went wrong!'
+// 	                            }) },  //error close
+// 	                     }); //ajax close          
+// 	                } //if close 
 
-	           }); //then close 
-		});
+// 	           }); //then close 
+// 		});
 	</script>
 </body>
 </html>

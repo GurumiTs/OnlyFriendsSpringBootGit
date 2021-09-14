@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.OrderItemService;
+import of.shop.model.OrderService;
 
 @Controller
 @SessionAttributes(names= {"proList","product"})
@@ -107,51 +108,6 @@ public class ProductController {
 		
 	}
 	
-	@RequestMapping(path="/empaddProductbutton.controller",method =RequestMethod.POST )
-	public String productAddbutton(@RequestParam (name = "Id",required = false) Integer Id,
-							@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
-							@RequestParam(name = "Name") String Name,
-							@RequestParam(name = "Description") String Description,
-							@RequestParam(name = "Price") Integer Price,
-							@RequestParam(name = "Item") String Item,
-							@RequestParam(name = "Num")	Integer Num,
-							HttpServletRequest request,
-							Model m){
-		
-		try {
-//		product.setProId(Id);
-			product.setProName("霞海城隍廟聯名御守");
-			product.setProDescription("一年一度七夕即將到來\r\n"
-					+ "今年很可惜因為疫情關係，無法親自去到霞海城隍城隍廟\r\n"
-					+ "和月下老人祈求緣分也別擔心\r\n"
-					+ "在七夕前夕，成立結緣追愛小組\r\n"
-					+ "攜手與在地設計師合作，製作出各式七夕月老聯名款禮物\r\n"
-					+ "期待在送禮時能讓各地單身、想求姻緣的男女們牽起之間的緣分");
-			product.setProPrice(360);
-			product.setProItem("幸運小物");
-			product.setProNum(25);
-			
-			String fileName=multipartFile.getOriginalFilename();
-			System.out.println("filename:"+fileName);
-			String path1=ResourceUtils.getURL("classpath:static/images/productPic").getPath();
-			System.out.println(path1);
-			String filepath=path1+"/"+fileName;
-			File saveFile=new File(filepath);
-			System.out.println("1");
-			multipartFile.transferTo(saveFile);
-			System.out.println("2");
-			product.setProPhoto("images/productPic/"+fileName);
-			System.out.println("3");
-			productService.insert(product);
-			System.out.println("success");
-			return "redirect:/empproductPage.controller";
-			
-		} catch (Exception e) {
-			m.addAttribute("error","update picture failed");
-			return "redirect:/empproductPage.controller";
-		}
-		
-	}
 	
 
 	
@@ -212,11 +168,20 @@ public class ProductController {
 	public void deleteEntryPage(@PathVariable("Id") Integer Id) {
 		System.out.println("Id"+Id);
 		
+		orderItemService.deleteFindByProId(Id);
 		boolean delete=productService.checkproId(Id);
 		if (delete) {
 			productService.deleteById(Id);
 		}
-		orderItemService.deleteFindByProId(Id);
+	}
+	
+	@GetMapping(path = "/empchangeproductstatus")
+	@ResponseBody
+	public void changeproductstatus(@RequestParam("proId") Integer proId) {
+		Product product=productService.findById(proId);
+		product.setProStatus(1);
+		productService.update(product);
+		
 	}
 
 
