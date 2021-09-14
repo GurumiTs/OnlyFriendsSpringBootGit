@@ -130,13 +130,13 @@
            
                   <div class="dropdown-divider"></div>
                   <a
-                    class="dropdown-item"
+                    class="dropdown-item text-danger"
                     href="#"
                     data-toggle="modal"
                     data-target="#logoutModal"
                   >
                     <i
-                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger-400"
                     ></i>
                     登出
                   </a>

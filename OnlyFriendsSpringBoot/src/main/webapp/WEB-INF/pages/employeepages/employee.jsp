@@ -51,13 +51,13 @@
                         </div>
                       </div>
                       <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-success"></i>
                         
-                        <div class="dropdown no-arrow">
+                        <div class="dropdown no-arrow mt-3">
 							<a class="dropdown-toggle" href="#" role="button"
 								id="dropdownMenuLink" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
-							<i class=" fas fa-cloud-download-alt text-gray-400"></i>
+							<i class=" fas fa-cloud-download-alt text-secondary"></i>
 							</a>
 							<div
 						        class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
@@ -88,13 +88,13 @@
                         </div>
                       </div>
                       <div class="col-auto">   
-                       <i class="fas fa-users fa-2x text-gray-300"></i>	   
+                       <i class="fas fa-users fa-2x text-warning"></i>	   
                                       	
-   						<div class="dropdown no-arrow">
+   						<div class="dropdown no-arrow mt-3">
 							<a class="dropdown-toggle" href="#" role="button"
 								id="dropdownMenuLink" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
-							<i class="pl-2 fas fa-cloud-download-alt text-gray-400"></i>
+							<i class="pl-2 fas fa-cloud-download-alt text-secondary"></i>
 							</a>
 							<div
 						        class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
