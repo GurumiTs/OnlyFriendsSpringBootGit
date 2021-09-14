@@ -5,6 +5,10 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 .information {
 	cursor: pointer;
 	color: purple;
@@ -49,7 +53,7 @@
 
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800">訂單管理</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 
@@ -65,6 +69,8 @@
 											<th>訂單地址</th>
 											<th>訂單總金額</th>
 											<th>訂單資訊</th>
+											<th>訂單狀態</th>
+											<th>確認取消訂單</th>
 										</tr>
 									</thead>
 <!-- 									<tbody id="ordertable"></tbody> -->
@@ -76,6 +82,8 @@
 											<th>訂單地址</th>
 											<th>訂單總金額</th>
 											<th>訂單資訊</th>
+											<th>訂單狀態</th>
+											<th>確認取消訂單</th>
 
 										</tr>
 									</tfoot>
@@ -246,7 +254,69 @@
 	            {
 	              return "<a class='details' id="+data.paymentId+">&nbsp&nbsp&nbsp<i class='fas fa-info-circle information' data-bs-toggle='modal' data-bs-target='#exampleModal'></i>";
 	            }
-	        }]
+	        },
+	        {"data": null,
+	            render:function(data, type, row)
+	            {
+	             if(data.orderStatus == '待出貨'){
+	            	 return "<select class='form-select' >"+	            
+		              "<option  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
+		              "<option selected value='待出貨'>"+'待出貨'+"</option>"+
+		              "<option   value='已取消'>"+'已取消'+"</option>"+
+		              "<option value='已出貨'>"+'已出貨'+"</option>"+
+		              "</select>";	            	 
+	            	 }
+	             if(data.orderStatus == '已取消'){
+	            	 return "<select class='form-select' >"+	            
+		              "<option  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
+		              "<option  value='待出貨'>"+'待出貨'+"</option>"+
+		              "<option selected  value='已取消'>"+'已取消'+"</option>"+
+		              "<option value='已出貨'>"+'已出貨'+"</option>"+
+		              "</select>";	            	 
+	            	 }
+	             if(data.orderStatus == '已出貨'){
+	            	 return "<select class='form-select sendorder' id="+data.paymentId+" >"+	            
+		              "<option  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
+		              "<option  value='待出貨'>"+'待出貨'+"</option>"+
+		              "<option  value='已取消'>"+'已取消'+"</option>"+
+		              "<option selected value='已出貨'>"+'已出貨'+"</option>"+
+		              "</select>";	            	 
+	            	 }
+	             else{
+	            	 return "<select class='form-select' >"+	            
+		              "<option selected  value='' disabled>"+'請選擇訂單狀態'+"</option>"+
+		              "<option  value='待出貨'>"+'待出貨'+"</option>"+
+		              "<option  value='已取消'>"+'已取消'+"</option>"+
+		              "<option  value='已出貨'>"+'已出貨'+"</option>"+
+		              "</select>";	            	 
+	            	 }	             
+	            }
+	        },
+	            { 
+		        	"data": null,
+		            render:function(data, type, row)
+		            {
+		              if(data.orderId == 0){
+		            	return '<img src="images/smallicon/shopping-cart.svg" alt="logo" width="30" class="shadow-light rounded-circle">' ;
+		              }else{
+		            	  return '<a href=""><img src="images/smallicon/delete-cart.svg" alt="logo" width="30" class="shadow-light rounded-circle cancelconfirm" id='+data.paymentId+'></a>';
+		              }
+		            }
+		        }
+	       
+	        	],language: {
+			    	"lengthMenu": "顯示 _MENU_ 筆資料",
+			    	"sProcessing": "處理中...",
+			    	"sSearch": "搜尋:",
+			    	"sLoadingRecords": "載入資料中...",
+			    	"oPaginate": {
+			            "sFirst": "首頁",
+			            "sPrevious": "上一頁",
+			            "sNext": "下一頁",
+			            "sLast": "末頁"
+			         },
+			    }
+	        
 		})
 		  
 		/* load data table */
@@ -263,7 +333,7 @@
 			      data: {"paymentId":paymentId}, 
 			      success: function(data) 
 			        {
-// 						console.log(data)
+//  					  console.log(data)
 			    	  let address =  JSON.parse(data.orderAddress);
 // 			         	console.log(address)
 			    	  $('#postalCode').text(address.postal_code);
@@ -272,21 +342,32 @@
 			    	  $('#orderline2').text(address.line2);
 			    	  $('#ordertime').text(data.orderTime);
 			    	  $('#orderfinaltotal').text(data.total);
-			    	  let json=JSON.stringify(data.orderItem,null,4)
-			    	  console.log(json)
+			    	  let json=JSON.stringify(data.orderItem)
+// 			    	  console.log(json)
 					  var parsedObjinArray = JSON.parse(json);
-			    	  console.log(parsedObjinArray)
-		     	     var customerorderlist = $('#customerorderlist');
-		     	     $('#customerorderlist').empty("");
-		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-		     	     var item =  '<tr id='+n.proId+'>'+
-		     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
-	                 '<td>'+n.proName+'</td>'+
-	                 '<td class="text-center">'+n.proPrice+'</td>'+
-// 	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
-// 	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-	               	 '</tr>';
-	               		customerorderlist.append(item);
+			    	 // console.log(parsedObjinArray)
+		     	    var customerorderlist = $('#customerorderlist');
+		     	    $('#customerorderlist').empty("");		     	     		     	    		     	     
+		     	 	$.each( parsedObjinArray,function(i,n){ //i為順序 n為單筆物件     	 		
+		     	    var item = '<tr id='+n.proId+'>'+
+		     	   '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
+	                '<td>'+n.proName+'</td>'+
+	                '<td class="text-center">'+n.proPrice+'</td>'+
+	                '<td class="text-center" id="'+n.proId+'orderamount"></td>'+
+	                '<td class="text-center" id="'+n.proId+'ordertotal"></td>'+
+	              	 '</tr>';
+	              		customerorderlist.append(item);
+	              		 $.ajax({
+	       			      url:"findorderamount",				
+	       			      method:"get",
+	       			      data:{"paymentId":paymentId,"proId":n.proId},
+	       			      success:function(data){
+	       			    	$("#"+n.proId+"orderamount").text(data);
+	       			    	$("#"+n.proId+"ordertotal").text(Math.round(data*n.proPrice));
+	       			    	  }
+	       			      
+	              		 })
+	              		$(".cancelconfirm").on("click",cancelstatusconfirm)
 		     	 	});
 			        },
 			      error: function(data) 
@@ -296,58 +377,44 @@
 			  });			  
 		});
 		
-// 		function customerorderlist() {
-// 			let paymentId=$(this).attr("id");
-// 			console.log(paymentId);
-// 			let dtr = $(this).closest("th");
-// 			$.ajax({
-// 				type:"get",
-// 				url:"orderIdItem",
-// 				dataType: "json",   
-// 			    cache: false,  
-// 			    data: {"paymentId":paymentId},
-// 				success:function(data){
-// 					console.log(data) 
-// 					var json = JSON.stringify(data,null,4);
-// 		     	     var parsedObjinArray = JSON.parse(json);
-// 		     	     var customerorderlist = $('#customerorderlist');
-// 		     	     $('#customerorderlist').empty("");
-// 		     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
-// 		     	     var item =  '<tr id='+n.product.proId+'>'+
-// 		     	    '<td>'+'<img class="proimg" src='+n.product.proPhoto+'/>'+'</td>'+
-// 	                 '<td>'+n.product.proName+'</td>'+
-// 	                 '<td class="text-center">'+n.product.proPrice+'</td>'+
-// 	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
-// 	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
-// 	               	 '</tr>';
-// 	               		customerorderlist.append(item);
-		 				
-// 		     	    });
-// 		     	 	orderfinaltotal()	     	 	
-// 				},
-// 				error:function(error){
-// 					console.log("error");
-// 				}
-// 			})
-// 		}	
 		
-// 		function getorderaddress() {
-			
-// 		console.log("hello")
-// 		$.ajax({
-// 			type:"post",
-// 			url:"getorderaddress",
-// 			success:function(data){
-// 				let address=JSON.stringify(data);
-// 				console.log(address);
-// 				let line=address.line1;
-// 				console.log(line);
-// 				$('#orderaddress').text(line);
-// 			},error(){
-// 				error
-// 			}
-// 		})
-// 		}
+		$("#ordertable tbody").on("click", ".cancelconfirm", function () {
+			let paymentId=$(this).attr("id");
+			let dtr = $(this).closest("th");
+			$.ajax({
+				type:"get",
+				url:"cancelstatusconfirm",
+				data:{"paymentId":paymentId},
+				success:function(data){	
+	     	 	
+				},
+				error:function(){
+					console.log("error");
+				}
+			})		
+		})
+// 		 $(function(){		
+// 			 sendorder()
+//   		  })
+		
+		$("#ordertable tbody").on("click", ".sendorder", function () {
+			let paymentId=$(this).attr("id");
+			let dtr = $(this).closest("th");
+			console.log(paymentId)
+			$.ajax({
+				type:"get",
+				url:"updatestatus",
+				data:{"paymentId":paymentId},
+				success:function(data){	
+	 				console.log(data)
+	     	 	
+				},
+				error:function(){
+					console.log("error");
+				}
+			})			
+		})
+		
 	</script>
 </body>
 </html>

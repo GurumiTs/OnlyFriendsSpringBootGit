@@ -6,6 +6,10 @@
 body{
 font-size:1.2rem
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 </style>
 </head>
 <body>
@@ -82,7 +86,7 @@ font-size:1.2rem
 							</div>
 
 							<div>
-								<label>參加條件</label> <input type="text" name="condition" value="${userActivity.condition}">
+								<label>活動須知</label> <input type="text" name="condition" value="${userActivity.condition}">
 								<br> <label for="">男生人數:</label> <input type="number"
 									name="man" id="numberInput" min="0" max="20" step="1"
 									onchange="numberChange()" value="${userActivity.man}"> <label for=""> 女生人數:</label>

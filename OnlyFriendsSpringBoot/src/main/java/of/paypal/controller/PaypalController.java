@@ -247,6 +247,7 @@ public class PaypalController {
 				orderDetails.setOrderTime(timestamp); 
 				orderDetails.setOrderItem(productlist); 
 				orderDetails.setOrderDiscount(discountInteger.toString());
+				orderDetails.setOrderStatus("待出貨");
 				
 				
 				orderService.insert(orderDetails);

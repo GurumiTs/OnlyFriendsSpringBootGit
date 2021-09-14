@@ -10,7 +10,10 @@ font-size:1.2rem
 weight:100px;
 height:100px;
 }
-
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 
 #couponarea{display:flex;}
 #coupondetail{width:300px;margin-top:6px;}
@@ -378,10 +381,22 @@ height:100px;
 			     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
 			             '<td>'+n.proName+'</td>'+
 			             '<td class="text-center">'+n.proPrice+'</td>'+
-			//                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
-			//                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+			             '<td class="text-center" id="'+n.proId+'orderamount"></td>'+
+			             '<td class="text-center" id="'+n.proId+'ordertotal"></td>'+
 			           	 '</tr>';
 			           	ordercompletelist.append(item);
+			            $.ajax({
+		      			      url:"findorderamount",				
+		      			      method:"get",
+		      			      data:{"paymentId":paymentId,"proId":n.proId},
+		      			      success:function(data){
+		      			    	console.log("test")
+		      			    	$("#"+n.proId+"orderamount").text(data);
+		      			    	$("#"+n.proId+"ordertotal").text(Math.round(data*n.proPrice));
+		      			    	  }
+		      			      
+		             		 })
+			           	
 			     	 	});
 				        },
 				      error: function(data) 

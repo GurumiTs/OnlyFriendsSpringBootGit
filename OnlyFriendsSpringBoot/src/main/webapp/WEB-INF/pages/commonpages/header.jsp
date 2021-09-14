@@ -58,6 +58,10 @@ pageEncoding="UTF-8"%>
                 </ul>
               </li>
               
+               <li class="nav-item">
+        			<a href="memberswipe" class="nav-link">邱比房間</a>
+      			</li>
+              
                        
             </ul>
           </div>

@@ -81,7 +81,7 @@ public class MemberJsonController {
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
-	public Map allEmployeeToJson(Model m) {
+	public Map allMemberToJson(Model m) {
 		List<Member> memberList = memberService.findAll();
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", memberList);
@@ -413,29 +413,7 @@ public class MemberJsonController {
 		chatService.clearnotification(memberAccount);
 		return "yes";
 	}
-	@PostMapping(path = "/total")
-	@ResponseBody
-	public List<Float> totalEntry() {
-		List<Float> total = new ArrayList<Float>();
-		
-		for(int i = 1;i<=12;i++) {
-			Float f = storedService.searchtotal(i);
-			if(f == null) {
-				f = (float) 0;
-			}
-			total.add(f);
-		}
-		return total;	
-		
-	}
 	
-	@PostMapping(path = "/storedannual")
-	@ResponseBody
-	public Float storedannualEntry() {
-	
-		return storedService.storedannual();
-		
-	}
 	
 	
 	

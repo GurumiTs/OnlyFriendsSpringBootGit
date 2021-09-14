@@ -55,6 +55,8 @@ public class ShoppingCartController {
 	private PaypalService paypalService;
 	@Autowired
 	private OrderItemRepository orderItemRepository;
+	@Autowired
+	private OrderItemService orderItemService;
 
 	@RequestMapping(path = "/entryshoppingcart.controller")
 	public String shoppinCartEntry() {
@@ -276,12 +278,12 @@ public class ShoppingCartController {
 	@PostMapping(path = "/getorderaddress")
 	@ResponseBody
 	public String  getOrderAddress(@RequestParam("paymentId") String paymentId,Model model) {
-		System.out.println("controller pid:" + paymentId);
+//		System.out.println("controller pid:" + paymentId);
 		OrderDetails orderDetails =new OrderDetails();
-		System.out.println("1");
+//		System.out.println("1");
 		orderDetails=orderService.findByPaymentId(paymentId);
-		System.out.println("2");
-		System.out.println(paymentId);
+//		System.out.println("2");
+//		System.out.println(paymentId);
 //		
 //		String oda =  orderDetails.getOrderAddress();
 //		System.out.println("3");
@@ -294,8 +296,8 @@ public class ShoppingCartController {
 	@ResponseBody
 	public OrderDetails orderDetailsquery(@RequestParam(name = "paymentId") String paymentId) {
 		OrderDetails orderDetails = orderService.findByPaymentId(paymentId);
-		System.out.println(paymentId);
-		System.out.println(orderDetails);
+//		System.out.println(paymentId);
+//		System.out.println(orderDetails);
 		return orderDetails;
 	}
 	
@@ -303,8 +305,8 @@ public class ShoppingCartController {
 	@ResponseBody
 	public OrderDetails userrderDetailsquery(@RequestParam(name = "paymentId") String paymentId) {
 		OrderDetails orderDetails = orderService.findByPaymentId(paymentId);
-		System.out.println(paymentId);
-		System.out.println(orderDetails);
+//		System.out.println(paymentId);
+//		System.out.println(orderDetails);
 		return orderDetails;
 	}
 	
@@ -314,9 +316,53 @@ public class ShoppingCartController {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
 		List<OrderDetails> orderDetails = orderService.findByMemberAccount(memberAccount);
-		System.out.println(memberAccount);
-		System.out.println(orderDetails);
+//		System.out.println(memberAccount);
+//		System.out.println(orderDetails);
 		return orderDetails;
+	}
+	
+	
+	
+	@GetMapping(path = "/cancelstatus")
+	@ResponseBody
+	public OrderDetails cancelstatus(@RequestParam(name = "paymentId")String paymentId) {
+		OrderDetails orderDetails = orderService.findByPaymentId(paymentId);
+		System.out.println("insertstatusId"+paymentId);
+		orderDetails.setOrderStatus("取消訂單");
+		orderDetails.setOrderId(1);
+		orderService.update(orderDetails);
+		return orderDetails;
+	}
+	
+	@GetMapping(path = "/cancelstatusconfirm")
+	@ResponseBody
+	public OrderDetails cancelstatusconfirm(@RequestParam(name = "paymentId")String paymentId) {
+		OrderDetails orderDetails = orderService.findByPaymentId(paymentId);
+		System.out.println("insertstatusId"+paymentId);
+		orderDetails.setOrderStatus("已取消");
+		orderDetails.setOrderId(0);
+		orderService.update(orderDetails);
+		return orderDetails;
+	}
+	
+	
+	@GetMapping(path = "/updatestatus")
+	@ResponseBody
+	public OrderDetails updatestatus(@RequestParam(name = "paymentId")String paymentId,@RequestParam(name = "orderStatus")String orderStatus) {
+		OrderDetails orderDetails = orderService.findByPaymentId(paymentId);
+		orderDetails.setOrderStatus(orderStatus);
+		orderService.update(orderDetails);
+		return orderDetails;
+	}
+	
+	@GetMapping(path = "/findorderamount")
+	@ResponseBody
+	public Integer findOrderAmount(@RequestParam(name = "paymentId")String paymentId,@RequestParam(name = "proId")int proId) {
+		
+		Integer orderItemAmount=orderItemService.findorderAmount(paymentId, proId);
+		
+		return orderItemAmount;
+		
 	}
 	
 	
