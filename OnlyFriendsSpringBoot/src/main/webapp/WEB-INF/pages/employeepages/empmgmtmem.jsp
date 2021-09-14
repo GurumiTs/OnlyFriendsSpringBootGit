@@ -4,30 +4,7 @@
 
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
-<style>
-.edit {
-	cursor: pointer;
-	color: green;
-}
 
-.delete {
-	cursor: pointer;
-	color: red;
-}
-
-.edit:hover {
-	color: green;
-}
-
-.delete:hover {
-	color: red;
-}
-
-.data:hover {
-	color: white;
-	background-color: rgba(92, 92, 92, 0.637);
-}
-</style>
 </head>
 <body id="page-top">
 
@@ -55,15 +32,6 @@
 					<h1 class="h3 mb-2 text-gray-800">會員帳號管理</h1>
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
-					<!--  
-						<div class="card-header py-3 d-none" id="successHeader">
-							<div class="alert alert-success alert-dismissible fade show"
-										role="alert">
-										update success
-										<button type="button" class="btn-close"
-											data-bs-dismiss="alert" aria-label="Close"></button>
-							</div>
-						</div>-->
 						<div class="card-body">
 							<div class="table-responsive">
 								<table id="example" class="table table-hover text-center text-dark fs-5 hover"
@@ -129,11 +97,10 @@
 		            render:function(data, type, row)
 		            {
 		              if(data.memberAuth == 0){
-		            	 console.log(data.memberName+data.memberAuth) 
-			             return "<i class='fas fa-user-slash edit text-danger' id="+data.memberAccount+"></i> <span class='d-none'>|</span> <i class='far fa-trash-alt delete d-none' id="+data.memberAccount+"></i>";
+			             return "<button class='btn btn-danger edit' id="+data.memberAccount+"><i class='fas fa-user-slash'></i>啟用</button>";
 		              }
 		              else{
-				         return "<i class='fas fa-user edit' id="+data.memberAccount+"></i> <span class='d-none'>|</span> <i class='far fa-trash-alt delete d-none' id="+data.memberAccount+"></i>";
+				         return "<button class='btn btn-warning edit' id="+data.memberAccount+"><i class='fas fa-user'></i>停用</button>";
 
 		              }
 		            },
