@@ -122,9 +122,9 @@ body{
 								<button class="btn" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
-								<span class="badge badge-primary py-3" id="luckyItem" name="luckyItem" value="幸運小物類">幸運小物</span> 
-								<button class="badge badge-secondary mb-2" id="candleItem" name="candleItem" value="香氛類">香氛類</button> 
-								<button class="badge badge-success mb-2" id="otherItem" name="otherItem" value="其他類">其他</button> 
+								<span class="shadow badge py-3 mb-3 fs-5" style="background-color:#f4acb7;" id="luckyItem" name="luckyItem" value="幸運小物類">幸運小物</span> 
+								<span class="shadow badge py-3 mb-3 fs-5" style="background-color:#9d8189;" id="candleItem" name="candleItem" value="香氛類">香氛類</span> 
+								<span class="shadow badge py-3 mb-3 fs-5" style="background-color:#a5a58d;" id="otherItem" name="otherItem" value="其他類">其他</span> 
 								
 							</div>
 						</div>
@@ -244,13 +244,13 @@ body{
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
                    "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
-                   "<div class='d-flex justify-content-center small text-warning mb-2' >"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                  "</div>"+
+//                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                   "</div>"+
                    "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
                    "$"+Math.round(n.proPrice*0.9)+
                 " </div>"+

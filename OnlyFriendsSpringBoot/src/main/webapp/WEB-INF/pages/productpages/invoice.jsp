@@ -279,9 +279,9 @@ height:100px;
               <div class="text-md-right">
                 <div class="float-lg-left mb-lg-0 mb-3">
 <!--                   <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button> -->
-                  <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
+<!--                   <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button> -->
                 </div>
-                <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+<!--                 <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button> -->
               </div>
             </div>
           </div>
@@ -354,7 +354,7 @@ height:100px;
 				$('#orderline1').text(address.line1);
 				$('#orderline2').text(address.line2)
 				$('#orderemail').text(res.payer.payerInfo.email)
-				$('#ordertime').text(res.updateTime)
+// 				$('#ordertime').text(res.updateTime)
 				let paymentId=data.paymentID;
 				console.log(paymentId);
 				let dtr = $(this).closest("th");
@@ -370,6 +370,7 @@ height:100px;
 						  var parsedObjinArray = JSON.parse(json);
 				    	  console.log(parsedObjinArray)
 			     	     var ordercompletelist = $('#ordercompletelist');
+				    	  $('#ordertime').text(data.orderTime)
 				    	  $('#orderfinaltotal').text(data.total);
 				    	  $('#finaldiscount').text(data.orderDiscount);
 				    	  if(data.orderDiscount==0){
