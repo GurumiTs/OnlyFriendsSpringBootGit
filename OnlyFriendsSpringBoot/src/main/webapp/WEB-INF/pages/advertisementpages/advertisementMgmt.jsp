@@ -238,7 +238,7 @@ table{
 									<div class="line">
 										<input type="date" name="adEndDate" id="adEndDateInsert" class="form-control">
 									</div>
-									<br> <label for="adCondition" class="formName form-label">分類名稱</label>
+									<br> <label for="adCondition" class="formName form-label">狀態</label>
 									<div class="line">
 										<select name="adCondition" id="adConditionInsert" class="form-control" required style="background-color:white;">
 											<option value="">請選擇</option>
@@ -407,10 +407,10 @@ table{
 					if(data[i].adCondition==op1 ){
 						
 						$("option[value='已上架1']").attr("disabled", "disabled");
-						
+						$("option[value='已下架']").attr("disabled", "disabled");
 					}else if(data[i].adCondition==op2){
 						$("option[value='已上架2']").attr("disabled", "disabled");
-						
+						$("option[value='已下架']").attr("disabled", "disabled");
 					}
 				}		
 			}
