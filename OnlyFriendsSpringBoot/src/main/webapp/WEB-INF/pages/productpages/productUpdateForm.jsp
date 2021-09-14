@@ -120,13 +120,6 @@
           </div>
           
         </div>
-        <div class="col-md-6">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">運費</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
-            	name="Shipping" value="${product.proShipping }" id="Shipping"><span id="shipping"></span>
-          </div>
-        </div>
         <div class="col-12">
             <div class="input-group">
               <span class="input-group-text">商品描述</span>
@@ -203,18 +196,6 @@
         function checkNum(){
             let sp=document.getElementById("num");
             let theNameVal=document.getElementById("Num").value;
-            console.log(theNameVal);
-            if(theNameVal != ""){
-                        sp.innerHTML='<img id="check" src="images/smallicon/check.png" > ';
-            }else{
-                sp.innerHTML='<img id="error" src="images/smallicon/error.png"> 不可空白'; 
-            }
-            
-        }
-        document.getElementById("Shipping").onblur=checkShipping;
-        function checkShipping(){
-            let sp=document.getElementById("shipping");
-            let theNameVal=document.getElementById("Shipping").value;
             console.log(theNameVal);
             if(theNameVal != ""){
                         sp.innerHTML='<img id="check" src="images/smallicon/check.png" > ';
