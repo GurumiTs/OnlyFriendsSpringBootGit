@@ -38,9 +38,7 @@ body {
 	doesn't
 	close
 }
-.fb-share-button{
-	margin: 0;
-}
+
 </style>
 </head>
 <body>
@@ -75,10 +73,10 @@ body {
 									發文者:${blogUser.usersName}</div>
 								<div class="text-muted fst-italic mb-2">瀏覽人數:${blogUser.watchNum}</div>
 								<!-- Post categories-->
-								<a class="badge bg-secondary text-decoration-none link-light"
-									href="#!">Web Design</a> <a
-									class="badge bg-secondary text-decoration-none link-light"
-									href="#!">Freebies</a>
+<!-- 								<a class="badge bg-secondary text-decoration-none link-light" -->
+<!-- 									href="#!">Web Design</a> <a -->
+<!-- 									class="badge bg-secondary text-decoration-none link-light" -->
+<!-- 									href="#!">Freebies</a> -->
 							</header>
 							<!-- Preview image figure-->
 							<figure class="mb-4" style="text-align: center;">
@@ -96,21 +94,28 @@ body {
 								<!--                             <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> -->
 							</section>
 						</article>
-						<div>
-						<div class="line-it-button" data-lang="zh_Hant" data-type="share-b" data-ver="3" 
+						<div class="d-flex flex-row justify-content-start align-items-center mb-2">
+							<div class="mx-3">
+							<i type="button" id="thumbs" class="far fa-thumbs-up fs-3"></i>
+							<span id="likenumber"></span>
+							</div>
+							<!-- Line icon -->
+							<div class="line-it-button" data-lang="zh_Hant" data-type="share-b" data-ver="3" 
 							data-url="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user" 
-							data-color="default" data-size="large" data-count="false" style="display: none;">
-						</div>
+							data-color="grey" data-size="small" data-count="false" style="display: none;"></div>
+							<!-- facebook icon -->
+							<div class="mx-3"
+								data-href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=1&name=user"
+								data-layout="button" data-size="small">
+								<a target="_blank"
+									href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FOnlyFriends%2Fblogarticleentry%3FArticleId%3D1%26name%3Duser&amp;src=sdkpreparse"
+									class="fb-xfbml-parse-ignore"><img
+											src="images/smallicon/facebook.jpg" width="32px"
+											height="32px"></a>
+							</div>
+							<!-- twitter icon -->
+							<a class="twitter-share-button mx-3" href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user">Tweet</a>
 						
-						<a class="twitter-share-button" href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user">Tweet</a>
-						
-						<div class="fb-share-button" style="margin-bottom: ;"
-							data-href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=1&name=user"
-							data-layout="button" data-size="small">
-							<a target="_blank"
-								href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FOnlyFriends%2Fblogarticleentry%3FArticleId%3D1%26name%3Duser&amp;src=sdkpreparse"
-								class="fb-xfbml-parse-ignore">分享</a>
-						</div>
 						</div>
 						
 						<!-- Facebook 分享 -->
@@ -155,7 +160,7 @@ body {
 
 										<c:when test="${empty employee && empty member}">
 											<div>
-												<a href="http://localhost/OnlyFriends/login">請登入後再留言。</a>
+												<a href="http://localhost:8080/OnlyFriends/login">請登入後再留言。</a>
 											</div>
 											&nbsp;
 											&nbsp;
@@ -211,9 +216,13 @@ body {
 		var url_String = location.href;
 		var url = new URL(url_String);
 		var articleId = url.searchParams.get("ArticleId");
-		console.log(articleId);
+		console.log("articleId:" + articleId);
 
 		$(function() {
+			// 檢查點讚與否
+			checklike();
+			thumbs();
+			likenumber();
 			message();
 			$('#mesbutton').on('click', addmessage);
 
@@ -222,9 +231,64 @@ body {
 					$('#mesbutton').on('click', addmessage);
 				}
 			});
+			
 
 		});
-
+		// 確認點讚與否
+		function checklike() {
+			$.ajax({
+				type: "GET",
+				url: "checklike",
+				data: {"usersArticleID": articleId},
+				success : function(data) {
+					if(data == "exist"){
+						console.log("按下讚");
+						$("#thumbs").addClass("text-primary");						
+					}else{
+						console.log("沒有讚");
+						$("#thumbs").removeClass("text-primary");
+					}
+				},
+				error : function(xhr) {
+					console.log("error!");
+				}
+			});
+		};
+		
+		// 按讚
+		function thumbs() {
+			$("#thumbs").on('click', function(){
+				$.ajax({
+					type: "GET",
+					url: "bloglike",
+					data: {"usersArticleID": articleId},
+					success : function(data) {
+							checklike();
+							likenumber()
+					},
+					error : function(xhr) {
+						console.log("error!");
+					}
+				});
+			});
+		};
+		
+		// 記錄點讚數
+		function likenumber() {
+			$.ajax({
+				type: "GET",
+				url: "bloglikenumber",
+				data: {"usersArticleID": articleId},
+				success : function(data) {
+					console.log(data);
+					$("#likenumber").text(data);
+				},
+				error : function(xhr) {
+					console.log("error!");
+				}
+			});
+		}
+		
 		// 送出留言
 		function addmessage() {
 			let messageText = $("#messageText").val();

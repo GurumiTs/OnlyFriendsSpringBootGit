@@ -10,5 +10,6 @@ public interface OfficialActiveRepository extends JpaRepository<OfficialActive,L
 		   
 	public Optional<OfficialActive> findByAnum(Long anum);
 	
-	
+	@Query(value ="SELECT * FROM OfficialActive b Where b.atype=?1", nativeQuery = true)
+	public List<OfficialActive> findByAtype(String atype);
 }

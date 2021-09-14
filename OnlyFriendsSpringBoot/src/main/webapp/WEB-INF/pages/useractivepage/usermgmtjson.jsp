@@ -106,10 +106,10 @@ font-size:1.2rem
 			    	     var item = 
 			    	    	 "<div class='col-lg-4' id='Grid'>"+
 			    	    	 	"<a href='useractivity.page?number="+n.number+"'>"+
-			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+"<span style='background-color:#6C6C6C; color:white; position: absolute; right:20px; border-radius:20px;' >👁️‍🗨️"+n.see+"</span>"+
+			    	    	 	"<img class='card-img-top' src='"+n.cover+"' style='width:400px; height:350px;border-radius:10px'; alt='...' />"+
 			    	    	 		"<div class='card-body'>"+
 			    	    	 			"<h2 class='card-title h4'>"+
-			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+
+			    	    	 				"<a style='text-decoration: none;' href='useractivity.page?number="+n.number+"'>"+n.activityname+"</a>"+"<span style='color:black; position: absolute; right:20px; border-radius:20px;' >🔥"+n.see+"</span>"+
 			    	    	 			"</h2>"+
 			    	    	 				"<div>"+
 			    	    	 					"<span>📆"+"</span>"+"<span class='card-text'>"+n.time+"</span>"+
