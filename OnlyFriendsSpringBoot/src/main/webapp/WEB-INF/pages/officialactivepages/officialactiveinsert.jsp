@@ -61,10 +61,10 @@ font-size:1.2rem
                         <label class="my-1 mr-2" for="inlineFormCustomSelectPref">請選擇活動類型(1)</label><br>
                         <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="atype">
                       
-                      <option value="1">多人團體活動#戶外</option>
-                      <option value="2">多人團體活動#室內</option>
-                      <option value="3">一對一活動#戶外</option>
-                      <option value="4">一對一活動#室內</option>
+                      <option value="多人團體活動#戶外">多人團體活動#戶外</option>
+                      <option value="多人團體活動#室內">多人團體活動#室內</option>
+                      <option value="一對一活動#戶外">一對一活動#戶外</option>
+                      <option value="一對一活動#室內">一對一活動#室內</option>
                     </select>
                 </div>
                 <div>
@@ -136,7 +136,7 @@ font-size:1.2rem
                     <button type="submit" class="btn btn-lg btn-primary">確認送出</button>
                     <button onclick="location.href='empofficialactivemgmt.controller'"
 								type="button" class="btn btn-lg btn-primary">返回</button>
-					<button type="button" id="autoinsert" class="btn btn-success">一鍵輸入</button>
+					<button type="button" id="autoinsert" class="btn btn-dark">一鍵輸入</button>
                 </div>
 
 							<script>
@@ -218,7 +218,8 @@ font-size:1.2rem
 							$("#startDeadline").val("2021-09-17");
 							$("#finishDeadline").val("2021-09-20");
 							$("#address").val("中央路232巷36號");
-							$("#editor").val("測試測試");
+							
+							
 							
 							
 						});
