@@ -2,6 +2,8 @@ package of.blogusers.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import of.member.model.Member;
 
 @Entity
 @Table(name = "BlogUsers")
@@ -56,6 +62,29 @@ public class BlogUser implements Serializable {
 	
 	@Column(name = "BlogAuthority")
 	private String blogAuthority;//權限(待審核、審核通過)
+	
+	@ManyToMany
+	@JoinTable(name = "likenumtable", 
+	joinColumns = @JoinColumn(name = "UsersArticleID"),
+	inverseJoinColumns = @JoinColumn(name = "memberAccount"))
+	private List<Member> likenumtable = new ArrayList<Member>();
+	
+
+	public List<Member> getLikenumtable() {
+		return likenumtable;
+	}
+
+	public void setLikenumtable(List<Member> likenumtable) {
+		this.likenumtable = likenumtable;
+	}
+	
+	public void addLike(Member member) {
+		this.likenumtable.add(member);
+	}
+	
+	public void removeLike(Member member) {
+		this.likenumtable.remove(member);
+	}
 	
 	public Integer getUsersArticleID() {
 		return usersArticleID;
@@ -144,7 +173,5 @@ public class BlogUser implements Serializable {
 	public void setBlogAuthority(String blogAuthority) {
 		this.blogAuthority = blogAuthority;
 	}
-
-	
 	
 }

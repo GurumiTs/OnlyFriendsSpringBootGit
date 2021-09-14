@@ -95,6 +95,9 @@ body {
 							</section>
 						</article>
 						<div class="d-flex flex-row justify-content-start align-items-center mb-2">
+							<div class="mx-3">
+							<i type="button" id="thumbs" class="far fa-thumbs-up fs-3"></i>
+							</div>
 							<!-- Line icon -->
 							<div class="line-it-button" data-lang="zh_Hant" data-type="share-b" data-ver="3" 
 							data-url="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user" 
@@ -215,7 +218,9 @@ body {
 		console.log(articleId);
 
 		$(function() {
-	
+			// 檢查點讚與否
+			checklike();
+			thumbs();
 			message();
 			$('#mesbutton').on('click', addmessage);
 
@@ -224,9 +229,47 @@ body {
 					$('#mesbutton').on('click', addmessage);
 				}
 			});
+			
 
 		});
-
+		// 確認點讚與否
+		function checklike() {
+			$.ajax({
+				type: "GET",
+				url: "checklike",
+				data: {"usersArticleID": articleId},
+				success : function(data) {
+					console.log(data);
+					if(data == "exist"){
+						$("#thumbs").addClass("text-primary");						
+					}
+				},
+				error : function(xhr) {
+					console.log("error!");
+				}
+			});
+		};
+		
+		// 按讚
+		function thumbs() {
+			$("#thumbs").on('click', function(){
+				$.ajax({
+					type: "GET",
+					url: "bloglike",
+					data: {"usersArticleID": articleId},
+					success : function(data) {
+						console.log(data);
+						checklike();
+						
+					},
+					error : function(xhr) {
+						console.log("error!");
+					}
+				});
+			});
+		};
+		
+		
 		// 送出留言
 		function addmessage() {
 			let messageText = $("#messageText").val();

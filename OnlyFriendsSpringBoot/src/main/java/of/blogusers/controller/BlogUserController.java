@@ -116,4 +116,50 @@ public class BlogUserController {
 		return page.getContent();
 	}
 	
+	// 確認點讚
+	@GetMapping(path = "/checklike")
+	@ResponseBody
+	public String checkLike(@RequestParam(name = "usersArticleID") Integer usersArticleID, HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccountString = m1.getMemberAccount();
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		List<Member> likenumtable = blogUser.getLikenumtable();
+		Boolean booleanMember = likenumtable.stream().anyMatch(item -> memberAccountString.equals(item.getMemberAccount()));
+		if (booleanMember) {
+			return "exist";
+		}else {
+			return "empty";
+		}
+	}
+	
+	// 點讚
+	@GetMapping(path = "/bloglike")
+	@ResponseBody
+	public String blogLike(@RequestParam(name = "usersArticleID") Integer usersArticleID, HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		System.out.println("userid:" + usersArticleID);
+		List<Member> likenumtable = blogUser.getLikenumtable();
+		Boolean booleanMember = likenumtable.stream().anyMatch(item -> memberAccount.equals(item.getMemberAccount()));
+		if (booleanMember) {
+			System.out.println("exist");
+			System.out.println("1111111111111111");
+			likenumtable.remove(m1);
+			bUserService.updateBlogUser(blogUser);
+			List<Member> likenumtablenew  = bUserService.findByArticleID(usersArticleID).getLikenumtable();
+			blogUser.setLikeNum(likenumtablenew.size());
+			System.out.println("size:"+likenumtablenew.size());
+			return "unlike";
+		}else {
+			System.out.println("empty");
+			likenumtable.add(m1);
+			bUserService.updateBlogUser(blogUser);
+			blogUser.setLikeNum(likenumtable.size());
+			System.out.println("size:"+likenumtable.size());
+			return "like";
+		}
+	}
+	
+	
 }
