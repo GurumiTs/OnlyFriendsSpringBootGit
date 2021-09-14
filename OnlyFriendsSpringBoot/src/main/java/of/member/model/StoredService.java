@@ -1,6 +1,9 @@
 package of.member.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +29,10 @@ public class StoredService {
 	
 	public Float memberstoredtotal(String memberAccount) {
 		return storedRepository.memberstoredtotal(memberAccount);
+	}
+	
+	public List<Stored> findAll(){
+		return storedRepository.findAll(Sort.by("orderTime").ascending());
 	}
 
 

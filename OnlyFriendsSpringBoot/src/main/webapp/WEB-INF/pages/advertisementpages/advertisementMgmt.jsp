@@ -238,7 +238,7 @@ table{
 									<div class="line">
 										<input type="date" name="adEndDate" id="adEndDateInsert" class="form-control">
 									</div>
-									<br> <label for="adCondition" class="formName form-label">分類名稱</label>
+									<br> <label for="adCondition" class="formName form-label">狀態</label>
 									<div class="line">
 										<select name="adCondition" id="adConditionInsert" class="form-control" required style="background-color:white;">
 											<option value="">請選擇</option>
@@ -264,7 +264,7 @@ table{
 
 	<script type="text/javascript">
 		$(function() {
-			
+			console.log("ad")
 			                 $('#ad').DataTable(
 			                	
 							   {
@@ -328,6 +328,18 @@ table{
 												return "<i class='fas fa-trash-alt delete' id="+data.adId+" style='font-size: 1.5em;padding-top:20px'></i>";
 											}
 										} ]
+								,language: {
+									    	"lengthMenu": "顯示 _MENU_ 筆資料",
+									    	"sProcessing": "處理中...",
+									    	"sSearch": "搜尋:",
+									    	"sLoadingRecords": "載入資料中...",
+									    	"oPaginate": {
+									            "sFirst": "首頁",
+									            "sPrevious": "上一頁",
+									            "sNext": "下一頁",
+									            "sLast": "末頁"
+									         }
+								}
 							});
 
 		})
@@ -395,10 +407,10 @@ table{
 					if(data[i].adCondition==op1 ){
 						
 						$("option[value='已上架1']").attr("disabled", "disabled");
-						
+						$("option[value='已下架']").attr("disabled", "disabled");
 					}else if(data[i].adCondition==op2){
 						$("option[value='已上架2']").attr("disabled", "disabled");
-						
+						$("option[value='已下架']").attr("disabled", "disabled");
 					}
 				}		
 			}

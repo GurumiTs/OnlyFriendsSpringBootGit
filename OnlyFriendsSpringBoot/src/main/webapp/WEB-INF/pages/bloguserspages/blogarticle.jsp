@@ -38,6 +38,7 @@ body {
 	doesn't
 	close
 }
+
 </style>
 </head>
 <body>
@@ -93,25 +94,27 @@ body {
 								<!--                             <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> -->
 							</section>
 						</article>
-						<div class="fb-share-button"
-							data-href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=1&name=user"
-							data-layout="button" data-size="small">
-							<a target="_blank"
-								href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FOnlyFriends%2Fblogarticleentry%3FArticleId%3D1%26name%3Duser&amp;src=sdkpreparse"
-								class="fb-xfbml-parse-ignore">分享</a>
-						</div>
-						
-						<a class="twitter-share-button" href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user">Tweet</a>
-						
-						<div class="line-it-button" data-lang="zh_Hant" data-type="share-b" data-ver="3" 
+						<div class="d-flex flex-row justify-content-start align-items-center mb-2">
+							<!-- Line icon -->
+							<div class="line-it-button" data-lang="zh_Hant" data-type="share-b" data-ver="3" 
 							data-url="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user" 
-							data-color="default" data-size="large" data-count="false" style="display: none;">
-						</div>
+							data-color="grey" data-size="small" data-count="false" style="display: none;"></div>
+							<!-- facebook icon -->
+							<div class="mx-3"
+								data-href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=1&name=user"
+								data-layout="button" data-size="small">
+								<a target="_blank"
+									href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FOnlyFriends%2Fblogarticleentry%3FArticleId%3D1%26name%3Duser&amp;src=sdkpreparse"
+									class="fb-xfbml-parse-ignore"><img
+											src="images/smallicon/facebook.jpg" width="32px"
+											height="32px"></a>
+							</div>
+							<!-- twitter icon -->
+							<a class="twitter-share-button mx-3" href="http://localhost:8080/OnlyFriends/blogarticleentry?ArticleId=${blogUser.usersArticleID}&amp;name=user">Tweet</a>
 						
-						<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+						</div>
 						
 						<!-- Facebook 分享 -->
-						<div id="fb-root"></div>
 						<script async defer crossorigin="anonymous"
 							src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v11.0"
 							nonce="gYUMvjBV">
@@ -121,6 +124,7 @@ body {
 						<script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 
 						<!-- Twitter 分享 -->
+						<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 						<!-- Comments section留言板-->
 						<section class="mb-5">
 							<div class="card " style="background-color: #F0F0F0;">
@@ -211,6 +215,7 @@ body {
 		console.log(articleId);
 
 		$(function() {
+	
 			message();
 			$('#mesbutton').on('click', addmessage);
 

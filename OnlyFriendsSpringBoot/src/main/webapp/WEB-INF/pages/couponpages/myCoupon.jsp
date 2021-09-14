@@ -93,6 +93,9 @@ body {
 #sidebar-wrapper {
 	margin-top: -50%;
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
 </style>
 <body>
 <body class="layout-2">

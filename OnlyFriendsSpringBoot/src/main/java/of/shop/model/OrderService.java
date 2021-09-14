@@ -30,6 +30,10 @@ public class OrderService {
 		return orderRepository.findAll();
 	}
 	
+	public void delete(OrderDetails orderDetails) {
+		orderRepository.delete(orderDetails);
+	}
+	
 	public void update(OrderDetails orderDetails) {
 		orderRepository.save(orderDetails);
 	}
@@ -38,5 +42,7 @@ public class OrderService {
 		List<OrderDetails> orderDetails = orderRepository.findByMemberAccount(memberAccount);
 		return orderDetails;
 	}
+	
+	
 
 }

@@ -5,28 +5,7 @@
 <!-- top here -->
 <%@include file="../commonpages/dashboardtop.jsp"%>
 <style>
-.edit {
-	cursor: pointer;
-	color: green;
-}
 
-.delete {
-	cursor: pointer;
-	color: red;
-}
-
-.edit:hover {
-	color: green;
-}
-
-.delete:hover {
-	color: red;
-}
-
-.data:hover {
-	color: white;
-	background-color: rgba(92, 92, 92, 0.637);
-}
 </style>
 </head>
 <body id="page-top">
@@ -53,17 +32,11 @@
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">員工基本資料表</h1>
+					<div class="d-flex justify-content-end my-2">
+					<a href="empsignup"><button class="btn btn-primary"><i class="fas fa-user-plus"></i>新增員工</button></a>			
+					</div>
 					<!--Employee DataTale  -->
-					<div class="card shadow mb-4">
-					<!--  
-						<div class="card-header py-3 d-none" id="successHeader">
-							<div class="alert alert-success alert-dismissible fade show"
-										role="alert">
-										update success
-										<button type="button" class="btn-close"
-											data-bs-dismiss="alert" aria-label="Close"></button>
-							</div>
-						</div>-->
+					<div class="card shadow mb-4">			
 						<div class="card-body">
 							<div class="table-responsive">
 								<table id="example" class="table table-hover text-center text-dark fs-5 hover" style="width: 100%">
@@ -73,8 +46,8 @@
 											<th>帳號</th>
 											<th>姓名</th>
 											<th>部門代號</th>
-											<th>編輯</th>
-										
+											<th>修改</th>	
+											<th>刪除</th>					
 										</tr>
 									</thead>								
 								</table>
@@ -225,7 +198,15 @@
 		            "data": null,
 		            render:function(data, type, row)
 		            {
-		              return "<i id="+data.empEmail+" class='fas fa-user-edit edit' data-bs-toggle='modal' data-bs-target='#exampleModal'></i> <span>|</span> <i class='far fa-trash-alt delete' id="+data.empEmail+"></i>";
+		              return "<button id="+data.empEmail+" class='btn btn-success edit' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-user-edit'></i>修改</button>";
+		            },
+		            "targets": -1
+		        },
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<button id="+data.empEmail+" class='btn btn-danger delete'><i class='far fa-trash-alt'></i>刪除</button>";
 		            },
 		            "targets": -1
 		        }
@@ -313,6 +294,7 @@
 	                showCancelButton: true,
 	                confirmButtonColor: '#3085d6',
 	                cancelButtonColor: '#d33',
+	                cancelButtonText: "取消",
 	                confirmButtonText: '刪除'
 	              }).then((result) => {
 	                if (result.isConfirmed) {

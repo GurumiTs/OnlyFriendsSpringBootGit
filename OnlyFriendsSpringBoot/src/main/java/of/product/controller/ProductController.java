@@ -105,7 +105,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(path="/empaddProductbutton.controller",method =RequestMethod.POST )
-	public String productAddbutton(@RequestParam (name = "Id",required = false) Integer Id,
+	public String productAddbutton(
 							@RequestParam(name = "Photo",required = false) MultipartFile multipartFile,
 							@RequestParam(name = "Name") String Name,
 							@RequestParam(name = "Description") String Description,

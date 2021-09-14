@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../frontcommonpages/shoptop.jsp"%>
 <style>
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 body{
 font-size:1.2rem
 }
@@ -262,13 +266,14 @@ height:100px;
     <script >
     $(function(){		
 		userorderlist()
+		cancelstatus()
     })
     function userorderlist() {
 		$.ajax({
 			type:"post",
 			url:"userorderquery",
 			success:function(data){
-				console.log(data)
+// 				console.log(data)
 				 var json = JSON.stringify(data,null,4);
 	     	     var parsedObjinArray = JSON.parse(json);
 	     	     var userorderlist = $('#userorderlist');
@@ -279,13 +284,33 @@ height:100px;
 	     	     '<td>'+n.orderTime+'</td>'+
                  '<td>'+n.total+'</td>'+
                  '<td>'+"<a class='details' id="+n.paymentId+">&nbsp&nbsp&nbsp<i class='fas fa-info-circle information' data-bs-toggle='modal' data-bs-target='#exampleModal'></i>"+'</td>'+
-                 '<td>'+'<div class="badge badge-success">'+'待出貨'+'</div>'+'</td>'+
-                 '<td>'+'<a href="#" class="btn btn-secondary">取消訂單</a>'+'</td>'+
+                 '<td>'+'<div class="badge badge-primary orderstatus" id="'+n.paymentId+'status">'+n.orderStatus+'</div>'+'</td>'+
+                 '<td>'+'<a href="#" class="btn btn-secondary cancelorder" id="'+n.paymentId+'cancelorder">'+'取消訂單'+'</a>'+'</td>'+
                	 '</tr>';
                		userorderlist.append(item);
+               		console.log(n.orderStatus)
+					if(n.orderStatus=="待出貨"){
+						$('.orderstatus').text("待出貨")
+					}else{
+						$("#"+n.paymentId+"cancelorder").addClass('disabled')
+						if(n.orderStatus=="取消訂單"){
+							$("#"+n.paymentId+"status").removeClass('badge-primary')
+							$("#"+n.paymentId+"status").addClass('badge-warning')
+						}else if(n.orderStatus=="已取消"){
+							$("#"+n.paymentId+"status").removeClass('badge-primary')
+							$("#"+n.paymentId+"status").addClass('badge-danger')
+						}else{
+							$("#"+n.paymentId+"status").removeClass('badge-primary')
+							$("#"+n.paymentId+"status").addClass('badge-success')
+						}
+					}
+					
+// 					orderstatus()
+// 					$(".cancelorder").on("click",cancelstatus)
+					
 	 				
 	     	    });
-// 	     	 	orderfinaltotal()	     	 	
+// 	     	 	orderfinaltotal()	
 			},
 			error:function(error){
 				console.log("error");
@@ -295,7 +320,7 @@ height:100px;
     
     $("#userorderlist").on("click", ".details", function () {
 		let paymentId=$(this).attr("id");
-			console.log(paymentId);
+// 			console.log(paymentId);
 		let dtr = $(this).closest("th");
 		 $.ajax({
 			  type : "post",
@@ -303,9 +328,9 @@ height:100px;
 		      data: {"paymentId":paymentId}, 
 		      success: function(data) 
 		        {
-						console.log(data)
+// 						console.log(data)
 		    	  let address = JSON.parse(data.orderAddress);
-			         	console.log(address)
+// 			         	console.log(address)
 		    	  $('#postalCode').text(address.postal_code);
 		    	  $('#country').text(address.country_code);
 		    	  $('#orderline1').text(address.line1);
@@ -313,9 +338,9 @@ height:100px;
 		    	  $('#ordertime').text(data.orderTime);
 		    	  $('#orderfinaltotal').text(data.total);
 		    	  let json=JSON.stringify(data.orderItem,null,4)
-		    	  console.log(json)
+// 		    	  console.log(json)
 				  var parsedObjinArray = JSON.parse(json);
-		    	  console.log(parsedObjinArray)
+// 		    	  console.log(parsedObjinArray)
 	     	     var userlist = $('#userlist');
 	     	     $('#userlist').empty("");
 	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
@@ -323,10 +348,21 @@ height:100px;
 	     	    '<td>'+'<img class="proimg" src='+n.proPhoto+'/>'+'</td>'+
                  '<td>'+n.proName+'</td>'+
                  '<td class="text-center">'+n.proPrice+'</td>'+
-//	                 '<td class="text-center">'+'<i id="amount">'+n.amount+'</i>'+'</td>'+
-//	                 '<td class="text-right">'+Math.round(n.product.proPrice*n.amount)+'</td>'+
+                 '<td class="text-center" id="'+n.proId+'orderamount"></td>'+
+	             '<td class="text-center" id="'+n.proId+'ordertotal"></td>'+
                	 '</tr>';
                		userlist.append(item);
+               	 $.ajax({
+      			      url:"findorderamount",				
+      			      method:"get",
+      			      data:{"paymentId":paymentId,"proId":n.proId},
+      			      success:function(data){
+//       			    	console.log("test")
+      			    	$("#"+n.proId+"orderamount").text(data);
+      			    	$("#"+n.proId+"ordertotal").text(Math.round(data*n.proPrice));
+      			    	  }
+      			      
+             		 })
 	     	 	});
 		        },
 		      error: function(data) 
@@ -335,7 +371,65 @@ height:100px;
 		        }
 		  });			  
 	});
+    
+    
+    $("#userorderlist").on("click", ".cancelorder", function () {
+		let paymentId=$(this).attr("id");
+			console.log(paymentId);
+		let dtr = $(this).closest("th");
+		$.ajax({
+			type:"get",
+			url:"cancelstatus",
+			data:{"paymentId":paymentId},
+			success:function(data){	
+	     	 	userorderlist()
+     	 	
+			},
+			error:function(){
+				console.log("error");
+			}
+		})		
+	})
+    
+    
+    
 	
+// 	$("#userorderlist").on("click", "#cancelorder", function () {
+// 		let paymentId = $(this).attr("id");
+// 		console.log($(this).closest("tr"));
+// 		let dtr = $(this).closest("tr");
+// 		  Swal.fire({
+//                 title: '確定要取消訂單嗎?',
+//                 text: "取消訂單後需等候管理員確認",
+//                 icon: 'warning',
+//                 showCancelButton: true,
+//                 confirmButtonColor: '#3085d6',
+//                 cancelButtonColor: '#d33',
+//                 confirmButtonText: '確定取消!'
+//               }).then((result) => {
+//                 if (result.isConfirmed) {
+//                   $.ajax({
+//                         type: "GET",
+//                         url: "cancelstatus",
+//                         data:{"paymentId":paymentId}
+//                         success: function(response) {  
+//                         	dtr.remove();
+//                              Swal.fire(
+//                               '已取消訂單!',
+//                               '請耐心等候管理員確認',
+//                               'success'
+//                             ) } ,
+//                             error: function (xhr) {
+//                             Swal.fire({
+//                               icon: 'error',
+//                               title: 'Oops...',
+//                               text: 'Something went wrong!'
+//                             }) },  //error close
+//                      }); //ajax close          
+//                 } //if close 
+
+//            }); //then close 
+// 	});
     
     </script>
   </body>

@@ -8,6 +8,10 @@
 	crossorigin="anonymous" />
 	
 <style>
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
 .wrap {
 	width: 800px;
 	height: 400px;
@@ -91,6 +95,14 @@ a.slide-arrow {
 .fa-arrow-right{
 	font-size:30px;
 }
+body{
+	font-size:1.2rem
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
 
 </style>
 </head>

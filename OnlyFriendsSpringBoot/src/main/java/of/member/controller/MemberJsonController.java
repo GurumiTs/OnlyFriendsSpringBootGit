@@ -81,10 +81,11 @@ public class MemberJsonController {
 
 	@GetMapping(path = "/memalltojson")
 	@ResponseBody
-	public Map allEmployeeToJson(Model m) {
+	public Map allMemberToJson(Model m) throws InterruptedException {
 		List<Member> memberList = memberService.findAll();
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", memberList);
+		//Thread.sleep(1000);
 		return map;
 	}
 
@@ -136,8 +137,9 @@ public class MemberJsonController {
 			System.out.println(memberAccount);
 			String fileName = multipartFile.getOriginalFilename();
 			String path = ResourceUtils.getURL("classpath:static/images/memberPic").getPath();
-			// System.out.println(path);
+			System.out.println(path);
 			String filePath = path + "/" + fileName;
+			System.out.println(filePath);
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			Member member = memberService.findByMemberAccount(memberAccount);
@@ -413,29 +415,7 @@ public class MemberJsonController {
 		chatService.clearnotification(memberAccount);
 		return "yes";
 	}
-	@PostMapping(path = "/total")
-	@ResponseBody
-	public List<Float> totalEntry() {
-		List<Float> total = new ArrayList<Float>();
-		
-		for(int i = 1;i<=12;i++) {
-			Float f = storedService.searchtotal(i);
-			if(f == null) {
-				f = (float) 0;
-			}
-			total.add(f);
-		}
-		return total;	
-		
-	}
 	
-	@PostMapping(path = "/storedannual")
-	@ResponseBody
-	public Float storedannualEntry() {
-	
-		return storedService.storedannual();
-		
-	}
 	
 	
 	
