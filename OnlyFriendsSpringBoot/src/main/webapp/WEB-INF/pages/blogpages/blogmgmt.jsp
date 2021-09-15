@@ -84,12 +84,13 @@
 						<div class="card-body">
 							<div>
 								<div>
-								<div class="insert">
-									<a href="empbloginsertform.controller"><img
-										src="images/smallicon/BlogmgmtInsert.png" width="45px"
-										height="45px"></a>&nbsp;
-									<span>點擊左圖新增</span>
-								</div>
+									<div class="insert">
+										<a href="empbloginsertform.controller"><img
+											src="images/smallicon/BlogmgmtInsert.png" width="45px"
+											height="45px"></a>&nbsp;
+										<span>點擊左圖新增</span>
+									</div>
+									<div style="float:right;font-size: 20px;"><i id="reloadbutton" type="button" class="fas fa-sync-alt"></i></div>
 								</div>
 <!-- 								<ul class="nav nav-tabs" id="myTab" role="tablist"> -->
 <!-- 									<li role="presentation" class="active"> -->
@@ -127,8 +128,8 @@
 													<th>管理者帳號</th>
 													<th>管理者名稱</th>
 													<th>文章類型</th>
-													<th>Edit</th>
-													<th>Delete</th>
+													<th>編輯</th>
+													<th>刪除</th>
 												</tr>
 											</thead>
 	
@@ -142,8 +143,8 @@
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
 													<th class="d-none">類型</th>
-													<th class="d-none">Edit</th>
-													<th class="d-none">Del</th>
+													<th class="d-none">編輯</th>
+													<th class="d-none">刪除</th>
 												</tr>
 											</tfoot>
 										</table>
@@ -163,7 +164,7 @@
 													<th>內文</th>
 													<th>會員帳號</th>
 													<th>會員名稱</th>
-													<th>刪除</th>
+<!-- 													<th>刪除</th> -->
 													<th>狀態</th>
 												</tr>
 											</thead>
@@ -176,7 +177,7 @@
 													<th class="d-none">內容</th>
 													<th class="d-none">PO文者帳號</th>
 													<th class="d-none">暱稱</th>
-													<th class="d-none">Del</th>
+<!-- 													<th class="d-none">Del</th> -->
 													<th class="d-none">審核狀態</th>
 												</tr>
 											</tfoot>
@@ -212,6 +213,10 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 	<script>
+		$(function(){
+			reload();
+		});
+	
 		function delConfirm(Name) {
 			return confirm("Delete [" + Name + "] ?");
 		}
@@ -355,13 +360,6 @@
 				        },
 				        { "data": "memberAccount"},
 				        { "data": "usersName"},		
-				        {
-				            "data": null,
-				            render:function(data, type, row)
-				            {
-				              return "<i class='far fa-trash-alt deleteUser' id="+data.usersArticleID+"></i>";
-				            }
-				        },
 				        { 
 				        	"data": null,
 				        	render:function(data, type, row)
@@ -444,12 +442,6 @@
 				    	},
 				    	{
 				    		targets: [7],
-				    		createdCell: function (td, cellData, rowData, row, col){
-				    			$(td).css("width", "60px");
-				    		},
-				    	},
-				    	{
-				    		targets: [8],
 				    		createdCell: function (td, cellData, rowData, row, col){
 				    			$(td).css("width", "80px");
 				    		},
@@ -558,6 +550,13 @@
 
 	           }); //then close 
 		});
+		
+		function reload(){
+			$("#reloadbutton").click(function(){
+				table1.ajax.reload();
+				table2.ajax.reload();
+			});
+		};
 		
 	</script>
 </body>

@@ -53,11 +53,7 @@
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
  	}
- 	#googleMap {
-        width: 100%;
-        height: 200px;
-        margin: 5px 5px;
-      }
+ 
 </style>
   </head>
   <body class="layout-2">
@@ -72,10 +68,7 @@
 		<c:when test="${not empty member}">
 			<%@include file="./membercommonpages/memberloginedheader.jsp"%>	
 			 <input id="getAccount" value="${personalinfo.memberAccount}"
-				class="d-none"></input>		
-			<div  class="login-brand position-fixed bottom-0 end-0 d-flex flex-column" id="mapservice">
-              <img type="button" src="${pageContext.request.contextPath}/images/smallicon/google-maps.svg" alt="logo" width="50" class="shadow-light rounded-circle">            
-            </div>			 
+				class="d-none"></input>						 
 		</c:when>
 		<c:otherwise>
 			<%@include file="./commonpages/header.jsp"%>
@@ -281,9 +274,7 @@
 		<c:when test="${not empty employee}">
 		</c:when>
 		<c:when test="${not empty member}">
-		 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>	 
-		 <script src="${pageContext.request.contextPath}/js/map.js"></script>	 
-		 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9mG0ol3JtTnFcaACUlsBouWbeV3HCCVU&libraries=places"></script>
+		 <script src="${pageContext.request.contextPath}/js/broadcast.js"></script>	 		
 		</c:when>
 		<c:otherwise>
 			<script src="${pageContext.request.contextPath}/js/customerservice.js"></script>

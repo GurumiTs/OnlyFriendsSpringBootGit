@@ -204,8 +204,8 @@ font-size:1.2rem
 						$("#autoinsert").click(function(){
 							$("#empAcc").val("60021");
 							$("#aname").val("Regan");
-							$("#active").val("123");
-							$("#inlineFormCustomSelectPref").val("2");
+							$("#active").val("樂天女孩應援團");
+							$("#inlineFormCustomSelectPref").val("多人團體活動#室內");
 					
 							$("#twzipcode").twzipcode("set", {
 								county : "桃園市",
@@ -217,7 +217,8 @@ font-size:1.2rem
 							$("#adate").val("2021-09-24");
 							$("#startDeadline").val("2021-09-17");
 							$("#finishDeadline").val("2021-09-20");
-							$("#address").val("中央路232巷36號");
+							$("#address").val("領航北路一段1號");
+							
 							
 							
 							

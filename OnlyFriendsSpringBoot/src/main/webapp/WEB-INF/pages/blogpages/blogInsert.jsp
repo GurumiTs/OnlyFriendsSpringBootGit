@@ -96,9 +96,9 @@
 						<div class="col-md-12">
 							<div class="input-group mb-3">
 								<span class="input-group-text" id="inputGroup-sizing-default">文章分類</span>
-								<select class="form-select" id="inputGroupSelect03"
+								<select class="form-select" id="BlogType"
 									aria-label="Example select with button addon" name="BlogType">
-									<option selected disabled>請選擇文章分類</option>
+									<option id="type" selected disabled>請選擇文章分類</option>
 									<option value="愛情" id="BlogType">愛情</option>
 									<option value="星座" id="BlogType">星座</option>
 									<option value="新聞" id="BlogType">新聞</option>
@@ -125,14 +125,6 @@
 								rows="100" name="mainText"></textarea>
 						</div>
 						
-						<script>
-				        	ClassicEditor
-				              .create( document.querySelector( '#editor' ),{
-				              } )
-				          	  .catch( error => {
-				            	    console.error(error);
-				            } );
-				  		</script>
 						
 						<div style="margin: 10px auto; text-align: center;">
 							<!-- <input type="submit" name="confirm" value="送出"> -->
@@ -140,6 +132,8 @@
 
 							<button onclick="location.href='empblogmgmt.controller'"
 								type="button" class="btn btn-primary">返回</button>
+
+							<button type="button" id="quickvalue" class="btn btn-primary">一鍵輸入</button>
 							<!--  οnclick="javascript:history.back(-1)" -->
 						</div>
 					</form>
@@ -168,6 +162,27 @@
 	<!-- bottom here -->
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 	<script type="text/javascript">
+		let YourEditor;
+		ClassicEditor
+	      .create( document.querySelector( '#editor' ),{
+	      } )
+	      .then( editor =>{
+	    	  window.editor = editor;
+	    	  YourEditor = editor;
+	      })
+	  	  .catch( error => {
+	    	    console.error(error);
+	    } );
+	
+        $(function(){
+	        $("#quickvalue").click(function(){
+				$("#BlogType").val("愛情");
+	        	$("#title").val("幸福總是來得令你措手不及，在你準備好的時刻，他就會緩緩降臨");
+	        	YourEditor.setData('<h2><strong>說起來緣分真的是很奇妙的。</strong></h2><p><br>第一次參加聯誼活動的方小姐在聯誼活動結束後表示，覺得這樣的speed dating讓她一次認識了相當多的人，但卻也感覺自我介紹的很辛苦，在活動當天也感覺沒有什麼太大的收穫。</p><p><br>但疏不知，其實在聯誼活動的當天，陳先生就對方小姐的印象極佳。於是在活動結束後，陳先生跟我們DateMeNow的幸福規畫師聯繫後，確認了當天他心儀對象的姓名，DateMeNow也詢問了方小姐的意願，雖然在聯繫時，方小姐對陳先生的印象不深刻，但方小姐也願意來到我們的實體會館，與陳先生進行一次一對一的排約。在聊天的過程中，方小姐得知了陳先生家裡有養狗，方小姐對於狗的寵愛極深，只是目前居住的地方不適合養寵物。<br><br>於是他們就相約了之後要一起去遛狗，甚至想要一起去流浪動物之家做義工。</p><p>看見他們開心離開時的模樣，DateMeNow的幸福規劃師也覺得很欣慰呢！<br>幸福總是來得令你措手不及，在你準備好的時刻，他就會緩緩降臨。</p>');
+				console.log("123");
+	        });
+        });
+        
 		var loadFile = function(event) {
 			var output = document.getElementById('output');
 			output.src = URL.createObjectURL(event.target.files[0]);
