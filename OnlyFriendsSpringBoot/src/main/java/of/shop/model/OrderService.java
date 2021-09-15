@@ -43,6 +43,17 @@ public class OrderService {
 		return orderDetails;
 	}
 	
+	public Float orderannual() {
+		return orderRepository.orderannual();
+	}
 	
+	public Float monthordertotal(Integer month) {
+		Float monthtotal = orderRepository.monthordertotal(month);
+		return monthtotal;
+	}
+	
+	public List<OrderDetails> orderDetailStatus(String order){
+		return orderRepository.orderDetails(order);
+	}
 
 }
