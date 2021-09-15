@@ -184,6 +184,7 @@ body{
 									</div>
 							</div>
 							<div class="card-footer bg-whitesmoke">
+							
 								<table id="showpage" class="d-flex justify-content-center">
 									<tr>
 										<td colspan="3" align="right"><c:forEach var="i"

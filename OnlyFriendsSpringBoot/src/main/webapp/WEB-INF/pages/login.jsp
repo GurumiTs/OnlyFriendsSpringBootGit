@@ -539,7 +539,7 @@
 		              if (data == "y") {
 		                console.log("used");
 		                $("#emailtest").html(
-		                  "<i class='fas fa-times-circle'></i>  be used"
+		                  "<i class='fas fa-times-circle'></i>  已被使用"
 		                );
 		              } else {
 		                $("#emailtest").html("");
