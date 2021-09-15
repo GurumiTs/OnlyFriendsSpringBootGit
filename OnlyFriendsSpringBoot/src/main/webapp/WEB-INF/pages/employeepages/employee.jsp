@@ -283,7 +283,7 @@
                     </div>
                     <div class="mt-4 text-center small">
                       <span class="mr-2">
-                        <i class="fas fa-people-arrows text-primary"></i>
+                        <i class="fas fa-shipping-fast text-primary"></i></i>
                       </span>              
                     </div>
                   </div>
