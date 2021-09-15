@@ -288,7 +288,7 @@
 	               '',
 	               'success'
 	                         )	
-          loadnewmember();                            
+          location.href= "http://localhost:8080/OnlyFriends/memberswipeloading"                           
         });
     }
   }, '.modal-footer');
@@ -373,7 +373,6 @@
             if (todaytype == null) {
               todaytype = "Cupid私藏";
             }
-            console.log(todaytype);
             $("#todaytype").html(todaytype);
             $("#memberpic").prop("src", data.memberPic);
             $("#membername").text(data.memberName);

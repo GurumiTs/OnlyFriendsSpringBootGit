@@ -32,14 +32,23 @@
 					<!-- ************************** your content*************************** -->
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">員工基本資料表</h1>
-					<div class="d-flex justify-content-end my-2">
-					<a href="empsignup"><button class="btn btn-primary"><i class="fas fa-user-plus"></i>新增員工</button></a>			
-					</div>
-					<!--Employee DataTale  -->
-					<div class="card shadow mb-4">			
-						<div class="card-body">
+					
+					<div class="card shadow mb-4">
+					
+					<nav >
+					  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+					    <button class="btn btn-secondary mx-1 my-2" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-users"></i></button>
+					    <button class="btn btn-secondary mx-1 my-2" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="far fa-folder-open"></i></button>
+						<a href="empsignup" class="mx-1 my-2"><button class="btn btn-primary"><i class="fas fa-user-plus"></i>新增員工</button></a>														  
+					  </div>
+					</nav>
+					<div class="card-body">
 							<div class="table-responsive">
-								<table id="example" class="table table-hover text-center text-dark fs-5 hover" style="width: 100%">
+							
+							<div class="tab-content" id="nav-tabContent">
+						  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+						 
+						 <table id="example" class="table table-hover text-center text-dark fs-5 hover" style="width: 100%">
 									<thead>
 										<tr>
 											<th>信箱</th>
@@ -51,10 +60,35 @@
 										</tr>
 									</thead>								
 								</table>
-
+						 
+						 
+						  </div>
+						  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+						  	 
+						  	 <table id="example2" class="table table-hover text-center text-dark fs-5 hover" style="width: 100%">
+									<thead>
+										<tr>
+											<th>信箱</th>
+											<th>帳號</th>
+											<th>姓名</th>
+											<th>部門代號</th>
+											<th>復原</th>					
+										</tr>
+									</thead>								
+								</table>
+						  
+						  
+						  </div>
+						</div>
+							
+	
 							</div>
 						</div>
 					</div>
+					
+					
+					
+				
 					<!-- table end -->
 					<!-- **************************end of your content*************************** -->
 				</div>
@@ -187,7 +221,8 @@
 		/* load data table */
 		var table = $('#example').DataTable({
 		    "ajax": {
-		    	"url": "empalltojson",
+		    	"url": "empdeletetojson",
+		    	"dataSrc": "notdelete",
 		    },
 		    "columns": [
 		        { "data": "empEmail" },
@@ -207,6 +242,40 @@
 		            render:function(data, type, row)
 		            {
 		              return "<button id="+data.empEmail+" class='btn btn-danger delete'><i class='far fa-trash-alt'></i>刪除</button>";
+		            },
+		            "targets": -1
+		        }
+		    ],language: {
+		    	"lengthMenu": "顯示 _MENU_ 筆資料",
+		    	"sProcessing": "處理中...",
+		    	"sSearch": "搜尋:",
+		    	"sLoadingRecords": "載入資料中...",
+		    	"oPaginate": {
+		            "sFirst": "首頁",
+		            "sPrevious": "上一頁",
+		            "sNext": "下一頁",
+		            "sLast": "末頁"
+		         },
+		    }
+		});		
+		/* load data table */
+		
+		/* load data table */
+		var table2 = $('#example2').DataTable({
+		    "ajax": {
+		    	"url": "empdeletetojson",
+		    	"dataSrc": "delete",
+		    },
+		    "columns": [
+		        { "data": "empEmail" },
+		        { "data":"empAccount"},
+		        { "data": "empName" }, 
+		        { "data":"deptNum"},		  
+		        {
+		            "data": null,
+		            render:function(data, type, row)
+		            {
+		              return "<button id="+data.empEmail+" class='btn btn-warning return'><i class='fas fa-undo-alt'></i>復原</button>";
 		            },
 		            "targets": -1
 		        }
@@ -281,11 +350,9 @@
 					}
 			    });
 		});
-		/*send edit employee basic info*/	
-		
+		/*send edit employee basic info*/		
 		$("#example tbody").on("click", ".delete", function () {
 			let email = $(this).attr("id");
-			console.log($(this).closest("tr"));
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
 	                title: '刪除?',
@@ -302,12 +369,16 @@
 	                        type: "POST",
 	                        url: "empdelete/"+email,
 	                        success: function(response) {  
-	                        	dtr.remove();
+	                        	dtr.remove();	                        	
 	                             Swal.fire(
 	                              '刪除!',
 	                              '成功刪除該員工資料.',
 	                              'success'
-	                            ) } ,
+	                            )
+	                            table.ajax.reload();
+	         					table2.ajax.reload();
+	                            
+	                        	} ,
 	                            error: function (xhr) {
 	                            Swal.fire({
 	                              icon: 'error',
@@ -319,6 +390,55 @@
 
 	           }); //then close 
 		});
+		
+		$("#example2 tbody").on("click", ".return", function () {
+			let email = $(this).attr("id");
+			let dtr = $(this).closest("tr");
+			  Swal.fire({
+	                title: '復原?',
+	                text: "確定復原此員工?",
+	                icon: 'warning',
+	                showCancelButton: true,
+	                confirmButtonColor: '#3085d6',
+	                cancelButtonColor: '#d33',
+	                cancelButtonText: "取消",
+	                confirmButtonText: '復原'
+	              }).then((result) => {
+	                if (result.isConfirmed) {
+	                  $.ajax({
+	                        type: "POST",
+	                        url: "empdelete/"+email,
+	                        success: function(response) {  	                        	
+	                             Swal.fire(
+	                              '復原!',
+	                              '成功復原該員工資料.',
+	                              'success'
+	                            )
+	                            table.ajax.reload();
+	         					table2.ajax.reload();
+	                            
+	                        	} ,
+	                            error: function (xhr) {
+	                            Swal.fire({
+	                              icon: 'error',
+	                              title: '失敗...',
+	                              text: '刪除失敗，請稍後再試'
+	                            }) },  //error close
+	                     }); //ajax close          
+	                } //if close 
+
+	           }); //then close 
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	});
 </script>
 

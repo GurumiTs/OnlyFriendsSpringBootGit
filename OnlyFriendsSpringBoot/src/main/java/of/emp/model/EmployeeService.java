@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import of.member.model.Member;
+
 @Service
 @Transactional
 public class EmployeeService {
@@ -35,6 +37,10 @@ public class EmployeeService {
 	
 	public Page<Employee> findAllByPage(Pageable pageable){
 		return employeeRepository.findAll(pageable);
+	}
+	
+	public List<Employee> empDeleteOrNot(Integer empdelete){
+		return employeeRepository.empDeleteOrNot(empdelete);
 	}
 
 }

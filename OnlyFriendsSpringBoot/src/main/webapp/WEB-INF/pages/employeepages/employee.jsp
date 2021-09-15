@@ -115,7 +115,8 @@
              <!-- first row  -->	
              
             <!-- second row  -->
-            <div class="row my-3">	
+            <div class="row my-3">	           
+            <!-- first chart -->
 				 <div class="col-6">
                 <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
@@ -149,8 +150,8 @@
                   </div>
                 </div>
               </div> 
-              
-              
+              <!-- end of first chart -->
+              <!-- second chart -->
                <div class="col-6">
                 <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
@@ -184,18 +185,18 @@
                   </div>
                 </div>
               </div> 
-					  
+                <!--end of second chart -->					  
 		 </div>   	
 		 <!-- second row  -->
 		 
 		 
 		 
 		 	
-				</div>
-				<!-- container-fluid -->
+		</div>
+		<!-- container-fluid -->
 
-			</div>
-			<!-- End of Main Content -->
+	</div>
+	<!-- End of Main Content -->
 
 			<!-- Footer -->
 			<%@include file="../commonpages/dashboardfooter.jsp"%>
