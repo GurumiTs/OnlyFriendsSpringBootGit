@@ -140,21 +140,22 @@ font-size:1.2rem
                 </div>
 
 							<script>
+							let YourEditor;							
 				        	ClassicEditor
 				              .create( document.querySelector( '#editor' ),{
-				            	  toolbar: {
-				            		    items: [
-				            		        'heading', '|',
-// 				            		        'Font', 'Fontfamily', 'Fontsize', '|',
-				            		        'bold', 'italic', '|',
-				            		        'undo', 'redo'
-				            		    ],
-				            		    shouldNotGroupWhenFull: true
-				            	  },
 				              } )
-				          	  .catch( error => {
+				              .then( editor =>{
+						    	  window.editor = editor;
+						    	  YourEditor = editor;
+	    					  })  
+	    					  .catch( error => {
 				            	    console.error(error);
-				            } );
+					            } );
+				            	  
+				        	
+				        	
+				        	
+				        	
 				  		</script>
 
 						</form>
@@ -200,12 +201,12 @@ font-size:1.2rem
                     
                     
                     $(function(){		
-		
+                    	
 						$("#autoinsert").click(function(){
 							$("#empAcc").val("60021");
 							$("#aname").val("Regan");
 							$("#active").val("樂天女孩應援團");
-							$("#inlineFormCustomSelectPref").val("多人團體活動#室內");
+							$("#inlineFormCustomSelectPref").val("多人團體活動#戶外");
 					
 							$("#twzipcode").twzipcode("set", {
 								county : "桃園市",
@@ -217,8 +218,10 @@ font-size:1.2rem
 							$("#adate").val("2021-09-24");
 							$("#startDeadline").val("2021-09-17");
 							$("#finishDeadline").val("2021-09-20");
-							$("#address").val("領航北路一段1號");
+							$("#address").val("領航北路一段1號");							
+							YourEditor.setData('希望喜歡棒球、喜歡樂天女孩的朋友，一起到球場幫樂天加油!');
 							
+				        
 							
 							
 							
