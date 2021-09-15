@@ -173,7 +173,13 @@ tr th{
 		            }
 		     },
 	
-	        { "data":"active"},
+	        { 
+		    	 "data":null,
+		    	 render:function(data, type, row)
+		            {
+		              return '<a href="oaitemEntry.controller?anum='+data.anum+'&active='+data.active+'">'+data.active+'</a>';
+		            }
+		    	 },
 	        { "data":"county"},
 	        { "data":"district"},
 	        { "data":"adate"},
@@ -195,8 +201,85 @@ tr th{
 	            },
 	            "targets": -1
 	        }
+	    ],language: {
+	    	"lengthMenu": "顯示 _MENU_ 筆資料",
+	    	"sProcessing": "處理中...",
+	    	"sSearch": "搜尋:",
+	    	"sLoadingRecords": "載入資料中...",
+	    	"oPaginate": {
+	            "sFirst": "首頁",
+	            "sPrevious": "上一頁",
+	            "sNext": "下一頁",
+	            "sLast": "末頁"
+	         },
+	    },
+	    columnDefs:[
+	    	{
+	    		targets: [0],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    			$(td).css("font-size", "18px");
+	    		},
+	    	},
+	    	{
+	    		targets: [1],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    		},
+	    	},
+	    	{
+	    		targets: [2],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "250px");
+	    			$(td).css("font-size", "18px");
+	    			$(td).css("font-weight", "bold");
+	    		},
+	    	},
+	    	{
+		    	targets: [3],
+		    	createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    			$(td).css("font-size", "18px");
+	    		},
+		    
+	    	},
+	    	{
+	    		targets: [4],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "120px");
+	    			$(td).css("font-size", "18px");
+	    		},
+	    	},
+	     	{
+	    		targets: [5],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "100px");
+	    			$(td).css("font-size", "18px");
+	    		},
+	    	},
+	    	{
+	    		targets: [6],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "180px");
+	    			$(td).css("font-size", "18px");
+	    		},
+	    	},
+	    	{
+	    		targets: [7],
+	    		createdCell: function (td, cellData, rowData, row, col){
+	    			$(td).css("width", "80px");
+	    			$(td).css("font-size", "18px");
+	    		},
+	    	},
+	    	{
+	    		targets: '_all',
+	    		className: 'text-center'
+	    	},
 	    ]
-	});		
+	
+	
+	
+	});	//data table	
 	
 	
 	
