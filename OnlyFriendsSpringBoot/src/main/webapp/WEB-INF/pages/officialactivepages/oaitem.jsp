@@ -12,6 +12,11 @@ font-size:1.2rem
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
  }
+ 	#googleMap {
+        width: 100%;
+        height: 200px;
+        margin: 5px 5px;
+      }
 </style>
 
 </head>
@@ -26,6 +31,9 @@ font-size:1.2rem
 
 			<!-- Page content-->
 			<div class="container mt-5">
+				<div  class="login-brand position-fixed bottom-0 end-0 d-flex flex-column" id="mapservice">
+              <img type="button" src="${pageContext.request.contextPath}/images/smallicon/google-maps.svg" alt="logo" width="50" class="shadow-light rounded-circle">            
+            </div>	
 				
 				 <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -182,7 +190,8 @@ font-size:1.2rem
 	</div>
 	
 	
-	
+	 <script src="${pageContext.request.contextPath}/js/map.js"></script>	 
+	 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9mG0ol3JtTnFcaACUlsBouWbeV3HCCVU&libraries=places"></script>
 	
 	
 	

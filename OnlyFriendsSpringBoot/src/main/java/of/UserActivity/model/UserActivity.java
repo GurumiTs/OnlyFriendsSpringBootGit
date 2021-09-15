@@ -94,7 +94,6 @@ public class UserActivity implements Serializable {
 	}
 	//如果只帶入會員 
 	public void removepart(Member i) {
-		System.out.println("有進入刪除:"+i);
 		this.participate.remove(i);
 	}
 

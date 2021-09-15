@@ -8,14 +8,70 @@ font-size:1.2rem
 }
 
 #blogimg{
-weight: 700px;
-height: 350px;
+	weight: 700px;
+	height: 350px;
 }
 
+.card-body{
+	background-image: url("../OnlyFriendsSpringBoot/src/main/resources/static/images/blogPic/empblog/bg_light.jpg"); 
+}
+
+.card-header{
+	background-color: #84C1FF; 
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+}
+
+.container{
+	max-width: 1600px;
+}
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
  }
+
+/* 目錄 */
+.blog-sidebar-list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.blog-sidebar-title ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.blog-sidebar-list li {
+    position: relative;
+    padding-left: 20px;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.blog-sidebar-list li::before {
+    content: "\f0da";
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}
+
+
+.blog-sidebar-list li + li {
+    margin-top: 10px;
+}
+
+a {
+	text-decoration:none;
+    color: #a3ad71;
+}
 
 </style>
 </head>
@@ -51,52 +107,21 @@ height: 350px;
 							</div>
 						</div>						
 					</div>
-					<!-- Side widgets-->
+					<!--Side widget -->
 					<div class="col-lg-4">
-						<!-- Search widget-->
-						<div class="card mb-4">
-							<div class="card-header">Search</div>
-							<div class="card-body">
-								<div class="input-group">
-									<input class="form-control" type="text"
-										placeholder="Enter search term..."
-										aria-label="Enter search term..."
-										aria-describedby="button-search" />
-									<button class="btn btn-primary" id="button-search"
-										type="button">Go!</button>
-								</div>
+						<div class="card mb-4" style="font-family:微軟正黑體">
+							<div class="card-header" style="background-color: #84C1FF; font-size: 28px;">戀人分享</div>
+							<div class="card-body" style="text-align: left; background-color: #ECF5FF; font-weight: bold">每個人心中，都有一座巴黎鐵塔。每個人的夢裡，都有一塊屬於愛情的柔軟地。是屬於你我的愛情故事、是你我的愛情診療室，OnlyFriends 只想提供給你們，比好，更好的。
 							</div>
 						</div>
-						<!-- Categories widget-->
-						<div class="card mb-4">
-<!-- 							<div class="card-header">快速連結</div> -->
-							<div class="card-body">
-								<div class="row">
-									<div class="col-sm-6">
-										<ul class="list-unstyled mb-0">
-											<li><a href="blogofficial">幸福故事</a></li>
-											<li><a href="memberblog">管理文章</a></li>
-											<li><a href="blogusersinsert">我要分享</a></li>
-										</ul>
-									</div>
-<!-- 									<div class="col-sm-6"> -->
-<!-- 										<ul class="list-unstyled mb-0"> -->
-<!-- 											<li><a href="#!">JavaScript</a></li> -->
-<!-- 											<li><a href="#!">CSS</a></li> -->
-<!-- 											<li><a href="#!">Tutorials</a></li> -->
-<!-- 										</ul> -->
-<!-- 									</div> -->
-								</div>
-							</div>
+							<ul class="blog-sidebar-list">
+								<li><a href="blogofficial">幸福故事</a></li>
+								<li><a href="memberblog">管理文章</a></li>
+								<li><a href="blogusersinsert">我要分享</a></li>
+							</ul>
 						</div>
 
-						<!--Side widget -->
-						<div class="card mb-4">
-							<div class="card-header">Side Widget</div>
-							<div class="card-body">You can put anything you want inside
-								of these side widgets. They are easy to use, and feature the
-								Bootstrap 5 card component!</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>

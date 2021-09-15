@@ -99,7 +99,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 													src="images/couponPic/pic.JPG"
 													style="width: 100%; height: 50%;"><br> <input
 													type="file" name="adImg" accept="image/*"
-													onchange="loadFile(event)" required>
+													onchange="loadFile(event)" id="input1" required>
 											</div>
 											<div id="buttomImg">
 												<img id="imgUpdate2" name="img"
@@ -178,7 +178,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 												<input type="date" name="adEndDate" id="adEndDateUpdate"
 													class="form-control">
 											</div>
-											<br> <label for="adCondition" class="formName">分類名稱</label>
+											<br> <label for="adCondition" class="formName">狀態</label>
 											<div class="line">
 												<select name="adCondition" id="adConditionUpdate"
 													class="form-control" required style="background-color:white;">
@@ -226,6 +226,7 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 	<%@include file="../commonpages/dashboardbottom.jsp"%>
 
 	<script>
+	                              var imageupdate;
                                   $(function () {
                                        var url_String = location.href;
                                        var url = new URL(url_String);
@@ -242,7 +243,8 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 						               	   contentType:'application/json',
 						               	   success(data) {
 						               	   console.log(data)
-						               	 for(let i=0;i<data.length;i++){					      
+						               	 for(let i=0;i<data.length;i++){
+						               		 						               	
 						               		 console.log(data[i].adId)
 						               			 console.log(data[i].adCondition)
 						               			if(data[i].adCondition==op1 && adId!=data[i].adId){
@@ -256,8 +258,10 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 						    					if(adId==data[i].adId){
 						               			 console.log(data[i].adImg[0])
 						               			 var adImg = data[i].adImg.split(",");	
-						               			 
-					                            $('#imgUpdate').attr("src",adImg[0]);	
+						               			 imageupdate=adImg[0].substr(17);
+						               			 console.log(imageupdate)
+					                            $('#imgUpdate').attr("src",adImg[0]);
+					                            //$('#input1').text(adImg[0].substr(17));
 						               			$('#imgUpdate2').attr("src",adImg[1]);	
 												$('#adCompanyNameUpdate').val(data[i].adCompanyName);
 												$('#adCompanyPhoneUpdate').val(data[i].adCompanyPhone);
@@ -275,6 +279,8 @@ input[type=text], [type=date], #adConditionInsert, #adConditionUpdate {
 
 						               	})
 })
+
+                                      
 </script>
 
 </body>

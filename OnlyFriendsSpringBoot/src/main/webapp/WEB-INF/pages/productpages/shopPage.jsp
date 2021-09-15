@@ -13,8 +13,8 @@
     margin-top: 0; // remove the gap so it doesn't close
   }
 .wrap {
-	width: 800px;
-	height: 400px;
+	width: 1000px;
+	height: 500px;
 	background-color: black;
 	margin: 0 auto;
 	position: relative;
@@ -25,15 +25,15 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	width: 3200px;
+	width: 4000px;
 	display: flex;
 	position: absolute;
 	/* left: -2000px; */
 }
 
 .slide-img li {
-	width: 800px;
-	height: 400px;
+	width: 1000px;
+	height: 500px;
 	/* flex-grow flex-shrink flex-bais
             伸展比例 壓縮比例 額外剩餘比例 */
 	flex: 1 0 0
@@ -98,10 +98,6 @@ a.slide-arrow {
 body{
 	font-size:1.2rem
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; // remove the gap so it doesn't close
- }
 
 
 </style>
@@ -114,7 +110,7 @@ body{
 			<%@include file="../frontcommonpages/shopheader.jsp"%>
 
 			<div class="main-sidebar">
-				<aside id="sidebar-wrapper">
+				<aside id="sidebar-wrapper mt-5">
 					<div class="card">
 						<div class="card-header">
 							<h4>Search by</h4>
@@ -126,9 +122,9 @@ body{
 								<button class="btn" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
-								<button class="badge badge-primary mb-2" id="luckyItem" name="luckyItem" value="幸運小物類">幸運小物</button> 
-								<button class="badge badge-secondary mb-2" id="candleItem" name="candleItem" value="香氛類">香氛類</button> 
-								<button class="badge badge-success mb-2" id="otherItem" name="otherItem" value="其他類">其他</button> 
+								<span class="shadow badge py-3 mb-3 fs-5" style="background-color:#f4acb7;" id="luckyItem" name="luckyItem" value="幸運小物類">幸運小物</span> 
+								<span class="shadow badge py-3 mb-3 fs-5" style="background-color:#9d8189;" id="candleItem" name="candleItem" value="香氛類">香氛類</span> 
+								<span class="shadow badge py-3 mb-3 fs-5" style="background-color:#a5a58d;" id="otherItem" name="otherItem" value="其他類">其他</span> 
 								
 							</div>
 						</div>
@@ -142,31 +138,37 @@ body{
 			<div class="main-content">
 				<section class="section">
 					<!-- 輪播畫面 -->
-					<div id="container">
-						<div class="wrap">
-							<a class="slide-arrow" id="slidePrev"> <i
-								class="fas fa-arrow-left"></i>
-							</a> <a class="slide-arrow right" id="slideNext"><i
-								class="fas fa-arrow-right"></i> </a>
-							<ul class="slide-img" id="slide-img">
-								<li><img src="images/productPic/4260126.jpg" alt="view1"></li>
-								<li><img src="images/productPic/5592103.jpg" alt="view2"></li>
-								<li><img src="images/productPic/5668341.jpg" alt="view3"></li>
-								<li><img src="images/productPic/5844959.jpg" alt="view4"></li>
-							</ul>
-							<ul class="pages" id="pages">
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
+					<div id="carouselExampleIndicators" class="carousel slide h-50" data-bs-ride="carousel">
+					  <div class="carousel-indicators">
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					  </div>
+					  <div class="carousel-inner h-50">
+					    <div class="carousel-item active">
+					      <img src="images/productPic/autumn.svg" class="d-block w-100 h-50" alt="...">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="images/productPic/member2.jpg" class="d-block w-100 h-50" alt="...">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="images/productPic/freeshipping.jpeg" class="d-block w-100 h-50" alt="...">
+					    </div>
+					  </div>
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					  </button>
 					</div>
 
 					<div class="section-body">
 						<div class="card">
 							<div class="card-header">
-								<h4>On Sale</h4>
+								<h4>招桃商城</h4>
 							</div>
 							<div class="card-body">
 								<div
@@ -231,9 +233,10 @@ body{
     	     console.log(parsedObjinArray)
     	     var itemarea = $('#itemarea');
     	     $('#itemarea').empty("");
+    	     
     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
     	     var item = 
-    	    "<div class='col mb-5 cards'>"+
+    	    "<div class='col mb-5 cards procards'>"+
              "<div class='card h-100'>"+          
              "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
                +  "Sale"+
@@ -242,13 +245,13 @@ body{
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
                    "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
-                   "<div class='d-flex justify-content-center small text-warning mb-2' >"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                     "<div class='bi-star-fill'></div>"+
-                  "</div>"+
+//                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                      "<div class='bi-star-fill'></div>"+
+//                   "</div>"+
                    "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
                    "$"+Math.round(n.proPrice*0.9)+
                 " </div>"+
@@ -257,9 +260,11 @@ body{
                
              "</div>"+
            "</div>" ;
-           itemarea.append(item);
-           
-    	       });
+           if(n.proStatus!=1){
+        	   console.log("hi")
+          	 itemarea.append(item);       	   
+  	     }
+    	   });
     	    
     	},
     	error: function() {
@@ -283,7 +288,7 @@ body{
  		
     	$.ajax({
      	   type:'POST',
-     	   url:'queryallLuckyItem/' + indexPage,
+     	   url:'queryallLuckyItem',
      	   data:{"luckyItem":luckyItem},
      	   dataType:'JSON',
      	   success: function(data) {
@@ -340,7 +345,7 @@ body{
  		
     	$.ajax({
      	   type:'POST',
-     	   url:'queryallcandleItem/' + indexPage,
+     	   url:'queryallcadleItem',
      	   data:{"candleItem":candleItem},
      	   dataType:'JSON',
      	   success: function(data) {
@@ -394,11 +399,11 @@ body{
 
   		$('#otherItem').click(function () {
   		
-  		var candleItem=$('#otherItem').val();
+  		var otherItem=$('#otherItem').val();
  		
     	$.ajax({
      	   type:'POST',
-     	   url:'queryallotherItem/' + indexPage,
+     	   url:'queryallOtherItem',
      	   data:{"otherItem":otherItem},
      	   dataType:'JSON',
      	   success: function(data) {

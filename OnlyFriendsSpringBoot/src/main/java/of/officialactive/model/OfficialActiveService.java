@@ -84,4 +84,11 @@ public class OfficialActiveService {
 		return memberActiveRepository.findByMemAcc(memberAccount);
 	}
 
+	
+	//依照活動類型查詢
+	
+	public List<OfficialActive>findByAtype(String atype){
+		List<OfficialActive> atypeList = officialActiveRepository.findByAtype(atype);
+		return atypeList;
+	}
 }

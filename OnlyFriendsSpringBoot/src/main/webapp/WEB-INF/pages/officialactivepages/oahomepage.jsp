@@ -118,6 +118,9 @@ a.slide-arrow {
 			
 			<!-- Main Content -->
 			
+			
+			
+			
 			<div class="main-content">
 			
 				<section class="section">
@@ -148,6 +151,36 @@ a.slide-arrow {
 							<div class="card-header">							
 							</div>
 							<div class="card-body">
+					<!-- 分頁顯示 -->		
+							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+									
+									  <li class="nav-item" role="presentation">
+									    <button class="nav-link active" id="atypeall" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">全部活動</button>
+									  </li>
+									   <li class="nav-item" role="presentation">
+									    <button class="nav-link" id="atype11" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">多人團體活動#室外</button>
+									  </li>
+									  
+									  <li class="nav-item" role="presentation">
+									    <button class="nav-link" id="atype12" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">多人團體活動#室內</button>
+									  </li>
+									  <li class="nav-item" role="presentation">
+									    <button class="nav-link" id="atype13" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">一對一活動#戶外</button>
+									  </li>
+									  <li class="nav-item" role="presentation">
+									    <button class="nav-link" id="atype14" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">一對一活動#室內</button>
+									  </li>
+									</ul>
+									<div class="tab-content" id="pills-tabContent">
+									  	  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"></div>
+									  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"></div>
+									  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
+									  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"></div>
+									  <div class="tab-pane fade" id="pills-contact1" role="tabpanel" aria-labelledby="pills-contact-tab"></div>
+									</div>
+									
+								
+								
 								<div
 							          class="
 							            row
@@ -278,12 +311,12 @@ a.slide-arrow {
     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
     	     var item = 
     	    "<div class='col mb-5'>"+
-             "<div class='card h-100'>"+          
-             "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
-               +  
-              "</div>" +    
-               "<img class='img1' src='"+n.img+"'/>"+     
-                   "<h5 class='text'>"+n.active+"</h6>"+
+    	           "<div class='card h-100'>"+          
+    	           "<div class='badge bg-danger text-white position-absolute'style='top: 0.5rem; left:0.5rem'>"
+    	             +n.atype+
+    	       "</div>" +       
+               "<img class='img1' src='"+n.img+"'/>"+               
+               "<h5 class='text'>"+n.active+"</h6>"+ 
                "<div  class='text' style ='font-size: 15px';>"+n.atype2+
                "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
                "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
@@ -310,7 +343,287 @@ a.slide-arrow {
     	    console.log("error");
     	}
     	});
-    	}
+    }
+//分類1
+        $(function () {
+              $('#atype11').click(function(){
+    	
+            	  
+        	$.ajax({
+        	   type:'POST',
+        	   url:'findbyatype1',
+        	   dataType:'JSON',
+        	   contentType:'application/json',
+        	   success: function(data) {
+        		   
+        	     var json = JSON.stringify(data, null, 2);
+        	     var parsedObjinArray = JSON.parse(json);
+        	     var itemarea = $('#itemarea');
+        	     $('#itemarea').empty("");
+        	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+        	     var item = 
+        	    "<div class='col mb-5'>"+
+        	           "<div class='card h-100'>"+          
+        	           "<div class='badge bg-danger text-white position-absolute'style='top: 0.5rem; left:0.5rem'>"
+        	             +n.atype+
+        	       "</div>" +       
+                   "<img class='img1' src='"+n.img+"'/>"+               
+                   "<h5 class='text'>"+n.active+"</h6>"+ 
+                   "<div  class='text' style ='font-size: 15px';>"+n.atype2+
+                   "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 報名截止日期:"+n.finishDeadline+
+                   "<div  class='text' style ='font-size: 15px';>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
+                     "<div class='text-center'>" +
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                      "</div>"+
+                    " </div>"+
+                   "</div>"+
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"&active="+n.active+"' id='a'>詳細內容...</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+               itemarea.append(item);
+        	       });
+        	    
+        	},
+        	error: function() {
+        	    console.log("error");
+        	}
+        	});
+    	
+    	
+    	
+    	})
+    	})//分類1結尾
+    	//分類2
+        $(function () {
+              $('#atype12').click(function(){
+    	
+            	  
+        	$.ajax({
+        	   type:'POST',
+        	   url:'findbyatype2',
+        	   dataType:'JSON',
+        	   contentType:'application/json',
+        	   success: function(data) {
+        		   
+        	     var json = JSON.stringify(data, null, 2);
+        	     var parsedObjinArray = JSON.parse(json);
+        	     var itemarea = $('#itemarea');
+        	     $('#itemarea').empty("");
+        	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+        	     var item = 
+        	    "<div class='col mb-5'>"+
+        	           "<div class='card h-100'>"+          
+        	           "<div class='badge bg-danger text-white position-absolute'style='top: 0.5rem; left:0.5rem'>"
+        	             +n.atype+
+        	       "</div>" +       
+                   "<img class='img1' src='"+n.img+"'/>"+               
+                   "<h5 class='text'>"+n.active+"</h6>"+ 
+                   "<div  class='text' style ='font-size: 15px';>"+n.atype2+
+                   "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 報名截止日期:"+n.finishDeadline+
+                   "<div  class='text' style ='font-size: 15px';>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
+                     "<div class='text-center'>" +
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                      "</div>"+
+                    " </div>"+
+                   "</div>"+
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"&active="+n.active+"' id='a'>詳細內容...</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+               itemarea.append(item);
+        	       });
+        	    
+        	},
+        	error: function() {
+        	    console.log("error");
+        	}
+        	});
+    	
+    	
+    	
+    	})
+    	})//分類2結尾
+    	//分類3
+        $(function () {
+              $('#atype13').click(function(){
+    	
+            	  
+        	$.ajax({
+        	   type:'POST',
+        	   url:'findbyatype3',
+        	   dataType:'JSON',
+        	   contentType:'application/json',
+        	   success: function(data) {
+        		   
+        	     var json = JSON.stringify(data, null, 2);
+        	     var parsedObjinArray = JSON.parse(json);
+        	     var itemarea = $('#itemarea');
+        	     $('#itemarea').empty("");
+        	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+        	     var item = 
+        	    "<div class='col mb-5'>"+
+        	           "<div class='card h-100'>"+          
+        	           "<div class='badge bg-danger text-white position-absolute'style='top: 0.5rem; left:0.5rem'>"
+        	             +n.atype+
+        	       "</div>" +       
+                   "<img class='img1' src='"+n.img+"'/>"+               
+                   "<h5 class='text'>"+n.active+"</h6>"+ 
+                   "<div  class='text' style ='font-size: 15px';>"+n.atype2+
+                   "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 報名截止日期:"+n.finishDeadline+
+                   "<div  class='text' style ='font-size: 15px';>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
+                     "<div class='text-center'>" +
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                      "</div>"+
+                    " </div>"+
+                   "</div>"+
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"&active="+n.active+"' id='a'>詳細內容...</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+               itemarea.append(item);
+        	       });
+        	    
+        	},
+        	error: function() {
+        	    console.log("error");
+        	}
+        	});
+    	
+    	
+    	
+    	})
+    	})//分類3結尾
+    	//分類4
+        $(function () {
+              $('#atype14').click(function(){
+    	
+            	  
+        	$.ajax({
+        	   type:'POST',
+        	   url:'findbyatype4',
+        	   dataType:'JSON',
+        	   contentType:'application/json',
+        	   success: function(data) {
+        		   
+        	     var json = JSON.stringify(data, null, 2);
+        	     var parsedObjinArray = JSON.parse(json);
+        	     var itemarea = $('#itemarea');
+        	     $('#itemarea').empty("");
+        	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+        	     var item = 
+        	    "<div class='col mb-5'>"+
+        	           "<div class='card h-100'>"+          
+        	           "<div class='badge bg-danger text-white position-absolute'style='top: 0.5rem; left:0.5rem'>"
+        	             +n.atype+
+        	       "</div>" +       
+                   "<img class='img1' src='"+n.img+"'/>"+               
+                   "<h5 class='text'>"+n.active+"</h6>"+ 
+                   "<div  class='text' style ='font-size: 15px';>"+n.atype2+
+                   "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 報名截止日期:"+n.finishDeadline+
+                   "<div  class='text' style ='font-size: 15px';>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
+                     "<div class='text-center'>" +
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                      "</div>"+
+                    " </div>"+
+                   "</div>"+
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"&active="+n.active+"' id='a'>詳細內容...</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+               itemarea.append(item);
+        	       });
+        	    
+        	},
+        	error: function() {
+        	    console.log("error");
+        	}
+        	});
+    	
+    	
+    	
+    	})
+    	})//分類4結尾
+    	  $(function () {
+              $('#atypeall').click(function(){
+    	
+            	  
+        	$.ajax({
+        	   type:'POST',
+        	   url:'queryalloabypage/' + indexPage,
+        	   dataType:'JSON',
+        	   contentType:'application/json',
+        	   success: function(data) {
+        		   
+        	     var json = JSON.stringify(data, null, 2);
+        	     var parsedObjinArray = JSON.parse(json);
+        	     var itemarea = $('#itemarea');
+        	     $('#itemarea').empty("");
+        	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+        	     var item = 
+        	    "<div class='col mb-5'>"+
+        	           "<div class='card h-100'>"+          
+        	           "<div class='badge bg-danger text-white position-absolute'style='top: 0.5rem; left:0.5rem'>"
+        	             +n.atype+
+        	       "</div>" +       
+                   "<img class='img1' src='"+n.img+"'/>"+               
+                   "<h5 class='text'>"+n.active+"</h6>"+ 
+                   "<div  class='text' style ='font-size: 15px';>"+n.atype2+
+                   "<div  class='text' style ='font-size: 15px';>"+n.county+n.district+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 活動日期:"+n.adate+
+                   "<div  class='text' style ='font-size: 15px';>"+"📆 報名截止日期:"+n.finishDeadline+
+                   "<div  class='text' style ='font-size: 15px';>"+"💏 男生人數:"+n.male+"    "+"女生人數:"+n.female+
+                     "<div class='text-center'>" +
+                       "<div class='d-flex justify-content-center small text-warning mb-2' >"+
+                      "</div>"+
+                    " </div>"+
+                   "</div>"+
+                 
+                   "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"+
+                     "<div class='text-center'>"+
+                      "<a class='btn btn-outline-dark mt-auto' href='oaitemEntry.controller?anum="+n.anum+"&active="+n.active+"' id='a'>詳細內容...</a>"+
+                     "</div>"+
+                   "</div>"+
+                 "</div>"+
+               "</div>" ;
+               itemarea.append(item);
+        	       });
+        	    
+        	},
+        	error: function() {
+        	    console.log("error");
+        	}
+        	});
+    	
+    	
+    	
+    	})
+    	})//分類1結尾
+    	
     
     </script>
 </body>

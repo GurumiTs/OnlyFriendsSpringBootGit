@@ -38,6 +38,10 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
+	public List<Product> findByItemList(String proItem){
+		return productRepository.findByProItem(proItem);
+	}
+	
 	public Page<Product> findAllByPage(Pageable pageable){
 		return productRepository.findAll(pageable);
 	}

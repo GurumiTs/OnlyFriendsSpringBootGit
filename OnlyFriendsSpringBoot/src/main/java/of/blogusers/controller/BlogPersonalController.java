@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import of.blogmessage.model.FirstMessage;
+import of.blogmessage.model.FirstMessageService;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 import of.member.model.Member;
@@ -36,6 +38,10 @@ public class BlogPersonalController {
 	private BlogUserService bUserService;
 	@Autowired
 	private BlogUser blogUser;
+	@Autowired
+	private FirstMessageService fMesService;
+	@Autowired
+	private FirstMessage firstMessage;
 	
 	//進個人頁controller
 	@RequestMapping(path="/memberblog" ,method = RequestMethod.GET )
@@ -177,13 +183,23 @@ public class BlogPersonalController {
 	@PostMapping(path = "/usersblogdelete/{usersArticleID}")
 	@ResponseBody
 	public String deleteBlog(@PathVariable("usersArticleID") Integer usersArticleID) {
-		System.out.println("usersArticleID" + usersArticleID);
-		boolean boo = bUserService.checkArticleID(usersArticleID);
-		if (boo) {
+		System.out.println("Delete usersArticleID:" + usersArticleID);
+//		boolean boo = bUserService.checkArticleID(usersArticleID);
+		List<FirstMessage> mesList = fMesService.findByUsersArticleID(usersArticleID);
+		int size = mesList.size();
+		System.out.println("留言數:" + size);
+		if (size>0) {
+			System.out.println("1");
+			fMesService.deleteByMessageID(usersArticleID);
+			System.out.println("2");
+			bUserService.deleteById(usersArticleID);
+			System.out.println("3");
+			return "yes";
+		}else {
+			System.out.println("留言數為0 size=" + size);
 			bUserService.deleteById(usersArticleID);
 			return "yes";
 		}
-		return "fail";
 	}
 	
 }

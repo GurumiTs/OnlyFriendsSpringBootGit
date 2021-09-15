@@ -221,7 +221,7 @@ p {
 							<div class="blog-sidebar-title">目錄</div>
 							<ul class="blog-sidebar-list">
 								<li>
-									<a href="http://localhost:8080/OnlyFriends/blogofficialmain">回主目錄</a>
+									<a href="blogofficialmain">回主目錄</a>
 								</li>
 								<li>
 									<a href="blogofficial?blogtype=愛情">Only 愛情篇</a>

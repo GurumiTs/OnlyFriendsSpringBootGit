@@ -27,6 +27,7 @@ import of.blog.model.BlogService;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 import of.member.model.Member;
+import of.member.model.MemberService;
 
 @Controller
 @SessionAttributes(names = {"blogUserTotalPages", "blogUserTotalElements", "blogEmpTotalPages", "blogEmpTotalElements"})
@@ -40,7 +41,9 @@ public class BlogUserController {
 	private BlogService bService;
 	@Autowired
 	private BlogBean blog;
-
+	@Autowired
+	private MemberService memberService;
+	
 	// 進BlogUsers主頁controller
 	@GetMapping(path = "/blogusers")
 	public String blogUserEntry() {
@@ -115,5 +118,64 @@ public class BlogUserController {
 		
 		return page.getContent();
 	}
+	
+	// 確認點讚
+	@GetMapping(path = "/checklike")
+	@ResponseBody
+	public String checkLike(@RequestParam(name = "usersArticleID") Integer usersArticleID, HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccountString = m1.getMemberAccount();
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		List<Member> likenumtable = blogUser.getLikenumtable();
+		Boolean booleanMember = likenumtable.stream().anyMatch(item -> memberAccountString.equals(item.getMemberAccount()));
+		if (booleanMember) {
+			return "exist";
+		}else {
+			return "empty";
+		}
+	}
+	
+	// 點讚
+	@GetMapping(path = "/bloglike")
+	@ResponseBody
+	public String blogLike(@RequestParam(name = "usersArticleID") Integer usersArticleID, HttpServletRequest request) {
+		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
+		String memberAccount = m1.getMemberAccount();
+		
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		System.out.println("userid:" + usersArticleID);
+		List<Member> likenumtable = blogUser.getLikenumtable();
+		Boolean booleanMember = likenumtable.stream().anyMatch(item -> memberAccount.equals(item.getMemberAccount()));
+		if (booleanMember) {
+			System.out.println("exist");
+			System.out.println("1111111111111111");
+			blogUser.removeLike(m2);
+			bUserService.updateBlogUser(blogUser);
+			List<Member> likenumtablenew  = bUserService.findByArticleID(usersArticleID).getLikenumtable();
+			blogUser.setLikeNum(likenumtablenew.size());
+			System.out.println("size:"+likenumtablenew.size());
+			return "unlike";
+		}else {
+			System.out.println("empty");
+			likenumtable.add(m1);
+			bUserService.updateBlogUser(blogUser);
+			blogUser.setLikeNum(likenumtable.size());
+			System.out.println("size:"+likenumtable.size());
+			return "like";
+		}
+	}
+	
+	// 計算點讚數
+	@GetMapping(path = "/bloglikenumber")
+	@ResponseBody
+	public Integer blogLikeNumber(@RequestParam(name = "usersArticleID") Integer usersArticleID) {
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		List<Member> likenumtable = blogUser.getLikenumtable();
+		Integer likeNumber = likenumtable.size();
+		return likeNumber;
+	}
+	
 	
 }

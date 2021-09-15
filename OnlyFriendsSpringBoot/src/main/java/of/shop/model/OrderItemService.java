@@ -22,6 +22,10 @@ public class OrderItemService {
 		orderItemRepository.updateamount(amount,paymentId,proId);
 	}
 	
+	public OrderItem deleteFindByProId(int proId) {
+		return orderItemRepository.deleteFindByProId(proId);
+	}
+	
 	public OrderItem findbyOrderItem(String paymentId,int proId) {
 		return orderItemRepository.findorderitem(paymentId, proId);
 	}

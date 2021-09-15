@@ -365,6 +365,14 @@ public class ShoppingCartController {
 		
 	}
 	
+//	@GetMapping(path = "/changeorderstatus")
+//	@ResponseBody
+//	public int changeorderstatus(@RequestParam(name = "paymentId")String paymentId) {
+//		OrderDetails orderDetails=orderService.findByPaymentId(paymentId);
+//		orderDetails.setOrderStatus(orderStatus);
+//		
+//	}
+//	
 	
 	
 }
