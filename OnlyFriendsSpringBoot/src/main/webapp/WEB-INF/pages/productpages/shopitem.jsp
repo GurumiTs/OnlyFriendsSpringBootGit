@@ -64,7 +64,7 @@ body{
 				<section>
 					<div class="card">
 						<div class="card-header">
-							<h2 class="fw-bolder mb-4">Related products</h2>
+							<h2 class="fw-bolder mb-4">相關商品</h2>
 						</div>
 						<div class="card-body">
 							<div

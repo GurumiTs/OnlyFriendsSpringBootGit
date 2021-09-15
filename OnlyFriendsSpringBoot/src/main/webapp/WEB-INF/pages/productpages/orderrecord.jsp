@@ -120,23 +120,23 @@ height:100px;
                       </table>
                     </div>
                   </div>
-                  <div class="card-footer text-right">
-                    <nav class="d-inline-block">
-                      <ul class="pagination mb-0">
-                        <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
+<!--                   <div class="card-footer text-right"> -->
+<!--                     <nav class="d-inline-block"> -->
+<!--                       <ul class="pagination mb-0"> -->
+<!--                         <li class="page-item disabled"> -->
+<!--                           <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a> -->
+<!--                         </li> -->
+<!--                         <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li> -->
+<!--                         <li class="page-item"> -->
+<!--                           <a class="page-link" href="#">2</a> -->
+<!--                         </li> -->
+<!--                         <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+<!--                         <li class="page-item"> -->
+<!--                           <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a> -->
+<!--                         </li> -->
+<!--                       </ul> -->
+<!--                     </nav> -->
+<!--                   </div> -->
                 </div>
               </div>
 <!--                         <hr class="mt-2 mb-2"> -->
@@ -278,21 +278,27 @@ height:100px;
 	     	     var parsedObjinArray = JSON.parse(json);
 	     	     var userorderlist = $('#userorderlist');
 	     	     $('#userorderlist').empty("");
+	     	     let a =1;
 	     	 	 $.each(parsedObjinArray,function(i,n){ //i為順序 n為單筆物件
+	     	     let number = a++;
 	     	     var item =  '<tr id='+n.memberAccount+'>'+
-	     	     '<td>'+'1'+'</td>'+
+	     	     '<td>'+number+'</td>'+
 	     	     '<td>'+n.orderTime+'</td>'+
                  '<td>'+n.total+'</td>'+
                  '<td>'+"<a class='details' id="+n.paymentId+">&nbsp&nbsp&nbsp<i class='fas fa-info-circle information' data-bs-toggle='modal' data-bs-target='#exampleModal'></i>"+'</td>'+
                  '<td>'+'<div class="badge badge-primary orderstatus" id="'+n.paymentId+'status">'+n.orderStatus+'</div>'+'</td>'+
-                 '<td>'+'<a href="#" class="btn btn-secondary cancelorder" id="'+n.paymentId+'cancelorder">'+'取消訂單'+'</a>'+'</td>'+
+                 '<td>'+'<a href="#" class="btn btn-dark b '+n.paymentId+'cancelbtn" id='+n.paymentId+'>'+'<i class="fas fa-exclamation-triangle"></i>'+'取消訂單'+'</a>'+'</td>'+
                	 '</tr>';
                		userorderlist.append(item);
                		console.log(n.orderStatus)
+//                		if(n.orderStatus=="取消訂單"){
+//                			$('.'+n.paymentId+'cancelbtn').addClass('disabled')
+//                		}
 					if(n.orderStatus=="待出貨"){
-						$('.orderstatus').text("待出貨")
+						$("#"+n.paymentId+"status").text("待出貨")
 					}else{
-						$("#"+n.paymentId+"cancelorder").addClass('disabled')
+						$('.'+n.paymentId+'cancelbtn').addClass('disabled')
+						$('.'+n.paymentId+'cancelbtn').html('<i class="fas fa-ban"></i>'+'取消訂單')
 						if(n.orderStatus=="取消訂單"){
 							$("#"+n.paymentId+"status").removeClass('badge-primary')
 							$("#"+n.paymentId+"status").addClass('badge-warning')
@@ -373,7 +379,7 @@ height:100px;
 	});
     
     
-    $("#userorderlist").on("click", ".cancelorder", function () {
+    $("#userorderlist").on("click", ".b", function () {
 		let paymentId=$(this).attr("id");
 			console.log(paymentId);
 		let dtr = $(this).closest("th");
