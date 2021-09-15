@@ -25,4 +25,6 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, String>{
 	
 	@Query(value = "select amount from orderitem where paymentId=?1 and proId = ?2",nativeQuery = true)
 	public Integer orderAmountlist(String paymentId,int proId);
+	
+	public OrderItem deleteFindByProId(int proId);
 }

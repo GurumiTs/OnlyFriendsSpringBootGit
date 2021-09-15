@@ -489,13 +489,14 @@
 			console.log($(this).closest("tr"));
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
-	                title: 'Are you sure?',
-	                text: "You won't be able to revert this!",
+	                title: '確定要刪除此文章?',
+	                text: "刪除後將無法回覆該文章資料",
 	                icon: 'warning',
 	                showCancelButton: true,
 	                confirmButtonColor: '#3085d6',
 	                cancelButtonColor: '#d33',
-	                confirmButtonText: 'Yes, delete it!'
+	                confirmButtonText: '確定刪除',
+	                cancelButtonText: '取消'
 	              }).then((result) => {
 	                if (result.isConfirmed) {
 	                  $.ajax({
@@ -504,15 +505,15 @@
 	                        success: function(response) {  
 	                        	dtr.remove();
 	                             Swal.fire(
-	                              'Deleted!',
-	                              'Your file has been deleted.',
+	                              '刪除成功！',
+	                              '所選文章已經刪除',
 	                              'success'
 	                            ) } ,
 	                            error: function (xhr) {
 	                            Swal.fire({
 	                              icon: 'error',
-	                              title: 'Oops...',
-	                              text: 'Something went wrong!'
+		                          title: '錯誤！',
+		                          text: '請重新檢查文章內容。'
 	                            }) },  //error close
 	                     }); //ajax close          
 	                } //if close 
@@ -526,13 +527,14 @@
 			console.log($(this).closest("tr"));
 			let dtr = $(this).closest("tr");
 			  Swal.fire({
-	                title: 'Are you sure?',
-	                text: "You won't be able to revert this!",
+				  title: '是否移除掉此會員發布的文章?',
+	                text: "刪除後將無法回覆該文章資料",
 	                icon: 'warning',
 	                showCancelButton: true,
 	                confirmButtonColor: '#3085d6',
 	                cancelButtonColor: '#d33',
-	                confirmButtonText: 'Yes, delete it!'
+	                confirmButtonText: '確定刪除',
+	                cancelButtonText: '取消'
 	              }).then((result) => {
 	                if (result.isConfirmed) {
 	                  $.ajax({
@@ -540,16 +542,16 @@
 	                        url: "usersblogdelete/"+usersArticleID,
 	                        success: function(response) {  
 	                        	dtr.remove();
-	                             Swal.fire(
-	                              'Deleted!',
-	                              'Your file has been deleted.',
-	                              'success'
+	                        	Swal.fire(
+	  	                          '刪除成功！',
+	  	                          '所選文章已經刪除',
+	  	                          'success'
 	                            ) } ,
 	                            error: function (xhr) {
 	                            Swal.fire({
 	                              icon: 'error',
-	                              title: 'Oops...',
-	                              text: 'Something went wrong!'
+	                              title: '錯誤！',
+	                              text: '請重新檢查文章內容。'
 	                            }) },  //error close
 	                     }); //ajax close          
 	                } //if close 

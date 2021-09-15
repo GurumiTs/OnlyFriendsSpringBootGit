@@ -133,7 +133,7 @@
         <div class="col-12">
             <div class="input-group">
               <span class="input-group-text">商品描述</span>
-              <textarea class="form-control textarea" aria-label="With textarea" name="Description"></textarea>
+              <textarea class="form-control textarea" aria-label="With textarea" name="Description" id="Description"></textarea>
             </div>
         </div>  
         
@@ -147,7 +147,7 @@
         </div> --> 
         <div class="col-12">
           <button type="submit" class="btn btn-primary">新增商品</button>
-          <button type="button" class="btn btn-info">一鍵輸入</button>
+          <button type="button" class="btn btn-info" id="inputquik">一鍵輸入</button>
         </div>
       </form>
     </div>
@@ -243,10 +243,27 @@
             }
             
         }
-         
         
-        
-		
+        </script>
+        <script>
+        $(function(){		
+    		
+        	$("#inputquik").click(function(){
+        		$("#Name").val("霞海城隍廟聯名御守");
+        		$("#Price").val("360");
+        		$("#inputGroupSelect03").val("幸運小物");
+        		$("#Num").val("25");
+        		$("#Description").val("一年一度七夕即將到來\r\n"
+        				+ "今年很可惜因為疫情關係，無法親自去到霞海城隍城隍廟\r\n"
+    					+ "和月下老人祈求緣分也別擔心\r\n"
+    					+ "在七夕前夕，成立結緣追愛小組\r\n"
+    					+ "攜手與在地設計師合作，製作出各式七夕月老聯名款禮物\r\n"
+    					+ "期待在送禮時能讓各地單身、想求姻緣的男女們牽起之間的緣分");
+        		
+        		
+        	});
+        	
+        	});
         </script>
  </body>
 </html>	

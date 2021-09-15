@@ -27,6 +27,7 @@ import of.blog.model.BlogService;
 import of.blogusers.model.BlogUser;
 import of.blogusers.model.BlogUserService;
 import of.member.model.Member;
+import of.member.model.MemberService;
 
 @Controller
 @SessionAttributes(names = {"blogUserTotalPages", "blogUserTotalElements", "blogEmpTotalPages", "blogEmpTotalElements"})
@@ -40,7 +41,9 @@ public class BlogUserController {
 	private BlogService bService;
 	@Autowired
 	private BlogBean blog;
-
+	@Autowired
+	private MemberService memberService;
+	
 	// 進BlogUsers主頁controller
 	@GetMapping(path = "/blogusers")
 	public String blogUserEntry() {
@@ -138,6 +141,9 @@ public class BlogUserController {
 	public String blogLike(@RequestParam(name = "usersArticleID") Integer usersArticleID, HttpServletRequest request) {
 		Member m1 = (Member) request.getSession().getAttribute("personalinfo");
 		String memberAccount = m1.getMemberAccount();
+		
+		Member m2 = memberService.findByMemberAccount(memberAccount);
+		
 		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
 		System.out.println("userid:" + usersArticleID);
 		List<Member> likenumtable = blogUser.getLikenumtable();
@@ -145,7 +151,7 @@ public class BlogUserController {
 		if (booleanMember) {
 			System.out.println("exist");
 			System.out.println("1111111111111111");
-			likenumtable.remove(m1);
+			blogUser.removeLike(m2);
 			bUserService.updateBlogUser(blogUser);
 			List<Member> likenumtablenew  = bUserService.findByArticleID(usersArticleID).getLikenumtable();
 			blogUser.setLikeNum(likenumtablenew.size());
@@ -159,6 +165,16 @@ public class BlogUserController {
 			System.out.println("size:"+likenumtable.size());
 			return "like";
 		}
+	}
+	
+	// 計算點讚數
+	@GetMapping(path = "/bloglikenumber")
+	@ResponseBody
+	public Integer blogLikeNumber(@RequestParam(name = "usersArticleID") Integer usersArticleID) {
+		BlogUser blogUser = bUserService.findByArticleID(usersArticleID);
+		List<Member> likenumtable = blogUser.getLikenumtable();
+		Integer likeNumber = likenumtable.size();
+		return likeNumber;
 	}
 	
 	

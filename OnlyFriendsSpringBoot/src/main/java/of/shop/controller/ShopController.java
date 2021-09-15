@@ -47,8 +47,8 @@ public class ShopController {
 	@PostMapping(path = "/shoppage.controller/{pageNo}")
 	@ResponseBody
 	public List<Product> processQueryByPageAction(@PathVariable("pageNo") int pageNo, Model m) {
-
-		int pageSize = 4;
+		
+		int pageSize = 8;
 
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 		Page<Product> page = productService.findAllByPage(pageable);
@@ -75,57 +75,28 @@ public class ShopController {
 	}
 
 	//Luckyitem
-	@PostMapping("/queryallLuckyItem/{pageNo}")
+	@PostMapping("/queryallLuckyItem")
 	@ResponseBody
-	public List<Product> queryallLuckyItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String luckyItem){
-		int pageSize = 4;
+	public List<Product> queryallLuckyItem(@RequestParam String luckyItem){
 		
-		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"幸運小物類");
-		
-		int totalPages =page.getTotalPages();
-		long totalElements =page.getTotalElements();
-		
-		model.addAttribute("totalPages",totalPages);
-		model.addAttribute("totalElements",totalElements);
-		
-		return page.getContent();
+		List<Product> products = productService.findByItemList("幸運小物");
+		return products;
 	}
 	
 	//candle
-	@PostMapping("/queryallcadleItem/{pageNo}")
+	@PostMapping("/queryallcadleItem")
 	@ResponseBody
-	public List<Product> queryallCandleItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String candleItem){
-		int pageSize = 4;
-		
-		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"香氛類");
-		
-		int totalPages =page.getTotalPages();
-		long totalElements =page.getTotalElements();
-		
-		model.addAttribute("totalPages",totalPages);
-		model.addAttribute("totalElements",totalElements);
-		
-		return page.getContent();
+	public List<Product> queryallCandleItem(@RequestParam String candleItem){
+		List<Product> products = productService.findByItemList("香氛類");
+		return products;
 	}
 	
 	//Other
-	@PostMapping("/queryallOtherItem/{pageNo}")
+	@PostMapping("/queryallOtherItem")
 	@ResponseBody
-	public List<Product> queryallOtherItem(@PathVariable("pageNo") int pageNo,Model model,@RequestParam String otherItem){
-		int pageSize = 4;
-		
-		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page=productService.findByItem(pageable,"其他類");
-		System.out.println(otherItem);
-		int totalPages =page.getTotalPages();
-		long totalElements =page.getTotalElements();
-		
-		model.addAttribute("totalPages",totalPages);
-		model.addAttribute("totalElements",totalElements);
-		
-		return page.getContent();
+	public List<Product> queryallOtherItem(@RequestParam String otherItem){
+		List<Product> products = productService.findByItemList("其他");
+		return products;
 	}
 	
 	@GetMapping("/releteproductItem")
