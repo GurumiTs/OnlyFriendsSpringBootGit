@@ -1,6 +1,5 @@
 package of.paypal.controller;
 
-import java.io.Console;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +22,6 @@ import com.paypal.api.payments.Item;
 import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
-import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
 import of.member.model.Member;
@@ -37,7 +34,6 @@ import of.product.model.Product;
 import of.product.model.ProductService;
 import of.shop.model.CartItem;
 import of.shop.model.OrderDetails;
-import of.shop.model.OrderItem;
 import of.shop.model.OrderItemService;
 import of.shop.model.OrderService;
 
@@ -52,19 +48,13 @@ public class PaypalController {
 	@Autowired
 	private StoredService storedService;
 	@Autowired
-	private APIContext apiContext;
-	
-	@Autowired
 	private ProductService productService;
 	@Autowired
 	private OrderService orderService;
 	@Autowired
 	private OrderItemService orderItemService;
 	@Autowired
-	private SimpMessagingTemplate simpMessagingTemplete;
-	@Autowired
 	private JavaMailSender sender;
-
 
 	public static final String SUCCESS_URL = "/pay/success";
 	public static final String CANCEL_URL = "/pay/cancel";
