@@ -1,7 +1,9 @@
 package of.shop.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -363,6 +365,38 @@ public class ShoppingCartController {
 		
 		return orderItemAmount;
 		
+	}
+	
+	@PostMapping(path = "/orderannual")
+	@ResponseBody
+	public Float orderannual() {
+		return orderService.orderannual();
+	}
+	
+	
+	@PostMapping(path = "/monthtotalEntry")
+	@ResponseBody
+	public List<Float> monthtotalEntry(){
+		List<Float> monthtotal = new ArrayList<Float>();
+		
+		for(int i = 1; i <=12; i++) {
+			Float mt = orderService.monthordertotal(i);
+			if(mt == null) {
+				mt = (float) 0;
+			}
+			monthtotal.add(mt);
+		}
+		return monthtotal;
+	}
+	
+	@PostMapping(path = "/orderStatus")
+	@ResponseBody
+	public List<Integer> orderStatus(){
+		Integer os1 = orderService.orderDetailStatus("已出貨").size();
+		Integer os2 = orderService.orderDetailStatus("已取消").size();
+		List<Integer> orderstatusList = new ArrayList<Integer>(Arrays.asList(os1,os2));
+		
+		return orderstatusList;
 	}
 	
 //	@GetMapping(path = "/changeorderstatus")
