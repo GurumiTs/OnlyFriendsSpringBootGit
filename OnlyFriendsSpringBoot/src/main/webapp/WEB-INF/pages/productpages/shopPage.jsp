@@ -238,32 +238,33 @@ body{
     	     var item = 
     	    "<div class='col mb-5 cards procards'>"+
              "<div class='card h-100'>"+          
-             "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem'>"
-               +  "Sale"+
+             "<div class='badge bg-dark text-white position-absolute'style='top: 0.5rem; right: 0.5rem' id='proItem'>"
+               +n.proItem+
               "</div>" +    
                "<a href='shopitementrypage?proId="+n.proId+"&proName="+n.proName+"'><img class='card-img-top' src='"+n.proPhoto+"'/></a>"+     
                "<div class='card-body p-4'>" +
                  "<div class='text-center'>" +
                    "<h5 class='fw-bolder'>"+n.proName+"</h5>"+
-//                    "<div class='d-flex justify-content-center small text-warning mb-2' >"+
-//                      "<div class='bi-star-fill'></div>"+
-//                      "<div class='bi-star-fill'></div>"+
-//                      "<div class='bi-star-fill'></div>"+
-//                      "<div class='bi-star-fill'></div>"+
-//                      "<div class='bi-star-fill'></div>"+
-//                   "</div>"+
-                   "<span class='text-muted text-decoration-line-through'>$"+n.proPrice+"</span>" +
-                   "$"+Math.round(n.proPrice*0.9)+
+                   "<span class=''>$"+n.proPrice+"</span>" +
+//                    "$"+Math.round(n.proPrice*0.9)+
                 " </div>"+
                "</div>"+
              
                
              "</div>"+
            "</div>" ;
+//            if(n.proItem=="幸運小物"){
+//         	   $("#proItem").html("幸運小物");
+//            }else if(n.proItem=="香氛類"){
+//         	   $("#proItem").html("香氛類");
+//            }else{
+//         	   $("#proItem").html("其他");
+//            }
            if(n.proStatus!=1){
         	   console.log("hi")
           	 itemarea.append(item);       	   
   	     }
+           
     	   });
     	    
     	},

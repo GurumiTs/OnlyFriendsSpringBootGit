@@ -14,4 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	
 	@Query(value = "select * from Member where memberAge between ?1 and ?2",nativeQuery = true)
 	public List<Member> memberAge(String a,String b);
+	
+	@Query(value = "select * from Member where memberAuth = ?1",nativeQuery = true)
+	public List<Member> memberAllowOrNot(Integer auth );
 }

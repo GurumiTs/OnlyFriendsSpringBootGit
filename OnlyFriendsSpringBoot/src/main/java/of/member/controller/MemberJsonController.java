@@ -88,6 +88,18 @@ public class MemberJsonController {
 		//Thread.sleep(1000);
 		return map;
 	}
+	
+	@GetMapping(path = "/memallowornotjson")
+	@ResponseBody
+	public Map memAllowOrNotJson(Model m) throws InterruptedException {
+		List<Member> allow = memberService.memberAllow(1);
+		List<Member> notallow = memberService.memberAllow(0);
+		Map<String, Object> map = new HashMap<>();
+		map.put("allow", allow);
+		map.put("notallow", notallow);
+		//Thread.sleep(1000);
+		return map;
+	}
 
 	@RequestMapping(path = "/memberUpdateBasicInfo", method = RequestMethod.POST)
 	@ResponseBody
@@ -165,8 +177,17 @@ public class MemberJsonController {
 		Member member = memberService.findByMemberAccount(memberAccount);
 		Users u1  = usersService.findByEmail(memberAccount);
 		String a = Integer.toString(u1.getFriends().size()); 
-		String b   = Float.toString((storedService.memberstoredtotal(memberAccount))/100);
-		b=b.substring(0,b.indexOf('.'));
+		String b = null;
+		System.out.println("a:"+a);
+
+		if(storedService.memberstoredtotal(memberAccount) != null) {			
+			b   = Float.toString((storedService.memberstoredtotal(memberAccount))/100);
+			b=b.substring(0,b.indexOf('.'));
+		}
+		else {
+			b = "1";
+		}
+		System.out.println("b:"+b);
 		List<Map> list = new ArrayList<>();
 		Map m1 = new HashMap<String, Object>();
 		m1.put("member",member);

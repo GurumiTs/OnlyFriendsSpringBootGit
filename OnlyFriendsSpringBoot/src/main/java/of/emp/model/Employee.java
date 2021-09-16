@@ -61,6 +61,9 @@ public class Employee implements Serializable {
 	@Column(name="deptNum")
 	private int deptNum;
 	
+	@Column(name="empdelete")
+	private int empdelete;
+	
 	public Employee() {
 		
 	}
@@ -178,6 +181,15 @@ public class Employee implements Serializable {
 	public void setDeptNum(int deptNum) {
 		this.deptNum = deptNum;
 	}
+
+	public int getEmpdelete() {
+		return empdelete;
+	}
+
+	public void setEmpdelete(int empdelete) {
+		this.empdelete = empdelete;
+	}
+	
 	
 	
 	

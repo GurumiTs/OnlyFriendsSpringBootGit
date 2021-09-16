@@ -39,6 +39,10 @@ public class MemberService {
 		return memberRepository.memberAge(a, b);
 	}
 	
+	public List<Member> memberAllow(Integer allow){
+		return memberRepository.memberAllowOrNot(allow);
+	}
+	
 
 
 }

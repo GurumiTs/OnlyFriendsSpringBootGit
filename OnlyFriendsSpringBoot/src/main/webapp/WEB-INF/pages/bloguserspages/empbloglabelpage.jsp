@@ -311,7 +311,7 @@ a:-webkit-any-link {
 			            		"<tr>"+
 								"<td>"+
 								"<h3>"+
-								"<a href='blogarticleentry?ArticleId="+n.articleID+"&name=official'>"+n.title.substr(0,14)+"777</a>"+
+								"<a href='blogarticleentry?ArticleId="+n.articleID+"&name=official'>"+n.title.substr(0,14)+"...</a>"+
 								"</h3>"+
 								"</td>"+
 								"<td class='date'>"+n.updateTime.substr(0,10)+"</td>"+

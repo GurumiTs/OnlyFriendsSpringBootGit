@@ -358,6 +358,7 @@
 	                '<td class="text-center" id="'+n.proId+'orderamount"></td>'+
 	                '<td class="text-center" id="'+n.proId+'ordertotal"></td>'+
 	              	 '</tr>';
+	              	 console.log("11111111")
 	              		customerorderlist.append(item);
 	              		 $.ajax({
 	       			      url:"findorderamount",				
@@ -369,7 +370,7 @@
 	       			    	  }
 	       			      
 	              		 })
-	              		$(".cancelconfirm").on("click",cancelstatusconfirm)
+// 	              		$(".cancelconfirm").on("click",cancelstatusconfirm)
 		     	 	});
 			        },
 			      error: function(data) 

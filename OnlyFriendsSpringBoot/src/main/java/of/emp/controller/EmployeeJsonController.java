@@ -61,6 +61,17 @@ public class EmployeeJsonController {
 		map.put("data", empList);
 		return map;
 	}
+	
+	@GetMapping(path = "/empdeletetojson")
+	@ResponseBody
+	public Map empDeleteOrNot(Model m) {
+		List<Employee> notdelete = empService.empDeleteOrNot(1);
+		List<Employee> delete = empService.empDeleteOrNot(0);
+		Map<String, Object> map = new HashMap<>();
+		map.put("delete",delete);
+		map.put("notdelete",notdelete);
+		return map;
+	}
 
 	@PostMapping(path = "/membersum")
 	@ResponseBody
@@ -117,9 +128,16 @@ public class EmployeeJsonController {
 	@PostMapping(path = "/empdelete/{email}")
 	@ResponseBody
 	public String deleteEmployee(@PathVariable("email") String email) {
-		System.out.println("email" + email);
-		empService.deleteById(email);
-		usersService.deleteById(email);
+		Employee emp = empService.findByEmpEmail(email);
+		if(emp.getEmpdelete() == 0) {
+			emp.setEmpdelete(1);		
+		}
+		else{
+			emp.setEmpdelete(0);
+		}
+		empService.update(emp);
+		//empService.deleteById(email);
+		//usersService.deleteById(email);
 		return "yes";
 	}
 

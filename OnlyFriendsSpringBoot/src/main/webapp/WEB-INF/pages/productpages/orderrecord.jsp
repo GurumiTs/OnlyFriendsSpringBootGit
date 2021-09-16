@@ -357,6 +357,7 @@ height:100px;
                  '<td class="text-center" id="'+n.proId+'orderamount"></td>'+
 	             '<td class="text-center" id="'+n.proId+'ordertotal"></td>'+
                	 '</tr>';
+               	 console.log("111111");
                		userlist.append(item);
                	 $.ajax({
       			      url:"findorderamount",				

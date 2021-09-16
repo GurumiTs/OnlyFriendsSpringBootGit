@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
 @IdClass(MemberActive.class)
 public class MemberActive implements Serializable{
 	@Id
-	@Column
+	@Column(name="anum")
 	private long anum;
 	@Id
-	@Column
+	@Column(name ="memberAccount",length = 50)
 	private String memberAccount;
 	
 	public long getAnum() {
