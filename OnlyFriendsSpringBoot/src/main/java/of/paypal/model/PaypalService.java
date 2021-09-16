@@ -22,18 +22,14 @@ import com.paypal.base.rest.PayPalRESTException;
 
 @Service
 public class PaypalService {
+	@Autowired
+	private  Map<String, String> paypalSdkConfig;
+	@Autowired 
+	private OAuthTokenCredential oAuthTokenCredential;
 	
-	public Map<String, String> paypalSdkConfig() {
-		Map<String, String> configMap = new HashMap<>();
-		configMap.put("mode","sandbox");
-		return configMap;
-	}
-	public OAuthTokenCredential oAuthTokenCredential() {
-		return new OAuthTokenCredential("AftigsFKCM2v_kM3eOi1nnNVwL9SmIFmnWqg4ewxi1MrG9jeXPoEw2xWTSsfyn72gaFq0UKDh6QFIiFR","EDZ1Zb_-NgnVLQBedPD_Hgx-fSXn3xSOjsb-mqhAQI9tH05LCD-qJYqYdYJVDfxpsVHUP0NZG_IJe9q1", paypalSdkConfig());
-	}
 	public APIContext apiContext() throws PayPalRESTException {
-		APIContext context = new APIContext(oAuthTokenCredential().getAccessToken());
-		context.setConfigurationMap(paypalSdkConfig());
+		APIContext context = new APIContext(oAuthTokenCredential.getAccessToken());
+		context.setConfigurationMap(paypalSdkConfig);
 		return context;
 	}
 	
