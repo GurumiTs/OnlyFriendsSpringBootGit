@@ -290,7 +290,15 @@
 		            "sNext": "下一頁",
 		            "sLast": "末頁"
 		         },
-		    }
+		    },
+		    columnDefs:[
+		    	{
+		    		targets: [3],
+		    		createdCell: function (td, cellData, rowData, row, col){
+		    			$(td).css("width", "60px");
+		    		},
+		    	}
+		    ]
 		});		
 		/* load data table */
 		

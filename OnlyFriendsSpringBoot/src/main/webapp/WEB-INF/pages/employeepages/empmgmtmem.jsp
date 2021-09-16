@@ -33,10 +33,10 @@
 					<!--Employee DataTale  -->
 					<div class="card shadow mb-4">
 					
-					<nav class="d-flex justify-content-end">
+					<nav>
 					  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-					    <button class="btn btn-secondary mx-1 my-2" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">會員</button>
-					    <button class="btn btn-secondary mx-1 my-2" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">停權會員</button>
+					    <button class="btn btn-secondary mx-1 my-2" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fas fa-users"></i></button>
+					    <button class="btn btn-secondary mx-1 my-2" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-user-shield"></i></button>
 					  </div>
 					</nav>
 								
