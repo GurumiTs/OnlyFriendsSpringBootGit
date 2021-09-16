@@ -1,5 +1,6 @@
 package of.Advertisement.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,14 +14,23 @@ import org.springframework.stereotype.Component;
 public class Advertisement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "adId")
 	private Integer adId;
+	@Column(name = "adCompanyName")
 	private String adCompanyName;
-	private String adCompanyPhone;
+	@Column(name = "adCompanyPhone")
+	private String adCompanyPhone;	
+	@Column(name = "adCompanyEmail")
 	private String adCompanyEmail;
+	@Column(name = "adName")
 	private String adName;
+	@Column(name = "adStartDate")
 	private String adStartDate;
+	@Column(name = "adEndDate")
 	private String adEndDate;
+	@Column(name = "adCondition")
 	private String adCondition;
+	@Column(name = "adImg")
 	private String adImg;
 	public Integer getAdId() {
 		return adId;
