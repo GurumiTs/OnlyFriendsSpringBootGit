@@ -339,7 +339,7 @@ height:100px;
               console.log(res)
               $('#exampleModal').modal('hide')
               Swal.fire(
-    	               '感謝'+res.payer.payerInfo.firstName+'已儲值成功!',
+    	               '感謝'+res.payer.payerInfo.firstName+'已結帳成功!',
     	               '',
     	               'success'
     	                         )
