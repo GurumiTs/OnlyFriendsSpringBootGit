@@ -76,6 +76,7 @@ public class ProductController {
 		
 		try {
 //		product.setProId(Id);
+			Product product = new Product();
 			product.setProName(Name);
 			product.setProDescription(Description);
 			product.setProPrice(Price);
@@ -128,7 +129,7 @@ public class ProductController {
 								HttpServletRequest request,
 								Model m){
 		try {
-			
+			Product product = productService.findById(proId);
 			product.setProId(proId);
 			product.setProName(proName);
 			product.setProDescription(proDescription);

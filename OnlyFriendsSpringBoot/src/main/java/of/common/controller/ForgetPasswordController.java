@@ -475,7 +475,7 @@ public class ForgetPasswordController {
 				helper.setText(htmlMsg, true); // Use this or above line.
 				helper.setTo(email);
 				helper.setSubject("New Password");
-				helper.setFrom("onlyfriendseeit29@gmail.com");
+				helper.setFrom("onlyfriendsteam29@gmail.com");
 				sender.send(mimeMessage);
 				return "commonpages/sendingnewpasswordsuccess";
 			}catch(Exception e){

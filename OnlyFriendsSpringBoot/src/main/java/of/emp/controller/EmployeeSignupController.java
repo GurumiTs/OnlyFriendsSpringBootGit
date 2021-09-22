@@ -529,7 +529,7 @@ public class EmployeeSignupController {
 			helper.setText(htmlMsg, true); // Use this or above line.
 			helper.setTo(email);
 			helper.setSubject("Welcome OnlyFriends");
-			helper.setFrom("onlyfriendseeit29@gmail.com");
+			helper.setFrom("onlyfriendsteam29@gmail.com");
 			sender.send(mimeMessage);
 			model.addAttribute("successMsg", "sending verify mail success!");
 			return "employeepages/empsignup";
