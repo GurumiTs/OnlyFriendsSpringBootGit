@@ -1,6 +1,9 @@
 package of.emp.controller;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +16,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +32,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import of.common.model.Users;
 import of.common.model.UsersService;
@@ -173,6 +181,30 @@ public class EmployeeJsonController {
 		}
 		csvWriter.close();
 	}
+	
+	@GetMapping(path = "/exportmembertojson")
+	public ResponseEntity<byte[]> exportMemberToJson(HttpServletResponse response) throws IOException {
+		response.setContentType("text/csv");
+		response.setCharacterEncoding("UTF-8");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currenttime = df.format(new Date());
+		System.out.println(currenttime);
+		String fileName = "member" + currenttime + ".json";
+		
+		List<Member> listmember = memberService.findAll();
+		
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+		String s = gson.toJson(listmember);
+		
+		byte[] sBytes = s.getBytes();
+		return ResponseEntity
+				.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+fileName)
+				.contentType(MediaType.APPLICATION_JSON)
+				.contentLength(sBytes.length)
+				.body(sBytes);
+	}
+	
 
 	@GetMapping(path = "/exportstoredtocsv")
 	public void exportStoredToCsv(HttpServletResponse response) throws IOException {
@@ -195,6 +227,29 @@ public class EmployeeJsonController {
 			csvWriter.write(s, nameMapping);
 		}
 		csvWriter.close();
+	}
+	
+	@GetMapping(path = "/exportstoredtojson")
+	public ResponseEntity<byte[]> exportStoredToJson(HttpServletResponse response) throws IOException {
+		response.setContentType("text/csv");
+		response.setCharacterEncoding("UTF-8");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currenttime = df.format(new Date());
+		System.out.println(currenttime);
+		String fileName = "stored" + currenttime + ".json";
+		
+		List<Stored> liststored = storedService.findAll();
+		
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+		String s = gson.toJson(liststored);
+		
+		byte[] sBytes = s.getBytes();
+		return ResponseEntity
+				.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+fileName)
+				.contentType(MediaType.APPLICATION_JSON)
+				.contentLength(sBytes.length)
+				.body(sBytes);
 	}
 
 	@GetMapping(path = "/exportMonthTotaltocsv")
@@ -228,6 +283,37 @@ public class EmployeeJsonController {
 			csvWriter.write(mt, nameMapping);
 		}
 		csvWriter.close();
+	}
+	
+	@GetMapping(path = "/exportMonthTotaltojson")
+	public ResponseEntity<byte[]> exportMonthTotalToJson(HttpServletResponse response) throws IOException {
+		response.setContentType("text/csv");
+		response.setCharacterEncoding("UTF-8");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currenttime = df.format(new Date());
+		System.out.println(currenttime);
+		String fileName = "month_total" + currenttime + ".json";
+		
+		List<MonthTotal> total = new ArrayList<>();
+		for (int i = 1; i <= 12; i++) {
+			Float f = storedService.searchtotal(i);
+			if (f == null) {
+				f = (float) 0;
+			}
+			MonthTotal mt = new MonthTotal(i, f);
+			total.add(mt);
+		}
+		
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+		String s = gson.toJson(total);
+		
+		byte[] sBytes = s.getBytes();
+		return ResponseEntity
+				.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+fileName)
+				.contentType(MediaType.APPLICATION_JSON)
+				.contentLength(sBytes.length)
+				.body(sBytes);
 	}
 
 	@PostMapping(path = "/total")
