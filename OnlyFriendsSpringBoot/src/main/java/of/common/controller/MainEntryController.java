@@ -75,7 +75,9 @@ public class MainEntryController {
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String mainEntry(Model model,HttpServletRequest request) {
 			
-			return "index";
+		
+		return "index";
+
 	}
 	
 	@RequestMapping(path = "/index", method = RequestMethod.GET)
