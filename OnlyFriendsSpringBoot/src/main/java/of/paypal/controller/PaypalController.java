@@ -632,7 +632,7 @@ public class PaypalController {
 					System.out.println("111:" + orderDetails.getPaymentId());
 					helper.setTo(memberEmail); //寄給誰
 					helper.setSubject("Welcome OnlyFriends");
-					helper.setFrom("onlyfriendseeit29@gmail.com");
+					helper.setFrom("onlyfriendsteam29@gmail.com");
 					sender.send(mimeMessage);
 					System.out.println("寄了一封信到"+memberEmail);
 					}catch(Exception e) {
