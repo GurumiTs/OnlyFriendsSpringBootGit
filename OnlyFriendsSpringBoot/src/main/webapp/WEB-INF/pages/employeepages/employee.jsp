@@ -64,7 +64,9 @@
 								aria-labelledby="dropdownMenuLink">
 								<div class="dropdown-header">下載</div>
 									<a class="dropdown-item" href="exportstoredtocsv">年度銷售清單.csv</a>		
-									<a class="dropdown-item" href="exportMonthTotaltocsv">月分銷售總額.csv</a>																																									
+									<a class="dropdown-item" href="exportstoredtojson">年度銷售清單.json</a>																																									
+									<a class="dropdown-item" href="exportMonthTotaltocsv">月分銷售總額.csv</a>
+									<a class="dropdown-item" href="exportMonthTotaltojson">月分銷售總額.json</a>
 								</div>
 							</div>    
                             
@@ -100,7 +102,8 @@
 						        class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
 								aria-labelledby="dropdownMenuLink">
 								<div class="dropdown-header">下載</div>
-									<a class="dropdown-item" href="exportmembertocsv">會員資料.csv</a>																	
+									<a class="dropdown-item" href="exportmembertocsv">會員資料.csv</a>		
+									<a class="dropdown-item" href="exportmembertojson">會員資料.json</a>																
 								</div>
 							</div>    
 							               													

@@ -155,7 +155,7 @@ public class MemberJsonController {
 			File saveFile = new File(filePath);
 			multipartFile.transferTo(saveFile);
 			Member member = memberService.findByMemberAccount(memberAccount);
-			member.setMemberPic("images/empPic/" + fileName);
+			member.setMemberPic("images/memberPic/" + fileName);
 			memberService.update(member);
 			return "y";
 		} catch (Exception e) {
