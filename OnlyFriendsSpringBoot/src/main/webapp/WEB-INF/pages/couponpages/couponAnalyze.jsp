@@ -10,12 +10,40 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-.container{display:flex;margin-top:5%;}
-#char1{width:40%;padding-top:2%;}
-#rightarea{width:60%;margin:auto;background-color:#FDFFFF;height:100%}
-#nar{justify-content: center; padding-left:22%;width:79%;font-size:1.2em;}
-#title{text-align:center;margin-top:2%;}
-#char2{width:70%;margin:auto;padding-right:3%;}
+.container {
+	display: flex;
+	margin-top: 5%;
+}
+
+#char1 {
+	width: 40%;
+	padding-top: 2%;
+}
+
+#rightarea {
+	width: 60%;
+	margin: auto;
+	background-color: #FDFFFF;
+	height: 100%
+}
+
+#nar {
+	justify-content: center;
+	padding-left: 22%;
+	width: 79%;
+	font-size: 1.2em;
+}
+
+#title {
+	text-align: center;
+	margin-top: 2%;
+}
+
+#char2 {
+	width: 70%;
+	margin: auto;
+	padding-right: 3%;
+}
 </style>
 </head>
 <body id="page-top">
@@ -38,31 +66,34 @@
 
 
 				<!-- Begin Page Content -->
-				<div class="container" style="height: 550px">								
-						<div id="char1">
-							<canvas id="myChart" width="400" height="400"></canvas>
-						</div>
-					<div id="rightarea">	
-					<div id="nar">	
-					<ul class="nav nav-tabs">
-						<li class="nav-item"><a class="nav-link " aria-current="page"
-							href="couponAnalyzeEntry.controller" id="cashButton">現金券</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="couponAnalyzeEntry2.controller" id="discountButton">折扣券</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="couponAnalyzeEntry3.controller" id="freightButton">運費券</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="couponAnalyzeEntry4.controller" id="companyButton">異業券</a></li>
-					</ul>
+				<div class="container" style="height: 550px">
+					<div id="char1">
+						<canvas id="myChart" width="400" height="400"></canvas>
 					</div>
-					
-					<div id="title"><h4>現金券</h4></div>
+					<div id="rightarea">
+						<div id="nar">
+							<ul class="nav nav-tabs">
+								<li class="nav-item"><a class="nav-link "
+									aria-current="page" href="couponAnalyzeEntry.controller"
+									id="cashButton">現金券</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="couponAnalyzeEntry2.controller" id="discountButton">折扣券</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="couponAnalyzeEntry3.controller" id="freightButton">運費券</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="couponAnalyzeEntry4.controller" id="companyButton">異業券</a></li>
+							</ul>
+						</div>
+
+						<div id="title">
+							<h4>現金券</h4>
+						</div>
 						<div id="char2">
 							<canvas id="myChart2" width="400" height="400"></canvas>
 						</div>
 					</div>
 				</div>
-			
+
 				<!-- /.container-fluid -->
 
 			</div>
@@ -208,7 +239,14 @@
 	                            	var cash2 = 0;
 	                             	var cash3 = 0;
 	                            	var cash4 = 0;
-	                      	$(function() {
+	                            	
+	                            	
+	                            	$(function() {
+
+	                        			function sleep (time) {
+	                        				  return new Promise((resolve) => setTimeout(resolve, time));
+	                        				}
+	                        			sleep(500).then(() => {
 
 			
 
@@ -299,256 +337,10 @@
 											}
 										})
 							
-		})
+	                        			})
+	                            	})
 		
-		//折扣券
-		var discount1 = 0;
-		var discount2 = 0;
-		var discount3 = 0;
-		$(function() {
-
-			$('#discountButton').click(function() {
-
-										$.ajax({
-											type : 'GET',
-											url : 'couponDetail.controller',
-
-											dataType : 'json',
-
-											success : function a(data) {
-
-												var cr = "";
-												for (let i = 0; i < couponRecord.length; i++) {
-											
-													cr += "," + couponRecord[i];
-												}
-											
-												var cr1 = cr.split(",");
-									
-												for (let i = 0; i < cr1.length; i++) {
-													
-													for (let j = 0; j < data.length; j++) {
-													
-														if (data[j].couponId == cr1[i] && data[j].couponName == "秋日購物全館九折") {//找出分類為現金券的數量~												
-															discount1++;														
-														   // console.log("cash1:"+cash1);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "全站滿萬打八折") {
-															discount2++;
-															//console.log("cash2:"+cash2);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "招桃小物全館九折") {
-															discount3++;
-															//console.log("cash3:"+cash3);
-														}
-													}
-
-												}
-												console.log("discount1:" + discount1);
-												console.log("discount2:"+ discount2);
-												console.log("discount3:"+ discount3);
-												
-
-												var ctx2 = document.getElementById('myChart2').getContext('2d');
-
-												var myChart2 = new Chart(ctx2,{
-															type : 'bar',
-															data : {
-																labels : ['秋日購物全館九折','全站滿萬打八折','招桃小物全館九折' ],
-																datasets : [ {
-																	label : '折扣券',
-																	data : [discount1,discount2,discount3],
-																	backgroundColor : [
-																			'rgba(255, 99, 132, 0.5)',
-																			'rgba(54, 162, 235, 0.5)',
-																			'rgba(255, 206, 86, 0.5)'],
-																	borderColor : [
-																			'rgba(255, 99, 132, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(255, 206, 86, 1)'],
-																	borderWidth : 1
-																} ]
-															},
-															options : {
-																scales: {
-													                yAxes : [{
-													                    ticks : {													                         
-													                    	beginAtZero:true,
-													                    	stepSize: 1
-													                    }
-													                }]
-													            }
-
-															}
-														});
-											}
-										})
-							})
-		})
 		
-		//運費券
-		var freight1 = 0;
-		var freight2 = 0;
-		var freight3 = 0;
-		$(function() {
-
-			$('#freightButton').click(function() {
-
-										$.ajax({
-											type : 'GET',
-											url : 'couponDetail.controller',
-
-											dataType : 'json',
-
-											success : function a(data) {
-
-												var cr = "";
-												for (let i = 0; i < couponRecord.length; i++) {
-											
-													cr += "," + couponRecord[i];
-												}
-											
-												var cr1 = cr.split(",");
-									
-												for (let i = 0; i < cr1.length; i++) {
-													
-													for (let j = 0; j < data.length; j++) {
-													
-														if (data[j].couponId == cr1[i] && data[j].couponName == "秋日購物免運費") {//找出分類為現金券的數量~												
-															freight1++;														
-														   // console.log("cash1:"+cash1);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "購物滿899免運費") {
-															freight2++;
-															//console.log("cash2:"+cash2);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "購物滿699運費折半") {
-															freight3++;
-															//console.log("cash3:"+cash3);
-														}
-													}
-
-												}
-												console.log("freight1:" + freight1);
-												console.log("freight2:"+ freight2);
-												console.log("freight3:"+ freight3);
-												
-
-												var ctx2 = document.getElementById('myChart2').getContext('2d');
-
-												var myChart2 = new Chart(ctx2,{
-															type : 'bar',
-															data : {
-																labels : ['秋日購物免運費','購物滿899免運費','購物滿699運費折半' ],
-																datasets : [ {
-																	label : '運費券',
-																	data : [freight1,freight2,freight3],
-																	backgroundColor : [
-																			'rgba(255, 99, 132, 0.5)',
-																			'rgba(54, 162, 235, 0.5)',
-																			'rgba(255, 206, 86, 0.5)'],
-																	borderColor : [
-																			'rgba(255, 99, 132, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(255, 206, 86, 1)'],
-																	borderWidth : 1
-																} ]
-															},
-															options : {
-																scales: {
-													                yAxes : [{
-													                    ticks : {													                         
-													                    	beginAtZero:true,
-													                    	stepSize: 1
-													                    }
-													                }]
-													            }
-
-															}
-														});
-											}
-										})
-							})
-		})
-		
-		//異業券
-		var company1 = 0;
-		var company2 = 0;
-		var company3 = 0;
-		$(function() {
-
-			$('#companyButton').click(function() {
-
-										$.ajax({
-											type : 'GET',
-											url : 'couponDetail.controller',
-
-											dataType : 'json',
-
-											success : function a(data) {
-
-												var cr = "";
-												for (let i = 0; i < couponRecord.length; i++) {
-											
-													cr += "," + couponRecord[i];
-												}
-											
-												var cr1 = cr.split(",");
-									
-												for (let i = 0; i < cr1.length; i++) {
-													
-													for (let j = 0; j < data.length; j++) {
-													
-														if (data[j].couponId == cr1[i] && data[j].couponName == "野餐風格包租借優惠券") {//找出分類為現金券的數量~												
-															company1++;														
-														   // console.log("cash1:"+cash1);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "風車House包套式露營車租借優惠券") {
-															company2++;
-															//console.log("cash2:"+cash2);
-														} else if (data[j].couponId == cr1[i] && data[j].couponName == "露營車日租優惠券") {
-															company3++;
-															//console.log("cash3:"+cash3);
-														}
-													}
-
-												}
-												console.log("company1:" + company1);
-												console.log("company2:"+ company2);
-												console.log("company3:"+ company3);
-												
-
-												var ctx2 = document.getElementById('myChart2').getContext('2d');
-
-												var myChart2 = new Chart(ctx2,{
-															type : 'bar',
-															data : {
-																labels : ['野餐風格包租借優惠券','風車House包套式露營車租借優惠券','露營車日租優惠券' ],
-																datasets : [ {
-																	label : '異業券',
-																	data : [company1,company2,company3],
-																	backgroundColor : [
-																			'rgba(255, 99, 132, 0.5)',
-																			'rgba(54, 162, 235, 0.5)',
-																			'rgba(255, 206, 86, 0.5)'],
-																	borderColor : [
-																			'rgba(255, 99, 132, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(255, 206, 86, 1)'],
-																	borderWidth : 1
-																} ]
-															},
-															options : {
-																scales: {
-													                yAxes : [{
-													                    ticks : {													                         
-													                    	beginAtZero:true,
-													                    	stepSize: 1
-													                    }
-													                }]
-													            }
-
-															}
-														});
-											}
-										})
-							})
-		})
 	</script>
 
 </body>

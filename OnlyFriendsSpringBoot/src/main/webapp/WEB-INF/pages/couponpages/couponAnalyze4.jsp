@@ -187,6 +187,11 @@
 		var company2 = 0;
 		var company3 = 0;
 		$(function() {
+
+			function sleep (time) {
+				  return new Promise((resolve) => setTimeout(resolve, time));
+				}
+			sleep(500).then(() => {
 			
 					$.ajax({
 						type : 'GET',
@@ -264,6 +269,7 @@
 						}
 					})
 
+		})
 		})
 	</script>
 
