@@ -30,3 +30,13 @@
 - 廣告(文婷): 後端管理者CRUD、前端廣告顯示上下架。
 - 商品(巧恩)：從管理者後台可CRUD商品至商品主頁，商品主頁可查看商品詳細資訊及相關商品等功能。
 - 購物車及訂單(巧恩)：使用者將商品加入購物車可修改數量或整筆刪除，也可至個人頁面觀看購買商品確認結帳後串接paypal進行結帳且於paypal中可察看詳細商品資訊及折扣並於結帳後寄信告知使用者。使用者可查看歷史訂單資訊、訂單狀態以及取消訂單，後臺管理者可改變訂單狀態及確認取消訂單。
+
+## 免責聲明 / Disclaimer
+
+本專案/程式碼僅供學習與研究之用，**使用風險請自行承擔**。作者/貢獻者對因使用本專案所造成的任何直接、間接、偶發、特殊或衍生之損害（包含但不限於資料遺失、系統故障、商業中斷或其他損失）**概不負責**。本專案以 **「現狀（AS IS）」** 提供，不附帶任何明示或暗示之保證，包括但不限於適銷性、特定目的適用性與非侵權之保證。  
+使用者應自行確保遵守所在國家/地區之法律法規與相關第三方服務條款。若您不同意上述條款，請勿使用本專案。
+
+
+This project/code is provided **for learning and research purposes only** and is used **at your own risk**. The author(s)/contributors **shall not be liable** for any direct, indirect, incidental, special, or consequential damages arising from the use of this project, including but not limited to data loss, system failure, business interruption, or other losses. The project is provided **“AS IS”**, **without warranty of any kind**, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and noninfringement.  
+You are responsible for complying with applicable laws and any third-party terms. If you do not agree with these terms, do not use this project.
+
